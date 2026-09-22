@@ -142,6 +142,19 @@ fn kind_label(kind: FolderKind) -> String {
     }
 }
 
+fn folder_display_name(folder: &Folder) -> String {
+    match folder.kind {
+        FolderKind::Inbox => i18n("Inbox"),
+        FolderKind::Sent => i18n("Sent"),
+        FolderKind::Drafts => i18n("Drafts"),
+        FolderKind::Trash => i18n("Trash"),
+        FolderKind::Junk => i18n("Junk"),
+        FolderKind::Archive => i18n("Archive"),
+        FolderKind::Starred => i18n("Starred"),
+        FolderKind::Custom => folder.name.clone(),
+    }
+}
+
 /// One account's section data, as handed to the sidebar.
 #[derive(Debug, Clone)]
 pub struct SectionData {
@@ -4470,10 +4483,11 @@ fn build_folder_row(
     let unread = if counted { folder.unread } else { 0 };
     let badge = if collapsed {
         hbox.set_halign(gtk::Align::Center);
+        let display_name = folder_display_name(folder);
         let tip = if unread > 0 {
-            format!("{} ({})", folder.name, unread)
+            format!("{} ({})", display_name, unread)
         } else {
-            folder.name.clone()
+            display_name
         };
         row.set_tooltip_text(Some(&tip));
         // Every folder carries an unread chip; in the rail it rides the icon's
@@ -4486,7 +4500,8 @@ fn build_folder_row(
             visual.set_margin_start(ROW_LEFT_INSET);
         }
         hbox.append(&visual);
-        let name = gtk::Label::new(Some(&folder.name));
+        let display_name = folder_display_name(folder);
+        let name = gtk::Label::new(Some(&display_name));
         name.set_hexpand(true);
         name.set_halign(gtk::Align::Start);
         name.set_ellipsize(gtk::pango::EllipsizeMode::End);
