@@ -12085,11 +12085,13 @@ impl AppModel {
     /// "name · n of m" for the lightbox's bottom bar.
     fn lightbox_caption(&self) -> String {
         match self.lightbox_items.get(self.lightbox_pos) {
-            Some(att) => format!(
-                "{} \u{b7} {} of {}",
-                att.name,
-                self.lightbox_pos + 1,
-                self.lightbox_items.len()
+            Some(att) => i18n_f(
+                "{name} · {current} of {total}",
+                &[
+                    ("name", &att.name),
+                    ("current", &(self.lightbox_pos + 1).to_string()),
+                    ("total", &self.lightbox_items.len().to_string()),
+                ],
             ),
             None => String::new(),
         }

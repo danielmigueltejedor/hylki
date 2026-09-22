@@ -1086,7 +1086,7 @@ pub fn datetime_list_at(timestamp: i64, date: &str) -> String {
         return date.to_string();
     }
     if crate::datefmt::day_key(timestamp) == crate::datefmt::day_key(now) {
-        format!("Today, {time}")
+        i18n_f("Today, {time}", &[("time", &time)])
     } else if crate::datefmt::year(timestamp) == crate::datefmt::year(now) {
         format!("{}, {time}", crate::datefmt::day_month(timestamp))
     } else {

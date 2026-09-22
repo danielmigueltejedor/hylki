@@ -317,6 +317,10 @@ msgstr ""
 msgid "Restart Now"
 msgstr "Перезапустить сейчас"
 
+#, fuzzy
+msgid "{name} · {current} of {total}"
+msgstr "{cur} из {total}"
+
 msgid "View Source"
 msgstr "Просмотр исходного кода"
 
@@ -1006,6 +1010,10 @@ msgstr "Ожидает с {ago}"
 
 msgid "Scheduled for {when}"
 msgstr "Запланировано на {when}"
+
+#, fuzzy
+msgid "Today, {time}"
+msgstr "В понедельник утром ({time})"
 
 msgid "New message"
 msgstr "Новое сообщение"
@@ -2040,6 +2048,16 @@ msgstr "Индексация {n} сообщений…"
 msgid "Loading more…"
 msgstr "Загрузка остальных…"
 
+msgid "{n} attachment"
+msgid_plural "{n} attachments"
+msgstr[0] "{n} вложение"
+msgstr[1] "{n} вложения"
+msgstr[2] "{n} вложений"
+
+#, fuzzy
+msgid "{shown} of {total}"
+msgstr "{cur} из {total}"
+
 msgid "The file could not be opened"
 msgstr "Не удалось открыть файл"
 
@@ -2565,12 +2583,6 @@ msgstr "Это время уже прошло"
 
 msgid "Choose a time later than now."
 msgstr "Выберите время позже текущего."
-
-msgid "{n} attachment"
-msgid_plural "{n} attachments"
-msgstr[0] "{n} вложение"
-msgstr[1] "{n} вложения"
-msgstr[2] "{n} вложений"
 
 msgid "Contacts"
 msgstr "Контакты"
@@ -3957,14 +3969,6 @@ msgstr ""
 "Показывать каждое письмо из цепочки прямо в списке. Если отключено, "
 "обсуждения отображаются свёрнутыми до самого свежего сообщения."
 
-#, fuzzy
-msgid "Show your own replies in the message list"
-msgstr "Палитра действий в списке сообщений"
-
-#, fuzzy
-msgid "Off shows the last message that arrived."
-msgstr "Переместить это сообщение в папку"
-
 msgid "Newest message first"
 msgstr "Сначала новые сообщения"
 
@@ -3974,6 +3978,14 @@ msgid ""
 msgstr ""
 "Показывать последнее письмо цепочки в самом верху панели чтения. Если "
 "отключено, порядок чтения будет хронологическим — от старых к новым."
+
+#, fuzzy
+msgid "Show your own replies in the message list"
+msgstr "Палитра действий в списке сообщений"
+
+#, fuzzy
+msgid "Off shows the last message that arrived."
+msgstr "Переместить это сообщение в папку"
 
 #, fuzzy
 msgid "Reply editor"
@@ -4683,6 +4695,9 @@ msgstr "Вставить"
 msgid "Folder"
 msgstr "Папка"
 
+msgid "Inbox"
+msgstr "Входящие"
+
 msgid "Add account"
 msgstr "Добавить учётную запись"
 
@@ -5142,9 +5157,6 @@ msgstr "Не удалось удалить сообщение: {e}"
 
 msgid "POP3 accounts don't support folders"
 msgstr "Учётные записи POP3 не поддерживают папки"
-
-msgid "Inbox"
-msgstr "Входящие"
 
 msgid "Email Client"
 msgstr "Почтовый клиент"

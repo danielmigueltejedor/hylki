@@ -319,6 +319,9 @@ msgstr ""
 msgid "Restart Now"
 msgstr "Reiniciar ahora"
 
+msgid "{name} · {current} of {total}"
+msgstr "{name} · {current} de {total}"
+
 msgid "View Source"
 msgstr "Ver código fuente"
 
@@ -998,6 +1001,9 @@ msgstr "Esperando desde {ago}"
 
 msgid "Scheduled for {when}"
 msgstr "Programado para {when}"
+
+msgid "Today, {time}"
+msgstr "Hoy, {time}"
 
 msgid "New message"
 msgstr "Mensaje nuevo"
@@ -2043,6 +2049,14 @@ msgstr "Indexando {n} mensajes…"
 msgid "Loading more…"
 msgstr "Cargando más…"
 
+msgid "{n} attachment"
+msgid_plural "{n} attachments"
+msgstr[0] "{n} archivo adjunto"
+msgstr[1] "{n} archivos adjuntos"
+
+msgid "{shown} of {total}"
+msgstr "{shown} de {total}"
+
 msgid "The file could not be opened"
 msgstr "No se pudo abrir el archivo"
 
@@ -2563,11 +2577,6 @@ msgstr "Esa hora ya ha pasado"
 
 msgid "Choose a time later than now."
 msgstr "Elige una hora posterior a la actual."
-
-msgid "{n} attachment"
-msgid_plural "{n} attachments"
-msgstr[0] "{n} archivo adjunto"
-msgstr[1] "{n} archivos adjuntos"
 
 msgid "Contacts"
 msgstr "Contactos"
@@ -3969,12 +3978,6 @@ msgstr ""
 " las conversaciones comienzan contraídas mostrando solo el mensaje más "
 "reciente."
 
-msgid "Show your own replies in the message list"
-msgstr "Mostrar tus propias respuestas en la lista de mensajes"
-
-msgid "Off shows the last message that arrived."
-msgstr "Desactivado muestra el último mensaje recibido."
-
 msgid "Newest message first"
 msgstr "Mensaje más reciente primero"
 
@@ -3985,6 +3988,12 @@ msgstr ""
 "Mostrar el mensaje más reciente de una conversación en la parte superior del"
 " panel de lectura. Desactivado muestra de más antiguo a más reciente, hacia "
 "abajo."
+
+msgid "Show your own replies in the message list"
+msgstr "Mostrar tus propias respuestas en la lista de mensajes"
+
+msgid "Off shows the last message that arrived."
+msgstr "Desactivado muestra el último mensaje recibido."
 
 msgid "Reply editor"
 msgstr "Editor de respuesta"
@@ -4704,6 +4713,9 @@ msgstr "Insertar"
 msgid "Folder"
 msgstr "Carpeta"
 
+msgid "Inbox"
+msgstr "Bandeja de entrada"
+
 msgid "Add account"
 msgstr "Añadir cuenta"
 
@@ -5165,9 +5177,6 @@ msgstr "No se pudo eliminar el mensaje: {e}"
 
 msgid "POP3 accounts don't support folders"
 msgstr "Las cuentas POP3 no admiten carpetas"
-
-msgid "Inbox"
-msgstr "Bandeja de entrada"
 
 msgid "Email Client"
 msgstr "Cliente de correo electrónico"

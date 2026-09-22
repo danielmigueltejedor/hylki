@@ -321,6 +321,10 @@ msgstr ""
 msgid "Restart Now"
 msgstr "Επανεκκίνηση τώρα"
 
+#, fuzzy
+msgid "{name} · {current} of {total}"
+msgstr "{cur} από {total}"
+
 msgid "View Source"
 msgstr "Προβολή πηγαίου κώδικα"
 
@@ -998,6 +1002,10 @@ msgstr "Σε αναμονή από {ago}"
 
 msgid "Scheduled for {when}"
 msgstr "Προγραμματισμένο για {when}"
+
+#, fuzzy
+msgid "Today, {time}"
+msgstr "Δευτέρα πρωί ({time})"
 
 msgid "New message"
 msgstr "Νέο μήνυμα"
@@ -2061,6 +2069,15 @@ msgstr "Ευρετηρίαση {n} μηνυμάτων…"
 msgid "Loading more…"
 msgstr "Φόρτωση περισσότερων…"
 
+msgid "{n} attachment"
+msgid_plural "{n} attachments"
+msgstr[0] "{n} συνημμένο"
+msgstr[1] "{n} συνημμένα"
+
+#, fuzzy
+msgid "{shown} of {total}"
+msgstr "{cur} από {total}"
+
 msgid "The file could not be opened"
 msgstr "Δεν ήταν δυνατό το άνοιγμα του αρχείου"
 
@@ -2604,11 +2621,6 @@ msgstr "Αυτή η ώρα έχει παρέλθει"
 
 msgid "Choose a time later than now."
 msgstr "Επιλέξτε ώρα μεταγενέστερη από την τρέχουσα."
-
-msgid "{n} attachment"
-msgid_plural "{n} attachments"
-msgstr[0] "{n} συνημμένο"
-msgstr[1] "{n} συνημμένα"
 
 msgid "Contacts"
 msgstr "Επαφές"
@@ -4005,14 +4017,6 @@ msgstr ""
 "Εμφάνιση κάθε μηνύματος μιας συζήτησης στη λίστα. Όταν είναι ανενεργό, οι "
 "συζητήσεις ξεκινούν συμπτυγμένες στο νεότερο μήνυμα."
 
-#, fuzzy
-msgid "Show your own replies in the message list"
-msgstr "Παλέτα ενεργειών στη λίστα μηνυμάτων"
-
-#, fuzzy
-msgid "Off shows the last message that arrived."
-msgstr "Μετακίνηση αυτού του μηνύματος σε φάκελο"
-
 msgid "Newest message first"
 msgstr "Νεότερο μήνυμα πρώτο"
 
@@ -4023,6 +4027,14 @@ msgstr ""
 "Εμφάνιση του τελευταίου μηνύματος μιας συζήτησης στην κορυφή του παραθύρου "
 "ανάγνωσης. Όταν είναι ανενεργό, η ανάγνωση γίνεται προς τα κάτω από το "
 "παλαιότερο στο νεότερο."
+
+#, fuzzy
+msgid "Show your own replies in the message list"
+msgstr "Παλέτα ενεργειών στη λίστα μηνυμάτων"
+
+#, fuzzy
+msgid "Off shows the last message that arrived."
+msgstr "Μετακίνηση αυτού του μηνύματος σε φάκελο"
 
 msgid "Reply editor"
 msgstr "Πρόγραμμα επεξεργασίας απάντησης"
@@ -4748,6 +4760,9 @@ msgstr "Εισαγωγή"
 msgid "Folder"
 msgstr "Φάκελος"
 
+msgid "Inbox"
+msgstr "Εισερχόμενα"
+
 msgid "Add account"
 msgstr "Προσθήκη λογαριασμού"
 
@@ -5214,9 +5229,6 @@ msgstr "Δεν ήταν δυνατή η διαγραφή του μηνύματο
 
 msgid "POP3 accounts don't support folders"
 msgstr "Οι λογαριασμοί POP3 δεν υποστηρίζουν φακέλους"
-
-msgid "Inbox"
-msgstr "Εισερχόμενα"
 
 msgid "Email Client"
 msgstr "Πρόγραμμα-πελάτης email"

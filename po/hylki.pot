@@ -300,6 +300,9 @@ msgstr ""
 msgid "Restart Now"
 msgstr ""
 
+msgid "{name} · {current} of {total}"
+msgstr ""
+
 msgid "View Source"
 msgstr ""
 
@@ -928,6 +931,9 @@ msgid "Waiting since {ago}"
 msgstr ""
 
 msgid "Scheduled for {when}"
+msgstr ""
+
+msgid "Today, {time}"
 msgstr ""
 
 msgid "New message"
@@ -1880,6 +1886,14 @@ msgstr ""
 msgid "Loading more…"
 msgstr ""
 
+msgid "{n} attachment"
+msgid_plural "{n} attachments"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{shown} of {total}"
+msgstr ""
+
 msgid "The file could not be opened"
 msgstr ""
 
@@ -2328,11 +2342,6 @@ msgstr ""
 
 msgid "Choose a time later than now."
 msgstr ""
-
-msgid "{n} attachment"
-msgid_plural "{n} attachments"
-msgstr[0] ""
-msgstr[1] ""
 
 msgid "Contacts"
 msgstr ""
@@ -3567,18 +3576,18 @@ msgid ""
 "start collapsed to their newest message."
 msgstr ""
 
-msgid "Show your own replies in the message list"
-msgstr ""
-
-msgid "Off shows the last message that arrived."
-msgstr ""
-
 msgid "Newest message first"
 msgstr ""
 
 msgid ""
 "Show a conversation's latest message at the top of the reading pane. Off "
 "reads oldest to newest, downward."
+msgstr ""
+
+msgid "Show your own replies in the message list"
+msgstr ""
+
+msgid "Off shows the last message that arrived."
 msgstr ""
 
 msgid "Reply editor"
@@ -4174,6 +4183,9 @@ msgstr ""
 msgid "Folder"
 msgstr ""
 
+msgid "Inbox"
+msgstr ""
+
 msgid "Add account"
 msgstr ""
 
@@ -4603,9 +4615,6 @@ msgid "Could not delete message: {e}"
 msgstr ""
 
 msgid "POP3 accounts don't support folders"
-msgstr ""
-
-msgid "Inbox"
 msgstr ""
 
 msgid "Email Client"

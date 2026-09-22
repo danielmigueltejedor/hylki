@@ -321,6 +321,10 @@ msgstr ""
 msgid "Restart Now"
 msgstr "Reiniciar agora"
 
+#, fuzzy
+msgid "{name} · {current} of {total}"
+msgstr "{cur} de {total}"
+
 msgid "View Source"
 msgstr "Ver fonte"
 
@@ -998,6 +1002,10 @@ msgstr "Em espera desde {ago}"
 
 msgid "Scheduled for {when}"
 msgstr "Agendada para {when}"
+
+#, fuzzy
+msgid "Today, {time}"
+msgstr "Segunda-feira de manhã ({time})"
 
 msgid "New message"
 msgstr "Nova mensagem"
@@ -2050,6 +2058,15 @@ msgstr "A indexar {n} mensagens…"
 msgid "Loading more…"
 msgstr "A carregar mais…"
 
+msgid "{n} attachment"
+msgid_plural "{n} attachments"
+msgstr[0] "{n} anexo"
+msgstr[1] "{n} anexos"
+
+#, fuzzy
+msgid "{shown} of {total}"
+msgstr "{cur} de {total}"
+
 msgid "The file could not be opened"
 msgstr "Não foi possível abrir o ficheiro"
 
@@ -2590,11 +2607,6 @@ msgstr "Essa hora já passou"
 
 msgid "Choose a time later than now."
 msgstr "Escolha uma hora posterior à atual."
-
-msgid "{n} attachment"
-msgid_plural "{n} attachments"
-msgstr[0] "{n} anexo"
-msgstr[1] "{n} anexos"
 
 msgid "Contacts"
 msgstr "Contactos"
@@ -3985,14 +3997,6 @@ msgstr ""
 "Mostrar na lista todas as mensagens de uma conversa. Quando desativada, as "
 "conversas começam recolhidas na mensagem mais recente."
 
-#, fuzzy
-msgid "Show your own replies in the message list"
-msgstr "Paleta de ações na lista de mensagens"
-
-#, fuzzy
-msgid "Off shows the last message that arrived."
-msgstr "Mover esta mensagem para uma pasta"
-
 msgid "Newest message first"
 msgstr "Mensagem mais recente primeiro"
 
@@ -4003,6 +4007,14 @@ msgstr ""
 "Mostrar a mensagem mais recente de uma conversa no topo do painel de "
 "leitura. Quando desativada, a leitura é feita de cima para baixo, da mais "
 "antiga para a mais recente."
+
+#, fuzzy
+msgid "Show your own replies in the message list"
+msgstr "Paleta de ações na lista de mensagens"
+
+#, fuzzy
+msgid "Off shows the last message that arrived."
+msgstr "Mover esta mensagem para uma pasta"
 
 msgid "Reply editor"
 msgstr "Editor de resposta"
@@ -4721,6 +4733,9 @@ msgstr "Inserir"
 msgid "Folder"
 msgstr "Pasta"
 
+msgid "Inbox"
+msgstr "Caixa de entrada"
+
 msgid "Add account"
 msgstr "Adicionar conta"
 
@@ -5183,9 +5198,6 @@ msgstr "Não foi possível eliminar a mensagem: {e}"
 
 msgid "POP3 accounts don't support folders"
 msgstr "As contas POP3 não suportam pastas"
-
-msgid "Inbox"
-msgstr "Caixa de entrada"
 
 msgid "Email Client"
 msgstr "Cliente de correio eletrónico"
