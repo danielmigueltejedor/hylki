@@ -74,6 +74,8 @@ impl GoaMailAccount {
             folder_sort: None,
             sign_by_default: false,
             graph_directory: false,
+            graph_directory_only: false,
+            graph_label_names: false,
             name: if self.name.trim().is_empty() {
                 self.email.clone()
             } else {

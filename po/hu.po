@@ -1062,6 +1062,14 @@ msgstr "Válasz mindenkinek"
 msgid "Archive the conversation"
 msgstr "A teljes beszélgetés"
 
+#, fuzzy
+msgid "Archive the conversation and open the older one"
+msgstr "A teljes beszélgetés"
+
+#, fuzzy
+msgid "Archive the conversation and open the newer one"
+msgstr "A teljes beszélgetés"
+
 msgid "Mark as spam"
 msgstr "Megjelölés levélszemétként"
 
@@ -1088,6 +1096,14 @@ msgid "Select every row, or none"
 msgstr ""
 
 #, fuzzy
+msgid "Select the read or the unread conversations"
+msgstr "Beszélgetés törlése"
+
+#, fuzzy
+msgid "Select the starred or the unstarred conversations"
+msgstr "A beszélgetés következő üzenete"
+
+#, fuzzy
 msgid "Move to a folder"
 msgstr "Mappa áthelyezése"
 
@@ -1100,8 +1116,23 @@ msgstr ""
 "Címke hozzáadása vagy eltávolítása (az első kilenc, a Beállítások "
 "sorrendjében)"
 
+#, fuzzy
+msgid "Reply, or reply to all, in a window"
+msgstr "Válasz és továbbítás a főablakban"
+
+#, fuzzy
+msgid "Forward in a window"
+msgstr "Válasz és továbbítás a főablakban"
+
 msgid "Compose"
 msgstr "Levélírás"
+
+#, fuzzy
+msgid "Compose in a window"
+msgstr "Levélírás a főablakban"
+
+msgid "Check for new mail"
+msgstr "Új levelek keresése"
 
 msgid "Next message"
 msgstr "Következő üzenet"
@@ -1711,8 +1742,10 @@ msgid "The sender marked this message “{label}”."
 msgstr ""
 
 msgid ""
-"The sender's organization labeled this message, without saying the label's "
-"name. Hylki shows the label but does not apply its rules."
+"The sender's organization labeled this message without naming the label in "
+"it. For a Microsoft 365 account, turning on “Show sensitivity label names” "
+"in its settings shows the name. Hylki shows the label but does not apply its "
+"rules."
 msgstr ""
 
 msgid ""
@@ -2187,8 +2220,32 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Microsoft 365"
+msgstr "Microsoft 365 / Outlook"
+
+#, fuzzy
 msgid "Search the organization directory"
 msgstr "El akarod menteni a könyvtárat?"
+
+msgid "Suggest people from your organization as you type a recipient."
+msgstr ""
+
+#, fuzzy
+msgid "Suggest only from this account"
+msgstr "Csak ezt a fiókot mutasd"
+
+msgid ""
+"Writing from this account, suggest people from the directory and from its "
+"own mail, not from Contacts, LDAP directories or other accounts."
+msgstr ""
+
+msgid "Show sensitivity label names"
+msgstr ""
+
+msgid ""
+"Name a message's label from your organization's list when the message gives "
+"only its ID."
+msgstr ""
 
 msgid "Folder Order"
 msgstr "Mappák sorrendje"
@@ -2327,6 +2384,14 @@ msgstr "Böngésző megnyitása… ott fejezze be a bejelentkezést."
 msgid "Approve access to the directory in the window that opened."
 msgstr "A bejelentkezés nem tárolható a kulcstartón: {e}"
 
+#, fuzzy
+msgid "Opening browser… approve access to the sensitivity labels there."
+msgstr "Böngésző megnyitása… ott fejezze be a bejelentkezést."
+
+#, fuzzy
+msgid "Approve access to the sensitivity labels in the window that opened."
+msgstr "A bejelentkezés nem tárolható a kulcstartón: {e}"
+
 msgid "Signature HTML"
 msgstr "Aláírás HTML kódja"
 
@@ -2370,14 +2435,16 @@ msgstr "✓ Bejelentkezve — a befejezéshez mentse a fiókot"
 msgid "Sign-in failed: {e}"
 msgstr "A bejelentkezés sikertelen: {e}"
 
-#, fuzzy
-msgid "Signed in as {address}, not {email}."
-msgstr "Bejelentkezve mint: {who}. {terms}"
-
 msgid "Access to the directory approved. Save the account to finish."
 msgstr ""
 
 msgid "Access to the directory was not approved: {e}"
+msgstr ""
+
+msgid "Access to the sensitivity labels approved. Save the account to finish."
+msgstr ""
+
+msgid "Access to the sensitivity labels was not approved: {e}"
 msgstr ""
 
 msgid "✓ SMTP: connected"
@@ -2482,16 +2549,19 @@ msgid "Use this account in Hylki"
 msgstr "Fiók használata a Hylki-ben"
 
 msgid ""
-"Only for an account signed in within Hylki. To use it, add this account with "
-"Microsoft 365 / Outlook as the provider, instead of from GNOME Online "
+"Only for an account signed in within Hylki. To use these, add this account "
+"with Microsoft 365 / Outlook as the provider, instead of from GNOME Online "
 "Accounts."
 msgstr ""
 
 msgid ""
-"Suggest people from your organization as you type a recipient. Turning this "
-"on asks Microsoft for access to the directory; some organizations need an "
-"administrator to approve it."
+"Turning one of these on asks Microsoft for access; some organizations need "
+"an administrator to approve it."
 msgstr ""
+
+#, fuzzy
+msgid "Signed in as {address}, not {email}."
+msgstr "Bejelentkezve mint: {who}. {terms}"
 
 msgid "Never"
 msgstr "Soha"
@@ -5129,9 +5199,6 @@ msgid ""
 "The address book a contact made in Hylki goes to, unless another is picked "
 "when it is made."
 msgstr ""
-
-msgid "Check for new mail"
-msgstr "Új levelek keresése"
 
 msgid ""
 "Receives messages the moment they arrive. Microsoft 365 accounts check at "

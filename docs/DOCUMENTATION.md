@@ -572,13 +572,20 @@ the system, as it is with GNOME.
 
 A Microsoft 365 account signed in within Hylki can suggest people from the
 organization's directory as a recipient is typed, alongside LDAP
-directories. Turn on **Search the organization directory** in the account's
-settings. Microsoft then asks to approve access to the directory (the
+directories. Turn on **Search the organization directory** under Microsoft
+365 in the account's settings, where the account's other Microsoft Graph
+switches are too. Microsoft then asks to approve access to the directory (the
 People.Read and User.ReadBasic.All permissions). Where an organization lets
 only administrators approve apps, an administrator approves Hylki once, at
 the link shown. Accounts added through GNOME Online Accounts cannot use it,
 since GNOME holds their sign-in; add the account in Hylki with the Microsoft
 365 / Outlook provider instead.
+
+With **Suggest only from this account** on as well, a message written from
+that account is offered only the organization's directory and the people in
+the account's own mail. The directory's list includes the account's Outlook
+contacts. GNOME Contacts, LDAP directories and the other accounts' mail are
+left out, so a work account does not offer personal addresses.
 
 ### Translating messages
 
@@ -1322,6 +1329,16 @@ header, so it shows on any account, not only Microsoft 365. A tenant that
 leaves the label's name out of the message shows the pill as **Labeled**.
 Outlook's older Sensitivity setting (Personal, Private, Confidential) shows
 the same way.
+
+For a Microsoft 365 account signed in within Hylki, **Show sensitivity label
+names**, under Microsoft 365 in the account's settings, names those labels from the
+organization's own list, with the label's color on the tag icon and the
+organization's description of the label in the pill's tooltip. Turning it
+on asks Microsoft to approve reading the labels (the
+InformationProtectionPolicy.Read permission). The list is read once a
+session and again after an hour. It holds the labels published to you, so a
+label from another organization stays **Labeled**. As with the directory,
+an account added through GNOME Online Accounts cannot use it.
 
 Hylki only shows the label: it does not apply the rules the organization
 attached to it, and it cannot set a label on a message you write. A message

@@ -1033,6 +1033,14 @@ msgstr "Rispondi a tutti"
 msgid "Archive the conversation"
 msgstr "Intera conversazione"
 
+#, fuzzy
+msgid "Archive the conversation and open the older one"
+msgstr "Intera conversazione"
+
+#, fuzzy
+msgid "Archive the conversation and open the newer one"
+msgstr "Intera conversazione"
+
 msgid "Mark as spam"
 msgstr "Segna come spam"
 
@@ -1058,6 +1066,14 @@ msgstr "Seleziona questa riga (per un'azione collettiva)"
 msgid "Select every row, or none"
 msgstr "Seleziona tutte le righe, o nessuna"
 
+#, fuzzy
+msgid "Select the read or the unread conversations"
+msgstr "Elimina conversazione"
+
+#, fuzzy
+msgid "Select the starred or the unstarred conversations"
+msgstr "Messaggio successivo nella conversazione"
+
 msgid "Move to a folder"
 msgstr "Sposta in una cartella"
 
@@ -1068,8 +1084,23 @@ msgid "Add or remove a tag (the first nine, in Settings order)"
 msgstr ""
 "Aggiungi o rimuovi un'etichetta (le prime nove, nell'ordine di Impostazioni)"
 
+#, fuzzy
+msgid "Reply, or reply to all, in a window"
+msgstr "Rispondi e inoltra nella finestra principale"
+
+#, fuzzy
+msgid "Forward in a window"
+msgstr "Rispondi e inoltra nella finestra principale"
+
 msgid "Compose"
 msgstr "Componi"
+
+#, fuzzy
+msgid "Compose in a window"
+msgstr "Componi nella finestra principale"
+
+msgid "Check for new mail"
+msgstr "Controlla nuova posta"
 
 msgid "Next message"
 msgstr "Messaggio successivo"
@@ -1661,9 +1692,12 @@ msgstr "Riservato"
 msgid "The sender marked this message “{label}”."
 msgstr "Il mittente ha contrassegnato questo messaggio come \"{label}\"."
 
+#, fuzzy
 msgid ""
-"The sender's organization labeled this message, without saying the label's "
-"name. Hylki shows the label but does not apply its rules."
+"The sender's organization labeled this message without naming the label in "
+"it. For a Microsoft 365 account, turning on “Show sensitivity label names” "
+"in its settings shows the name. Hylki shows the label but does not apply its "
+"rules."
 msgstr ""
 "L'organizzazione del mittente ha etichettato questo messaggio, senza "
 "indicare il nome dell'etichetta. Hylki mostra l'etichetta ma non ne applica "
@@ -2143,8 +2177,36 @@ msgstr ""
 "disiscrizione)più vecchia di questo periodo, a meno che non sia "
 "contrassegnata. Controllato ad ogni sincronizzazione."
 
+#, fuzzy
+msgid "Microsoft 365"
+msgstr "Microsoft 365 / Outlook"
+
 msgid "Search the organization directory"
 msgstr "Cerca nella directory dell'organizzazione"
+
+msgid "Suggest people from your organization as you type a recipient."
+msgstr ""
+
+#, fuzzy
+msgid "Suggest only from this account"
+msgstr "Mostra solo questo account"
+
+msgid ""
+"Writing from this account, suggest people from the directory and from its "
+"own mail, not from Contacts, LDAP directories or other accounts."
+msgstr ""
+
+msgid "Show sensitivity label names"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Name a message's label from your organization's list when the message gives "
+"only its ID."
+msgstr ""
+"Suggerisci persone della tua organizzazione mentre digiti un destinatario. "
+"Attivando questa opzione si richiede a Microsoft l'accesso alla directory; "
+"alcune organizzazioni richiedono l'approvazione di un amministratore."
 
 msgid "Folder Order"
 msgstr "Ordine cartelle"
@@ -2279,6 +2341,14 @@ msgstr "Apertura del browser… approva l'accesso alla directory lì."
 msgid "Approve access to the directory in the window that opened."
 msgstr "Approva l'accesso alla directory nella finestra che si è aperta."
 
+#, fuzzy
+msgid "Opening browser… approve access to the sensitivity labels there."
+msgstr "Apertura del browser… approva l'accesso alla directory lì."
+
+#, fuzzy
+msgid "Approve access to the sensitivity labels in the window that opened."
+msgstr "Approva l'accesso alla directory nella finestra che si è aperta."
+
 msgid "Signature HTML"
 msgstr "HTML firma"
 
@@ -2320,13 +2390,18 @@ msgstr "✓ Accesso effettuato — salva l'account per terminare"
 msgid "Sign-in failed: {e}"
 msgstr "Accesso non riuscito: {e}"
 
-msgid "Signed in as {address}, not {email}."
-msgstr "Accesso effettuato come {address}, non come {email}."
-
 msgid "Access to the directory approved. Save the account to finish."
 msgstr "Accesso alla directory approvato. Salva l'account per terminare."
 
 msgid "Access to the directory was not approved: {e}"
+msgstr "Accesso alla directory non approvato: {e}"
+
+#, fuzzy
+msgid "Access to the sensitivity labels approved. Save the account to finish."
+msgstr "Accesso alla directory approvato. Salva l'account per terminare."
+
+#, fuzzy
+msgid "Access to the sensitivity labels was not approved: {e}"
 msgstr "Accesso alla directory non approvato: {e}"
 
 msgid "✓ SMTP: connected"
@@ -2429,23 +2504,27 @@ msgstr "Posta"
 msgid "Use this account in Hylki"
 msgstr "Usa questo account in Hylki"
 
+#, fuzzy
 msgid ""
-"Only for an account signed in within Hylki. To use it, add this account with "
-"Microsoft 365 / Outlook as the provider, instead of from GNOME Online "
+"Only for an account signed in within Hylki. To use these, add this account "
+"with Microsoft 365 / Outlook as the provider, instead of from GNOME Online "
 "Accounts."
 msgstr ""
 "Solo per un account che ha effettuato l'accesso in Hylki. Per usarlo, "
 "aggiungi questo account con Microsoft 365 / Outlook come provider, invece "
 "che da GNOME Account online."
 
+#, fuzzy
 msgid ""
-"Suggest people from your organization as you type a recipient. Turning this "
-"on asks Microsoft for access to the directory; some organizations need an "
-"administrator to approve it."
+"Turning one of these on asks Microsoft for access; some organizations need "
+"an administrator to approve it."
 msgstr ""
 "Suggerisci persone della tua organizzazione mentre digiti un destinatario. "
 "Attivando questa opzione si richiede a Microsoft l'accesso alla directory; "
 "alcune organizzazioni richiedono l'approvazione di un amministratore."
+
+msgid "Signed in as {address}, not {email}."
+msgstr "Accesso effettuato come {address}, non come {email}."
 
 msgid "Never"
 msgstr "Mai"
@@ -5013,9 +5092,6 @@ msgid ""
 msgstr ""
 "La rubrica in cui va un contatto creato in Hylki, a meno che non ne venga "
 "scelta un'altra al momento della creazione."
-
-msgid "Check for new mail"
-msgstr "Controlla nuova posta"
 
 msgid ""
 "Receives messages the moment they arrive. Microsoft 365 accounts check at "

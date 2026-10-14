@@ -1026,6 +1026,14 @@ msgstr "Respon a tots"
 msgid "Archive the conversation"
 msgstr "Conversa sencera"
 
+#, fuzzy
+msgid "Archive the conversation and open the older one"
+msgstr "Conversa sencera"
+
+#, fuzzy
+msgid "Archive the conversation and open the newer one"
+msgstr "Conversa sencera"
+
 msgid "Mark as spam"
 msgstr "Marca com a brossa"
 
@@ -1051,6 +1059,14 @@ msgstr "Selecciona aquesta fila (per a una acció massiva)"
 msgid "Select every row, or none"
 msgstr "Selecciona totes les files, o cap"
 
+#, fuzzy
+msgid "Select the read or the unread conversations"
+msgstr "Suprimeix la conversa"
+
+#, fuzzy
+msgid "Select the starred or the unstarred conversations"
+msgstr "Missatge següent de la conversa"
+
 msgid "Move to a folder"
 msgstr "Mou a una carpeta"
 
@@ -1061,8 +1077,23 @@ msgid "Add or remove a tag (the first nine, in Settings order)"
 msgstr ""
 "Afegeix o treu una etiqueta (les nou primeres, en l'ordre dels paràmetres)"
 
+#, fuzzy
+msgid "Reply, or reply to all, in a window"
+msgstr "Respon i reenvia a la finestra principal"
+
+#, fuzzy
+msgid "Forward in a window"
+msgstr "Respon i reenvia a la finestra principal"
+
 msgid "Compose"
 msgstr "Redacta"
+
+#, fuzzy
+msgid "Compose in a window"
+msgstr "Redacta a la finestra principal"
+
+msgid "Check for new mail"
+msgstr "Comprova si hi ha correu nou"
 
 msgid "Next message"
 msgstr "Missatge següent"
@@ -1658,8 +1689,10 @@ msgid "The sender marked this message “{label}”."
 msgstr ""
 
 msgid ""
-"The sender's organization labeled this message, without saying the label's "
-"name. Hylki shows the label but does not apply its rules."
+"The sender's organization labeled this message without naming the label in "
+"it. For a Microsoft 365 account, turning on “Show sensitivity label names” "
+"in its settings shows the name. Hylki shows the label but does not apply its "
+"rules."
 msgstr ""
 
 msgid ""
@@ -2133,7 +2166,31 @@ msgstr ""
 "cosa amb un enllaç de baixa) més antic que això, tret que estigui destacat. "
 "Comprovat a cada sincronització."
 
+#, fuzzy
+msgid "Microsoft 365"
+msgstr "Microsoft 365 / Outlook"
+
 msgid "Search the organization directory"
+msgstr ""
+
+msgid "Suggest people from your organization as you type a recipient."
+msgstr ""
+
+#, fuzzy
+msgid "Suggest only from this account"
+msgstr "Mostra només aquest compte"
+
+msgid ""
+"Writing from this account, suggest people from the directory and from its "
+"own mail, not from Contacts, LDAP directories or other accounts."
+msgstr ""
+
+msgid "Show sensitivity label names"
+msgstr ""
+
+msgid ""
+"Name a message's label from your organization's list when the message gives "
+"only its ID."
 msgstr ""
 
 msgid "Folder Order"
@@ -2270,6 +2327,14 @@ msgstr ""
 msgid "Approve access to the directory in the window that opened."
 msgstr ""
 
+#, fuzzy
+msgid "Opening browser… approve access to the sensitivity labels there."
+msgstr "S'està obrint el navegador… completa-hi l'inici de sessió."
+
+#, fuzzy
+msgid "Approve access to the sensitivity labels in the window that opened."
+msgstr "Completa l'inici de sessió a la finestra que s'ha obert."
+
 msgid "Signature HTML"
 msgstr "HTML de la signatura"
 
@@ -2311,13 +2376,16 @@ msgstr "✓ Sessió iniciada — desa el compte per acabar"
 msgid "Sign-in failed: {e}"
 msgstr "L'inici de sessió ha fallat: {e}"
 
-msgid "Signed in as {address}, not {email}."
-msgstr ""
-
 msgid "Access to the directory approved. Save the account to finish."
 msgstr ""
 
 msgid "Access to the directory was not approved: {e}"
+msgstr ""
+
+msgid "Access to the sensitivity labels approved. Save the account to finish."
+msgstr ""
+
+msgid "Access to the sensitivity labels was not approved: {e}"
 msgstr ""
 
 msgid "✓ SMTP: connected"
@@ -2422,15 +2490,17 @@ msgid "Use this account in Hylki"
 msgstr "Utilitza aquest compte a l'Hylki"
 
 msgid ""
-"Only for an account signed in within Hylki. To use it, add this account with "
-"Microsoft 365 / Outlook as the provider, instead of from GNOME Online "
+"Only for an account signed in within Hylki. To use these, add this account "
+"with Microsoft 365 / Outlook as the provider, instead of from GNOME Online "
 "Accounts."
 msgstr ""
 
 msgid ""
-"Suggest people from your organization as you type a recipient. Turning this "
-"on asks Microsoft for access to the directory; some organizations need an "
-"administrator to approve it."
+"Turning one of these on asks Microsoft for access; some organizations need "
+"an administrator to approve it."
+msgstr ""
+
+msgid "Signed in as {address}, not {email}."
 msgstr ""
 
 msgid "Never"
@@ -4996,9 +5066,6 @@ msgid ""
 msgstr ""
 "La llibreta d'adreces on va un contacte creat a l'Hylki, tret que se "
 "n'esculli una altra en el moment de crear-lo."
-
-msgid "Check for new mail"
-msgstr "Comprova si hi ha correu nou"
 
 msgid ""
 "Receives messages the moment they arrive. Microsoft 365 accounts check at "

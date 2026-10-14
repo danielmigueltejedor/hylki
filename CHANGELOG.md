@@ -2,6 +2,23 @@
 
 ## Unreleased
 
+- **Added: more of Gmail's keys** (#392, reported by 3v1n0). With Gmail keys
+  on, `]` and `}` archive the conversation and open the older one, `[` and
+  `{` the newer one; `* r`, `* u`, `* s` and `* t` select the read, unread,
+  starred or unstarred conversations; **Shift+R**, **Shift+A**, **Shift+F**
+  and **d** reply, reply to all, forward or write in a composer window; and
+  **Shift+N** checks for new mail.
+
+- **Added: sensitivity labels by name** (#411, reported by erenoglu). A
+  Purview label that a message carries only as an ID showed as **Labeled**.
+  With **Show sensitivity label names** on in a Microsoft 365 account's
+  settings, Hylki reads the organization's labels through Microsoft Graph
+  and shows the label's name, its color on the tag icon and the
+  organization's description in the tooltip.
+- **Changed: a Microsoft 365 account's Graph switches are together**, in a
+  Microsoft 365 group of its settings: the directory search, suggesting only
+  from the account, and the sensitivity label names.
+
 - **Fixed: keys pressed while a conversation loaded were lost** (#392,
   reported by 3v1n0). Opening a conversation from the keyboard gave the
   reading pane's web view the keyboard while its page was still being
@@ -58,6 +75,14 @@
   (#443), which opens Settings at Message List → Columns.
 - **Changed: swipe actions are for the card layout** (#443). A single line
   no longer swipes; sideways is how it scrolls.
+- **Added: a Microsoft 365 account can suggest only its own people** (#410,
+  suggested by erenoglu). With **Suggest only from this account** on, under
+  **Search the organization directory** in the account's settings, a message
+  written from it is offered the organization's directory and the people in
+  its own mail, not GNOME Contacts, LDAP directories or other accounts.
+- **Fixed: a personal Microsoft account asked for an organization list on
+  every pause in the typing** (#410). Microsoft has no such list for it, and
+  its refusal now stops the asking for the session, as a work account's does.
 - **Fixed: single-line columns after Tags fell out of line** (#443) on
   rows without tags. Tags is a column of fixed width now, resized from its
   heading like the names.

@@ -262,6 +262,9 @@ pub struct AccountsWindow {
     /// What the directory switch is known to show, so the notify that
     /// filling the editor sets off is not taken for the user turning it on.
     directory_on: bool,
+    /// The same two for the sensitivity label names (#411).
+    labels_granted: bool,
+    labels_on: bool,
     /// The send-as aliases being edited for the account in the editor (#34).
     /// Committed to the account on Save.
     alias_edits: Vec<AliasConfig>,
@@ -355,6 +358,8 @@ pub enum AccountsInput {
     OAuthSignIn,
     /// The "Search the organization directory" switch moved (#410).
     SetGraphDirectory(bool),
+    /// The "Show sensitivity label names" switch moved (#411).
+    SetGraphLabels(bool),
     /// Open GNOME Settings → Online Accounts (the Google path).
     OpenOnlineAccounts,
     SetEmoji(String),
@@ -589,6 +594,8 @@ pub enum AccountsCmd {
     /// The sign-in that asked for the directory's scopes (#410) finished,
     /// as [`AccountsCmd::OAuth`].
     DirectoryConsent(Result<(String, Option<(String, String)>), String>),
+    /// The one that asked for the label scope (#411).
+    LabelsConsent(Result<(String, Option<(String, String)>), String>),
     /// Alias SMTP test result (#34).
     AliasTested(Result<(), String>),
     /// GNOME Online Accounts read again: its mail accounts, for the import
@@ -1621,20 +1628,42 @@ impl Component for AccountsWindow {
                                 },
                             },
 
-                            // The composer's suggestions from the tenant's
-                            // directory (#410), for Microsoft 365 only.
-                            #[name = "directory_group"]
+                            // What a Microsoft 365 account can use from
+                            // Microsoft Graph, in one place: the
+                            // directory's suggestions (#410) and names for
+                            // sensitivity labels (#411). Each asks for its
+                            // own access when turned on.
+                            #[name = "graph_group"]
                             add = &adw::PreferencesGroup {
                                 set_visible: false,
+                                set_title: &i18n("Microsoft 365"),
 
                                 #[name = "graph_directory_row"]
                                 adw::SwitchRow {
                                     set_title: &i18n("Search the organization directory"),
+                                    set_subtitle: &i18n("Suggest people from your organization as you type a recipient."),
                                     connect_active_notify[sender] => move |row| {
                                         sender.input(AccountsInput::SetGraphDirectory(row.is_active()));
                                     },
                                 },
-                                #[name = "directory_status"]
+                                #[name = "directory_only_row"]
+                                adw::SwitchRow {
+                                    set_title: &i18n("Suggest only from this account"),
+                                    set_subtitle: &i18n("Writing from this account, suggest people from the \
+                                                   directory and from its own mail, not from Contacts, \
+                                                   LDAP directories or other accounts."),
+                                },
+                                #[name = "graph_labels_row"]
+                                adw::SwitchRow {
+                                    set_title: &i18n("Show sensitivity label names"),
+                                    set_subtitle: &i18n("Name a message's label from your organization's list \
+                                                   when the message gives only its ID."),
+                                    connect_active_notify[sender] => move |row| {
+                                        sender.input(AccountsInput::SetGraphLabels(row.is_active()));
+                                    },
+                                },
+                                // How the last request for access went.
+                                #[name = "graph_status"]
                                 gtk::Label {
                                     set_visible: false,
                                     set_halign: gtk::Align::Start,
@@ -1818,6 +1847,8 @@ impl Component for AccountsWindow {
             pending_oauth_refresh: None,
             directory_granted: false,
             directory_on: false,
+            labels_granted: false,
+            labels_on: false,
             alias_edits: Vec::new(),
             server_identities: Vec::new(),
             hidden_edits: Vec::new(),
@@ -1868,6 +1899,12 @@ impl Component for AccountsWindow {
         senders_box.set_visible(!model.sender_addrs.is_empty());
         blacklist_box.set_visible(!model.blacklist_addrs.is_empty());
         let widgets = view_output!();
+        // Narrowing to the directory means nothing without it.
+        widgets
+            .graph_directory_row
+            .bind_property("active", &widgets.directory_only_row, "sensitive")
+            .sync_create()
+            .build();
         // Long enough for the hint, short enough that the combo's own value
         // is not what gets shortened instead.
         wrap_subtitle(&widgets.folder_sent_copy_row, 34);
@@ -2124,6 +2161,8 @@ impl Component for AccountsWindow {
                 self.pending_oauth_refresh = None;
                 self.directory_granted = false;
                 self.directory_on = false;
+                self.labels_granted = false;
+                self.labels_on = false;
                 self.close_alias_dialog();
                 self.alias_edits.clear();
                 self.server_identities.clear();
@@ -2181,6 +2220,14 @@ impl Component for AccountsWindow {
                 // On without the scopes would only be refused.
                 self.directory_on = acc.graph_directory && self.directory_granted;
                 widgets.graph_directory_row.set_active(self.directory_on);
+                widgets.directory_only_row.set_active(acc.graph_directory_only);
+                self.labels_granted = acc.goa_id.is_none()
+                    && acc.oauth
+                    && acc.oauth_settings.as_ref().is_some_and(|s| {
+                        crate::oauth::has_scopes(&s.scopes, &crate::oauth::MICROSOFT_LABEL_SCOPES)
+                    });
+                self.labels_on = acc.graph_label_names && self.labels_granted;
+                widgets.graph_labels_row.set_active(self.labels_on);
                 self.close_alias_dialog();
                 self.alias_edits = acc.aliases.clone();
                 self.server_identities.clear();
@@ -2523,7 +2570,7 @@ impl Component for AccountsWindow {
                     return;
                 }
                 self.directory_on = on;
-                widgets.directory_status.set_visible(false);
+                widgets.graph_status.set_visible(false);
                 // Turning it off keeps the scopes: they cost nothing, and
                 // turning it on again then asks nothing.
                 if !on || self.directory_granted {
@@ -2536,9 +2583,9 @@ impl Component for AccountsWindow {
                 settings.scopes = crate::oauth::with_directory_scopes(&settings.scopes);
                 widgets.graph_directory_row.set_sensitive(false);
                 widgets.oauth_signin_btn.set_sensitive(false);
-                widgets.directory_status.set_visible(true);
-                widgets.directory_status.set_css_classes(&["dim-label"]);
-                widgets.directory_status.set_label(&if settings.redirect_uri.trim().is_empty() {
+                widgets.graph_status.set_visible(true);
+                widgets.graph_status.set_css_classes(&["dim-label"]);
+                widgets.graph_status.set_label(&if settings.redirect_uri.trim().is_empty() {
                     i18n("Opening browser… approve access to the directory there.")
                 } else {
                     i18n("Approve access to the directory in the window that opened.")
@@ -2547,6 +2594,34 @@ impl Component for AccountsWindow {
                 // only for what it has not approved yet.
                 let user = Some(widgets.email_row.text().trim().to_string()).filter(|u| !u.is_empty());
                 sign_in(root, &sender, settings, user, true, AccountsCmd::DirectoryConsent);
+            }
+
+            AccountsInput::SetGraphLabels(on) => {
+                if on == self.labels_on {
+                    return;
+                }
+                self.labels_on = on;
+                widgets.graph_status.set_visible(false);
+                // Off keeps the scope, as the directory's does.
+                if !on || self.labels_granted {
+                    return;
+                }
+                let mut settings = self.oauth_settings_from_form(widgets);
+                if settings.client_id.trim().is_empty() || !settings.token_url.contains("microsoftonline") {
+                    return;
+                }
+                settings.scopes = crate::oauth::with_scopes(&settings.scopes, &crate::oauth::MICROSOFT_LABEL_SCOPES);
+                widgets.graph_labels_row.set_sensitive(false);
+                widgets.oauth_signin_btn.set_sensitive(false);
+                widgets.graph_status.set_visible(true);
+                widgets.graph_status.set_css_classes(&["dim-label"]);
+                widgets.graph_status.set_label(&if settings.redirect_uri.trim().is_empty() {
+                    i18n("Opening browser… approve access to the sensitivity labels there.")
+                } else {
+                    i18n("Approve access to the sensitivity labels in the window that opened.")
+                });
+                let user = Some(widgets.email_row.text().trim().to_string()).filter(|u| !u.is_empty());
+                sign_in(root, &sender, settings, user, true, AccountsCmd::LabelsConsent);
             }
 
             AccountsInput::OpenOnlineAccounts => open_online_accounts(),
@@ -2702,6 +2777,7 @@ impl Component for AccountsWindow {
                 // Only once Microsoft has approved the scopes; an account from
                 // GNOME Online Accounts cannot have them.
                 account.graph_directory &= account.goa_id.is_none() && self.directory_granted;
+                account.graph_label_names &= account.goa_id.is_none() && self.labels_granted;
 
                 // Native account: authentication comes from the provider dropdown.
                 let is_oauth = provider_at(widgets.provider_row.selected()).is_oauth();
@@ -3275,44 +3351,44 @@ impl Component for AccountsWindow {
             AccountsCmd::DirectoryConsent(result) => {
                 widgets.graph_directory_row.set_sensitive(true);
                 widgets.oauth_signin_btn.set_sensitive(true);
-                widgets.directory_status.set_visible(true);
-                // A saved account signs in as itself: another mailbox
-                // picked in the browser would swap the account's token.
-                let saved = self
-                    .editing
-                    .and_then(|i| self.accounts.get(i))
-                    .filter(|a| a.oauth && a.goa_id.is_none())
-                    .map(|a| a.email.clone());
-                let result = result.and_then(|(refresh, who)| match (&saved, &who) {
-                    (Some(email), Some((_, address))) if !address.is_empty() && !address.eq_ignore_ascii_case(email) => {
-                        Err(i18n_f("Signed in as {address}, not {email}.", &[("address", address), ("email", email)]))
-                    }
-                    _ => Ok((refresh, who)),
-                });
-                match result {
-                    Ok((refresh, who)) => {
-                        self.pending_oauth_refresh = Some(refresh);
+                widgets.graph_status.set_visible(true);
+                match self.take_consent(widgets, result) {
+                    Ok(()) => {
                         self.directory_granted = true;
-                        // A new account was signed in by this as well.
-                        if let Some((name, address)) = who {
-                            if !address.is_empty() {
-                                widgets.email_row.set_text(&address);
-                            }
-                            if !name.is_empty() && widgets.name_row.text().trim().is_empty() {
-                                widgets.name_row.set_text(&name);
-                            }
-                        }
-                        widgets.directory_status.set_css_classes(&["success"]);
+                        widgets.graph_status.set_css_classes(&["success"]);
                         widgets
-                            .directory_status
+                            .graph_status
                             .set_label(&i18n("Access to the directory approved. Save the account to finish."));
                     }
                     Err(e) => {
                         self.directory_on = false;
                         widgets.graph_directory_row.set_active(false);
-                        widgets.directory_status.set_css_classes(&["error"]);
-                        widgets.directory_status.set_label(&i18n_f(
+                        widgets.graph_status.set_css_classes(&["error"]);
+                        widgets.graph_status.set_label(&i18n_f(
                             "Access to the directory was not approved: {e}",
+                            &[("e", &e)],
+                        ));
+                    }
+                }
+            }
+            AccountsCmd::LabelsConsent(result) => {
+                widgets.graph_labels_row.set_sensitive(true);
+                widgets.oauth_signin_btn.set_sensitive(true);
+                widgets.graph_status.set_visible(true);
+                match self.take_consent(widgets, result) {
+                    Ok(()) => {
+                        self.labels_granted = true;
+                        widgets.graph_status.set_css_classes(&["success"]);
+                        widgets
+                            .graph_status
+                            .set_label(&i18n("Access to the sensitivity labels approved. Save the account to finish."));
+                    }
+                    Err(e) => {
+                        self.labels_on = false;
+                        widgets.graph_labels_row.set_active(false);
+                        widgets.graph_status.set_css_classes(&["error"]);
+                        widgets.graph_status.set_label(&i18n_f(
+                            "Access to the sensitivity labels was not approved: {e}",
                             &[("e", &e)],
                         ));
                     }
@@ -4027,13 +4103,14 @@ impl AccountsWindow {
         // GNOME Online Accounts asked Microsoft for its own scopes, and
         // Hylki cannot add the directory's to a token GNOME holds.
         let from_goa = self.editing.and_then(|i| self.accounts.get(i)).is_some_and(|a| a.goa_id.is_some());
-        widgets.directory_group.set_visible(protocol == Protocol::Graph);
+        widgets.graph_group.set_visible(protocol == Protocol::Graph);
         widgets.graph_directory_row.set_sensitive(!from_goa);
-        widgets.graph_directory_row.set_subtitle(&if from_goa {
-            i18n("Only for an account signed in within Hylki. To use it, add this account with Microsoft 365 / Outlook as the provider, instead of from GNOME Online Accounts.")
+        widgets.graph_labels_row.set_sensitive(!from_goa);
+        widgets.graph_group.set_description(Some(&if from_goa {
+            i18n("Only for an account signed in within Hylki. To use these, add this account with Microsoft 365 / Outlook as the provider, instead of from GNOME Online Accounts.")
         } else {
-            i18n("Suggest people from your organization as you type a recipient. Turning this on asks Microsoft for access to the directory; some organizations need an administrator to approve it.")
-        });
+            i18n("Turning one of these on asks Microsoft for access; some organizations need an administrator to approve it.")
+        }));
     }
 
     fn apply_provider(&self, widgets: &AccountsWindowWidgets) {
@@ -4123,6 +4200,40 @@ impl AccountsWindow {
 
     /// Build the OAuth client config from the form. Google/Microsoft use built-in
     /// endpoints + credentials; "Custom OAuth" uses the user-entered fields.
+    /// A sign-in that asked for more scopes (#410, #411) finished: its
+    /// refresh token is the one to save, and a new account takes its
+    /// address and name from it.
+    fn take_consent(
+        &mut self,
+        widgets: &AccountsWindowWidgets,
+        result: Result<(String, Option<(String, String)>), String>,
+    ) -> Result<(), String> {
+        // A saved account signs in as itself: another mailbox picked in
+        // the browser would swap the account's token.
+        let saved = self
+            .editing
+            .and_then(|i| self.accounts.get(i))
+            .filter(|a| a.oauth && a.goa_id.is_none())
+            .map(|a| a.email.clone());
+        let (refresh, who) = result.and_then(|(refresh, who)| match (&saved, &who) {
+            (Some(email), Some((_, address))) if !address.is_empty() && !address.eq_ignore_ascii_case(email) => {
+                Err(i18n_f("Signed in as {address}, not {email}.", &[("address", address), ("email", email)]))
+            }
+            _ => Ok((refresh, who)),
+        })?;
+        self.pending_oauth_refresh = Some(refresh);
+        // A new account was signed in by this as well.
+        if let Some((name, address)) = who {
+            if !address.is_empty() {
+                widgets.email_row.set_text(&address);
+            }
+            if !name.is_empty() && widgets.name_row.text().trim().is_empty() {
+                widgets.name_row.set_text(&name);
+            }
+        }
+        Ok(())
+    }
+
     fn oauth_settings_from_form(&self, widgets: &AccountsWindowWidgets) -> OAuthSettings {
         let provider = provider_at(widgets.provider_row.selected()).oauth_name();
         if let Some(name) = provider {
@@ -4148,6 +4259,9 @@ impl AccountsWindow {
                 // directory's at the next sign-in or refresh (#410).
                 if self.directory_granted {
                     settings.scopes = crate::oauth::with_directory_scopes(&settings.scopes);
+                }
+                if self.labels_granted {
+                    settings.scopes = crate::oauth::with_scopes(&settings.scopes, &crate::oauth::MICROSOFT_LABEL_SCOPES);
                 }
             }
             settings
@@ -4580,6 +4694,8 @@ fn read_account(
             .and_then(|i| crate::config::FolderSort::ALL.get(i as usize).copied()),
         sign_by_default: widgets.sign_default_row.is_active(),
         graph_directory: protocol == Protocol::Graph && widgets.graph_directory_row.is_active(),
+        graph_directory_only: protocol == Protocol::Graph && widgets.directory_only_row.is_active(),
+        graph_label_names: protocol == Protocol::Graph && widgets.graph_labels_row.is_active(),
     }
 }
 
@@ -4889,7 +5005,9 @@ fn clear_editor(widgets: &AccountsWindowWidgets) {
     widgets.folder_sort_row.set_selected(0);
     widgets.sign_default_row.set_active(false);
     widgets.graph_directory_row.set_active(false);
-    widgets.directory_status.set_visible(false);
+    widgets.directory_only_row.set_active(false);
+    widgets.graph_status.set_visible(false);
+    widgets.graph_labels_row.set_active(false);
     widgets.smtp_user_row.set_text("");
     widgets.smtp_pass_row.set_text("");
     widgets.label_row.set_text("");
