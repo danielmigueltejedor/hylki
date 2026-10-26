@@ -124,15 +124,17 @@
     return !el.attributes.length
       || (el.attributes.length === 1 && el.getAttribute('dir') === 'auto');
   }
-  /* A line that Return starts in a plain block of the body is a <div> of
-     its own while the message is written: it then has a direction of its
-     own, and the caret is drawn by it, where a <br> line takes its block's
-     (#524). What the document hands back joins it to the block above with
-     a <br>, the line Return has always made, so drafts, the text part and
-     the other formats see no difference. */
+  /* A line started in a plain <div> or <p> of the body is a block of its
+     own, a copy of that one, while the message is written: it then has a
+     direction of its own, and the caret is drawn by it, where a <br> line
+     takes its block's (#524). The style sheet takes the paragraph space
+     out from between the lines of a <p>. What the document hands back
+     joins each line to the block above with a <br>, the line it has always
+     been, so drafts, the text part and the other formats see no
+     difference. */
   var LINE = 'data-hylki-line';
-  function lineDiv(el){
-    if(!el || el.tagName !== 'DIV' || el.parentNode !== document.body) return false;
+  function lineBlock(el){
+    if(!el || !/^(DIV|P)$/.test(el.tagName) || el.parentNode !== document.body) return false;
     for(var i = 0; i < el.attributes.length; i++){
       var a = el.attributes[i];
       if(a.name !== LINE && !(a.name === 'dir' && a.value === 'auto')) return false;
@@ -144,14 +146,14 @@
     return el && el.closest ? el.closest('p,div,li,blockquote,h1,h2,h3,h4,h5,h6,pre') : null;
   }
   /* Last first, so a run of lines folds up into the block it began in. A
-     line with no <div> above it any more stays a block of its own. */
+     line with no block of its kind above it any more stays one of its own. */
   function joinLines(root){
-    var lines = root.querySelectorAll('div[' + LINE + ']');
+    var lines = root.querySelectorAll('[' + LINE + ']');
     for(var i = lines.length - 1; i >= 0; i--){
       var l = lines[i], prev = l.previousSibling;
       while(prev && prev.nodeType === 3 && !prev.nodeValue.trim()) prev = prev.previousSibling;
       l.removeAttribute(LINE);
-      if(!prev || prev.nodeType !== 1 || prev.tagName !== 'DIV') continue;
+      if(!prev || prev.nodeType !== 1 || prev.tagName !== l.tagName) continue;
       /* A block's last <br> holds an empty line open, or ends the line. */
       if(!prev.lastChild || prev.lastChild.nodeName !== 'BR'){
         prev.appendChild(document.createElement('br'));
@@ -472,13 +474,13 @@
     enterInQuote = inQuote && !e.shiftKey;
     e.preventDefault();
     if(!window.__hylkiReturnParagraph === !e.shiftKey){
-      if(!lineDiv(blockOf(n))){
+      if(!lineBlock(blockOf(n))){
         document.execCommand('insertLineBreak');
         return;
       }
       document.execCommand('insertParagraph');
       var l = blockOf(getSelection().anchorNode);
-      if(l && l.tagName === 'DIV'){
+      if(l && /^(DIV|P)$/.test(l.tagName)){
         l.setAttribute(LINE, '');
         l.setAttribute('dir', 'auto');
       }

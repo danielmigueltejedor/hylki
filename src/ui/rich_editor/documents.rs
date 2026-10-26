@@ -82,6 +82,10 @@ pub(super) fn document(
            /* A paragraph's space goes below it, so the first line of the\
               message sits where it would in a <div>. */\
            body>p:first-child{{margin-top:0;}}\
+           /* The lines of one paragraph, each a <p> while it is written\
+              (#524), sit together as the lines of one. */\
+           body>p[data-hylki-line]{{margin-top:0;}}\
+           body>p:has(+p[data-hylki-line]){{margin-bottom:0;}}\
            .hylki-quote-attr{{opacity:0.7;margin:10px 0 4px;}}\
            /* A quoted message that sets its own colors, on the light\
               ground it was designed for. */\
