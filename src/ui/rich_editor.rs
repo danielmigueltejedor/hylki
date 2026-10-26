@@ -616,8 +616,8 @@ mod pinned_tests {
     fn embedded_scripts_are_unchanged() {
         assert_eq!(fnv(HISTORY_SCRIPT), (1287, 0x8e997368982bb599));
         assert_eq!(fnv(EMOJI_SCRIPT), (1621, 0x748b009b19f3f0ec));
-        assert_eq!(fnv(LINES_SCRIPT), (4938, 0x376266d30b49b411));
-        assert_eq!(fnv(PASTE_SCRIPT), (40034, 0x5194161c657252d5));
+        assert_eq!(fnv(LINES_SCRIPT), (5153, 0xb927290405c83fda));
+        assert_eq!(fnv(PASTE_SCRIPT), (40069, 0x7bd83b8987ac108a));
     }
 
     #[test]

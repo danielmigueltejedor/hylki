@@ -103,7 +103,7 @@
       });
     });
   }).observe(document.documentElement, {childList: true, subtree: true});
-  var hl = window.__hylkiLines, LINE = hl.LINE, bare = hl.bare,
+  var hl = window.__hylkiLines, LINE = hl.LINE, bare = hl.bare, quoted = hl.quoted,
     lineBlock = hl.lineBlock, blockOf = hl.blockOf, joinLines = hl.joinLines;
   /* WebKit only marks a word's spelling once the caret leaves it. The word
      under the caret is checked by us instead: after a typing pause it goes
@@ -617,7 +617,7 @@
     joinLines(c);
     Array.prototype.forEach.call(
       c.querySelectorAll(':scope>div[dir="auto"],:scope>p[dir="auto"],li[dir="auto"]'),
-      function(n){ n.removeAttribute('dir'); });
+      function(n){ if(!quoted(n)) n.removeAttribute('dir'); });
     return c.innerHTML;
   };
   /* The plain-text rendering of the body, for the text/plain alternative

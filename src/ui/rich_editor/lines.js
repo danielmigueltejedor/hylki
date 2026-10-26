@@ -8,10 +8,13 @@
      document hands back has it taken out again: the sent message gets a
      direction written for it (crate::mail::direction). */
   var AUTO_DIR = 'body>div,body>p,li';
+  /* Not in the message a reply or a forward quotes: it is somebody
+     else's, and goes out as it came. */
+  function quoted(n){ return n.matches('.hylki-quote-attr+blockquote *'); }
   function autoDir(){
     if(!document.body) return;
     Array.prototype.forEach.call(document.querySelectorAll(AUTO_DIR), function(n){
-      if(!n.hasAttribute('dir') && !n.hasAttribute('data-hylki-ui')) n.setAttribute('dir', 'auto');
+      if(!n.hasAttribute('dir') && !n.hasAttribute('data-hylki-ui') && !quoted(n)) n.setAttribute('dir', 'auto');
     });
   }
   new MutationObserver(autoDir)
@@ -96,6 +99,6 @@
     });
   }
   if(!window.__hylkiPlain) document.addEventListener('DOMContentLoaded', splitLines);
-  window.__hylkiLines = {LINE: LINE, bare: bare, lineBlock: lineBlock,
+  window.__hylkiLines = {LINE: LINE, bare: bare, quoted: quoted, lineBlock: lineBlock,
     blockOf: blockOf, joinLines: joinLines};
 })();

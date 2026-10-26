@@ -11,7 +11,9 @@
   makes that line a paragraph too, so it is spaced the way the recipient
   sees it. A message written as HTML now gets its directions the same way,
   in the preview and when sent, where its blocks do not give one
-  themselves.
+  themselves. In a reply or a forward the quoted message is sent as it
+  came: only what was written decides the direction, and the quote is
+  given a direction of its own only where the reply's would turn it round.
 
 - **Fixed: a pale account color left the reader's account chip hard to
   read** (#530, reported by samuel-edlmeier). The chip's text keeps the
