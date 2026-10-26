@@ -67,6 +67,41 @@ fn focus_is_entry(root: &impl IsA<gtk::Widget>) -> bool {
     false
 }
 
+/// Tab or Shift+Tab, with no Ctrl or Alt, as the way it moves focus.
+fn tab_direction(
+    keyval: gtk::gdk::Key,
+    state: gtk::gdk::ModifierType,
+) -> Option<gtk::DirectionType> {
+    use gtk::gdk::{Key, ModifierType as M};
+    if state.intersects(M::CONTROL_MASK | M::ALT_MASK | M::SUPER_MASK) {
+        return None;
+    }
+    match keyval {
+        Key::ISO_Left_Tab => Some(gtk::DirectionType::TabBackward),
+        Key::Tab | Key::KP_Tab if state.contains(M::SHIFT_MASK) => {
+            Some(gtk::DirectionType::TabBackward)
+        }
+        Key::Tab | Key::KP_Tab => Some(gtk::DirectionType::TabForward),
+        _ => None,
+    }
+}
+
+/// Move focus one step within `root`, coming round to its other end past
+/// the first or last thing that takes focus, as a window does.
+fn cycle_focus(root: &gtk::Widget, direction: gtk::DirectionType) {
+    if root.child_focus(direction) {
+        return;
+    }
+    // A move starts from the focus child of each level, so the chain is
+    // cleared to start again from the edge.
+    let mut node = Some(root.clone());
+    while let Some(widget) = node {
+        node = widget.focus_child();
+        widget.set_focus_child(None::<&gtk::Widget>);
+    }
+    root.child_focus(direction);
+}
+
 impl Compose {
     pub(super) fn install_keys(&self, root: &adw::BreakpointBin, sender: &ComponentSender<Self>) {
         // Drive the suggestion list from a single capture-phase key handler on
@@ -141,6 +176,22 @@ impl Compose {
             // first, and app/shortcuts.rs passes them on.
             if let Some(input) = composer_key(keyval, state) {
                 s.input_sender().emit(input);
+                return Propagation::Stop;
+            }
+            // Tab and Shift+Tab go round the composer and nowhere else.
+            // Left to the window, Tab off the body went on into the main
+            // window's sidebar and list, never back to To. The HTML and
+            // Markdown source keeps Tab, which indents there.
+            if let Some(direction) = tab_direction(keyval, state) {
+                if editor.source_kind().is_some() && editor.has_focus() {
+                    return Propagation::Proceed;
+                }
+                cycle_focus(key_root.upcast_ref(), direction);
+                // Focus on the view alone leaves the document without a
+                // caret, and typing would go nowhere (#266).
+                if editor.has_focus() {
+                    editor.grab_focus();
+                }
                 return Propagation::Stop;
             }
             if !open.get() {

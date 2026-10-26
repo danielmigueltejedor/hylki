@@ -253,6 +253,7 @@ impl RichEditor {
                     .settings(&settings)
                     .build();
                 crate::desktop::memory_report::register_web_view(&v, "editor preview");
+                super::message_view::keep_tab_out_of_key_translator(&v);
                 v.set_zoom_level(self.zoom.get());
                 v.set_background_color(&gtk::gdk::RGBA::new(0.0, 0.0, 0.0, 0.0));
                 self.stack.add_named(&v, Some("preview"));
