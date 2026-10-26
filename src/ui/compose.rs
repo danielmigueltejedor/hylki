@@ -943,6 +943,7 @@ impl Component for Compose {
                         ComposeFormat::Markdown => {
                             crate::mail::direction::stamp(&crate::mail::markdown::to_html(&body))
                         }
+                        ComposeFormat::Html => crate::mail::direction::stamp(&body),
                         _ => body,
                     };
                     self.editor.show_preview(Some(&html));

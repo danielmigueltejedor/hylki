@@ -11,9 +11,9 @@
   A line started with Shift+Return inside a paragraph, while Return starts
   paragraphs, still has it at the line's start. Starting a paragraph after
   the first line of a message makes that line a paragraph too, so it is
-  spaced the way the recipient sees it. Switching a message to HTML writes
-  each line's direction into the source, so the HTML preview shows the
-  same direction as the composer.
+  spaced the way the recipient sees it. A message written as HTML now gets
+  its directions the same way, in the preview and when sent, where its
+  blocks do not give one themselves.
 
 - **Fixed: a pale account color left the reader's account chip hard to
   read** (#530, reported by samuel-edlmeier). The chip's text keeps the
@@ -94,9 +94,8 @@
   Arabic or Persian aligned to the left. A rich text or Markdown message now
   goes out wrapped in `<div dir="rtl">` when it starts right to left, with a
   `dir` on each line that runs the other way, so it reads as it did in the
-  composer. Mail with no right-to-left text is sent exactly as before, and
-  HTML written by hand is sent as written. The Markdown preview shows the
-  same.
+  composer. Mail with no right-to-left text is sent exactly as before, and a
+  `dir` written by hand is kept. The Markdown preview shows the same.
 
 - **Translations:** French (PR #519 by frenchy82) brought up to date.
 
