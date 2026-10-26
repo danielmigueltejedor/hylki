@@ -6,10 +6,11 @@
   by bjesus). A right-to-left line written with Shift+Return in a paragraph
   that runs the other way was sent left to right; it now goes out with its
   own direction. At the end of an English paragraph under a Hebrew one the
-  caret was drawn at the left edge; it is now drawn after the last word.
-  A line after a line break inside a paragraph still draws it at the line's
-  start when the two run different ways. Starting a paragraph after the
-  first line of a message makes that line a paragraph too, so it is
+  caret was drawn at the left edge, and on a line started with Return
+  under one that runs the other way; it is now drawn after the last word.
+  A line started with Shift+Return inside a paragraph, while Return starts
+  paragraphs, still has it at the line's start. Starting a paragraph after
+  the first line of a message makes that line a paragraph too, so it is
   spaced the way the recipient sees it. Switching a message to HTML writes
   each line's direction into the source, so the HTML preview shows the
   same direction as the composer.

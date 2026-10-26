@@ -124,6 +124,42 @@
     return !el.attributes.length
       || (el.attributes.length === 1 && el.getAttribute('dir') === 'auto');
   }
+  /* A line that Return starts in a plain block of the body is a <div> of
+     its own while the message is written: it then has a direction of its
+     own, and the caret is drawn by it, where a <br> line takes its block's
+     (#524). What the document hands back joins it to the block above with
+     a <br>, the line Return has always made, so drafts, the text part and
+     the other formats see no difference. */
+  var LINE = 'data-hylki-line';
+  function lineDiv(el){
+    if(!el || el.tagName !== 'DIV' || el.parentNode !== document.body) return false;
+    for(var i = 0; i < el.attributes.length; i++){
+      var a = el.attributes[i];
+      if(a.name !== LINE && !(a.name === 'dir' && a.value === 'auto')) return false;
+    }
+    return true;
+  }
+  function blockOf(n){
+    var el = n && (n.nodeType === 3 ? n.parentNode : n);
+    return el && el.closest ? el.closest('p,div,li,blockquote,h1,h2,h3,h4,h5,h6,pre') : null;
+  }
+  /* Last first, so a run of lines folds up into the block it began in. A
+     line with no <div> above it any more stays a block of its own. */
+  function joinLines(root){
+    var lines = root.querySelectorAll('div[' + LINE + ']');
+    for(var i = lines.length - 1; i >= 0; i--){
+      var l = lines[i], prev = l.previousSibling;
+      while(prev && prev.nodeType === 3 && !prev.nodeValue.trim()) prev = prev.previousSibling;
+      l.removeAttribute(LINE);
+      if(!prev || prev.nodeType !== 1 || prev.tagName !== 'DIV') continue;
+      /* A block's last <br> holds an empty line open, or ends the line. */
+      if(!prev.lastChild || prev.lastChild.nodeName !== 'BR'){
+        prev.appendChild(document.createElement('br'));
+      }
+      while(l.firstChild) prev.appendChild(l.firstChild);
+      l.remove();
+    }
+  }
   /* WebKit only marks a word's spelling once the caret leaves it. The word
      under the caret is checked by us instead: after a typing pause it goes
      to the app (which asks the same enchant the body's checker uses), and a
@@ -398,6 +434,8 @@
       for(m = n.previousSibling; m && inlineNode(m); m = m.previousSibling) run.unshift(m);
       for(m = n.nextSibling; m && inlineNode(m); m = m.nextSibling) run.push(m);
     }else if(n.tagName === 'DIV' && bare(n)){
+      /* The lines under it are its own. */
+      if(n.nextElementSibling && n.nextElementSibling.hasAttribute(LINE)) return false;
       run = Array.prototype.slice.call(n.childNodes);
       if(!run.every(inlineNode)) return false;
     }else{
@@ -434,7 +472,16 @@
     enterInQuote = inQuote && !e.shiftKey;
     e.preventDefault();
     if(!window.__hylkiReturnParagraph === !e.shiftKey){
-      document.execCommand('insertLineBreak');
+      if(!lineDiv(blockOf(n))){
+        document.execCommand('insertLineBreak');
+        return;
+      }
+      document.execCommand('insertParagraph');
+      var l = blockOf(getSelection().anchorNode);
+      if(l && l.tagName === 'DIV'){
+        l.setAttribute(LINE, '');
+        l.setAttribute('dir', 'auto');
+      }
       return;
     }
     /* WebKit makes only the new block a paragraph, and the first line of
@@ -445,9 +492,10 @@
     /* A paragraph split from a <div> is another <div>; it becomes a <p>
        so it carries a paragraph's space. Only a bare div: one with a
        class (the signature) or a style is somebody's markup. */
-    var m = getSelection().anchorNode;
-    var b = m && (m.nodeType === 3 ? m.parentNode : m);
-    b = b && b.closest && b.closest('p,div,li,blockquote,h1,h2,h3,h4,h5,h6,pre');
+    var b = blockOf(getSelection().anchorNode);
+    /* Split from a line, it is a copy of one, and starts a paragraph
+       instead. */
+    if(b) b.removeAttribute(LINE);
     if(b && b.tagName === 'DIV' && bare(b)){
       document.execCommand('formatBlock', false, 'p');
     }
@@ -621,6 +669,7 @@
     var c = document.body.cloneNode(true);
     Array.prototype.forEach.call(c.querySelectorAll('[data-hylki-ui]'),
       function(n){ n.remove(); });
+    joinLines(c);
     Array.prototype.forEach.call(
       c.querySelectorAll(':scope>div[dir="auto"],:scope>p[dir="auto"],li[dir="auto"]'),
       function(n){ n.removeAttribute('dir'); });
@@ -672,7 +721,9 @@
   /* What is sent has spaces where the editor keeps no-break spaces to
      show them: a run of them typed, or the indents of a plain-text quote. */
   window.__hylkiBodyText = function(){
-    return tidyTxt(hylkiTxt(document.body, false).replace(/\u00a0/g, ' '));
+    var c = document.body.cloneNode(true);
+    joinLines(c);
+    return tidyTxt(hylkiTxt(c, false).replace(/\u00a0/g, ' '));
   };
   /* Plain text (#424) shows the message as it is sent: the document is
      flattened to the text above, the signature and the "wrote:" line
