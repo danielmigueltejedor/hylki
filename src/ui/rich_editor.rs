@@ -597,7 +597,7 @@ mod body_tests {
 #[cfg(test)]
 mod pinned_tests {
     //! Characterization tests (restructure, area D).
-    use super::scripts::{EMOJI_SCRIPT, HISTORY_SCRIPT, PASTE_SCRIPT};
+    use super::scripts::{EMOJI_SCRIPT, HISTORY_SCRIPT, LINES_SCRIPT, PASTE_SCRIPT};
     use super::signature::{find_src_attr, quoted_value};
     use super::*;
 
@@ -616,7 +616,8 @@ mod pinned_tests {
     fn embedded_scripts_are_unchanged() {
         assert_eq!(fnv(HISTORY_SCRIPT), (1287, 0x8e997368982bb599));
         assert_eq!(fnv(EMOJI_SCRIPT), (1621, 0x748b009b19f3f0ec));
-        assert_eq!(fnv(PASTE_SCRIPT), (42844, 0xbf96990fb79644b7));
+        assert_eq!(fnv(LINES_SCRIPT), (4938, 0x376266d30b49b411));
+        assert_eq!(fnv(PASTE_SCRIPT), (40034, 0x5194161c657252d5));
     }
 
     #[test]

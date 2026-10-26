@@ -7,7 +7,7 @@
   that runs the other way was sent left to right; it now goes out with its
   own direction. On a line or paragraph running the other way from the one
   above it, the caret was drawn at the wrong edge; it is now drawn after
-  the last word. Starting a paragraph after the first line of a message
+  the last word, in a draft opened again too. Starting a paragraph after the first line of a message
   makes that line a paragraph too, so it is spaced the way the recipient
   sees it. A message written as HTML now gets its directions the same way,
   in the preview and when sent, where its blocks do not give one
