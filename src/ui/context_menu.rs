@@ -32,6 +32,9 @@ pub(crate) struct MenuEntry {
     /// tick. A tick costs the icon that says what the entry *is*, which is
     /// the part worth keeping in a list of alternatives.
     selected: bool,
+    /// A switch that is on: the row gets the grey of a pressed toggle
+    /// button, so it reads like the header button it stands in for.
+    checked: bool,
     /// The keys that do the same, shown dim at the end of the row (#497).
     accel: Option<String>,
     activate: Box<dyn Fn()>,
@@ -47,6 +50,7 @@ impl MenuEntry {
             swatch: None,
             enabled: true,
             selected: false,
+            checked: false,
             accel: None,
             activate: Box::new(activate),
             submenu: None,
@@ -63,6 +67,7 @@ impl MenuEntry {
             swatch: None,
             enabled: !empty,
             selected: false,
+            checked: false,
             accel: None,
             activate: Box::new(|| {}),
             submenu: Some(sections),
@@ -102,6 +107,12 @@ impl MenuEntry {
             Some(accel) => self.accel(accel),
             None => self,
         }
+    }
+
+    /// Mark this entry as a switch that is on.
+    pub(crate) fn checked(mut self, checked: bool) -> Self {
+        self.checked = checked;
+        self
     }
 
     /// Mark this entry as the one the menu is set to.
@@ -407,6 +418,7 @@ fn build_page(
                 swatch,
                 enabled,
                 selected,
+                checked,
                 accel,
                 activate,
                 submenu,
@@ -451,6 +463,14 @@ fn build_page(
             btn.add_css_class("context-menu-item");
             btn.set_halign(gtk::Align::Fill);
             btn.set_sensitive(enabled);
+            if checked {
+                // The checked state, not a class of our own: libadwaita
+                // then draws it exactly as it draws a toggled flat button.
+                btn.set_state_flags(gtk::StateFlags::CHECKED, false);
+                btn.update_state(&[gtk::accessible::State::Pressed(
+                    gtk::AccessibleTristate::True,
+                )]);
+            }
 
             if let Some(sections) = submenu {
                 // A trailing chevron says the row opens rather than acts.

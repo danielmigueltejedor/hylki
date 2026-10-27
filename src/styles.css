@@ -531,6 +531,16 @@ flowbox.attach-flow > flowboxchild {
   color: @accent_color;
 }
 
+/* A switch the menu shows as on (Sign, Encrypt): the grey of a toggled flat
+   header button, stated here because libadwaita's own rule may not reach a
+   button inside a menu popover. */
+.context-menu-item:checked {
+  background-color: alpha(currentColor, 0.1);
+}
+.context-menu-item:checked:hover {
+  background-color: alpha(currentColor, 0.13);
+}
+
 /* Popout-window attachment popover rows. */
 .attach-row {
   padding: 4px 6px;

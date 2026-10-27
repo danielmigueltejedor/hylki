@@ -269,14 +269,13 @@ impl Compose {
         // toggled handlers keep the model and the buttons agreeing.
         let mut pgp = Vec::new();
         if crate::mail::pgp::available() {
-            let check =
-                |on: bool, icon: &str| if on { "verified-checkmark" } else { icon }.to_string();
             let sign = widgets.sign_btn.clone();
             pgp.push(
                 MenuEntry::new(i18n("Sign with your OpenPGP key"), move || {
                     sign.set_active(!sign.is_active())
                 })
-                .icon(format!("{}-symbolic", check(self.sign, "security-high"))),
+                .icon("security-high-symbolic")
+                .checked(self.sign),
             );
             let encrypt = widgets.encrypt_btn.clone();
             pgp.push(
@@ -284,10 +283,8 @@ impl Compose {
                     i18n("Encrypt with OpenPGP to every recipient's key"),
                     move || encrypt.set_active(!encrypt.is_active()),
                 )
-                .icon(format!(
-                    "{}-symbolic",
-                    check(self.encrypt, "channel-secure")
-                )),
+                .icon("channel-secure-symbolic")
+                .checked(self.encrypt),
             );
         }
         // The format chooser, the preview toggle and Insert Signature
