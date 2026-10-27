@@ -7276,9 +7276,6 @@ msgstr ""
 msgid "Default zoom"
 msgstr "Zoom predefinito"
 
-msgid "On screen only. Ctrl+0 shows the size that is sent."
-msgstr ""
-
 #, fuzzy
 msgid "Reply in the original's format"
 msgstr "Rispondi con i file"

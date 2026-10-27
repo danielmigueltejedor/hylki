@@ -7363,9 +7363,6 @@ msgstr ""
 msgid "Default zoom"
 msgstr "Alapértelmezett nagyítás"
 
-msgid "On screen only. Ctrl+0 shows the size that is sent."
-msgstr ""
-
 #, fuzzy
 msgid "Reply in the original's format"
 msgstr "Válasz ezekkel a fájlokkal"

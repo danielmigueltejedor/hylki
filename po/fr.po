@@ -7119,9 +7119,6 @@ msgstr "Pour le texte enrichi, en points."
 msgid "Default zoom"
 msgstr "Zoom par défaut"
 
-msgid "On screen only. Ctrl+0 shows the size that is sent."
-msgstr ""
-
 msgid "Reply in the original's format"
 msgstr "Répondre dans le format de l’original"
 

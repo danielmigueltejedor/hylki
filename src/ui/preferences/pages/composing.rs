@@ -137,7 +137,6 @@ impl ComposingPage {
                     #[name = "compose_zoom_row"]
                     adw::ComboRow {
                         set_title: &i18n("Default zoom"),
-                        set_subtitle: &i18n("On screen only. Ctrl+0 shows the size that is sent."),
                     },
 
                     #[name = "follow_plain_row"]
