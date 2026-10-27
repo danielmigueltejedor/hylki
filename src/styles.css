@@ -2513,3 +2513,8 @@ textview.console-view text selection {
   margin-top: 6px;
   font-weight: normal;
 }
+
+/* Undo Send countdown (#534): the line along the toast's bottom edge. */
+toast-countdown {
+  color: @accent_bg_color;
+}

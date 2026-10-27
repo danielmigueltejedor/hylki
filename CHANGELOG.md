@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- **Added: a countdown line in the Undo Send toast** (#534, by Fabio
+  Rotondo). While a message waits out the Undo Send delay, a line along the
+  toast's bottom edge fills from left to right until the moment it goes. The toast's line is now plain text,
+  so a subject with `&` or `<` in it shows as written.
+
 - **Fixed: a star or read state changed on another device stayed on older
   mail** (#532, reported by amadeusp). A folder's sync re-read the flags of
   its newest 50 messages only, so a star taken off older mail elsewhere
