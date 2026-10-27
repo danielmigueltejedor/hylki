@@ -21,7 +21,7 @@ const COMPOSE_ACTIONS_BREAKPOINT: f64 = 620.0;
 
 /// An OpenPGP switch's tooltip, header button and menu row alike: what it
 /// does, then whether it is on, which the icon alone says only to someone
-/// who knows what the green means.
+/// who knows what its color means.
 pub(super) fn pgp_tooltip(action: &str, on: bool) -> String {
     format!("{action}\n{}", if on { i18n("On") } else { i18n("Off") })
 }
