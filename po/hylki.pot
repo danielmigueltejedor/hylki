@@ -4778,6 +4778,9 @@ msgstr ""
 msgid "Account of the current folder"
 msgstr ""
 
+msgid "Same as messages"
+msgstr ""
+
 msgid "Above the quoted message"
 msgstr ""
 
@@ -6564,6 +6567,12 @@ msgstr ""
 msgid "For rich text, in points."
 msgstr ""
 
+msgid "Default zoom"
+msgstr ""
+
+msgid "On screen only. Ctrl+0 shows the size that is sent."
+msgstr ""
+
 msgid "Reply in the original's format"
 msgstr ""
 
@@ -6625,9 +6634,6 @@ msgid "Light / Dark Mode switch"
 msgstr ""
 
 msgid "Displays in the message header for each message."
-msgstr ""
-
-msgid "Default zoom"
 msgstr ""
 
 msgid "Ctrl+0 returns to the default."

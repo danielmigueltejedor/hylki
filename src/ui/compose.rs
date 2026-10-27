@@ -29,6 +29,7 @@ mod types;
 
 use crate::ui::later::{next_monday, preset_time};
 use cloud::not_signed_in;
+pub(crate) use format::forget_zoom;
 use format::{markdown_body, session_zoom, zoom_chip, SHOWCASE_PLAIN_LOG};
 use host::{fold_on_first_map, pgp_tooltip, set_toggle_icon, size_for_host, COMPOSE_MIN_WIDTH};
 pub(crate) use keys::composer_key;

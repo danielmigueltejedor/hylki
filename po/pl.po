@@ -5431,6 +5431,10 @@ msgstr "Domyślna systemowa"
 msgid "Account of the current folder"
 msgstr "Konto bieżącego katalogu"
 
+#, fuzzy
+msgid "Same as messages"
+msgstr "wiadomości: {n}"
+
 msgid "Above the quoted message"
 msgstr "Nad cytowaną wiadomością"
 
@@ -7417,6 +7421,12 @@ msgstr ""
 msgid "For rich text, in points."
 msgstr ""
 
+msgid "Default zoom"
+msgstr "Domyślne powiększenie"
+
+msgid "On screen only. Ctrl+0 shows the size that is sent."
+msgstr ""
+
 #, fuzzy
 msgid "Reply in the original's format"
 msgstr "Odpowiedz z plikami"
@@ -7489,9 +7499,6 @@ msgstr ""
 #, fuzzy
 msgid "Displays in the message header for each message."
 msgstr "Otwiera wiadomość z rozpoczętym przekazywaniem dalej."
-
-msgid "Default zoom"
-msgstr "Domyślne powiększenie"
 
 msgid "Ctrl+0 returns to the default."
 msgstr ""

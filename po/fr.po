@@ -5185,6 +5185,10 @@ msgstr "Système par défaut"
 msgid "Account of the current folder"
 msgstr "Compte du dossier actuel"
 
+#, fuzzy
+msgid "Same as messages"
+msgstr "Messages électroniques"
+
 msgid "Above the quoted message"
 msgstr "Au-dessus du message cité"
 
@@ -7112,6 +7116,12 @@ msgstr ""
 msgid "For rich text, in points."
 msgstr "Pour le texte enrichi, en points."
 
+msgid "Default zoom"
+msgstr "Zoom par défaut"
+
+msgid "On screen only. Ctrl+0 shows the size that is sent."
+msgstr ""
+
 msgid "Reply in the original's format"
 msgstr "Répondre dans le format de l’original"
 
@@ -7180,9 +7190,6 @@ msgstr "Commutateur de mode clair / sombre"
 
 msgid "Displays in the message header for each message."
 msgstr "S’affiche dans l’en-tête du message, pour chaque message."
-
-msgid "Default zoom"
-msgstr "Zoom par défaut"
 
 msgid "Ctrl+0 returns to the default."
 msgstr "Ctrl+0 revient à la valeur par défaut."

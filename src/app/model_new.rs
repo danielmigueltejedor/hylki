@@ -511,6 +511,7 @@ impl AppModel {
             toolbar_expanded: prefs.toolbar_expanded,
             compose_font: prefs.compose_font,
             compose_font_size: prefs.compose_font_size,
+            compose_zoom: prefs.compose_zoom,
             print_options: prefs.print,
             compose_format: config::load_compose_format(),
             follow_plain: prefs.follow_plain,

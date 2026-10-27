@@ -5187,6 +5187,10 @@ msgstr "Systemstandard"
 msgid "Account of the current folder"
 msgstr "Konto des aktuellen Ordners"
 
+#, fuzzy
+msgid "Same as messages"
+msgstr "E-Mails"
+
 msgid "Above the quoted message"
 msgstr "Über der zitierten Nachricht"
 
@@ -7141,6 +7145,12 @@ msgstr ""
 msgid "For rich text, in points."
 msgstr "Für formatierten Text (in Pt)."
 
+msgid "Default zoom"
+msgstr "Standard-Zoom"
+
+msgid "On screen only. Ctrl+0 shows the size that is sent."
+msgstr ""
+
 msgid "Reply in the original's format"
 msgstr "Im ursprünglichen Format antworten"
 
@@ -7210,9 +7220,6 @@ msgstr "Hell-/Dunkelmodus-Umschalter"
 
 msgid "Displays in the message header for each message."
 msgstr "Anzeige in der Kopfzeile jeder Nachricht."
-
-msgid "Default zoom"
-msgstr "Standard-Zoom"
 
 msgid "Ctrl+0 returns to the default."
 msgstr "Strg+0 setzt auf den Standardwert zurück."

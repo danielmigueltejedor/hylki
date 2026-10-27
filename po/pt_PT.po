@@ -5162,6 +5162,10 @@ msgstr "Predefinição do sistema"
 msgid "Account of the current folder"
 msgstr "Conta da pasta atual"
 
+#, fuzzy
+msgid "Same as messages"
+msgstr "Mensagens de e-mail"
+
 msgid "Above the quoted message"
 msgstr "Acima da mensagem citada"
 
@@ -7090,6 +7094,12 @@ msgstr ""
 msgid "For rich text, in points."
 msgstr "Para texto formatado, em pontos."
 
+msgid "Default zoom"
+msgstr "Zoom predefinido"
+
+msgid "On screen only. Ctrl+0 shows the size that is sent."
+msgstr ""
+
 msgid "Reply in the original's format"
 msgstr "Responder no formato original"
 
@@ -7156,9 +7166,6 @@ msgstr "Botão de modo claro / escuro"
 
 msgid "Displays in the message header for each message."
 msgstr "Mostrado no cabeçalho de cada mensagem."
-
-msgid "Default zoom"
-msgstr "Zoom predefinido"
 
 msgid "Ctrl+0 returns to the default."
 msgstr "Ctrl+0 repõe a predefinição."

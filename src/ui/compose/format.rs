@@ -57,16 +57,22 @@ fn format_hint(format: ComposeFormat) -> String {
 
 /// The zoom of the body, in percent: the session's, so the next composer
 /// opens at the size the last one was left at. 0 until the first change,
-/// which reads as the reader's default from Settings: a message written at
-/// one size and read at another looked shrunk in the writing (#535).
-pub(super) static ZOOM: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(0);
+/// which reads as Settings → Composing → Default zoom, itself the reader's
+/// unless set: a message written at one size and read at another looked
+/// shrunk in the writing (#535).
+static ZOOM: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(0);
 
 /// The body's zoom now; see [`ZOOM`].
 pub(super) fn session_zoom() -> u32 {
     match ZOOM.load(std::sync::atomic::Ordering::Relaxed) {
-        0 => crate::config::load_reader_zoom(),
+        0 => crate::config::load_compose_zoom(),
         z => z,
     }
+}
+
+/// Back to the default from Settings for the next composer.
+pub(crate) fn forget_zoom() {
+    ZOOM.store(0, std::sync::atomic::Ordering::Relaxed);
 }
 
 /// The body's zoom as a chip at the start of the format bar, shown only

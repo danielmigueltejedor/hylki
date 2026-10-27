@@ -5172,6 +5172,10 @@ msgstr "Predeterminado del sistema"
 msgid "Account of the current folder"
 msgstr "Cuenta de la carpeta actual"
 
+#, fuzzy
+msgid "Same as messages"
+msgstr "Mensajes de correo electrónico"
+
 msgid "Above the quoted message"
 msgstr "Encima del mensaje citado"
 
@@ -7097,6 +7101,12 @@ msgstr ""
 msgid "For rich text, in points."
 msgstr "Para texto con formato, en puntos."
 
+msgid "Default zoom"
+msgstr "Zoom predeterminado"
+
+msgid "On screen only. Ctrl+0 shows the size that is sent."
+msgstr ""
+
 msgid "Reply in the original's format"
 msgstr "Responder en el formato original"
 
@@ -7162,9 +7172,6 @@ msgstr "Interruptor del modo claro/oscuro"
 
 msgid "Displays in the message header for each message."
 msgstr "Se muestra en la cabecera de cada mensaje."
-
-msgid "Default zoom"
-msgstr "Zoom predeterminado"
 
 msgid "Ctrl+0 returns to the default."
 msgstr "Ctrl+0 restablece el valor predeterminado."

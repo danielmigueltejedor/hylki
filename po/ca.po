@@ -5137,6 +5137,10 @@ msgstr "Per defecte del sistema"
 msgid "Account of the current folder"
 msgstr "Compte de la carpeta actual"
 
+#, fuzzy
+msgid "Same as messages"
+msgstr "Missatges de correu"
+
 msgid "Above the quoted message"
 msgstr "A sobre del missatge citat"
 
@@ -7045,6 +7049,12 @@ msgstr "Per al text enriquit. Per defecte deixa la font del destinatari."
 msgid "For rich text, in points."
 msgstr "Per al text enriquit, en punts."
 
+msgid "Default zoom"
+msgstr "Zoom per defecte"
+
+msgid "On screen only. Ctrl+0 shows the size that is sent."
+msgstr ""
+
 msgid "Reply in the original's format"
 msgstr "Respon en el format de l'original"
 
@@ -7110,9 +7120,6 @@ msgstr "Interruptor de mode clar / fosc"
 
 msgid "Displays in the message header for each message."
 msgstr "Es mostra a l'encapçalament de cada missatge."
-
-msgid "Default zoom"
-msgstr "Zoom per defecte"
 
 msgid "Ctrl+0 returns to the default."
 msgstr "Ctrl+0 torna al valor per defecte."

@@ -5315,6 +5315,10 @@ msgstr "Predefinito di sistema"
 msgid "Account of the current folder"
 msgstr "Account della cartella corrente"
 
+#, fuzzy
+msgid "Same as messages"
+msgstr "Messaggi e-mail"
+
 msgid "Above the quoted message"
 msgstr "Sopra il messaggio citato"
 
@@ -7269,6 +7273,12 @@ msgstr ""
 msgid "For rich text, in points."
 msgstr ""
 
+msgid "Default zoom"
+msgstr "Zoom predefinito"
+
+msgid "On screen only. Ctrl+0 shows the size that is sent."
+msgstr ""
+
 #, fuzzy
 msgid "Reply in the original's format"
 msgstr "Rispondi con i file"
@@ -7340,9 +7350,6 @@ msgstr "Interruttore Modalità chiara / scura"
 #, fuzzy
 msgid "Displays in the message header for each message."
 msgstr "Apre il messaggio con un inoltro avviato."
-
-msgid "Default zoom"
-msgstr "Zoom predefinito"
 
 msgid "Ctrl+0 returns to the default."
 msgstr ""

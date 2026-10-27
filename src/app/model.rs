@@ -738,6 +738,8 @@ pub(crate) struct AppModel {
     /// leave them to the recipient.
     pub(super) compose_font: String,
     pub(super) compose_font_size: u32,
+    /// Settings → Composing → Default zoom; 0 = the reader's (#535).
+    pub(super) compose_zoom: u32,
     /// What a printed page carries besides the message (#359).
     pub(super) print_options: config::PrintOptions,
     /// New messages start as plain text (#180).

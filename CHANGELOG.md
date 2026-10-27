@@ -7,9 +7,9 @@
   body in rich text, as they already did in the other formats. The message
   sent is unchanged and the font size picker still names the size that is
   sent; a chip at the start of the format bar shows the zoom while it is
-  not 100%, and a click on it goes back there. The composer now starts at
-  the reader's default zoom from Settings rather than at 100%, so text is
-  written at the size it is read at.
+  not 100%, and a click on it goes back there. A new message opens at
+  **Settings → Composing → Default zoom**, which by default follows the
+  reader's default zoom, so text is written at the size it is read at.
 
 - **Added: a countdown line in the Undo Send toast** (#534, by Fabio
   Rotondo). While a message waits out the Undo Send delay, a line along the

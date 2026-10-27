@@ -515,6 +515,7 @@ impl AppModel {
             | PrefOutput::SetToolbarExpanded(..)
             | PrefOutput::SetComposeFont(..)
             | PrefOutput::SetComposeFontSize(..)
+            | PrefOutput::SetComposeZoom(..)
             | PrefOutput::SetPrintOptions(..)
             | PrefOutput::SetSpellcheck(..)
             | PrefOutput::SetSpellcheckLangs(..)

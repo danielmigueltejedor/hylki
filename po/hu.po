@@ -5365,6 +5365,10 @@ msgstr "Rendszer alapértelmezés"
 msgid "Account of the current folder"
 msgstr "A jelenlegi mappa fiókja"
 
+#, fuzzy
+msgid "Same as messages"
+msgstr "{n} db üzenet"
+
 msgid "Above the quoted message"
 msgstr "Az idézett üzenet felett"
 
@@ -7356,6 +7360,12 @@ msgstr ""
 msgid "For rich text, in points."
 msgstr ""
 
+msgid "Default zoom"
+msgstr "Alapértelmezett nagyítás"
+
+msgid "On screen only. Ctrl+0 shows the size that is sent."
+msgstr ""
+
 #, fuzzy
 msgid "Reply in the original's format"
 msgstr "Válasz ezekkel a fájlokkal"
@@ -7428,9 +7438,6 @@ msgstr ""
 #, fuzzy
 msgid "Displays in the message header for each message."
 msgstr "Megnyitja az üzenetet, amelyben már megkezdődött az átirányítás."
-
-msgid "Default zoom"
-msgstr "Alapértelmezett nagyítás"
 
 msgid "Ctrl+0 returns to the default."
 msgstr ""
