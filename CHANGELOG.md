@@ -13,8 +13,21 @@
 
 - **Added: a countdown line in the Undo Send toast** (#534, by Fabio
   Rotondo). While a message waits out the Undo Send delay, a line along the
-  toast's bottom edge fills from left to right until the moment it goes. The toast's line is now plain text,
-  so a subject with `&` or `<` in it shows as written.
+  toast's bottom edge fills from left to right until the moment it goes.
+  The toast's line is now plain text, so a subject with `&` or `<` in it
+  shows as written.
+
+- **Added: Sign and Encrypt show when they are on.** In the composer the
+  OpenPGP shield and lock take the accent color while switched on, and
+  their tooltips end in On or Off. In the narrow window's ⋯ menu a
+  switched-on entry is shaded like a pressed button and keeps its own icon
+  instead of a tick.
+
+- **Fixed: Tab stopped going round the composer after the body.** Tab off
+  the end of the body gave the keyboard to a hidden part of the editor,
+  which then kept every Tab and Shift+Tab. Tab and Shift+Tab now come round
+  to the top of the composer again, and an inline reply no longer sends
+  them on into the main window.
 
 - **Fixed: a star or read state changed on another device stayed on older
   mail** (#532, reported by amadeusp). A folder's sync re-read the flags of
