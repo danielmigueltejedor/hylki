@@ -634,6 +634,10 @@ pub(crate) struct AppModel {
     /// (#166), so reopening a tag view within a few seconds does not scan
     /// every folder again.
     pub(super) keyword_sync_at: HashMap<u32, std::time::Instant>,
+    /// When each folder's stars and read state were last checked against
+    /// the server for an open Smart Folder or Starred view (#532), by
+    /// account and path.
+    pub(super) flag_sync_at: HashMap<(u32, String), std::time::Instant>,
     /// The tag colors as `.tag-<keyword>` classes, app-wide (the list's
     /// chips, the sidebar's rows, the menus' swatches).
     pub(super) tag_provider: crate::ui::DisplayCss,

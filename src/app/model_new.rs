@@ -456,6 +456,7 @@ impl AppModel {
             smart_counts_due: false,
             smart_counts_running: false,
             keyword_sync_at: HashMap::new(),
+            flag_sync_at: HashMap::new(),
             tag_provider: crate::ui::DisplayCss::new(),
             // Demo mode gets a cache that never touches disk, seeded with the
             // sample mail: the gallery's paging, search and sort are database

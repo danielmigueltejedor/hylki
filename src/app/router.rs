@@ -344,6 +344,7 @@ impl AppModel {
             | AppMsg::FolderSynced { .. }) => self.on_filter_run(msg, sender),
             msg @ (AppMsg::SmartSelected(..)
             | AppMsg::SmartViewLoaded { .. }
+            | AppMsg::FlagsSynced { .. }
             | AppMsg::CountSmartFolders
             | AppMsg::SmartCounts(..)
             | AppMsg::SetSmartFolders(..)) => self.on_smart(msg, sender),

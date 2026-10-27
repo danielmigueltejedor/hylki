@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **Fixed: a star or read state changed on another device stayed on older
+  mail** (#532, reported by amadeusp). A folder's sync re-read the flags of
+  its newest 50 messages only, so a star taken off older mail elsewhere
+  stayed in the folder, in Smart Folders and in Starred. Each IMAP folder
+  sync now checks the whole folder's stars and read state against the
+  server, and Refresh with a Smart Folder or Starred open checks every
+  folder the view covers, as opening one does.
+
 - **Fixed: right-to-left text in the composer, follow-up** (#524, reported
   by bjesus). A right-to-left line written with Shift+Return in a paragraph
   that runs the other way was sent left to right; it now goes out with its
