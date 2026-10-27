@@ -290,6 +290,8 @@ pub(crate) enum AppMsg {
         message: Message,
         thread: Vec<Message>,
         solo: bool,
+        /// The rows likely opened next (#474).
+        ahead: Vec<Message>,
     },
     /// The open conversation gained a member (a reply synced in while it
     /// was on screen): show it in place, without a re-selection.

@@ -79,6 +79,10 @@ impl Preferences {
             .set_active(init.auto_remote_content);
         widgets
             .privacy
+            .remote_ahead_row
+            .set_active(init.remote_ahead);
+        widgets
+            .privacy
             .show_remote_banner_row
             .set_active(init.show_remote_banner);
         widgets

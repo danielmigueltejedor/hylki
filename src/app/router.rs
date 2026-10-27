@@ -462,6 +462,7 @@ impl AppModel {
             | PrefOutput::SetShowRemoteBanner(..)
             | PrefOutput::SetShowSpoofBanner(..)
             | PrefOutput::SetAutoRemoteContent(..)
+            | PrefOutput::SetRemoteAhead(..)
             | PrefOutput::SetThreading(..)
             | PrefOutput::SetThreadExpansion(..)
             | PrefOutput::SetThreadRowNewest(..)

@@ -3,7 +3,7 @@
 
 use super::dark::{adapt_colors_for_dark, pin_color_scheme};
 use super::html::{attr_escape, body_html};
-use super::remote::strip_remote;
+use super::remote::{route_remote, strip_remote};
 use super::style::{auto_direction, inject_csp, inject_reader_style, reader_style_css};
 use super::types::CardAttachment;
 use adw::prelude::*;
@@ -150,7 +150,13 @@ pub(super) fn message_frame(
     } else {
         style
     };
-    let doc = if restrict { strip_remote(&doc) } else { doc };
+    // Allowed remote content goes through the app's cache (#474), so a
+    // message shown again, or fetched ahead, paints without the network.
+    let doc = if restrict {
+        strip_remote(&doc)
+    } else {
+        route_remote(&doc)
+    };
     // Dark mode: adapt the message's own colors so dark-on-dark text can't
     // happen (issue #35). `color-scheme` only helps unstyled mail; anything
     // that sets explicit dark text without a background needs its colors

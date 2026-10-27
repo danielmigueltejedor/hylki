@@ -7,6 +7,7 @@ use super::*;
 #[derive(Debug)]
 pub(crate) struct PrefInit {
     pub(crate) auto_remote_content: bool,
+    pub(crate) remote_ahead: bool,
     pub(crate) show_remote_banner: bool,
     pub(crate) show_spoof_banner: bool,
     pub(crate) gravatar: bool,
@@ -403,6 +404,7 @@ pub(crate) enum PrefOutput {
     /// A category was shown, so the app can reopen the window on it.
     PageShown(String),
     SetAutoRemoteContent(bool),
+    SetRemoteAhead(bool),
     SetShowRemoteBanner(bool),
     SetShowSpoofBanner(bool),
     SetGravatar(bool),

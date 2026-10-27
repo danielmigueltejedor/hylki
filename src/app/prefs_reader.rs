@@ -137,6 +137,12 @@ impl AppModel {
                 }
             }
 
+            PrefOutput::SetRemoteAhead(on) => {
+                if pref!(self.remote_ahead = on) && !on {
+                    crate::services::remote_content::fetch_ahead([]);
+                }
+            }
+
             PrefOutput::SetAutoRemoteContent(on) => {
                 if pref!(self.auto_remote_content = on) {
                     // Re-render what is open so the change takes effect there too:

@@ -49,6 +49,7 @@ pub(crate) use frame::theme_grounds_for;
 pub(crate) use menu::MenuHit;
 pub(crate) use menu::{hit_menu_entries, strip_navigation_items};
 pub(crate) use page_fade::{on_next_page_fade, PAGE_FADE_MS};
+pub(crate) use remote::remote_urls;
 pub(crate) use types::{
     CardAttachment, InviteAction, MessageViewInput, MessageViewOutput, SelectMode, TrState,
     UnsubState,

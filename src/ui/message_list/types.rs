@@ -435,6 +435,9 @@ pub(crate) enum MessageListOutput {
         message: Message,
         thread: Vec<Message>,
         solo: bool,
+        /// The rows the user is likely to open next, for fetching their
+        /// remote content ahead (#474).
+        ahead: Vec<Message>,
     },
     /// Every selected message, whenever that changes — the reader outlines the
     /// matching cards. Each comes with its folder: a view of several folders

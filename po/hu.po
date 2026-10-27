@@ -5795,6 +5795,12 @@ msgstr "Távoli tartalom mindig töltődjön be"
 msgid "Remote content can tell a sender when and where you read."
 msgstr ""
 
+msgid "Pre-load remote content for the next messages"
+msgstr ""
+
+msgid "Their senders can tell they were opened."
+msgstr ""
+
 msgid "Warn when remote content is blocked"
 msgstr "Figyelmeztetés távoli tartalom blokkolásakor"
 

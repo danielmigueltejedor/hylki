@@ -30,6 +30,11 @@ pub(crate) struct PrivacyFile {
     /// remote content can be used to track when and where a message is read.
     #[serde(default)]
     pub(crate) auto_remote_content: bool,
+    /// Whether the remote content of the next messages in the list is
+    /// fetched while one is read (#474), where remote content is allowed.
+    /// Off by default: a sender's tracking learns of a message never opened.
+    #[serde(default)]
+    pub(crate) remote_ahead: bool,
     /// Whether to load sender avatars from Gravatar (off by default — it sends
     /// a hash of each sender's email to a third party).
     #[serde(default)]
@@ -616,6 +621,7 @@ impl Default for PrivacyFile {
         Self {
             allowed_senders: Vec::new(),
             auto_remote_content: false,
+            remote_ahead: false,
             show_remote_banner: true,
             show_spoof_banner: true,
             show_unified: true,

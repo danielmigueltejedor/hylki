@@ -75,7 +75,11 @@ impl AppModel {
                 message: m,
                 thread,
                 solo,
-            } => self.on_message_selected(m, thread, solo, sender),
+                ahead,
+            } => {
+                self.on_message_selected(m, thread, solo, sender);
+                self.fetch_remote_ahead(&ahead);
+            }
 
             AppMsg::ThreadGrew { message: m, thread } => self.on_thread_grew(m, thread),
 
@@ -499,6 +503,28 @@ impl AppModel {
         }
 
         self.load_attachments_on_open(&m, folder_path);
+    }
+
+    /// With the Privacy switch on, the remote content of the rows likely
+    /// opened next is fetched while this one is read (#474): only where
+    /// it would be loaded on opening anyway, and only from bodies already
+    /// here, so nothing is asked of the mail server for it.
+    fn fetch_remote_ahead(&self, ahead: &[Message]) {
+        if !self.remote_ahead {
+            return;
+        }
+        let bodies: Vec<&str> = ahead
+            .iter()
+            .filter(|m| self.remote_allowed(m))
+            .filter_map(|m| {
+                if !m.body.is_empty() {
+                    Some(m.body.as_str())
+                } else {
+                    self.body_cache.get(&body_key(m)).map(String::as_str)
+                }
+            })
+            .collect();
+        crate::services::remote_content::fetch_ahead(bodies);
     }
 
     /// Opened with Gmail's o or Enter: the keyboard follows it into

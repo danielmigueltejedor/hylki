@@ -16,6 +16,7 @@ impl AppModel {
         config::save_privacy(config::PrivacyFile {
             allowed_senders: self.allowed_senders.clone(),
             auto_remote_content: self.auto_remote_content,
+            remote_ahead: self.remote_ahead,
             gravatar: self.gravatar,
             avatars: self.avatars,
             own_mailbox_face: self.own_mailbox_face,

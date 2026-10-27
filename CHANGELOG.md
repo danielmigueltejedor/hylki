@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- **Added: remote content is cached, and can be loaded ahead** (#474,
+  requested by bstegmaier75). Images, stylesheets and fonts a message loads
+  from the web are fetched by the app instead of the reader's web engine, whose
+  cache was off since the memory fix for #106, and kept on disk for a week, up
+  to 2 GB. A message shown again paints without the network. **Settings →
+  Privacy → Pre-load remote content for the next messages**, off by default,
+  fetches the remote content of the next three rows in the list, and the one
+  before, while a message is read: only where it would load on opening, from
+  bodies already downloaded, and not on a metered connection when Settings
+  asks to save data there. The fetches send no cookies and no Referer.
+
 - **Added: zoom in the rich text composer** (#535, requested by
   j-canaan). Ctrl+, Ctrl-, Ctrl+0 and Ctrl with the scroll wheel zoom the
   body in rich text, as they already did in the other formats. The message

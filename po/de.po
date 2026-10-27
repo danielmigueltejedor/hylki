@@ -5604,6 +5604,12 @@ msgstr ""
 "Externe Inhalte können dem Absender verraten, wann und wo eine Nachricht "
 "gelesen wird."
 
+msgid "Pre-load remote content for the next messages"
+msgstr ""
+
+msgid "Their senders can tell they were opened."
+msgstr ""
+
 msgid "Warn when remote content is blocked"
 msgstr "Warnen, wenn externe Inhalte blockiert sind"
 

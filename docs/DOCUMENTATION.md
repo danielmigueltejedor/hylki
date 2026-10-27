@@ -1928,6 +1928,16 @@ views' caches in `~/.cache/hylki/`, and account pictures in
 Passwords and tokens are never in those files: they go to the system keyring
 through the Secret Service. Decrypted OpenPGP messages are never cached at all.
 
+**Remote content**, once allowed for a message, is fetched by Hylki itself, with
+no cookies and no Referer, and kept in `~/.cache/hylki/remote/` for a week, up
+to 2 GB, so a message shown again does not fetch it again. **Settings →
+Privacy → Pre-load remote content for the next messages** fetches it for the next
+three rows in the list, and the one before, while a message is read: only
+for mail whose remote content would load anyway, and not on a metered
+connection when Settings asks to save data there. It is off by default,
+because a sender's tracking pixel then reports a message as opened before you
+open it. Stored as `remote_ahead` in `privacy.toml`.
+
 **Translation** is off until a service is chosen in Settings → Translation.
 After that, a message's text goes to that service only when you press
 Translate on it, and encrypted messages never do. See

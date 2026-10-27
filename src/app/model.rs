@@ -380,6 +380,8 @@ pub(crate) struct AppModel {
     pub(super) invite_answers: Vec<config::InviteAnswer>,
     /// Whether remote content is auto-loaded for every new message.
     pub(super) auto_remote_content: bool,
+    /// Whether the next messages' remote content is fetched ahead (#474).
+    pub(super) remote_ahead: bool,
     /// Whether the blocked-remote-content banner is shown at all. Hiding it changes nothing about what
     /// is blocked — only whether the reader says so.
     pub(super) show_remote_banner: bool,

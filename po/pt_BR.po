@@ -5550,6 +5550,12 @@ msgid "Remote content can tell a sender when and where you read."
 msgstr ""
 "O conteúdo remoto pode indicar a um remetente quando e onde leu a mensagem."
 
+msgid "Pre-load remote content for the next messages"
+msgstr ""
+
+msgid "Their senders can tell they were opened."
+msgstr ""
+
 msgid "Warn when remote content is blocked"
 msgstr "Avisar quando o conteúdo remoto estiver bloqueado"
 

@@ -1,5 +1,6 @@
 allowed_senders = []
 auto_remote_content = false
+remote_ahead = false
 gravatar = false
 avatars = true
 sender_logos = false

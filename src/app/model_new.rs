@@ -327,6 +327,7 @@ impl AppModel {
             unsubscribed: config::load_unsubscribed(),
             invite_answers: config::load_invite_answers(),
             auto_remote_content: prefs.auto_remote_content,
+            remote_ahead: prefs.remote_ahead,
             show_remote_banner: prefs.show_remote_banner,
             show_spoof_banner: prefs.show_spoof_banner,
             blacklist: prefs.blacklist,

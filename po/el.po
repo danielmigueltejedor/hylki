@@ -5624,6 +5624,12 @@ msgstr ""
 "Το απομακρυσμένο περιεχόμενο μπορεί να ενημερώσει τον αποστολέα για το πότε "
 "και πού διαβάσατε το μήνυμα."
 
+msgid "Pre-load remote content for the next messages"
+msgstr ""
+
+msgid "Their senders can tell they were opened."
+msgstr ""
+
 msgid "Warn when remote content is blocked"
 msgstr "Προειδοποίηση όταν αποκλείεται απομακρυσμένο περιεχόμενο"
 

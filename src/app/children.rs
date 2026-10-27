@@ -28,10 +28,12 @@ fn message_list_output_msg(out: MessageListOutput) -> AppMsg {
             message,
             thread,
             solo,
+            ahead,
         } => AppMsg::MessageSelected {
             message,
             thread,
             solo,
+            ahead,
         },
         MessageListOutput::SelectionKeys(keys) => AppMsg::SelectionKeys(keys),
         MessageListOutput::Checked(count) => AppMsg::ListChecked(count),
