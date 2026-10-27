@@ -3140,6 +3140,11 @@ msgstr "Γράψτε τον κώδικα HTML του μηνύματος με τ�
 msgid "No formatting at all"
 msgstr "Χωρίς καμία μορφοποίηση"
 
+msgid ""
+"Zoom of the text on screen, not of the message sent. A click here, or "
+"Ctrl+0, puts it back to 100%."
+msgstr ""
+
 msgid "Writing in {format}"
 msgstr "Σύνταξη σε {format}"
 

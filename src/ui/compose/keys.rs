@@ -111,7 +111,6 @@ impl Compose {
         let s = sender.clone();
         let open = self.completion_open.clone();
         let editor = self.editor.clone();
-        let zoomable = self.zoomable.clone();
         // Weak: the root owns this controller, so a strong root here would
         // be a cycle that kept a closed composer's whole widget tree alive,
         // its editor's WebKitWebProcess included (#221).
@@ -148,16 +147,12 @@ impl Compose {
                 editor.paste(!crate::config::load_privacy().paste_plain);
                 return Propagation::Stop;
             }
-            // Ctrl+ / Ctrl- / Ctrl+0 zoom the body, as they zoom the reader,
-            // in the formats whose size is not part of the message. This
-            // is a composer window's; inline, the main window's own keys
-            // get there first and pass them on (app/shortcuts.rs).
+            // Ctrl+ / Ctrl- / Ctrl+0 zoom the body, as they zoom the reader.
+            // This is a composer window's; inline, the main window's own
+            // keys get there first and pass them on (app/shortcuts.rs).
             if let Some(step) = zoom_key(keyval, state) {
-                if zoomable.get() {
-                    s.input_sender().emit(ComposeInput::Zoom(step));
-                    return Propagation::Stop;
-                }
-                return Propagation::Proceed;
+                s.input_sender().emit(ComposeInput::Zoom(step));
+                return Propagation::Stop;
             }
             // Ctrl+Enter sends (#238), as it does in Gmail, Apple Mail and
             // Thunderbird. Ahead of the suggestion list's own Enter, so a

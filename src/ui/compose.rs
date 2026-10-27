@@ -29,7 +29,7 @@ mod types;
 
 use crate::ui::later::{next_monday, preset_time};
 use cloud::not_signed_in;
-use format::{markdown_body, SHOWCASE_PLAIN_LOG, ZOOM};
+use format::{markdown_body, session_zoom, zoom_chip, SHOWCASE_PLAIN_LOG};
 use host::{fold_on_first_map, pgp_tooltip, set_toggle_icon, size_for_host, COMPOSE_MIN_WIDTH};
 pub(crate) use keys::composer_key;
 pub(crate) use messages::{ComposeInput, ComposeOutput};
@@ -528,15 +528,13 @@ impl Component for Compose {
             format == ComposeFormat::Plain,
         );
         editor.set_formatting_visible(format == ComposeFormat::Rich);
-        let zoomable = std::rc::Rc::new(std::cell::Cell::new(format != ComposeFormat::Rich));
-        if zoomable.get() {
-            editor.set_zoom(ZOOM.load(std::sync::atomic::Ordering::Relaxed));
-        }
+        editor.set_zoom(session_zoom());
+        let zoom_chip = zoom_chip(&sender);
+        editor.toolbar_end().prepend(&zoom_chip);
         {
-            let z = zoomable.clone();
             let s = sender.input_sender().clone();
             editor.widget.add_controller(super::ctrl_scroll_zoom(
-                move || z.get(),
+                || true,
                 move |step| {
                     let _ = s.send(ComposeInput::Zoom(step));
                 },
@@ -624,7 +622,7 @@ impl Component for Compose {
             sign_touched: false,
             sign_expected: None,
             format,
-            zoomable: zoomable.clone(),
+            zoom_chip,
             format_btn,
             translate_btn,
             signature_btn,

@@ -3113,6 +3113,11 @@ msgstr "Rédiger le code HTML du message à la main"
 msgid "No formatting at all"
 msgstr "Aucune mise en forme"
 
+msgid ""
+"Zoom of the text on screen, not of the message sent. A click here, or "
+"Ctrl+0, puts it back to 100%."
+msgstr ""
+
 msgid "Writing in {format}"
 msgstr "Rédaction en {format}"
 

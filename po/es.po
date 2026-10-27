@@ -3106,6 +3106,11 @@ msgstr "Escribe manualmente el HTML del mensaje"
 msgid "No formatting at all"
 msgstr "Sin ningún formato"
 
+msgid ""
+"Zoom of the text on screen, not of the message sent. A click here, or "
+"Ctrl+0, puts it back to 100%."
+msgstr ""
+
 msgid "Writing in {format}"
 msgstr "Escribiendo en {format}"
 
