@@ -35,6 +35,8 @@ pub(crate) struct MenuEntry {
     /// A switch that is on: the row gets the grey of a pressed toggle
     /// button, so it reads like the header button it stands in for.
     checked: bool,
+    /// Shown on hover in place of the label (a switch's state, say).
+    tooltip: Option<String>,
     /// The keys that do the same, shown dim at the end of the row (#497).
     accel: Option<String>,
     activate: Box<dyn Fn()>,
@@ -51,6 +53,7 @@ impl MenuEntry {
             enabled: true,
             selected: false,
             checked: false,
+            tooltip: None,
             accel: None,
             activate: Box::new(activate),
             submenu: None,
@@ -68,6 +71,7 @@ impl MenuEntry {
             enabled: !empty,
             selected: false,
             checked: false,
+            tooltip: None,
             accel: None,
             activate: Box::new(|| {}),
             submenu: Some(sections),
@@ -112,6 +116,12 @@ impl MenuEntry {
     /// Mark this entry as a switch that is on.
     pub(crate) fn checked(mut self, checked: bool) -> Self {
         self.checked = checked;
+        self
+    }
+
+    /// Text shown on hover, in place of the cut-short label's.
+    pub(crate) fn tooltip(mut self, text: impl Into<String>) -> Self {
+        self.tooltip = Some(text.into());
         self
     }
 
@@ -419,6 +429,7 @@ fn build_page(
                 enabled,
                 selected,
                 checked,
+                tooltip,
                 accel,
                 activate,
                 submenu,
@@ -456,7 +467,9 @@ fn build_page(
 
             let btn = gtk::Button::new();
             btn.set_child(Some(&row));
-            if label.chars().count() > MAX_LABEL_CHARS as usize {
+            if let Some(tip) = &tooltip {
+                btn.set_tooltip_text(Some(tip));
+            } else if label.chars().count() > MAX_LABEL_CHARS as usize {
                 btn.set_tooltip_text(Some(&label));
             }
             btn.add_css_class("flat");
