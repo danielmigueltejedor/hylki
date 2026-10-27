@@ -5214,8 +5214,8 @@ msgid "Account of the current folder"
 msgstr "Λογαριασμός του τρέχοντος φακέλου"
 
 #, fuzzy
-msgid "Same as messages"
-msgstr "Μηνύματα email"
+msgid "Same as reading pane zoom"
+msgstr "Στο παράθυρο ανάγνωσης."
 
 msgid "Above the quoted message"
 msgstr "Πάνω από το παρατιθέμενο μήνυμα"
@@ -7640,6 +7640,10 @@ msgstr "Τα ενοποιημένα εισερχόμενα σε φωτεινή �
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#, fuzzy
+#~ msgid "Same as messages"
+#~ msgstr "Μηνύματα email"
 
 #~ msgid "Leave in Inbox to only tag matching mail"
 #~ msgstr ""

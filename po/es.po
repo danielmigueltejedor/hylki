@@ -5173,8 +5173,8 @@ msgid "Account of the current folder"
 msgstr "Cuenta de la carpeta actual"
 
 #, fuzzy
-msgid "Same as messages"
-msgstr "Mensajes de correo electrónico"
+msgid "Same as reading pane zoom"
+msgstr "En el panel de lectura."
 
 msgid "Above the quoted message"
 msgstr "Encima del mensaje citado"
@@ -7566,6 +7566,10 @@ msgstr "La bandeja de entrada unificada en modo claro"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#, fuzzy
+#~ msgid "Same as messages"
+#~ msgstr "Mensajes de correo electrónico"
 
 #~ msgid "Leave in Inbox to only tag matching mail"
 #~ msgstr ""

@@ -4778,7 +4778,7 @@ msgstr ""
 msgid "Account of the current folder"
 msgstr ""
 
-msgid "Same as messages"
+msgid "Same as reading pane zoom"
 msgstr ""
 
 msgid "Above the quoted message"

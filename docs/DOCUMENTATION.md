@@ -1175,7 +1175,7 @@ write: the signature and the message quoted in a reply or forward keep their
 own look, and text given its own font or size in the message keeps it. **Other Font…** in the Font list picks any
 installed font. Default, for both, leaves the recipient's own font and size
 in charge. **Settings → Composing → Default zoom** is the size the
-composer shows a new message at, on screen only: Same as messages, the
+composer shows a new message at, on screen only: Same as reading pane zoom, the
 default, follows **Settings → Reading → Default zoom**. When the composer is narrow, the
 toolbar wraps onto a second row, the chevron staying beside the tools it
 shows wherever the row has room for it.

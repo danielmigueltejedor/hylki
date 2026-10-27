@@ -355,10 +355,10 @@ impl Preferences {
             });
         }
         {
-            // "Same as messages" first: 0, the reader's default zoom.
+            // "Same as reading pane zoom" first: 0, the reader's default zoom.
             let row = &widgets.composing.compose_zoom_row;
             let steps = crate::config::READER_ZOOM_STEPS;
-            let names: Vec<String> = std::iter::once(i18n("Same as messages"))
+            let names: Vec<String> = std::iter::once(i18n("Same as reading pane zoom"))
                 .chain(steps.iter().map(|z| format!("{z}%")))
                 .collect();
             row.set_model(Some(&gtk::StringList::new(

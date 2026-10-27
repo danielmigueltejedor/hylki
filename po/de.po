@@ -5188,8 +5188,8 @@ msgid "Account of the current folder"
 msgstr "Konto des aktuellen Ordners"
 
 #, fuzzy
-msgid "Same as messages"
-msgstr "E-Mails"
+msgid "Same as reading pane zoom"
+msgstr "Im Lesebereich"
 
 msgid "Above the quoted message"
 msgstr "Über der zitierten Nachricht"
@@ -7621,6 +7621,10 @@ msgstr "Der gemeinsame Posteingang im hellen Modus."
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#, fuzzy
+#~ msgid "Same as messages"
+#~ msgstr "E-Mails"
 
 #~ msgid "Leave in Inbox to only tag matching mail"
 #~ msgstr "Im Posteingang belassen und nur passende Nachrichten markieren"

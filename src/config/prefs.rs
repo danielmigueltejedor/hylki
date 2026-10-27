@@ -164,7 +164,7 @@ pub(super) fn default_reader_zoom() -> u32 {
 }
 
 /// The zoom a new message opens at: Settings → Composing's, or the
-/// reader's default while that says "Same as messages" (0) or anything off
+/// reader's default while that says "Same as reading pane zoom" (0) or anything off
 /// the step list.
 pub(crate) fn load_compose_zoom() -> u32 {
     let z = load_privacy().compose_zoom;

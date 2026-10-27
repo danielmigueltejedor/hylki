@@ -5366,8 +5366,8 @@ msgid "Account of the current folder"
 msgstr "A jelenlegi mappa fiókja"
 
 #, fuzzy
-msgid "Same as messages"
-msgstr "{n} db üzenet"
+msgid "Same as reading pane zoom"
+msgstr "Az olvasópanel eszköztárának összecsukása"
 
 msgid "Above the quoted message"
 msgstr "Az idézett üzenet felett"
@@ -7838,6 +7838,10 @@ msgstr "Az egységes beérkező levelek mappa világos üzemmódban"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#, fuzzy
+#~ msgid "Same as messages"
+#~ msgstr "{n} db üzenet"
 
 #~ msgid "Leave in Inbox to only tag matching mail"
 #~ msgstr ""

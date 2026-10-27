@@ -5163,8 +5163,8 @@ msgid "Account of the current folder"
 msgstr "Conta da pasta atual"
 
 #, fuzzy
-msgid "Same as messages"
-msgstr "Mensagens de e-mail"
+msgid "Same as reading pane zoom"
+msgstr "No painel de leitura."
 
 msgid "Above the quoted message"
 msgstr "Acima da mensagem citada"
@@ -7554,3 +7554,7 @@ msgstr "A caixa de entrada unificada no modo claro"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#, fuzzy
+#~ msgid "Same as messages"
+#~ msgstr "Mensagens de e-mail"

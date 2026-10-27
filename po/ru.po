@@ -5374,8 +5374,8 @@ msgid "Account of the current folder"
 msgstr "Учётная запись текущей папки"
 
 #, fuzzy
-msgid "Same as messages"
-msgstr "{n} сообщений"
+msgid "Same as reading pane zoom"
+msgstr "Сворачивать панель инструментов области чтения"
 
 msgid "Above the quoted message"
 msgstr "Над цитируемым сообщением"
@@ -7810,6 +7810,10 @@ msgstr "Общие входящие в светлом режиме"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#, fuzzy
+#~ msgid "Same as messages"
+#~ msgstr "{n} сообщений"
 
 #~ msgid "Leave in Inbox to only tag matching mail"
 #~ msgstr ""
