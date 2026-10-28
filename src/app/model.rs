@@ -823,9 +823,15 @@ pub(crate) struct AppModel {
     pub(super) outbox_by_account: HashMap<u32, Vec<crate::models::OutboxItem>>,
     /// Snoozed mail (#527), as snoozed.toml keeps it.
     pub(super) snoozed: Vec<config::Snooze>,
+    /// Whether the sidebar was last given the unified Snoozed row, which
+    /// it has only while something is snoozed (#542).
+    pub(super) snoozed_row: std::cell::Cell<bool>,
     /// Snoozed mail a worker has been asked to bring back, by (account
     /// address, Message-ID), with when to ask again if no answer comes.
     pub(super) snooze_waking: HashMap<(String, String), std::time::Instant>,
+    /// Snoozes an undo took back, by (account address, Message-ID), for a
+    /// redo to restore (#542).
+    pub(super) snooze_undone: HashMap<(String, String), config::Snooze>,
     /// The time a Snooze of the list's selection is for, while the list
     /// resolves which messages that is.
     pub(super) snooze_until: Option<i64>,

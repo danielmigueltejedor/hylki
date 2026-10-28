@@ -5828,6 +5828,9 @@ msgstr "Posteingänge"
 msgid "Snoozed"
 msgstr "Zurückgestellt"
 
+msgid "Shown only while mail is snoozed."
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Zähler ungelesener Nachrichten"
 

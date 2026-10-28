@@ -5790,6 +5790,9 @@ msgstr "Caixas de entrada"
 msgid "Snoozed"
 msgstr ""
 
+msgid "Shown only while mail is snoozed."
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Contagens de mensagens não lidas"
 

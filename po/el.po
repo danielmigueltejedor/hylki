@@ -5867,6 +5867,9 @@ msgstr "Εισερχόμενα"
 msgid "Snoozed"
 msgstr ""
 
+msgid "Shown only while mail is snoozed."
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Πλήθος μη αναγνωσμένων"
 

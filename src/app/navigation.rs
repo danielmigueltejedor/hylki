@@ -82,7 +82,9 @@ impl AppModel {
         let Some(view) = open else { return };
         let listed = match view {
             UnifiedView::Kind(FolderKind::Inbox) => self.unified_inboxes_shown(),
-            UnifiedView::Kind(kind) => self.multi_account() && self.unified_kinds.has(kind),
+            UnifiedView::Kind(kind) => {
+                self.multi_account() && self.unified_kinds_listed().has(kind)
+            }
             UnifiedView::Filtered => self.filtered_shown(),
             UnifiedView::Favorites => {
                 self.favorites_placement.shown() && !self.favorites.is_empty()

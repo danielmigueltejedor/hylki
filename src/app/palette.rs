@@ -377,7 +377,7 @@ impl AppModel {
             let listed = if kind == FolderKind::Inbox {
                 self.unified_inboxes_shown()
             } else {
-                self.unified_kinds.has(kind)
+                self.unified_kinds_listed().has(kind)
             };
             if listed {
                 go(

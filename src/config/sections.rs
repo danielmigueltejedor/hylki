@@ -16,9 +16,9 @@ pub(crate) fn load_unified_chips() -> UnifiedChips {
 
 /// Which of the unified section's folder rows are shown besides All
 /// Inboxes: each combines that folder across every account, and opens to
-/// the accounts' own. Starred, Sent, Drafts and Archive are on until
-/// switched off; Trash and Junk (#369) and Snoozed (#542) are off until
-/// switched on.
+/// the accounts' own. Starred, Sent, Drafts, Archive and Snoozed (#542)
+/// are on until switched off, Snoozed listed only while mail is snoozed;
+/// Trash and Junk (#369) are off until switched on.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 pub(crate) struct UnifiedKinds {
     #[serde(default = "default_on")]
@@ -33,7 +33,7 @@ pub(crate) struct UnifiedKinds {
     pub(crate) junk: bool,
     #[serde(default)]
     pub(crate) trash: bool,
-    #[serde(default)]
+    #[serde(default = "default_on")]
     pub(crate) snoozed: bool,
 }
 
@@ -46,7 +46,7 @@ impl Default for UnifiedKinds {
             archive: true,
             junk: false,
             trash: false,
-            snoozed: false,
+            snoozed: true,
         }
     }
 }

@@ -6025,6 +6025,9 @@ msgstr "Beérkezett üzenetek"
 msgid "Snoozed"
 msgstr ""
 
+msgid "Shown only while mail is snoozed."
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Olvasatlanok száma"
 

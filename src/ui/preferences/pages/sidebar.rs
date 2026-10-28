@@ -218,6 +218,7 @@ impl SidebarPage {
                     #[name = "unified_snoozed_row"]
                     adw::SwitchRow {
                         set_title: &i18n("Snoozed"),
+                        set_subtitle: &i18n("Shown only while mail is snoozed."),
                         connect_active_notify[sender] => move |row| {
                             sender.input(PrefInput::ToggleUnifiedSnoozed(row.is_active()));
                         },

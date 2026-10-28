@@ -179,8 +179,9 @@ no chevrons, a click on a section's icon opens or closes it, and a long
 press or a double click opens or closes the unified rows.
 
 **Settings → Sidebar → Unified** chooses the unified section's rows.
-Inboxes, Starred, Sent, Drafts and Archive are on until switched off; Junk,
-Trash and Snoozed are off until switched on. In the unified Junk and Trash, **Not
+Inboxes, Starred, Sent, Drafts, Archive and Snoozed are on until switched
+off, and Snoozed is listed only while mail is snoozed; Junk and Trash are off
+until switched on. In the unified Junk and Trash, **Not
 Spam** and **Move to Inbox** send each message to its own account's Inbox,
 and the right-click menu of each account's row beneath has **Empty Junk…**
 or **Empty Trash…**. The same item on the unified Junk or Trash row itself
@@ -1035,8 +1036,9 @@ phone or another mail program sees it leave the Inbox too. The folder is
 made the first time something is snoozed; on Gmail it is a label. In the
 Snoozed folder each message shows when it comes back in place of its date.
 A time chosen there replaces the old one, and **Unsnooze** brings the
-message back now. **Settings → Sidebar → Unified → Snoozed** adds a row that
-lists every account's snoozed mail together. A reply that arrives in the conversation brings it back
+message back now. While anything is snoozed, a **Snoozed** row in the unified
+section lists every account's snoozed mail together; **Settings → Sidebar →
+Unified → Snoozed** turns it off. A reply that arrives in the conversation brings it back
 early. **Undo** (Ctrl+Z) right after a snooze puts the message back where it
 was.
 

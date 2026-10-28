@@ -177,7 +177,7 @@ drafts = true
 archive = true
 junk = false
 trash = false
-snoozed = false
+snoozed = true
 
 [privacy.print]
 page_numbers = true

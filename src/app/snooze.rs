@@ -272,6 +272,66 @@ impl AppModel {
             config::save_snoozed(&self.snoozed);
         }
         self.push_snoozed();
+        // The unified Snoozed row comes with the first snooze and goes
+        // with the last (#542).
+        if self.unified_kinds_listed().snoozed != self.snoozed_row.get() {
+            self.rebuild_sidebar();
+        }
+    }
+
+    /// Undo and Redo of a Snooze (#542): mail an undo takes out of its
+    /// Snoozed folder takes its record along, kept for a redo to bring
+    /// back. A record left behind would wake nothing, but would keep the
+    /// unified Snoozed row up with nothing in it.
+    pub(super) fn follow_undo_move(
+        &mut self,
+        account_id: u32,
+        from: &str,
+        to: &str,
+        message_ids: &[String],
+    ) {
+        let Some(account) = self.account_email(account_id) else {
+            return;
+        };
+        let moved = |s: &Snooze, path: &str| {
+            s.account == account && s.path == path && message_ids.contains(&s.message_id)
+        };
+        let (out, keep): (Vec<Snooze>, Vec<Snooze>) = std::mem::take(&mut self.snoozed)
+            .into_iter()
+            .partition(|s| moved(s, from));
+        self.snoozed = keep;
+        let mut changed = !out.is_empty();
+        for s in out {
+            self.snooze_undone
+                .insert((s.account.clone(), s.message_id.clone()), s);
+        }
+        let back: Vec<(String, String)> = self
+            .snooze_undone
+            .iter()
+            .filter(|(_, s)| moved(s, to))
+            .map(|(k, _)| k.clone())
+            .collect();
+        for key in back {
+            if let Some(s) = self.snooze_undone.remove(&key) {
+                self.record_snooze(s);
+                changed = true;
+            }
+        }
+        if changed {
+            self.save_snoozed();
+        }
+    }
+
+    /// The unified rows the sidebar lists: those switched on, Snoozed only
+    /// while mail of an account in the unified section is snoozed (#542),
+    /// as Filters and Tags show only with a rule or a tag to list.
+    pub(super) fn unified_kinds_listed(&self) -> config::UnifiedKinds {
+        let mut kinds = self.unified_kinds;
+        kinds.snoozed &= self.snoozed.iter().any(|s| {
+            self.account_id_by_email(&s.account)
+                .is_some_and(|id| self.in_unified(id))
+        });
+        kinds
     }
 
     /// Tell the list when each snoozed message comes back, for its rows.
