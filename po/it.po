@@ -3763,6 +3763,17 @@ msgstr "Salva i nuovi contatti in"
 msgid "Unless another is picked when the contact is made."
 msgstr ""
 
+#, fuzzy
+msgid "In Mail"
+msgstr "Posta"
+
+#, fuzzy
+msgid "Show names from Contacts"
+msgstr "Nessun contatto"
+
+msgid "Saved addresses show the contact's name, not the mail's."
+msgstr ""
+
 msgid "Layout"
 msgstr "Layout"
 

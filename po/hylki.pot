@@ -3380,6 +3380,15 @@ msgstr ""
 msgid "Unless another is picked when the contact is made."
 msgstr ""
 
+msgid "In Mail"
+msgstr ""
+
+msgid "Show names from Contacts"
+msgstr ""
+
+msgid "Saved addresses show the contact's name, not the mail's."
+msgstr ""
+
 msgid "Layout"
 msgstr ""
 

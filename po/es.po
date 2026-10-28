@@ -3685,6 +3685,17 @@ msgstr "Guardar los contactos nuevos en"
 msgid "Unless another is picked when the contact is made."
 msgstr "Salvo que se elija otra al crear el contacto."
 
+#, fuzzy
+msgid "In Mail"
+msgstr "Correo"
+
+#, fuzzy
+msgid "Show names from Contacts"
+msgstr "De mis contactos"
+
+msgid "Saved addresses show the contact's name, not the mail's."
+msgstr ""
+
 msgid "Layout"
 msgstr "Diseño"
 

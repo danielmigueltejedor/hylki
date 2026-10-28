@@ -3657,6 +3657,17 @@ msgstr "Desa els contactes nous a"
 msgid "Unless another is picked when the contact is made."
 msgstr "Tret que se n'esculli una altra en crear el contacte."
 
+#, fuzzy
+msgid "In Mail"
+msgstr "Correu"
+
+#, fuzzy
+msgid "Show names from Contacts"
+msgstr "De contactes"
+
+msgid "Saved addresses show the contact's name, not the mail's."
+msgstr ""
+
 msgid "Layout"
 msgstr "Disposició"
 

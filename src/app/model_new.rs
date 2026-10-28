@@ -368,6 +368,7 @@ impl AppModel {
             list_pills_below: prefs.list_pills_below,
             list_search_open: prefs.list_search_open,
             contacts_search_open: prefs.contacts_search_open,
+            contact_names: prefs.contact_names,
             list_search_bottom: prefs.list_search_bottom,
             list_bulk_bar_bottom: prefs.list_bulk_bar_bottom,
             toolbar_fold_right: prefs.toolbar_fold_right,

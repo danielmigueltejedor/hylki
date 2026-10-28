@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- **Added: names from Contacts on mail** (#541, requested by
+  samuel-edlmeier). **Settings → Contacts → Show names from Contacts** shows
+  the name saved in the address book for a sender or recipient whose address
+  is there, in place of the name the message gives: in the list, its
+  Correspondents and Recipients columns and sender order, the reader's cards
+  and recipients, and the new-mail notification. Only address books kept by
+  hand count, not those that collect addresses from mail, so a message that
+  borrows a contact's name from another address still shows the name it
+  gave. Off by default.
+
 - **Added: read receipts** (#520, requested by dm1sh). A message that asks
   for a read receipt (RFC 8098) shows a banner with **Send Receipt** and
   **Ignore**; either answer is remembered, and marked `$MDNSent` on IMAP and

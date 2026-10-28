@@ -418,6 +418,10 @@ pub(crate) struct PrivacyFile {
     /// `list_search_open` keeps the message list's. Off by default.
     #[serde(default)]
     pub(crate) contacts_search_open: bool,
+    /// A saved contact goes by the name in the address book, not the one
+    /// its mail gives (#541). Off by default.
+    #[serde(default)]
+    pub(crate) contact_names: bool,
     /// The search field and the bulk bar open under the list instead of
     /// above it (#496). Off by default.
     #[serde(default)]
@@ -755,6 +759,7 @@ impl Default for PrivacyFile {
             date_groups_default_applied: true,
             list_search_open: false,
             contacts_search_open: false,
+            contact_names: false,
             list_search_bottom: false,
             list_bulk_bar_bottom: false,
             toolbar_fold_right: true,

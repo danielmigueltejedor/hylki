@@ -328,7 +328,7 @@ fn card_avatar(m: &Message, dark: bool) -> String {
     });
     own.unwrap_or_else(|| {
         let initial = m
-            .from_name
+            .shown_from_name()
             .trim()
             .chars()
             .next()
@@ -522,7 +522,7 @@ fn card_html(cards: &Cards<'_>, m: &Message, ava_html: &str, body: String) -> St
         // display name is attacker-controlled (and RFC 2047-decoded,
         // so any byte sequence can be delivered), and this document
         // is the trusted wrapper — not a sandboxed message frame.
-        from = escape_html(&m.from_name),
+        from = escape_html(&m.shown_from_name()),
         // An initials circle, tinted per sender address, so who
         // wrote each card — and which cards are your own replies —
         // reads at a glance (#22). Nothing is linked: a picture

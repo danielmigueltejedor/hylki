@@ -391,7 +391,7 @@ impl Row {
                 .meta
                 .people
                 .clone()
-                .unwrap_or_else(|| msg.from_name.clone());
+                .unwrap_or_else(|| msg.shown_from_name().into_owned());
             w.people.set_tooltip_text(Some(&people));
             w.people.set_label(&people);
             w.people.set_css_classes(weight);

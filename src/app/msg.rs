@@ -665,6 +665,9 @@ pub(crate) enum AppMsg {
     ContactSuggestions,
     /// The background EDS read for the contacts view finished.
     ContactsLoaded(Vec<crate::contacts::ContactDetails>),
+    /// The saved contacts' names by address, read for "Show names from
+    /// Contacts" (#541); empty with the switch off.
+    ContactNamesRead(std::collections::HashMap<String, String>),
     /// Right-click on the sidebar's Contacts row: the external app.
     LaunchGnomeContacts,
     /// Contact editor writes (run on a background thread against EDS).

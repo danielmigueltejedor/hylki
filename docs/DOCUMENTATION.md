@@ -520,6 +520,15 @@ Hylki book is kept by Evolution Data Server; without it, the page says so.
 **Save new contacts in**, at the foot of the page, sets the book a contact
 made in Hylki goes to.
 
+**Show names from Contacts**, on the same page, names a sender or recipient
+whose address is in an address book by the name saved there, not the one
+the message gives: in the message list, the reader and the new-mail
+notification. A contact then reads the same on all their mail, and mail
+that puts a contact's name on another address shows the name it gave,
+which gives it away. Address books that fill themselves from mail
+(Collected Addresses, Recently Contacted, Other Contacts) are not used for
+this, and a contact saved without a name keeps the message's.
+
 ### The Hylki address book
 
 Hylki keeps an address book of its own, the **Hylki Address Book**, beside

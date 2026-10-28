@@ -3829,6 +3829,17 @@ msgstr "Új névjegy"
 msgid "Unless another is picked when the contact is made."
 msgstr ""
 
+#, fuzzy
+msgid "In Mail"
+msgstr "Proton Mail"
+
+#, fuzzy
+msgid "Show names from Contacts"
+msgstr "Nincsenek névjegyek"
+
+msgid "Saved addresses show the contact's name, not the mail's."
+msgstr ""
+
 msgid "Layout"
 msgstr ""
 

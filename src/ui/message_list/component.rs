@@ -452,6 +452,7 @@ impl SimpleComponent for MessageList {
             MessageListInput::SetInDrafts(on) => self.on_set_in_drafts(on),
             MessageListInput::SetInTemplates(on) => self.in_templates = on,
             MessageListInput::ContactPhotosChanged => self.on_contact_photos_changed(),
+            MessageListInput::ContactNamesChanged => self.on_contact_names_changed(),
             MessageListInput::SetColorize(on) => self.on_set_colorize(on),
             MessageListInput::DayChanged => self.on_day_changed(&sender),
             MessageListInput::SetAccountColors(colors) => self.on_set_account_colors(colors),

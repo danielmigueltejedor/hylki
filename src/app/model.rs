@@ -466,6 +466,8 @@ pub(crate) struct AppModel {
     pub(super) list_search_open: bool,
     /// Contacts' search field stays open.
     pub(super) contacts_search_open: bool,
+    /// Saved contacts go by their address-book names (#541).
+    pub(super) contact_names: bool,
     /// The list's search field and bulk bar open under the rows (#496).
     pub(super) list_search_bottom: bool,
     pub(super) list_bulk_bar_bottom: bool,

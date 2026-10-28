@@ -149,6 +149,9 @@ pub(crate) enum MessageListInput {
     /// The GNOME Contacts photo index changed (EDS sync, or the first load
     /// finished) — refresh visible circles without losing the scroll position.
     ContactPhotosChanged,
+    /// The names "Show names from Contacts" puts on mail changed (#541):
+    /// names, the Correspondents column and the sender order with them.
+    ContactNamesChanged,
     /// The open folder is (or stopped being) a Sent folder — rows name the
     /// recipient there instead of the sender (#27).
     SetShowRecipient(bool),

@@ -3722,6 +3722,17 @@ msgstr "Αποθήκευση νέων επαφών στο"
 msgid "Unless another is picked when the contact is made."
 msgstr "Εκτός αν επιλεγεί άλλος κατά τη δημιουργία της επαφής."
 
+#, fuzzy
+msgid "In Mail"
+msgstr "Αλληλογραφία"
+
+#, fuzzy
+msgid "Show names from Contacts"
+msgstr "Από τις επαφές"
+
+msgid "Saved addresses show the contact's name, not the mail's."
+msgstr ""
+
 msgid "Layout"
 msgstr "Διάταξη"
 

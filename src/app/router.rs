@@ -208,6 +208,7 @@ impl AppModel {
             | AppMsg::ContactBooksLoaded { .. }
             | AppMsg::ContactSuggestions
             | AppMsg::ContactsLoaded(..)
+            | AppMsg::ContactNamesRead(..)
             | AppMsg::LaunchGnomeContacts
             | AppMsg::SaveContact { .. }
             | AppMsg::CreateContact { .. }
@@ -500,6 +501,7 @@ impl AppModel {
             | PrefOutput::SetListColumnScroll(..)
             | PrefOutput::SetListSearchOpen(..)
             | PrefOutput::SetContactsSearchOpen(..)
+            | PrefOutput::SetContactNames(..)
             | PrefOutput::SetListSearchBottom(..)
             | PrefOutput::SetListBulkBarBottom(..)
             | PrefOutput::SetGroupByDate(..)
