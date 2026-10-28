@@ -106,9 +106,19 @@ Adding it to a NixOS configuration is covered in its README.
 
 ## Beta channel
 
-Flatpak betas install alongside the stable app as a separate application
-(`co.hyprlab.Hylki.Beta`), with their own settings and cache. See
-[hylki.hyprlab.co](https://hylki.hyprlab.co) for the repo address.
+Betas come in every format the stable release does: Flatpak on **x86_64 and
+aarch64 (ARM64)**, and RPM and Debian packages on x86_64.
+
+The Flatpak beta installs alongside the stable app as a separate application
+(`co.hyprlab.Hylki.Beta`) and shares its accounts, settings and cached mail:
+
+```sh
+flatpak install --user --from https://hylki.hyprlab.co/flatpak/co.hyprlab.Hylki.Beta.flatpakref
+```
+
+Each beta release also carries `Hylki-Beta-x86_64.flatpak` and
+`Hylki-Beta-aarch64.flatpak` for a direct download. To remove the beta, run
+`flatpak uninstall co.hyprlab.Hylki.Beta`; the stable app is untouched.
 
 On Fedora, betas also come as RPMs from a beta dnf repository. They replace the
 installed `hylki` package rather than sitting beside it, and share its settings.
