@@ -141,6 +141,8 @@ pub(crate) struct PrefInit {
     pub(crate) theme: String,
     pub(crate) notifications: bool,
     pub(crate) notification_content: bool,
+    /// A notification when a read receipt comes back (#520).
+    pub(crate) notify_receipts: bool,
     pub(crate) notification_buttons: crate::config::NotificationButtons,
     pub(crate) show_attachments: bool,
     pub(crate) show_unified: bool,
@@ -474,6 +476,7 @@ pub(crate) enum PrefOutput {
     SetMeteredSaveData(bool),
     SetNotifications(bool),
     SetNotificationContent(bool),
+    SetNotifyReceipts(bool),
     SetNotificationButtons(crate::config::NotificationButtons),
     SetAttachmentsRow(bool),
     SetShowUnified(bool),

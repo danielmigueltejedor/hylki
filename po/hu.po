@@ -1288,6 +1288,10 @@ msgid ""
 "read or understood."
 msgstr ""
 
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Válaszcím"
+
 msgid "Full Release Notes on GitHub"
 msgstr "A teljes verzióinformáció a GitHub-on"
 
@@ -1917,10 +1921,6 @@ msgstr "Címzettek elrejtése"
 
 msgid "{who}, {when}"
 msgstr ""
-
-#, fuzzy
-msgid "Read by {reader}"
-msgstr "Válaszcím"
 
 #, fuzzy
 msgid "Read by {count} of {total}"
@@ -5762,6 +5762,13 @@ msgstr ""
 
 msgid "Show sender and subject"
 msgstr "Feladó és tárgy megjelenítése"
+
+#, fuzzy
+msgid "Read receipts"
+msgstr "Címzettek elrejtése"
+
+msgid "When someone opens mail you asked a receipt for."
+msgstr ""
 
 msgid "Sound for new mail"
 msgstr "Hangjelzés új e-mail érkezésekor"

@@ -1235,6 +1235,10 @@ msgid ""
 "read or understood."
 msgstr ""
 
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Διεύθυνση απάντησης"
+
 msgid "Full Release Notes on GitHub"
 msgstr "Όλες οι σημειώσεις έκδοσης στο GitHub"
 
@@ -1857,10 +1861,6 @@ msgstr "Απόκρυψη παραληπτών"
 
 msgid "{who}, {when}"
 msgstr ""
-
-#, fuzzy
-msgid "Read by {reader}"
-msgstr "Διεύθυνση απάντησης"
 
 #, fuzzy
 msgid "Read by {count} of {total}"
@@ -5599,6 +5599,13 @@ msgstr ""
 
 msgid "Show sender and subject"
 msgstr "Εμφάνιση αποστολέα και θέματος"
+
+#, fuzzy
+msgid "Read receipts"
+msgstr "Απόκρυψη παραληπτών"
+
+msgid "When someone opens mail you asked a receipt for."
+msgstr ""
 
 msgid "Sound for new mail"
 msgstr "Ήχος για νέα αλληλογραφία"

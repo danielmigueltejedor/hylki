@@ -143,6 +143,10 @@ impl Preferences {
             .general
             .notification_content_row
             .set_active(init.notification_content);
+        widgets
+            .general
+            .notify_receipts_row
+            .set_active(init.notify_receipts);
         // Set before the handlers can act on it: the self already holds
         // these values, so the echo is ignored rather than played.
         widgets.general.sound_row.set_active(self.sound.enabled);

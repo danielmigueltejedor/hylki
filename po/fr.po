@@ -1228,6 +1228,10 @@ msgid ""
 "read or understood."
 msgstr ""
 
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Adresse de réponse"
+
 msgid "Full Release Notes on GitHub"
 msgstr "Notes de version complètes sur GitHub"
 
@@ -1850,10 +1854,6 @@ msgstr "Masquer les destinataires"
 
 msgid "{who}, {when}"
 msgstr ""
-
-#, fuzzy
-msgid "Read by {reader}"
-msgstr "Adresse de réponse"
 
 #, fuzzy
 msgid "Read by {count} of {total}"
@@ -5569,6 +5569,13 @@ msgstr ""
 
 msgid "Show sender and subject"
 msgstr "Afficher l’expéditeur et l’objet"
+
+#, fuzzy
+msgid "Read receipts"
+msgstr "Masquer les destinataires"
+
+msgid "When someone opens mail you asked a receipt for."
+msgstr ""
 
 msgid "Sound for new mail"
 msgstr "Son pour les nouveaux messages"

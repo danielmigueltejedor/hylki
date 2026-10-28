@@ -5,7 +5,9 @@
 use relm4::prelude::*;
 
 use crate::config::{self, ReturnedReceipts};
-use crate::models::{FolderKind, ReceiptMarks, SenderCheck};
+use crate::i18n::{i18n, i18n_f};
+use crate::mail::receipt::ReadReport;
+use crate::models::{FolderKind, Message, ReceiptMarks, SenderCheck};
 use crate::ui::message_list::MessageListInput;
 use crate::ui::message_view::MessageViewInput;
 use crate::ui::message_window::MessageWindowInput;
@@ -13,6 +15,9 @@ use crate::worker::MailRequest;
 
 use super::conversation::{body_key, BodyKey};
 use super::model::AppModel;
+
+/// How old a receipt may be and still be announced: a day.
+const RECEIPT_NEWS_SECS: i64 = 24 * 60 * 60;
 
 impl AppModel {
     /// Read what a sender check says about receipts: that mail the user
@@ -45,6 +50,8 @@ impl AppModel {
                     at: if r.at > 0 { r.at } else { crate::datefmt::now() },
                 });
                 changed = true;
+                // Before it is filed: the receipt mail may lend its subject.
+                self.announce_receipt(r, key);
             }
             if let Some(k) = key {
                 self.file_receipt(k);
@@ -92,6 +99,10 @@ impl AppModel {
             return;
         };
         self.receipts_filed.insert(key);
+        // The new-mail alert the receipt raised as it arrived goes with it.
+        if crate::desktop::notify::posted_for(account_id) == Some((folder_id, uid)) {
+            crate::desktop::notify::withdraw_mail(account_id);
+        }
         match self.held_message(key) {
             Some(m) => {
                 let Some(src) = self.resolve_folder_path(&m) else {
@@ -125,6 +136,66 @@ impl AppModel {
                 self.send_to(account_id, MailRequest::MoveMessage { path: src, uid, dest });
             }
         }
+    }
+
+    /// The desktop notification for a receipt that came back, when Settings
+    /// asks for one. Receipts more than a day old are an Inbox read for the
+    /// first time, not news.
+    fn announce_receipt(&self, r: &ReadReport, key: Option<BodyKey>) {
+        if !self.notifications_enabled
+            || !self.notify_receipts
+            || (r.at > 0 && crate::datefmt::now() - r.at > RECEIPT_NEWS_SECS)
+        {
+            return;
+        }
+        let sent = self.sent_message(&r.message_id);
+        let (title, body) = if self.notification_content {
+            let who = sent
+                .as_ref()
+                .and_then(|m| {
+                    [&m.to, &m.cc]
+                        .into_iter()
+                        .flat_map(|f| crate::worker::parse_recipients(f))
+                        .find(|(_, a)| a.eq_ignore_ascii_case(&r.by))
+                })
+                .map(|(name, _)| name.trim().to_string())
+                .filter(|name| !name.is_empty())
+                .unwrap_or_else(|| r.by.clone());
+            let subject = sent
+                .as_ref()
+                .map(|m| m.subject.clone())
+                .or_else(|| key.and_then(|k| self.held_message(k)).map(|m| m.subject))
+                .unwrap_or_default();
+            (i18n_f("Read by {reader}", &[("reader", &who)]), subject)
+        } else {
+            (i18n("Read receipt"), String::new())
+        };
+        let open = sent.map(|m| (m.account_id, m.folder_id, m.id)).or_else(|| {
+            let hits = crate::cache::Cache::open()
+                .map(|c| c.locate_by_message_id(&r.message_id))
+                .unwrap_or_default();
+            hits.into_iter().find_map(|(account_id, path, uid)| {
+                let folder = self.folder_by_path(account_id, &path)?;
+                Some((account_id, folder.id, uid))
+            })
+        });
+        crate::desktop::notify::read_receipt(&r.message_id, &title, &body, open);
+    }
+
+    /// The copy of the message `message_id` names that the app holds, the
+    /// one in Sent first.
+    fn sent_message(&self, message_id: &str) -> Option<Message> {
+        let held = || {
+            self.message_cache
+                .values()
+                .flat_map(|ms| ms.iter())
+                .chain(self.unified_slices.values().flatten())
+                .filter(|m| m.message_id.eq_ignore_ascii_case(message_id))
+        };
+        held()
+            .find(|m| self.folder_kind(m.account_id, m.folder_id) == Some(FolderKind::Sent))
+            .or_else(|| held().next())
+            .cloned()
     }
 
     /// What read_by.toml says, as the list and the readers look it up.

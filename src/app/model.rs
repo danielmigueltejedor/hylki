@@ -401,6 +401,7 @@ pub(crate) struct AppModel {
     /// mail already filed this session.
     pub(super) read_by: config::ReadByFile,
     pub(super) returned_receipts: config::ReturnedReceipts,
+    pub(super) notify_receipts: bool,
     pub(super) receipts_filed: HashSet<BodyKey>,
     /// Addresses/domains whose incoming inbox mail is auto-deleted (lowercased).
     pub(super) blacklist: Vec<String>,

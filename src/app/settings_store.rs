@@ -123,6 +123,7 @@ impl AppModel {
             receipts: self.receipts,
             request_receipts: self.request_receipts,
             returned_receipts: self.returned_receipts,
+            notify_receipts: self.notify_receipts,
             sidebar_hover_expand: self.sidebar_hover_expand,
             remember_sidebar: self.remember_sidebar,
             remember_rail: self.remember_rail,

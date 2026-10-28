@@ -1217,6 +1217,10 @@ msgid ""
 "read or understood."
 msgstr ""
 
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Adreça de resposta"
+
 msgid "Full Release Notes on GitHub"
 msgstr "Notes completes de la versió al GitHub"
 
@@ -1831,10 +1835,6 @@ msgstr "Amaga els destinataris"
 
 msgid "{who}, {when}"
 msgstr ""
-
-#, fuzzy
-msgid "Read by {reader}"
-msgstr "Adreça de resposta"
 
 #, fuzzy
 msgid "Read by {count} of {total}"
@@ -5519,6 +5519,13 @@ msgstr "Per a correu nou i errors, mentre la finestra és en segon pla."
 
 msgid "Show sender and subject"
 msgstr "Mostra el remitent i l'assumpte"
+
+#, fuzzy
+msgid "Read receipts"
+msgstr "Amaga els destinataris"
+
+msgid "When someone opens mail you asked a receipt for."
+msgstr ""
 
 msgid "Sound for new mail"
 msgstr "So per a correu nou"

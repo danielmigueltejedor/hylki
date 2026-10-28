@@ -159,6 +159,10 @@ impl AppModel {
                 pref!(self.notification_content = on);
             }
 
+            PrefOutput::SetNotifyReceipts(on) => {
+                pref!(self.notify_receipts = on);
+            }
+
             PrefOutput::SetNotificationButtons(buttons) => {
                 pref!(self.notification_buttons = buttons);
             }

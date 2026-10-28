@@ -132,6 +132,7 @@ read_mark = "shown"
 receipts = "ask"
 request_receipts = false
 returned_receipts = "trash"
+notify_receipts = true
 files_action = "ask"
 files_large = "ask"
 files_limit_mb = 20

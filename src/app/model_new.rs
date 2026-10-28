@@ -336,6 +336,7 @@ impl AppModel {
             request_receipts: prefs.request_receipts,
             read_by: config::load_read_by(),
             returned_receipts: prefs.returned_receipts,
+            notify_receipts: prefs.notify_receipts,
             receipts_filed: Default::default(),
             blacklist: prefs.blacklist,
             palette_collapse_secs: prefs.palette_collapse_secs,

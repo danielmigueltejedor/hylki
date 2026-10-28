@@ -1932,6 +1932,12 @@ on this computer, in `read_by.toml`, so another computer shows the marks only
 for the receipts it reads itself. A receipt that says the message was deleted
 unread does not turn the marks green, and stays in the Inbox.
 
+A receipt that comes back also posts a desktop notification, "Read by" the
+person, with the message's subject; clicking it opens the message. **Settings →
+General → Read receipts** turns it off. With **Show sender and subject** off it
+says only that a receipt came back, and receipts more than a day old, read for
+the first time, post nothing.
+
 ### Storage
 
 Messages and attachments that have been opened, or fetched ahead for the

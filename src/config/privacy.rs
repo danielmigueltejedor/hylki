@@ -556,6 +556,9 @@ pub(crate) struct PrivacyFile {
     /// Where a receipt that comes back goes (#520).
     #[serde(default)]
     pub(crate) returned_receipts: ReturnedReceipts,
+    /// A desktop notification when a receipt comes back (#520).
+    #[serde(default = "default_on")]
+    pub(crate) notify_receipts: bool,
     /// GNOME Files hand-off (#188 follow-up): what the files open into,
     /// what happens over the size limit, and the limit itself in MB.
     #[serde(default)]
@@ -653,6 +656,7 @@ impl Default for PrivacyFile {
             receipts: ReceiptPolicy::default(),
             request_receipts: false,
             returned_receipts: ReturnedReceipts::default(),
+            notify_receipts: true,
             files_action: FilesAction::default(),
             files_large: FilesLarge::default(),
             files_limit_mb: default_files_limit_mb(),

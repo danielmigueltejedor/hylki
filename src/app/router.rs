@@ -438,6 +438,7 @@ impl AppModel {
             | PrefOutput::SetPush(..)
             | PrefOutput::SetNotifications(..)
             | PrefOutput::SetNotificationContent(..)
+            | PrefOutput::SetNotifyReceipts(..)
             | PrefOutput::SetNotificationButtons(..)
             | PrefOutput::SetRunInBackground(..)
             | PrefOutput::SetAutostart(..)

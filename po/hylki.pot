@@ -1145,6 +1145,9 @@ msgid ""
 "read or understood."
 msgstr ""
 
+msgid "Read by {reader}"
+msgstr ""
+
 msgid "Full Release Notes on GitHub"
 msgstr ""
 
@@ -1702,9 +1705,6 @@ msgid "No read receipt yet"
 msgstr ""
 
 msgid "{who}, {when}"
-msgstr ""
-
-msgid "Read by {reader}"
 msgstr ""
 
 msgid "Read by {count} of {total}"
@@ -5128,6 +5128,12 @@ msgid "For new mail and errors, while the window is in the background."
 msgstr ""
 
 msgid "Show sender and subject"
+msgstr ""
+
+msgid "Read receipts"
+msgstr ""
+
+msgid "When someone opens mail you asked a receipt for."
 msgstr ""
 
 msgid "Sound for new mail"
