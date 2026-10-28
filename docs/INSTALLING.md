@@ -50,8 +50,9 @@ package adds the repository itself, so an RPM installed from a download
 keeps updating too; it is the same `/etc/yum.repos.d/hylki.repo`, kept if you
 edit it (set `enabled=0` to stop updates from it).
 
-The RPM targets current Fedora releases (44+) on x86_64 only. On ARM, or on
-anything older, use the Flatpak or [build from source](BUILDING.md).
+The RPM targets current Fedora releases (44+) on x86_64, and on aarch64 from
+1.46.0 (the betas from 1.46.0-beta.5). On anything older, use the Flatpak or
+[build from source](BUILDING.md).
 
 ## Debian and Ubuntu
 
@@ -70,13 +71,15 @@ dnf repository's, so there is no key to import separately.
 
 The `.deb` is also attached to each
 [release](https://github.com/hyprlab/hylki/releases/latest); install it with
-`sudo apt install ./hylki_*_amd64.deb`, which fetches its dependencies. The
+`sudo apt install ./hylki_*_amd64.deb` (`_arm64.deb` on ARM), which fetches
+its dependencies. The
 package adds the repository itself, as the RPM does: the same
 `/etc/apt/sources.list.d/hylki.sources`, kept if you edit it (add a line
 `Enabled: no` to stop updates from it).
 
 The package needs libadwaita 1.7: Debian 13 (trixie) and later, or Ubuntu
-25.10 and later, on x86_64 only. Ubuntu 24.04 LTS and the distributions built
+25.10 and later, on x86_64, and on arm64 from 1.46.0 (the betas from
+1.46.0-beta.5). Ubuntu 24.04 LTS and the distributions built
 on it, such as Linux Mint 22, have an older libadwaita; use the Flatpak there.
 
 ## Gentoo
@@ -106,8 +109,8 @@ Adding it to a NixOS configuration is covered in its README.
 
 ## Beta channel
 
-Betas come in every format the stable release does: Flatpak on **x86_64 and
-aarch64 (ARM64)**, and RPM and Debian packages on x86_64.
+Betas come in every format the stable release does, on **x86_64 and aarch64
+(ARM64)**: Flatpak, RPM and Debian packages.
 
 The Flatpak beta installs alongside the stable app as a separate application
 (`co.hyprlab.Hylki.Beta`) and shares its accounts, settings and cached mail:
