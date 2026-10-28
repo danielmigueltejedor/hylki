@@ -205,6 +205,7 @@ impl Cache {
                         invite: serde_json::from_str(&row.get::<_, String>(5)?).ok(),
                         label: serde_json::from_str(&row.get::<_, String>(6)?).ok(),
                         receipt: serde_json::from_str(&row.get::<_, String>(7)?).ok(),
+                        read: None,
                     })
                 },
             )

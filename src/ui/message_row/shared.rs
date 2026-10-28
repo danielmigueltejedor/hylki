@@ -118,6 +118,8 @@ pub(crate) struct RowShared {
     pub(crate) account_names: RefCell<HashMap<u32, String>>,
     /// When snoozed mail comes back (#527).
     pub(crate) snoozed: RefCell<SnoozedRows>,
+    /// Sent mail's read receipts (#520).
+    pub(crate) receipt_marks: RefCell<crate::models::ReceiptMarks>,
     /// How long an actions palette stays open after the pointer leaves it.
     pub(crate) palette_collapse_secs: Cell<u64>,
     /// Open the palette on row hover.
@@ -168,6 +170,7 @@ impl RowShared {
             tags: RefCell::new(Vec::new()),
             account_names: RefCell::new(HashMap::new()),
             snoozed: RefCell::new(SnoozedRows::default()),
+            receipt_marks: RefCell::new(Default::default()),
             palette_collapse_secs: Cell::new(5),
             palette_hover: Cell::new(privacy.list_palette_hover),
             swipe_reversed: Cell::new(privacy.swipe_reversed),

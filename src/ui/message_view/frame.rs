@@ -93,6 +93,11 @@ thread_local! {
     /// And each card's read receipt banner (#520).
     pub(super) static LIVE_RECEIPT: std::cell::RefCell<std::collections::HashMap<(u32, u32), String>> =
         std::cell::RefCell::new(std::collections::HashMap::new());
+    /// The checkmarks of each card that is sent mail asking for a read
+    /// receipt (#520). Empty in tests.
+    pub(super) static LIVE_READ: std::cell::RefCell<
+        std::collections::HashMap<(u32, u32), crate::models::ReceiptMark>,
+    > = std::cell::RefCell::new(std::collections::HashMap::new());
     /// Each card's translation banner (#327), and the translation the card
     /// shows instead of its message, if it shows one. Empty in tests.
     pub(super) static LIVE_TRANSLATE: std::cell::RefCell<TranslationsShown> =

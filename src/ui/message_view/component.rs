@@ -532,6 +532,7 @@ impl Component for MessageView {
                 check,
             } => self.on_sender_check_for(account_id, id, check),
             MessageViewInput::SetUnsubscribed(lists) => self.on_set_unsubscribed(lists),
+            MessageViewInput::SetReceiptMarks(marks) => self.on_set_receipt_marks(marks),
             MessageViewInput::Translate { account_id, id } => {
                 self.on_translate(account_id, id, &sender)
             }

@@ -1874,6 +1874,21 @@ msgstr "In attesa da {ago}"
 msgid "Scheduled for {when}"
 msgstr "Programmato per {when}"
 
+#, fuzzy
+msgid "No read receipt yet"
+msgstr "Nascondi destinatari"
+
+msgid "{who}, {when}"
+msgstr ""
+
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Indirizzo Rispondi a"
+
+#, fuzzy
+msgid "Read by {count} of {total}"
+msgstr "{name} · {current} di {total}"
+
 msgid "Verified sender"
 msgstr "Mittente verificato"
 
@@ -7421,6 +7436,21 @@ msgid "Request read receipts"
 msgstr ""
 
 #, fuzzy
+msgid "Returned receipts"
+msgstr "Nascondi destinatari"
+
+msgid "Sent mail shows who read it; the receipt goes here."
+msgstr ""
+
+#, fuzzy
+msgid "Move to Trash"
+msgstr "Sposta la posta di lista nel Cestino"
+
+#, fuzzy
+msgid "Keep in Inbox"
+msgstr "Lascia nella Posta in arrivo"
+
+#, fuzzy
 msgid "Reply Header"
 msgstr "Indirizzo Rispondi a"
 
@@ -7887,9 +7917,6 @@ msgstr "Hyprlab"
 #~ msgid "Leave in Inbox to only tag matching mail"
 #~ msgstr ""
 #~ "Lascia nella Posta in arrivo per etichettare solo la posta corrispondente"
-
-#~ msgid "Leave in Inbox"
-#~ msgstr "Lascia nella Posta in arrivo"
 
 #~ msgid ""
 #~ "Which browser a link in a message opens in. Inside its Flatpak sandbox "

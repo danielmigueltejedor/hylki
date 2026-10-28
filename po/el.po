@@ -1851,6 +1851,21 @@ msgstr "Σε αναμονή από {ago}"
 msgid "Scheduled for {when}"
 msgstr "Προγραμματισμένο για {when}"
 
+#, fuzzy
+msgid "No read receipt yet"
+msgstr "Απόκρυψη παραληπτών"
+
+msgid "{who}, {when}"
+msgstr ""
+
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Διεύθυνση απάντησης"
+
+#, fuzzy
+msgid "Read by {count} of {total}"
+msgstr "{name} · {current} από {total}"
+
 msgid "Verified sender"
 msgstr "Αποστολέας επαληθευμένος"
 
@@ -7319,6 +7334,21 @@ msgid "Request read receipts"
 msgstr ""
 
 #, fuzzy
+msgid "Returned receipts"
+msgstr "Απόκρυψη παραληπτών"
+
+msgid "Sent mail shows who read it; the receipt goes here."
+msgstr ""
+
+#, fuzzy
+msgid "Move to Trash"
+msgstr "Μετακίνηση αλληλογραφίας λιστών στον Κάδο"
+
+#, fuzzy
+msgid "Keep in Inbox"
+msgstr "Παραμονή στα Εισερχόμενα"
+
+#, fuzzy
 msgid "Reply Header"
 msgstr "Διεύθυνση απάντησης"
 
@@ -7785,9 +7815,6 @@ msgstr "Hyprlab"
 #~ msgstr ""
 #~ "Αφήστε το στα Εισερχόμενα για να επισημαίνεται μόνο η αλληλογραφία που "
 #~ "ταιριάζει"
-
-#~ msgid "Leave in Inbox"
-#~ msgstr "Παραμονή στα Εισερχόμενα"
 
 #~ msgid ""
 #~ "Which browser a link in a message opens in. Inside its Flatpak sandbox "

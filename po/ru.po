@@ -1933,6 +1933,21 @@ msgid "Scheduled for {when}"
 msgstr "Запланировано на {when}"
 
 #, fuzzy
+msgid "No read receipt yet"
+msgstr "Скрыть получателей"
+
+msgid "{who}, {when}"
+msgstr ""
+
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Адрес для ответа"
+
+#, fuzzy
+msgid "Read by {count} of {total}"
+msgstr "{name} · {current} из {total}"
+
+#, fuzzy
 msgid "Verified sender"
 msgstr "Поиск отправителей"
 
@@ -7486,6 +7501,21 @@ msgid "Request read receipts"
 msgstr ""
 
 #, fuzzy
+msgid "Returned receipts"
+msgstr "Скрыть получателей"
+
+msgid "Sent mail shows who read it; the receipt goes here."
+msgstr ""
+
+#, fuzzy
+msgid "Move to Trash"
+msgstr "Переместить этот черновик в «Корзину»"
+
+#, fuzzy
+msgid "Keep in Inbox"
+msgstr "Оставить во «Входящих»"
+
+#, fuzzy
 msgid "Reply Header"
 msgstr "Адрес для ответа"
 
@@ -7953,9 +7983,6 @@ msgstr "Hyprlab"
 #~ msgid "Leave in Inbox to only tag matching mail"
 #~ msgstr ""
 #~ "Оставить во «Входящих», чтобы только размечать подходящие письма тегами"
-
-#~ msgid "Leave in Inbox"
-#~ msgstr "Оставить во «Входящих»"
 
 #~ msgid ""
 #~ "Which browser a link in a message opens in. Inside its Flatpak sandbox "

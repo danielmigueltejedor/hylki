@@ -1842,6 +1842,21 @@ msgstr "Em espera desde {ago}"
 msgid "Scheduled for {when}"
 msgstr "Agendada para {when}"
 
+#, fuzzy
+msgid "No read receipt yet"
+msgstr "Ocultar destinatários"
+
+msgid "{who}, {when}"
+msgstr ""
+
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Endereço de resposta"
+
+#, fuzzy
+msgid "Read by {count} of {total}"
+msgstr "{name} · {current} de {total}"
+
 msgid "Verified sender"
 msgstr "Remetente verificado"
 
@@ -7240,6 +7255,21 @@ msgstr "Durante quanto tempo é possível anular após enviar."
 
 msgid "Request read receipts"
 msgstr ""
+
+#, fuzzy
+msgid "Returned receipts"
+msgstr "Ocultar destinatários"
+
+msgid "Sent mail shows who read it; the receipt goes here."
+msgstr ""
+
+#, fuzzy
+msgid "Move to Trash"
+msgstr "Mover mensagens de listas para o Lixo"
+
+#, fuzzy
+msgid "Keep in Inbox"
+msgstr "Mover para a Caixa de entrada"
 
 #, fuzzy
 msgid "Reply Header"

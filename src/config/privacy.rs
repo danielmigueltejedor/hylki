@@ -12,7 +12,8 @@ use super::look::{
 use super::prefs::{
     default_files_limit_mb, default_reader_zoom, default_swipe_sensitivity, default_undo_send_secs,
     ComposeFormat, FilesAction, FilesLarge, FoldMessages, LauncherBadge, NotificationButtons,
-    PrintOptions, ReadMark, ReaderDefault, ReceiptPolicy, ReplyPosition, SignaturePosition,
+    PrintOptions, ReadMark, ReaderDefault, ReceiptPolicy, ReplyPosition, ReturnedReceipts,
+    SignaturePosition,
 };
 use super::sections::{
     FolderSort, RailFold, SectionPlacement, SectionStyle, StartView, UnifiedChips, UnifiedKinds,
@@ -552,6 +553,9 @@ pub(crate) struct PrivacyFile {
     /// New messages ask for a read receipt (#520).
     #[serde(default)]
     pub(crate) request_receipts: bool,
+    /// Where a receipt that comes back goes (#520).
+    #[serde(default)]
+    pub(crate) returned_receipts: ReturnedReceipts,
     /// GNOME Files hand-off (#188 follow-up): what the files open into,
     /// what happens over the size limit, and the limit itself in MB.
     #[serde(default)]
@@ -648,6 +652,7 @@ impl Default for PrivacyFile {
             read_mark: ReadMark::default(),
             receipts: ReceiptPolicy::default(),
             request_receipts: false,
+            returned_receipts: ReturnedReceipts::default(),
             files_action: FilesAction::default(),
             files_large: FilesLarge::default(),
             files_limit_mb: default_files_limit_mb(),

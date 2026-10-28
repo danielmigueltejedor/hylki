@@ -31,6 +31,9 @@ impl AppModel {
                 if let Some(k) = key {
                     self.sender_cache.insert(k, check.clone());
                 }
+                // Read receipts asked for on mail sent, and ones that came
+                // back (#520).
+                self.note_receipts(key, &check);
                 // A filter's forward of a message with no preview waits for
                 // this to know it is not encrypted.
                 self.resume_auto_forwards(account_id, message_id, key, false);

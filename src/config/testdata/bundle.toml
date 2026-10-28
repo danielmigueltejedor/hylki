@@ -135,6 +135,7 @@ status_bar_top = false
 read_mark = "shown"
 receipts = "ask"
 request_receipts = false
+returned_receipts = "trash"
 files_action = "ask"
 files_large = "ask"
 files_limit_mb = 20

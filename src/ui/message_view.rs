@@ -276,6 +276,8 @@ pub(crate) struct MessageView {
     /// [`crate::models::Unsubscribe::key`] with the time of the request, so a
     /// message from one says so instead of offering the button afresh.
     unsubscribed: std::collections::HashMap<String, i64>,
+    /// Sent mail's read receipts (#520), for the cards' checkmarks.
+    receipt_marks: crate::models::ReceiptMarks,
     /// Cards whose unsubscribe request is under way or has just failed.
     unsub_state: std::collections::HashMap<(u32, u32), UnsubState>,
     /// Which messages of a conversation open folded (#326).

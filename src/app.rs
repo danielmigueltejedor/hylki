@@ -90,6 +90,7 @@ mod prefs_sidebar;
 mod reader_select;
 mod reader_toolbar;
 mod receipts;
+mod receipts_returned;
 mod release_notes;
 mod removal;
 mod router;

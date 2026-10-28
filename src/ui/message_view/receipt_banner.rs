@@ -1,10 +1,35 @@
 //! A card's read receipt banner (#520): the request, and the two answers.
+//! Also the checkmarks of sent mail that asked for a receipt itself.
 
 use super::html::attr_escape;
+use super::snippets::inline_icon_svg;
 use super::MessageView;
 use crate::encoding::escape_html;
 use crate::i18n::{i18n, i18n_f};
-use crate::models::Message;
+use crate::models::{Message, ReceiptMark, ReceiptMarks};
+
+/// The class a card's checkmarks wear: grey while the receipt is awaited,
+/// green once it came back, none (hidden) on mail that asked for nothing.
+fn read_mark_class(mark: Option<&ReceiptMark>) -> &'static str {
+    match mark {
+        Some(m) if m.read => "hylki-read read",
+        Some(_) => "hylki-read asked",
+        None => "hylki-read",
+    }
+}
+
+/// A card's read receipt checkmarks, beside its date: always emitted, so
+/// a mark that arrives after the paint can be patched into it.
+pub(super) fn read_mark_html(key: (u32, u32), mark: Option<&ReceiptMark>) -> String {
+    format!(
+        "<span class=\"{}\" data-key=\"{}:{}\" title=\"{}\">{}</span>",
+        read_mark_class(mark),
+        key.0,
+        key.1,
+        attr_escape(mark.map_or("", |m| m.tooltip.as_str())),
+        inline_icon_svg("hylki-read-receipt-symbolic"),
+    )
+}
 
 /// A card's read receipt banner: the container, always emitted so a
 /// request read after the paint can be patched into it (empty, it is
@@ -89,6 +114,33 @@ impl MessageView {
              if(d)d.innerHTML={};}})()",
             serde_json::to_string(&html).unwrap_or_else(|_| "''".into()),
         );
+        self.run_js(&js);
+    }
+
+    /// The receipts asked for and come back changed: patch the cards'
+    /// checkmarks.
+    pub(super) fn on_set_receipt_marks(&mut self, marks: ReceiptMarks) {
+        if self.receipt_marks == marks {
+            return;
+        }
+        self.receipt_marks = marks;
+        if !self.webview_ready || self.current.is_none() {
+            return;
+        }
+        let mut js = String::from("(function(){var d;");
+        for m in &self.thread {
+            let mark = self.receipt_marks.of(m);
+            js.push_str(&format!(
+                "d=document.querySelector('.hylki-read[data-key=\"{}:{}\"]');\
+                 if(d){{d.className={};d.title={};}}",
+                m.account_id,
+                m.id,
+                serde_json::to_string(read_mark_class(mark.as_ref())).unwrap_or_default(),
+                serde_json::to_string(mark.as_ref().map_or("", |m| m.tooltip.as_str()))
+                    .unwrap_or_else(|_| "''".into()),
+            ));
+        }
+        js.push_str("})()");
         self.run_js(&js);
     }
 }

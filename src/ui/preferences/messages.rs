@@ -13,6 +13,7 @@ pub(crate) struct PrefInit {
     /// Answering requests for read receipts, and asking for them (#520).
     pub(crate) receipts: crate::config::ReceiptPolicy,
     pub(crate) request_receipts: bool,
+    pub(crate) returned_receipts: crate::config::ReturnedReceipts,
     pub(crate) gravatar: bool,
     pub(crate) avatars: bool,
     /// Your own mail wears its mailbox's face, not a sender's circle (#189).
@@ -412,6 +413,7 @@ pub(crate) enum PrefOutput {
     SetShowSpoofBanner(bool),
     SetReceipts(crate::config::ReceiptPolicy),
     SetRequestReceipts(bool),
+    SetReturnedReceipts(crate::config::ReturnedReceipts),
     SetGravatar(bool),
     SetAvatars(bool),
     SetOwnMailboxFace(bool),

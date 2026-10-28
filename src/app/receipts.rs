@@ -17,7 +17,7 @@ use super::send::machine_message;
 impl AppModel {
     /// A message the app holds, by its body key: the one on screen, a
     /// member of the conversation on screen, or one in a loaded folder.
-    fn held_message(&self, key: BodyKey) -> Option<Message> {
+    pub(super) fn held_message(&self, key: BodyKey) -> Option<Message> {
         let hit = |m: &&Message| body_key(m) == key;
         self.current
             .iter()
@@ -25,6 +25,11 @@ impl AppModel {
             .find(hit)
             .or_else(|| {
                 self.message_cache
+                    .get(&(key.0, key.1))
+                    .and_then(|ms| ms.iter().find(hit))
+            })
+            .or_else(|| {
+                self.unified_slices
                     .get(&(key.0, key.1))
                     .and_then(|ms| ms.iter().find(hit))
             })

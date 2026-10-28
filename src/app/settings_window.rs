@@ -64,6 +64,7 @@ impl AppModel {
             show_spoof_banner: self.show_spoof_banner,
             receipts: self.receipts,
             request_receipts: self.request_receipts,
+            returned_receipts: self.returned_receipts,
             gravatar: self.gravatar,
             avatars: self.avatars,
             own_mailbox_face: self.own_mailbox_face,

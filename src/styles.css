@@ -1420,6 +1420,21 @@ flowbox.attach-flow > flowboxchild {
   opacity: 0.9;
 }
 
+/* Sent mail's read receipt (#520): grey checkmarks while it waits, green
+   once one came back. A double check needs the extra width to read. */
+.read-receipt {
+  -gtk-icon-size: 14px;
+}
+
+.read-receipt.read {
+  color: @success_color;
+  opacity: 1;
+}
+
+.message-list > row:selected .read-receipt.read {
+  color: white;
+}
+
 /* ---- Reader ---- */
 
 /* The reader pane's toolbar: tighter than stock between the action icons —

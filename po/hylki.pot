@@ -1698,6 +1698,18 @@ msgstr ""
 msgid "Scheduled for {when}"
 msgstr ""
 
+msgid "No read receipt yet"
+msgstr ""
+
+msgid "{who}, {when}"
+msgstr ""
+
+msgid "Read by {reader}"
+msgstr ""
+
+msgid "Read by {count} of {total}"
+msgstr ""
+
 msgid "Verified sender"
 msgstr ""
 
@@ -6693,6 +6705,18 @@ msgid "How long Undo is offered after sending."
 msgstr ""
 
 msgid "Request read receipts"
+msgstr ""
+
+msgid "Returned receipts"
+msgstr ""
+
+msgid "Sent mail shows who read it; the receipt goes here."
+msgstr ""
+
+msgid "Move to Trash"
+msgstr ""
+
+msgid "Keep in Inbox"
 msgstr ""
 
 msgid "Reply Header"

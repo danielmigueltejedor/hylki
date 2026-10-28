@@ -3,7 +3,7 @@
 //! body with the settings the page script reads.
 
 use super::frame::{
-    LIVE_ATTS, LIVE_FOLDBAR, LIVE_FOLDED, LIVE_GROUNDS, LIVE_INVITE, LIVE_RECEIPT, LIVE_TAGS,
+    LIVE_ATTS, LIVE_FOLDBAR, LIVE_FOLDED, LIVE_GROUNDS, LIVE_INVITE, LIVE_READ, LIVE_RECEIPT, LIVE_TAGS,
     LIVE_TEMPLATES, LIVE_TRANSLATE, LIVE_TRANSLATE_ON, LIVE_UNSUB,
 };
 use super::types::TrState;
@@ -188,6 +188,13 @@ impl MessageView {
                 .thread
                 .iter()
                 .map(|m| ((m.account_id, m.id), self.receipt_inner_html(m)))
+                .collect()
+        });
+        LIVE_READ.with(|r| {
+            *r.borrow_mut() = self
+                .thread
+                .iter()
+                .filter_map(|m| Some(((m.account_id, m.id), self.receipt_marks.of(m)?)))
                 .collect()
         });
         LIVE_FOLDED.with(|f| *f.borrow_mut() = self.folded_cards());

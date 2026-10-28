@@ -1827,6 +1827,21 @@ msgstr "Wartet seit {ago}"
 msgid "Scheduled for {when}"
 msgstr "Geplant für {when}"
 
+#, fuzzy
+msgid "No read receipt yet"
+msgstr "Empfänger ausblenden"
+
+msgid "{who}, {when}"
+msgstr ""
+
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Antwort-Kopfzeile"
+
+#, fuzzy
+msgid "Read by {count} of {total}"
+msgstr "{name} · {current} von {total}"
+
 msgid "Verified sender"
 msgstr "Verifizierter Absender"
 
@@ -7269,6 +7284,21 @@ msgstr "Dauer der Einblendung zum Wiederrufen des Sendevorgangs."
 msgid "Request read receipts"
 msgstr ""
 
+#, fuzzy
+msgid "Returned receipts"
+msgstr "Empfänger ausblenden"
+
+msgid "Sent mail shows who read it; the receipt goes here."
+msgstr ""
+
+#, fuzzy
+msgid "Move to Trash"
+msgstr "Mailinglisten-E-Mails in den Papierkorb verschieben"
+
+#, fuzzy
+msgid "Keep in Inbox"
+msgstr "Im Posteingang belassen"
+
 msgid "Reply Header"
 msgstr "Antwort-Kopfzeile"
 
@@ -7737,9 +7767,6 @@ msgstr "Hyprlab"
 
 #~ msgid "Leave in Inbox to only tag matching mail"
 #~ msgstr "Im Posteingang belassen und nur passende Nachrichten markieren"
-
-#~ msgid "Leave in Inbox"
-#~ msgstr "Im Posteingang belassen"
 
 #~ msgid ""
 #~ "Which browser a link in a message opens in. Inside its Flatpak sandbox "

@@ -1,6 +1,7 @@
 //! Answers given from the reader that are remembered: the lists
 //! unsubscribed from (unsubscribed.toml), the invitations answered
 //! (invites.toml) and the read receipts sent or declined (receipts.toml).
+//! Also the receipts that came back for mail sent (read_by.toml).
 
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
@@ -137,4 +138,53 @@ pub(crate) fn save_receipts(answers: &[ReceiptAnswer]) {
         answers: answers[kept..].to_vec(),
     };
     save_plain_toml(receipts_path(), &file);
+}
+
+/// How many sent messages waiting for a receipt, and how many receipts
+/// that came back, are remembered, oldest dropped first.
+const READ_BY_LIMIT: usize = 2000;
+
+/// A read receipt that came back (#520): the message `key` was shown to
+/// `by` at `at`.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub(crate) struct ReadBy {
+    /// The Message-ID of the message read, bare.
+    pub(crate) key: String,
+    /// The address it was shown to.
+    #[serde(default)]
+    pub(crate) by: String,
+    /// Unix seconds.
+    #[serde(default)]
+    pub(crate) at: i64,
+}
+
+/// The mail sent that asked for a read receipt, and the receipts that
+/// came back. The receipt mail itself is filed away once it is read, so
+/// this is the only record of it.
+#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub(crate) struct ReadByFile {
+    /// Message-IDs, bare, newest last.
+    #[serde(default)]
+    pub(crate) asked: Vec<String>,
+    /// Newest last.
+    #[serde(default)]
+    pub(crate) read: Vec<ReadBy>,
+}
+
+fn read_by_path() -> Option<PathBuf> {
+    config_file("read_by.toml")
+}
+
+pub(crate) fn load_read_by() -> ReadByFile {
+    read_toml::<ReadByFile>(read_by_path()).unwrap_or_default()
+}
+
+pub(crate) fn save_read_by(file: &ReadByFile) {
+    let asked = file.asked.len().saturating_sub(READ_BY_LIMIT);
+    let read = file.read.len().saturating_sub(READ_BY_LIMIT);
+    let file = ReadByFile {
+        asked: file.asked[asked..].to_vec(),
+        read: file.read[read..].to_vec(),
+    };
+    save_plain_toml(read_by_path(), &file);
 }

@@ -65,6 +65,8 @@ pub(super) struct RowWidgets {
     pub(super) forwarded: gtk::Image,
     pub(super) clip: gtk::Image,
     pub(super) star: gtk::Image,
+    /// Sent mail's read receipt checkmarks (#520).
+    pub(super) receipt: gtk::Image,
     pub(super) date: gtk::Label,
     pub(super) chip: gtk::Button,
     pub(super) chip_count: gtk::Label,

@@ -11,8 +11,11 @@
   came from, or the message was not addressed to you. **Request a read
   receipt** in the menu beside Send asks for one on a message you write, and
   **Settings → Composing → Request read receipts** ticks it for every new
-  message. A receipt that arrives no longer lists its report as an
-  attachment.
+  message. Sent mail that asked shows two grey checkmarks in the list and the
+  reader, green once a receipt comes back, with who read it and when on
+  hover; the receipt mail is then marked read and moved to Trash, or
+  archived or kept, as **Settings → Composing → Returned receipts** says. A
+  receipt that arrives no longer lists its report as an attachment.
 
 - **Added: the arrow keys open and fold conversations in the list** (#540,
   requested by amadeusp). With the list focused, Right opens the conversation

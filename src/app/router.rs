@@ -535,7 +535,8 @@ impl AppModel {
             | PrefOutput::SetSignatureDashes(..)
             | PrefOutput::SetReplyHeader(..)
             | PrefOutput::SetUndoSend(..)
-            | PrefOutput::SetRequestReceipts(..)) => self.on_prefs_compose_pref(pref),
+            | PrefOutput::SetRequestReceipts(..)
+            | PrefOutput::SetReturnedReceipts(..)) => self.on_prefs_compose_pref(pref),
             // The rest of Preferences' outputs are mapped to their own
             // messages before they get here.
             _ => {}

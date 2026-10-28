@@ -214,6 +214,9 @@ pub(crate) enum MessageWindowInput {
     },
     /// The lists left so far, for the cards' banners.
     SetUnsubscribed(std::collections::HashMap<String, i64>),
+    /// The read receipts asked for and come back (#520), for the cards'
+    /// checkmarks.
+    SetReceiptMarks(crate::models::ReceiptMarks),
     /// Where a card's unsubscribe request stands.
     UnsubscribeState {
         account_id: u32,

@@ -427,6 +427,11 @@ fn unsubscribed_and_invites_toml() {
         "[[answers]]\nkey = \"abc@example.org\"\nsent = true\nat = 1700000000\n\n\
          [[answers]]\nkey = \"def@example.org\"\n",
     );
+    pin_round_trip::<ReadByFile>(
+        "read_by.toml",
+        "asked = [\"abc@example.org\"]\n\n\
+         [[read]]\nkey = \"abc@example.org\"\nby = \"ann@example.org\"\nat = 1700000000\n",
+    );
 }
 
 #[test]

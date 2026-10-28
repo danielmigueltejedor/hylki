@@ -98,6 +98,11 @@ impl Preferences {
             .composing
             .request_receipts_row
             .set_active(init.request_receipts);
+        no_truncate(&widgets.composing.returned_receipts_row);
+        widgets
+            .composing
+            .returned_receipts_row
+            .set_selected(super::choices::returned_receipts_index(init.returned_receipts));
         widgets.privacy.gravatar_row.set_active(init.gravatar);
         widgets.list.avatars_row.set_active(init.avatars);
         widgets

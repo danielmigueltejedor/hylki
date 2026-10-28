@@ -422,6 +422,12 @@ impl SimpleComponent for MessageList {
                     self.shared.refresh_all();
                 }
             }
+            MessageListInput::SetReceiptMarks(marks) => {
+                if *self.shared.receipt_marks.borrow() != marks {
+                    *self.shared.receipt_marks.borrow_mut() = marks;
+                    self.shared.refresh_all();
+                }
+            }
             MessageListInput::SetSingleLine(on) => self.on_set_single_line(on),
             MessageListInput::SetColumns(columns) => self.on_set_columns(columns),
             MessageListInput::SetAccountNames { names, graph } => {

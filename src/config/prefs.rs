@@ -162,6 +162,20 @@ pub(crate) enum ReceiptPolicy {
     Never,
 }
 
+/// Where a read receipt goes once the message it answers shows that it
+/// was read (#520).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub(crate) enum ReturnedReceipts {
+    /// Marked read and moved to Trash: what it says is on the message now.
+    #[default]
+    Trash,
+    /// Marked read and archived.
+    Archive,
+    /// Left in the Inbox as it came.
+    Keep,
+}
+
 /// What a hand-off of files from GNOME Files ("Send with Hylki", "Open
 /// With Hylki", "Email…") opens them into.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]

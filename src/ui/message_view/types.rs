@@ -182,6 +182,9 @@ pub(crate) enum MessageViewInput {
     /// The lists left so far (key → unix seconds), from the app; the cards'
     /// banners are patched to match.
     SetUnsubscribed(std::collections::HashMap<String, i64>),
+    /// Sent mail's read receipts (#520), from the app; the cards'
+    /// checkmarks are patched to match.
+    SetReceiptMarks(crate::models::ReceiptMarks),
     /// A card's Unsubscribe button was clicked.
     Unsubscribe {
         account_id: u32,

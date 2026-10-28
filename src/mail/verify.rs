@@ -78,6 +78,8 @@ struct Evidence {
     label: Option<crate::mail::sensitivity::SensitivityLabel>,
     /// The read receipt asked for (#520), likewise.
     receipt: Option<crate::mail::receipt::ReceiptRequest>,
+    /// The read receipt this message is, likewise.
+    read: Option<crate::mail::receipt::ReadReport>,
 }
 
 impl Evidence {
@@ -116,6 +118,7 @@ fn gather(raw: &[u8]) -> Evidence {
     ev.invite = crate::mail::invite::detect(&parsed).map(Box::new);
     ev.label = crate::mail::sensitivity::detect(&parsed);
     ev.receipt = crate::mail::receipt::detect(&parsed);
+    ev.read = crate::mail::receipt::read_report(&parsed);
 
     let first_addr = |a: Option<&mail_parser::Address>| -> Option<String> {
         a.and_then(|a| a.first())
@@ -271,6 +274,7 @@ fn judge(ev: &Evidence) -> SenderCheck {
         invite: ev.invite.clone(),
         label: ev.label.clone(),
         receipt: ev.receipt.clone(),
+        read: ev.read.clone(),
     }
 }
 

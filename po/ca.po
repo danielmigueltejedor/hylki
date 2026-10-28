@@ -1825,6 +1825,21 @@ msgstr "Esperant des de {ago}"
 msgid "Scheduled for {when}"
 msgstr "Programat per a {when}"
 
+#, fuzzy
+msgid "No read receipt yet"
+msgstr "Amaga els destinataris"
+
+msgid "{who}, {when}"
+msgstr ""
+
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Adreça de resposta"
+
+#, fuzzy
+msgid "Read by {count} of {total}"
+msgstr "{name} · {current} de {total}"
+
 msgid "Verified sender"
 msgstr "Remitent verificat"
 
@@ -7197,6 +7212,21 @@ msgid "Request read receipts"
 msgstr ""
 
 #, fuzzy
+msgid "Returned receipts"
+msgstr "Amaga els destinataris"
+
+msgid "Sent mail shows who read it; the receipt goes here."
+msgstr ""
+
+#, fuzzy
+msgid "Move to Trash"
+msgstr "Mou el correu de llistes a la paperera"
+
+#, fuzzy
+msgid "Keep in Inbox"
+msgstr "Deixa-ho a la bústia d'entrada"
+
+#, fuzzy
 msgid "Reply Header"
 msgstr "Adreça de resposta"
 
@@ -7652,6 +7682,3 @@ msgstr "Hyprlab"
 #~ msgstr ""
 #~ "Deixa-ho a la bústia d'entrada per només etiquetar el correu que "
 #~ "coincideixi"
-
-#~ msgid "Leave in Inbox"
-#~ msgstr "Deixa-ho a la bústia d'entrada"

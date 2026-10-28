@@ -396,6 +396,12 @@ pub(crate) struct AppModel {
     pub(super) receipts_answered: Vec<config::ReceiptAnswer>,
     /// New messages ask for a read receipt (#520).
     pub(super) request_receipts: bool,
+    /// The sent mail waiting for a read receipt and the receipts that came
+    /// back (read_by.toml), where the receipt mail goes, and the receipt
+    /// mail already filed this session.
+    pub(super) read_by: config::ReadByFile,
+    pub(super) returned_receipts: config::ReturnedReceipts,
+    pub(super) receipts_filed: HashSet<BodyKey>,
     /// Addresses/domains whose incoming inbox mail is auto-deleted (lowercased).
     pub(super) blacklist: Vec<String>,
     /// Seconds the message-list actions palette stays open after the cursor leaves.

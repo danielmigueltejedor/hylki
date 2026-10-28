@@ -210,6 +210,9 @@ impl Component for MessageWindow {
             MessageWindowInput::SetUnsubscribed(lists) => {
                 self.view.emit(MessageViewInput::SetUnsubscribed(lists));
             }
+            MessageWindowInput::SetReceiptMarks(marks) => {
+                self.view.emit(MessageViewInput::SetReceiptMarks(marks));
+            }
             MessageWindowInput::InviteAction {
                 message,
                 invite,

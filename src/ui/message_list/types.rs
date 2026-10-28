@@ -210,6 +210,9 @@ pub(crate) enum MessageListInput {
     /// When each snoozed message comes back (#527): its row in the Snoozed
     /// folder shows that in place of its date.
     SetSnoozed(crate::ui::message_row::SnoozedRows),
+    /// The read receipts asked for and come back (#520): a sent message's
+    /// row wears checkmarks, green once it was read.
+    SetReceiptMarks(crate::models::ReceiptMarks),
     /// Fill them with senders' own site icons, or stop (#30).
     SetSenderLogos(bool),
     /// The date or clock preference changed: every row's date is built with the

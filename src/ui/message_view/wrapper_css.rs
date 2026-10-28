@@ -270,6 +270,12 @@ pub(super) fn wrapper_css(
          body:not(.hylki-conv) .hylki-addr.clipped:hover::after{{\
          background:{chrome};}}\
          .hylki-date{{opacity:0.55;font-size:0.85em;flex:none;white-space:nowrap;}}\
+         .hylki-read{{display:none;flex:none;align-self:center;margin-inline-end:-3px;}}\
+         .hylki-read.asked,.hylki-read.read{{display:inline-flex;}}\
+         .hylki-read svg{{width:1.05em;height:1.05em;display:block;}}\
+         .hylki-read svg,.hylki-read svg *{{fill:currentColor;}}\
+         .hylki-read.asked{{opacity:0.55;}}\
+         .hylki-read.read{{color:#26a269;}}\
          .hylki-dot{{width:8px;height:8px;border-radius:50%;background:#3584e4;\
          flex:none;align-self:center;}}\
          .hylki-end{{height:1px;}}\

@@ -315,7 +315,9 @@ fn a_sender_check_row_as_stored() {
             to: "ada@x".into(),
             matches_return_path: true,
             original_recipient: String::new(),
+            message_id: String::new(),
         }),
+        read: None,
     };
     cache.save_sender_check(1, "INBOX", 9, &check);
     let row: Vec<String> = cache

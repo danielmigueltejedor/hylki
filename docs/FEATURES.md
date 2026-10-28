@@ -150,7 +150,8 @@ The full list. The [README](../README.md) carries a shorter one.
   and can delete the mail already received from the same address.
 - **Read receipts:** a banner on a message that asks for one sends it or
   ignores the request, or a setting answers every time; a message you write
-  can ask for one too. See
+  can ask for one too, and its checkmarks turn green when a receipt comes
+  back, with the receipt itself filed away. See
   [Read receipts](DOCUMENTATION.md#read-receipts).
 - **OpenPGP:** read encrypted and signed mail, sign and encrypt what you
   send, and manage keys from Settings, through the GnuPG already on your

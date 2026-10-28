@@ -122,6 +122,7 @@ impl AppModel {
             show_spoof_banner: self.show_spoof_banner,
             receipts: self.receipts,
             request_receipts: self.request_receipts,
+            returned_receipts: self.returned_receipts,
             sidebar_hover_expand: self.sidebar_hover_expand,
             remember_sidebar: self.remember_sidebar,
             remember_rail: self.remember_rail,

@@ -1915,8 +1915,22 @@ person, and a report their mail app reads.
 To ask for a receipt on a message you write, tick **Request a read receipt**
 in the menu beside **Send**. **Settings → Composing → Request read receipts**
 ticks it for every new message. Many mail apps send none, or only when the
-person agrees. A receipt that comes back is a message of its own, whose text
-names the message that was opened.
+person agrees.
+
+Sent mail that asked for a receipt shows two grey checkmarks beside its date,
+in the list and in the reader. They turn green when a receipt comes back, and
+pointing at them says who opened the message and when; for mail to several
+people, how many of them did. Hylki learns that a message asked for a receipt
+when it reads the copy in Sent, so mail sent from another app shows the marks
+once its Sent copy has been opened or fetched ahead.
+
+A receipt that comes back is a message of its own. Once Hylki has read it, it
+is marked read and moved out of the Inbox: **Settings → Composing → Returned
+receipts** chooses **Move to Trash**, **Archive** or **Keep in Inbox**. A
+receipt that is open in the reader is left where it is. Who read what is kept
+on this computer, in `read_by.toml`, so another computer shows the marks only
+for the receipts it reads itself. A receipt that says the message was deleted
+unread does not turn the marks green, and stays in the Inbox.
 
 ### Storage
 

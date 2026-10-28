@@ -219,6 +219,7 @@ impl AppModel {
         window.set_transient_for(Some(&self.window));
         window.present();
         controller.emit(MessageWindowInput::SetUnsubscribed(self.unsubscribed_map()));
+        controller.emit(MessageWindowInput::SetReceiptMarks(self.receipt_marks()));
         controller.emit(MessageWindowInput::SetIdentities(self.identities_map()));
         controller.emit(MessageWindowInput::SetInviteAnswers(
             self.invite_answers_map(),

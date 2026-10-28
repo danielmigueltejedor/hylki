@@ -1912,6 +1912,21 @@ msgid "Scheduled for {when}"
 msgstr "Ütemezve ekkorra: {when}"
 
 #, fuzzy
+msgid "No read receipt yet"
+msgstr "Címzettek elrejtése"
+
+msgid "{who}, {when}"
+msgstr ""
+
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Válaszcím"
+
+#, fuzzy
+msgid "Read by {count} of {total}"
+msgstr "{name} · {current} / {total}"
+
+#, fuzzy
 msgid "Verified sender"
 msgstr "Feladók keresése"
 
@@ -7505,6 +7520,21 @@ msgid "Request read receipts"
 msgstr ""
 
 #, fuzzy
+msgid "Returned receipts"
+msgstr "Címzettek elrejtése"
+
+msgid "Sent mail shows who read it; the receipt goes here."
+msgstr ""
+
+#, fuzzy
+msgid "Move to Trash"
+msgstr "Piszkozat áthelyezése a Kukába"
+
+#, fuzzy
+msgid "Keep in Inbox"
+msgstr "Hagyja a Beérkezett levelekben"
+
+#, fuzzy
 msgid "Reply Header"
 msgstr "Válaszcím"
 
@@ -7980,9 +8010,6 @@ msgstr "Hyprlab"
 #~ msgstr ""
 #~ "Hagyja a Beérkező levelek mappában, hogy csak az egyező leveleket "
 #~ "címkézze meg"
-
-#~ msgid "Leave in Inbox"
-#~ msgstr "Hagyja a Beérkezett levelekben"
 
 #~ msgid ""
 #~ "Which browser a link in a message opens in. Inside its Flatpak sandbox "

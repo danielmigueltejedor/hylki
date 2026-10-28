@@ -1944,6 +1944,21 @@ msgid "Scheduled for {when}"
 msgstr "Zaplanowano na {when}"
 
 #, fuzzy
+msgid "No read receipt yet"
+msgstr "Ukryj odbiorców"
+
+msgid "{who}, {when}"
+msgstr ""
+
+#, fuzzy
+msgid "Read by {reader}"
+msgstr "Odpowiedź do"
+
+#, fuzzy
+msgid "Read by {count} of {total}"
+msgstr "{name} · {current} z {total}"
+
+#, fuzzy
 msgid "Verified sender"
 msgstr "Wyszukaj nadawców"
 
@@ -7566,6 +7581,21 @@ msgid "Request read receipts"
 msgstr ""
 
 #, fuzzy
+msgid "Returned receipts"
+msgstr "Ukryj odbiorców"
+
+msgid "Sent mail shows who read it; the receipt goes here."
+msgstr ""
+
+#, fuzzy
+msgid "Move to Trash"
+msgstr "Przenieś ten szkic do kosza"
+
+#, fuzzy
+msgid "Keep in Inbox"
+msgstr "Pozostaw w skrzynce odbiorczej"
+
+#, fuzzy
 msgid "Reply Header"
 msgstr "Odpowiedź do"
 
@@ -8038,9 +8068,6 @@ msgstr "Hyprlab"
 #~ msgstr ""
 #~ "Wybierz „Pozostaw w skrzynce odbiorczej”, aby tylko oznaczać pasującą "
 #~ "pocztę etykietą"
-
-#~ msgid "Leave in Inbox"
-#~ msgstr "Pozostaw w skrzynce odbiorczej"
 
 #~ msgid ""
 #~ "Which browser a link in a message opens in. Inside its Flatpak sandbox "
