@@ -1,8 +1,10 @@
-name: Build aarch64 Flatpak
+name: Build aarch64 Flatpak and packages
 run-name: aarch64 ${{ inputs.ref || github.ref_name }}
 
-# Hylki is developed and released from an x86_64 machine, so the ARM64 build is
-# made here, natively, on GitHub's arm64 runners (free for public repos).
+# Hylki is developed and released from an x86_64 machine, so the ARM64 builds are
+# made here, natively, on GitHub's arm64 runners (free for public repos): the
+# Flatpak, and the RPM and Debian package (since 1.46.0-beta.5), each package
+# then installed in a clean container to check its dependencies resolve.
 # Emulating the build locally through qemu takes hours; this takes minutes.
 #
 # The job produces an *unsigned* OSTree repo as an artifact. Nothing is
@@ -167,3 +169,130 @@ jobs:
           path: hylki-aarch64-repo.tar.gz
           retention-days: 30
           if-no-files-found: error
+
+  # The RPM and the Debian package, built as tools/build-packages.sh builds
+  # them on x86_64: the RPM on the Fedora it targets, the deb in the Debian 13
+  # Rust image. Neither is signed here; Flatout signs them when they are
+  # published. The script comes from this workflow's commit, as the manifest
+  # script does above, so a run started by hand on an older tag builds too.
+  rpm:
+    name: aarch64 RPM
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 90
+    container: registry.fedoraproject.org/fedora:44
+    steps:
+      - name: Install the build dependencies
+        run: |
+          dnf install -y --setopt=install_weak_deps=False git tar gzip gcc gcc-c++ \
+            gtk4-devel libadwaita-devel webkitgtk6.0-devel poppler-glib-devel \
+            openssl-devel gettext-devel wayland-devel gettext rpm-build
+          # The same rustup stable the x86_64 RPM is built with, not Fedora's
+          # packaged Rust, which can trail the language features in use.
+          curl -fsSL https://sh.rustup.rs | sh -s -- -y --profile minimal
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: ci
+          sparse-checkout: tools/build-packages.sh
+          sparse-checkout-cone-mode: false
+
+      - name: Build
+        # bash: the containers' sh is dash on Debian, and the check below
+        # turns the version's dash into a tilde with bash's ${//}.
+        shell: bash
+        run: |
+          cp ci/tools/build-packages.sh tools/build-packages.sh
+          tools/build-packages.sh rpm
+          rpm=$(ls packaging/out/hylki-*.aarch64.rpm)
+          want="$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)"
+          test "$(rpm -qp --qf '%{VERSION}' "$rpm")" = "${want//-/\~}" \
+            || { echo "built RPM is not $want" >&2; exit 1; }
+          echo "built $rpm"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hylki-aarch64-rpm
+          path: packaging/out/hylki-*.aarch64.rpm
+          retention-days: 30
+          if-no-files-found: error
+
+  rpm-check:
+    name: aarch64 RPM installs
+    needs: rpm
+    runs-on: ubuntu-24.04-arm
+    container: registry.fedoraproject.org/fedora:44
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: hylki-aarch64-rpm
+      - name: Install on a clean Fedora and check its libraries
+        run: |
+          dnf install -y ./hylki-*.aarch64.rpm file
+          file /usr/bin/hylki | grep -q 'ARM aarch64'
+          if ldd /usr/bin/hylki | grep 'not found'; then exit 1; fi
+          rpm -q hylki
+
+  deb:
+    name: arm64 Debian package
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 90
+    container: docker.io/library/rust:1-trixie
+    env:
+      # build-packages.sh installs the build dependencies itself in its
+      # container, and writes to /out there.
+      HYLKI_DEB_CONTAINER: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: ci
+          sparse-checkout: tools/build-packages.sh
+          sparse-checkout-cone-mode: false
+
+      - name: Build
+        # bash: the containers' sh is dash on Debian, and the check below
+        # turns the version's dash into a tilde with bash's ${//}.
+        shell: bash
+        run: |
+          cp ci/tools/build-packages.sh tools/build-packages.sh
+          tools/build-packages.sh deb
+          deb=$(ls /out/hylki_*_arm64.deb)
+          want="$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -1)"
+          test "$(dpkg-deb -f "$deb" Version)" = "${want//-/\~}-1" \
+            || { echo "built package is not $want" >&2; exit 1; }
+          mkdir -p packaging/out && cp "$deb" packaging/out/
+          echo "built $deb"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hylki-arm64-deb
+          path: packaging/out/hylki_*_arm64.deb
+          retention-days: 30
+          if-no-files-found: error
+
+  deb-check:
+    name: arm64 Debian package installs
+    needs: deb
+    runs-on: ubuntu-24.04-arm
+    container: docker.io/library/debian:13
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: hylki-arm64-deb
+      - name: Install on a clean Debian 13 and check its libraries
+        run: |
+          apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ./hylki_*_arm64.deb file
+          file /usr/bin/hylki | grep -q 'ARM aarch64'
+          if ldd /usr/bin/hylki | grep 'not found'; then exit 1; fi
+          dpkg -s hylki | grep -q '^Status: install ok installed'

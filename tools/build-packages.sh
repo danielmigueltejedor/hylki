@@ -7,8 +7,8 @@
 #   tools/build-packages.sh deb        # builds the Debian package
 #
 # Output lands in packaging/out/:
-#   hylki-<ver>-1.fc44.x86_64.rpm       - packaged from the host (Fedora) cargo build
-#   hylki_<ver>-1_amd64.deb             - packaged from a Debian 13 cargo build
+#   hylki-<ver>-1.fc44.<arch>.rpm       - packaged from the host (Fedora) cargo build
+#   hylki_<ver>-1_<arch>.deb            - packaged from a Debian 13 cargo build
 #                                         (a beta's <ver> is 1.43.0~beta.8 in both)
 #
 # Each package wraps a release binary built against its own distribution's
@@ -81,7 +81,8 @@ build_rpm() {
 
     echo "==> rpmbuild"
     rpmbuild -bb --define "_topdir $work/rpmbuild" "$ROOT/packaging/fedora/hylki.spec"
-    cp "$work/rpmbuild/RPMS/x86_64/"hylki-*.rpm "$OUT/"
+    # x86_64 here; aarch64 when the arm64 CI job runs this on Fedora.
+    cp "$work/rpmbuild/RPMS/$(rpm --eval '%{_arch}')/"hylki-*.rpm "$OUT/"
     rm -rf "$work"
     echo "==> RPM done"
 }
