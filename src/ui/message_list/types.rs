@@ -414,6 +414,11 @@ pub(crate) enum MessageListInput {
     AtBottom(bool),
     /// Scrolled near the end of the rows on screen: add the next window.
     NearEnd,
+    /// The pointer reached the scrollbar: put the rest of the list on
+    /// screen, so the bar spans all of it.
+    ShowWholeList,
+    /// Describe in full the rows that came on screen without it.
+    FinishRows,
     /// A large list's conversations, worked out off the main loop.
     ThreadsReady {
         gen: u64,

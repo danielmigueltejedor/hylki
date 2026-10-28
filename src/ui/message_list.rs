@@ -30,6 +30,7 @@ mod query;
 mod on_selection;
 mod on_threads;
 mod rows;
+mod scrub;
 mod search;
 mod sort;
 mod threading;

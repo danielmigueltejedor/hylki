@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **Added: the scrollbar names the month it is passing.** While the message
+  list's scrollbar is dragged in a list sorted by date, a label beside its
+  thumb names the month and year of the rows in the middle of the view. Once
+  the pointer reaches the bar, the rest of the folder joins the rows on
+  screen, so the bar spans all of it rather than the few hundred rows loaded
+  so far; the rows past those are described as they come on screen.
+
 - **Added: a date range in the sort and filter popover.** Its new **Dates**
   column holds **From**, **To** and a calendar that sets whichever is chosen,
   and the list shows only the mail that arrived between the two days, both

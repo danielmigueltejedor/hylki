@@ -53,6 +53,8 @@ The full list. The [README](../README.md) carries a shorter one.
 - **Quick filters:** unread, starred, attachments, addressed to you, from
   your contacts, high importance, tagged, today and a range of dates,
   combined, in one popover above the list with the sort orders. See [Message list layout](DOCUMENTATION.md#message-list-layout).
+- **Browse by the year:** the list's scrollbar spans the whole folder, and
+  dragging it names the month and year it is passing.
 - **Smart folders:** saved searches across accounts and folders, on
   starred, unread, attachments, tags and the filter conditions, with unread
   counts. See [Smart folders](DOCUMENTATION.md#smart-folders).

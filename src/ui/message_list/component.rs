@@ -346,6 +346,7 @@ impl SimpleComponent for MessageList {
         watch_heading_menu(widgets.headings_area.upcast_ref(), &sender);
         watch_pane_width(&widgets.scroller, &sender);
         watch_bottom(&widgets.scroller, &sender);
+        super::scrub::watch_scrollbar(&widgets.scroller, &model.shared, &sender);
         model.sync_look();
         model.search_entry = Some(widgets.search_entry.clone());
         model.bars = Some(BarSlots {
@@ -385,6 +386,8 @@ impl SimpleComponent for MessageList {
             }
             MessageListInput::AtBottom(bottom) => self.at_bottom = bottom,
             MessageListInput::NearEnd => self.grow_window(LIST_WINDOW),
+            MessageListInput::ShowWholeList => self.show_whole_list(),
+            MessageListInput::FinishRows => self.finish_bound_rows(),
             MessageListInput::ThreadsReady { gen, threads } => self.on_threads_ready(gen, *threads),
             MessageListInput::AskThreads => self.on_ask_threads(&sender),
             MessageListInput::RunQueuedRebuild => self.on_run_queued_rebuild(&sender),

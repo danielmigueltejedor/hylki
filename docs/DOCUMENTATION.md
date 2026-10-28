@@ -1774,6 +1774,12 @@ Clicking the unread dot on a row marks that message read without selecting
 or opening it. A conversation's dot that is lit only for an unread reply
 does not take the click.
 
+The list puts its rows on screen a few hundred at a time as it is scrolled.
+Once the pointer reaches the scrollbar, the rest of the folder joins them, so
+the bar spans all of it, back to the oldest message. While the bar is
+dragged in a list sorted by date, a label beside it names the month and year
+of the rows in the middle of the view.
+
 ### Text size
 
 **Settings → Appearance → Text size** makes Hylki's text smaller or larger

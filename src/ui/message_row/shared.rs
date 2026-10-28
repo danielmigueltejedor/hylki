@@ -2,7 +2,7 @@
 //! factories that build and bind them (with spare rows made ahead).
 
 use super::row::Row;
-use super::{MessageModel, RowData, RowItem, ThreadDragKeys};
+use super::{MessageModel, RowData, RowItem, Slot, ThreadDragKeys};
 use crate::config::ListColumn;
 use crate::ui::message_list::MessageListInput;
 use adw::prelude::*;
@@ -147,6 +147,13 @@ pub(crate) struct RowShared {
     /// Conversations shown on rows whose size nobody has asked about yet.
     wanted: RefCell<Vec<(u32, String)>>,
     wanted_queued: Cell<bool>,
+    /// Rows come on screen before the list described them in full: a list
+    /// grown to the whole folder for its scrollbar leaves that to here.
+    unfinished: RefCell<Vec<Slot>>,
+    unfinished_queued: Cell<bool>,
+    /// Whether the list is in date order, so a drag of its scrollbar can
+    /// name the month it is passing.
+    pub(crate) by_date: Cell<bool>,
     /// The date headings the view has made (#435).
     headers: RefCell<Vec<glib::WeakRef<gtk::ListHeader>>>,
 }
@@ -177,6 +184,9 @@ impl RowShared {
             open_palette: RefCell::new(Weak::new()),
             wanted: RefCell::new(Vec::new()),
             wanted_queued: Cell::new(false),
+            unfinished: RefCell::new(Vec::new()),
+            unfinished_queued: Cell::new(false),
+            by_date: Cell::new(true),
             headers: RefCell::new(Vec::new()),
         })
     }
@@ -259,6 +269,33 @@ impl RowShared {
     pub(crate) fn take_wanted(&self) -> Vec<(u32, String)> {
         self.wanted_queued.set(false);
         std::mem::take(&mut *self.wanted.borrow_mut())
+    }
+
+    /// Ask the list, once the current pass is over, to describe in full
+    /// a row that came on screen without it.
+    pub(crate) fn finish_later(&self, slot: Slot) {
+        self.unfinished.borrow_mut().push(slot);
+        if !self.unfinished_queued.replace(true) {
+            let input = self.input.clone();
+            glib::idle_add_local_once(move || {
+                let _ = input.send(MessageListInput::FinishRows);
+            });
+        }
+    }
+
+    pub(crate) fn take_unfinished(&self) -> Vec<Slot> {
+        self.unfinished_queued.set(false);
+        std::mem::take(&mut *self.unfinished.borrow_mut())
+    }
+
+    /// The rows the view has bound, by slot.
+    pub(crate) fn bound_slots(&self) -> std::collections::HashSet<Slot> {
+        self.rows
+            .borrow()
+            .values()
+            .filter_map(|r| r.data())
+            .map(|d| d.slot())
+            .collect()
     }
 
     /// The selected rows, in list order, for a drag's cards.

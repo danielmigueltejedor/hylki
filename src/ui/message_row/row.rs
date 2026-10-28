@@ -182,6 +182,11 @@ impl Row {
         self.st.borrow().item.as_ref().map(|i| i.data())
     }
 
+    /// The widget the view shows this row as, while bound.
+    pub(crate) fn widget(&self) -> Option<gtk::Widget> {
+        self.list_item.borrow().upgrade()?.child()
+    }
+
     /// The list position this row shows, while bound.
     pub(crate) fn position(&self) -> Option<usize> {
         let item = self.list_item.borrow().upgrade()?;
@@ -392,6 +397,9 @@ impl Row {
         }
         if let (Some(group), Some(shared)) = (data.meta.group.clone(), self.shared()) {
             shared.want(group);
+        }
+        if let (Some(_), Some(shared)) = (&data.meta.pending, self.shared()) {
+            shared.finish_later(data.slot());
         }
     }
 
