@@ -107,6 +107,7 @@ mod smart;
 mod snooze;
 mod split_reply;
 mod tags;
+mod text_search;
 #[cfg(test)]
 mod test_support;
 mod theme;
@@ -846,6 +847,7 @@ impl SimpleComponent for AppModel {
         let mut model = AppModel::new(&root, &sender, boot, children, main_menu);
         model.prime_and_connect(&sender);
         schedule_download_prune();
+        text_search::prepare_text_search();
         model.withdraw_stale_notifications();
         if model.tray_enabled {
             model.start_tray(&sender);

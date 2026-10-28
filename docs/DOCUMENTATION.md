@@ -1704,6 +1704,41 @@ several labels is one result: its Inbox copy, else a label's, else All
 Mail's. Folders not opened since Hylki started are searched from the index
 Hylki keeps of them, which covers mail archived to Gmail's All Mail.
 
+#### What a search finds
+
+Each word typed is looked for on its own, anywhere in the message and in any
+order: `rossi mario` finds mail from Mario Rossi, and `rossi invoice` finds his
+mail that mentions an invoice. Words in quotes, `"mario rossi"`, are found as
+written. A word is found in the subject, the sender, the recipients (To, Cc and
+Bcc, by address or by the name the person goes by in your mail), the preview,
+and the message's text:
+
+- **Mail on this computer:** the text of every message whose body is on disk
+  (opened, fetched ahead, or kept offline, see
+  [Storage](#storage)) is indexed, and a word is found as the start of a word,
+  so `invo` finds "invoice" while it is being typed.
+- **Mail on the server:** once typing pauses, each account's server is asked
+  for the mail holding every word, in the folders the search covers, and what
+  it finds joins the results. A spinner beside the search field shows while it
+  answers. IMAP servers are searched a folder at a time (on Gmail, All Mail
+  stands for every label), JMAP and Microsoft 365 servers in one request.
+  Servers match whole words, and how a quoted phrase is matched is the
+  server's own. POP3 has no server search; its mail is all on disk.
+
+A few words narrow the search to one part of the message, and can be combined
+with each other and with plain words:
+
+| Typed | Finds mail |
+| --- | --- |
+| `from:ann` | from a sender whose name or address holds "ann" |
+| `to:lee` | sent to, or copied to, someone whose name or address holds "lee" |
+| `subject:report` | with "report" in the subject |
+| `in:archive` | filed in a folder whose name holds "archive", in any account, whatever the button beside the field says |
+| `has:attachment` | with attachments |
+| `is:unread`, `is:read`, `is:starred` | unread, read, or starred |
+
+A value with spaces goes in quotes: `from:"mario rossi"`. A colon in any other
+word, such as `10:30` or `re:`, is searched for as written.
 
 The sort and filter button in the list's header opens a popover of two
 columns. **Sort by** orders the list by date, newest or oldest first, by

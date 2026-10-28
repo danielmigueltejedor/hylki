@@ -43,6 +43,7 @@ mod offline;
 mod prefetch;
 mod preview_fetch;
 mod retry;
+mod text_search;
 pub(super) mod send;
 mod setup;
 mod snooze;
@@ -224,6 +225,8 @@ struct ImapWorker<E> {
     backfill_seen: HashSet<String>,
     /// The download of the account's offline period (#536).
     offline: crate::worker::offline::Offline,
+    /// A search of the server's text under way (#509).
+    text_search: Option<text_search::TextSearch>,
     /// Folders queued for the one-time References repair (see
     /// [`run_one_refs_repair`]). Every folder gets one: a message indexed by
     /// an older build carries only its In-Reply-To, and threading reads

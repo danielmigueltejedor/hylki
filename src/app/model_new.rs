@@ -215,6 +215,7 @@ impl AppModel {
             sent_index_requested: HashSet::new(),
             message_cache: HashMap::new(),
             search_gen: 0,
+            server_search: Default::default(),
             indexed_folders: HashSet::new(),
             body_cache: crate::ram_cache::RamCache::new(BODY_CACHE_BUDGET),
             sender_cache: HashMap::new(),

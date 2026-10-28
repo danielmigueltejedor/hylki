@@ -4416,6 +4416,15 @@ msgstr "Najnowsza wiadomość na początku"
 msgid "Clear selection"
 msgstr "Wyczyść zaznaczenie"
 
+#. The scope button beside it says where it looks.
+#, fuzzy
+msgid "Search…"
+msgstr "Wyszukiwanie…"
+
+#, fuzzy
+msgid "Searching the server…"
+msgstr "Wyszukiwanie…"
+
 msgid "Choose which folders to search"
 msgstr "Wybierz katalogi do przeszukania"
 
@@ -4481,18 +4490,6 @@ msgstr ""
 
 msgid "What this searches"
 msgstr ""
-
-#, fuzzy
-msgid "Search all folders but Trash and Junk"
-msgstr "Wyszukaj katalogi"
-
-#, fuzzy
-msgid "Search all folders, Trash and Junk too"
-msgstr "Wyszukaj katalogi"
-
-#, fuzzy
-msgid "Search this folder"
-msgstr "Wyszukaj katalogi"
 
 #, fuzzy
 msgid "me"
@@ -7938,6 +7935,18 @@ msgstr "Zbiorcza skrzynka odbiorcza w jasnym motywie"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#, fuzzy
+#~ msgid "Search all folders but Trash and Junk"
+#~ msgstr "Wyszukaj katalogi"
+
+#, fuzzy
+#~ msgid "Search all folders, Trash and Junk too"
+#~ msgstr "Wyszukaj katalogi"
+
+#, fuzzy
+#~ msgid "Search this folder"
+#~ msgstr "Wyszukaj katalogi"
 
 #, fuzzy
 #~ msgid "Same as messages"

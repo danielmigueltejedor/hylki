@@ -140,11 +140,23 @@ impl Cache {
         );
     }
 
+    /// Store a message's rendered body, and its words for search (#509).
     pub(crate) fn save_body(&self, account_id: u32, folder_path: &str, uid: u32, body: &str) {
-        if let Err(e) = self.conn.execute(
-            "INSERT OR REPLACE INTO bodies (account_id, folder_path, uid, body) VALUES (?1, ?2, ?3, ?4)",
-            params![account_id, folder_path, uid, body],
-        ) {
+        let run = || -> rusqlite::Result<()> {
+            let tx = self.conn.unchecked_transaction()?;
+            // A replaced row is deleted without its trigger firing, so the
+            // old words go here.
+            if let Some(old) = self.body_rowid(account_id, folder_path, uid) {
+                tx.execute("DELETE FROM body_text WHERE rowid = ?1", [old])?;
+            }
+            tx.execute(
+                "INSERT OR REPLACE INTO bodies (account_id, folder_path, uid, body) VALUES (?1, ?2, ?3, ?4)",
+                params![account_id, folder_path, uid, body],
+            )?;
+            self.index_body(tx.last_insert_rowid(), body)?;
+            tx.commit()
+        };
+        if let Err(e) = run() {
             tracing::warn!("cache save_body failed: {e}");
         }
     }

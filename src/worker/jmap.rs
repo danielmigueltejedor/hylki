@@ -49,6 +49,7 @@ mod ops;
 mod push;
 mod send;
 mod snooze;
+mod text_search;
 mod wire;
 
 use crate::worker::outbox::{delete_queued, emit_outbox};
@@ -232,6 +233,9 @@ impl<E: Fn(WorkerEvent)> JmapWorker<E> {
         let emit = &self.emit;
         match req {
             MailRequest::Locate { message_id } => self.on_locate(message_id).await,
+            MailRequest::FindText { gen, terms, paths } => {
+                self.on_find_text(gen, terms, paths).await
+            }
             MailRequest::Quota => self.on_quota().await,
             MailRequest::FindKeywords => self.on_find_keywords().await,
             MailRequest::RefreshKeywords { .. } => self.on_refresh_keywords().await,

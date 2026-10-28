@@ -4248,6 +4248,15 @@ msgstr "Κανένα μήνυμα εδώ δεν πληροί τα φίλτρα."
 msgid "Clear selection"
 msgstr "Εκκαθάριση επιλογής"
 
+#. The scope button beside it says where it looks.
+#, fuzzy
+msgid "Search…"
+msgstr "Αναζήτηση…"
+
+#, fuzzy
+msgid "Searching the server…"
+msgstr "Αναζήτηση…"
+
 msgid "Choose which folders to search"
 msgstr "Επιλέξτε τους φακέλους αναζήτησης"
 
@@ -4310,16 +4319,6 @@ msgstr "Μόνο ο φάκελος ή η προβολή που εμφανίζε�
 
 msgid "What this searches"
 msgstr "Τι αναζητά αυτή η επιλογή"
-
-msgid "Search all folders but Trash and Junk"
-msgstr "Αναζήτηση σε όλους τους φακέλους εκτός από Κάδο και Ανεπιθύμητα"
-
-msgid "Search all folders, Trash and Junk too"
-msgstr ""
-"Αναζήτηση σε όλους τους φακέλους, συμπεριλαμβανομένων Κάδου και Ανεπιθύμητων"
-
-msgid "Search this folder"
-msgstr "Αναζήτηση σε αυτόν τον φάκελο"
 
 msgid "me"
 msgstr "εγώ"
@@ -7682,6 +7681,17 @@ msgstr "Τα ενοποιημένα εισερχόμενα σε φωτεινή �
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#~ msgid "Search all folders but Trash and Junk"
+#~ msgstr "Αναζήτηση σε όλους τους φακέλους εκτός από Κάδο και Ανεπιθύμητα"
+
+#~ msgid "Search all folders, Trash and Junk too"
+#~ msgstr ""
+#~ "Αναζήτηση σε όλους τους φακέλους, συμπεριλαμβανομένων Κάδου και "
+#~ "Ανεπιθύμητων"
+
+#~ msgid "Search this folder"
+#~ msgstr "Αναζήτηση σε αυτόν τον φάκελο"
 
 #, fuzzy
 #~ msgid "Same as messages"

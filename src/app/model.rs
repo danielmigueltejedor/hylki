@@ -218,6 +218,8 @@ pub(crate) struct AppModel {
     /// Bumped as a search starts and ends, so a pool read from disk for a
     /// search already over is dropped (#472).
     pub(super) search_gen: u64,
+    /// The search of the servers' text under way (#509).
+    pub(super) server_search: super::text_search::ServerSearch,
     /// (account_id, folder_id) whose background backfill has fully finished, so the
     /// message list knows no more rows will stream in for them.
     pub(super) indexed_folders: HashSet<(u32, u32)>,

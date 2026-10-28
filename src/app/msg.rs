@@ -277,6 +277,28 @@ pub(crate) enum AppMsg {
     /// search pool (every folder's messages, so search can span the mailbox).
     SearchActive(bool),
 
+    // ---- on_text_search (text_search.rs) ----
+    /// Find each of `terms` in the bodies on disk (#509).
+    FindInBodies { terms: Vec<String> },
+    /// What the bodies on disk hold, a set for each term.
+    BodiesFound {
+        terms: Vec<String>,
+        hits: Vec<crate::ui::message_list::HitSet>,
+    },
+    /// Ask the servers for mail holding every one of `terms` (#509).
+    FindOnServers {
+        terms: Vec<String>,
+        scope: crate::ui::message_list::ServerScope,
+    },
+    /// An account's server answered a search: (folder path, uid,
+    /// Message-ID) of each message; `done` with its last answer.
+    TextFound {
+        account_id: u32,
+        gen: u64,
+        hits: Vec<(String, u32, String)>,
+        done: bool,
+    },
+
     // ---- on_reader_select (reader_select.rs) ----
     /// Gmail's o or Enter opened a row (#392): the keyboard goes to the
     /// reader, now if the row was already the one open, else once it opens.

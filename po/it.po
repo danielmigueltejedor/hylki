@@ -4332,6 +4332,15 @@ msgstr "Nuovo messaggio da un modello"
 msgid "Clear selection"
 msgstr "Cancella selezione"
 
+#. The scope button beside it says where it looks.
+#, fuzzy
+msgid "Search…"
+msgstr "Ricerca in corso…"
+
+#, fuzzy
+msgid "Searching the server…"
+msgstr "Ricerca in corso…"
+
 msgid "Choose which folders to search"
 msgstr "Scegli le cartelle in cui cercare"
 
@@ -4397,17 +4406,6 @@ msgstr ""
 
 msgid "What this searches"
 msgstr ""
-
-#, fuzzy
-msgid "Search all folders but Trash and Junk"
-msgstr "Tutto tranne Cestino e Posta indesiderata"
-
-#, fuzzy
-msgid "Search all folders, Trash and Junk too"
-msgstr "Cerca in tutte le cartelle"
-
-msgid "Search this folder"
-msgstr "Cerca in questa cartella"
 
 msgid "me"
 msgstr "io"
@@ -7786,6 +7784,17 @@ msgstr "La posta in arrivo unificata in modalità chiara"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#, fuzzy
+#~ msgid "Search all folders but Trash and Junk"
+#~ msgstr "Tutto tranne Cestino e Posta indesiderata"
+
+#, fuzzy
+#~ msgid "Search all folders, Trash and Junk too"
+#~ msgstr "Cerca in tutte le cartelle"
+
+#~ msgid "Search this folder"
+#~ msgstr "Cerca in questa cartella"
 
 #, fuzzy
 #~ msgid "Same as messages"

@@ -273,8 +273,8 @@ impl SimpleComponent for MessageList {
                         set_hexpand: true,
                         // Its own default minimum is wider than the rows need.
                         set_width_chars: 3,
-                        #[watch]
-                        set_placeholder_text: Some(model.search_placeholder().as_str()),
+                        // The scope button beside it says where it looks.
+                        set_placeholder_text: Some(i18n("Search…").as_str()),
                         connect_search_changed[sender] => move |entry| {
                             sender.input(MessageListInput::Search(entry.text().to_string()));
                         },
@@ -290,6 +290,16 @@ impl SimpleComponent for MessageList {
                                 crate::ui::close_if_focus_left_row(&entry, move || sender.input(MessageListInput::CloseSearch));
                             },
                         },
+                    },
+
+                    // The servers are still being asked (#509).
+                    gtk::Spinner {
+                        set_valign: gtk::Align::Center,
+                        set_tooltip_text: Some(i18n("Searching the server…").as_str()),
+                        #[watch]
+                        set_visible: model.server_searching,
+                        #[watch]
+                        set_spinning: model.server_searching,
                     },
 
                     // The scope picker; its popover is built in `init`
@@ -443,6 +453,11 @@ impl SimpleComponent for MessageList {
                 text,
                 hits,
             } => self.on_search_matched(gen, query, text, hits),
+            MessageListInput::SearchServers { round } => self.on_search_servers(round, &sender),
+            MessageListInput::BodyHits { terms, hits } => self.on_body_hits(terms, hits),
+            MessageListInput::ServerHits { terms, hits, done } => {
+                self.on_server_hits(terms, hits, done)
+            }
             MessageListInput::SetScope(scope) => self.on_set_scope(scope, &sender),
             MessageListInput::SetSearchPool(pool, folders, text) => {
                 self.on_set_search_pool(pool, folders, text)

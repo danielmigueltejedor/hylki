@@ -4205,6 +4205,15 @@ msgstr "Nenhuma mensagem aqui corresponde aos filtros."
 msgid "Clear selection"
 msgstr "Limpar seleção"
 
+#. The scope button beside it says where it looks.
+#, fuzzy
+msgid "Search…"
+msgstr "A pesquisar…"
+
+#, fuzzy
+msgid "Searching the server…"
+msgstr "A pesquisar…"
+
 msgid "Choose which folders to search"
 msgstr "Escolher as pastas a pesquisar"
 
@@ -4265,15 +4274,6 @@ msgstr "Apenas a pasta ou vista apresentada na lista."
 
 msgid "What this searches"
 msgstr "Âmbito desta pesquisa"
-
-msgid "Search all folders but Trash and Junk"
-msgstr "Pesquisar em todas as pastas exceto Lixo e Lixo eletrónico"
-
-msgid "Search all folders, Trash and Junk too"
-msgstr "Pesquisar em todas as pastas, incluindo Lixo e Lixo eletrónico"
-
-msgid "Search this folder"
-msgstr "Pesquisar nesta pasta"
 
 msgid "me"
 msgstr "eu"
@@ -7596,6 +7596,15 @@ msgstr "A caixa de entrada unificada no modo claro"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#~ msgid "Search all folders but Trash and Junk"
+#~ msgstr "Pesquisar em todas as pastas exceto Lixo e Lixo eletrónico"
+
+#~ msgid "Search all folders, Trash and Junk too"
+#~ msgstr "Pesquisar em todas as pastas, incluindo Lixo e Lixo eletrónico"
+
+#~ msgid "Search this folder"
+#~ msgstr "Pesquisar nesta pasta"
 
 #, fuzzy
 #~ msgid "Same as messages"

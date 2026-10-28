@@ -4225,6 +4225,15 @@ msgstr "Keine Nachricht an diesem Ort entspricht den Filtern."
 msgid "Clear selection"
 msgstr "Auswahl aufheben"
 
+#. The scope button beside it says where it looks.
+#, fuzzy
+msgid "Search…"
+msgstr "Wird gesucht…"
+
+#, fuzzy
+msgid "Searching the server…"
+msgstr "Wird gesucht…"
+
 msgid "Choose which folders to search"
 msgstr "Ordner zum Durchsuchen auswählen"
 
@@ -4285,15 +4294,6 @@ msgstr "Nur der aktuell angezeigte Ordner oder die aktuelle Ansicht"
 
 msgid "What this searches"
 msgstr "Durchsuchte Ordner"
-
-msgid "Search all folders but Trash and Junk"
-msgstr "Alle Ordner durchsuchen, außer Papierkorb und Junk"
-
-msgid "Search all folders, Trash and Junk too"
-msgstr "Alle Ordner durchsuchen"
-
-msgid "Search this folder"
-msgstr "Diesen Ordner durchsuchen"
 
 msgid "me"
 msgstr "ich"
@@ -7663,6 +7663,15 @@ msgstr "Der gemeinsame Posteingang im hellen Modus."
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#~ msgid "Search all folders but Trash and Junk"
+#~ msgstr "Alle Ordner durchsuchen, außer Papierkorb und Junk"
+
+#~ msgid "Search all folders, Trash and Junk too"
+#~ msgstr "Alle Ordner durchsuchen"
+
+#~ msgid "Search this folder"
+#~ msgstr "Diesen Ordner durchsuchen"
 
 #, fuzzy
 #~ msgid "Same as messages"

@@ -1,7 +1,7 @@
 //! The list's messages in and out, and the bulk actions.
 
 use super::filters::{CheckFilter, QuickFilters};
-use super::search::{PoolFolder, SearchScope};
+use super::search::{HitSet, PoolFolder, SearchScope, ServerScope};
 use super::sort::SortOrder;
 use super::threading::{thread_slot, SourceThreads};
 use super::RowAction;
@@ -236,7 +236,19 @@ pub(crate) enum MessageListInput {
         gen: u64,
         query: String,
         text: std::sync::Arc<Vec<Box<str>>>,
-        hits: Vec<bool>,
+        hits: Vec<u64>,
+    },
+    /// Typing paused in the search field: time to ask the servers (#509),
+    /// if `round` is still the search's.
+    SearchServers { round: u64 },
+    /// The messages whose body on disk holds each of `terms` (#509).
+    BodyHits { terms: Vec<String>, hits: Vec<HitSet> },
+    /// Messages a server found holding every one of `terms` (#509); `done`
+    /// once every account asked has answered.
+    ServerHits {
+        terms: Vec<String>,
+        hits: HitSet,
+        done: bool,
     },
     /// The reader's selection: mirror whichever of these the list has rows for,
     /// so everything that acts on the list's selection acts on the messages the
@@ -530,6 +542,15 @@ pub(crate) enum MessageListOutput {
     /// scope wider than this folder), so the app can supply or drop the
     /// cross-folder search pool.
     SearchActive(bool),
+    /// Find each of `terms` in the bodies on disk (#509), answered with
+    /// [`MessageListInput::BodyHits`].
+    FindInBodies { terms: Vec<String> },
+    /// Ask the servers for mail holding every one of `terms` (#509),
+    /// answered with [`MessageListInput::ServerHits`].
+    FindOnServers {
+        terms: Vec<String>,
+        scope: ServerScope,
+    },
     /// A column heading changed the sort (#334), by its key: the sort
     /// menus follow.
     SortChanged(&'static str),

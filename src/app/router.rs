@@ -106,6 +106,10 @@ impl AppModel {
             msg @ (AppMsg::SearchPoolLoaded { .. }
             | AppMsg::SearchPoolBuilt { .. }
             | AppMsg::SearchActive(..)) => self.on_search(msg, sender),
+            msg @ (AppMsg::FindInBodies { .. }
+            | AppMsg::BodiesFound { .. }
+            | AppMsg::FindOnServers { .. }
+            | AppMsg::TextFound { .. }) => self.on_text_search(msg, sender),
             msg @ (AppMsg::OpenedByKey { .. }
             | AppMsg::ClearReader
             | AppMsg::MessageSelected { .. }

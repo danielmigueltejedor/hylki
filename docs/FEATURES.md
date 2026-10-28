@@ -29,6 +29,8 @@ The full list. The [README](../README.md) carries a shorter one.
 
 - **Whole-mailbox sync and search:** no message-count cap. A fast first page
   loads instantly; the rest indexes in the background with infinite scroll.
+  Search finds each word in the message's text too, on disk and on the
+  server, with `from:`, `to:`, `in:` and `has:attachment` to narrow it.
 - **Two-way sync:** deletions, moves and flag changes from your phone or
   another client sync back automatically (IMAP IDLE plus reconciliation).
 - **Conversation threading** across folders: the count covers the whole

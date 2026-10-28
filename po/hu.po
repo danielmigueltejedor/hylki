@@ -4362,6 +4362,15 @@ msgstr "Legújabb üzenet elöl"
 msgid "Clear selection"
 msgstr "Kijelölés törlése"
 
+#. The scope button beside it says where it looks.
+#, fuzzy
+msgid "Search…"
+msgstr "Keresés…"
+
+#, fuzzy
+msgid "Searching the server…"
+msgstr "Keresés…"
+
 msgid "Choose which folders to search"
 msgstr "Válassza ki a keresendő mappákat"
 
@@ -4427,18 +4436,6 @@ msgstr ""
 
 msgid "What this searches"
 msgstr ""
-
-#, fuzzy
-msgid "Search all folders but Trash and Junk"
-msgstr "Keresés a mappákban"
-
-#, fuzzy
-msgid "Search all folders, Trash and Junk too"
-msgstr "Keresés a mappákban"
-
-#, fuzzy
-msgid "Search this folder"
-msgstr "Keresés a mappákban"
 
 #, fuzzy
 msgid "me"
@@ -7880,6 +7877,18 @@ msgstr "Az egységes beérkező levelek mappa világos üzemmódban"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#, fuzzy
+#~ msgid "Search all folders but Trash and Junk"
+#~ msgstr "Keresés a mappákban"
+
+#, fuzzy
+#~ msgid "Search all folders, Trash and Junk too"
+#~ msgstr "Keresés a mappákban"
+
+#, fuzzy
+#~ msgid "Search this folder"
+#~ msgstr "Keresés a mappákban"
 
 #, fuzzy
 #~ msgid "Same as messages"

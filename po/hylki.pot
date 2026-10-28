@@ -3866,6 +3866,13 @@ msgstr ""
 msgid "Clear selection"
 msgstr ""
 
+#. The scope button beside it says where it looks.
+msgid "Search…"
+msgstr ""
+
+msgid "Searching the server…"
+msgstr ""
+
 msgid "Choose which folders to search"
 msgstr ""
 
@@ -3923,15 +3930,6 @@ msgid "Only the folder or view the list is showing."
 msgstr ""
 
 msgid "What this searches"
-msgstr ""
-
-msgid "Search all folders but Trash and Junk"
-msgstr ""
-
-msgid "Search all folders, Trash and Junk too"
-msgstr ""
-
-msgid "Search this folder"
 msgstr ""
 
 msgid "me"

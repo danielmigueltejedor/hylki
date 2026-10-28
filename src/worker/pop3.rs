@@ -117,6 +117,13 @@ impl<E: Fn(WorkerEvent)> Pop3Worker<E> {
         let cache = &self.cache;
         let emit = &self.emit;
         match req {
+            // POP3 has no search, and every message is downloaded whole, so
+            // the index of the bodies on disk already holds its words.
+            MailRequest::FindText { gen, .. } => emit(WorkerEvent::TextFound {
+                gen,
+                hits: Vec::new(),
+                done: true,
+            }),
             MailRequest::Locate { message_id } => {
                 // No folders to search here beyond what the cache already
                 // held: answer "not found" so the app can report the miss.

@@ -61,6 +61,12 @@ fn map_event(account_id: u32, event: WorkerEvent) -> AppMsg {
             folder_id,
             messages,
         },
+        WorkerEvent::TextFound { gen, hits, done } => AppMsg::TextFound {
+            account_id,
+            gen,
+            hits,
+            done,
+        },
         WorkerEvent::BodyHits { folder_id, hits } => AppMsg::BodyHits {
             account_id,
             folder_id,

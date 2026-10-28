@@ -4178,6 +4178,15 @@ msgstr "Cap missatge d'aquí passa els filtres."
 msgid "Clear selection"
 msgstr "Desselecciona-ho tot"
 
+#. The scope button beside it says where it looks.
+#, fuzzy
+msgid "Search…"
+msgstr "S'està cercant…"
+
+#, fuzzy
+msgid "Searching the server…"
+msgstr "S'està cercant…"
+
 msgid "Choose which folders to search"
 msgstr "Tria quines carpetes cercar"
 
@@ -4238,15 +4247,6 @@ msgstr "Només la carpeta o vista que mostra la llista."
 
 msgid "What this searches"
 msgstr "Què cerca això"
-
-msgid "Search all folders but Trash and Junk"
-msgstr "Cerca a totes les carpetes menys la paperera i la brossa"
-
-msgid "Search all folders, Trash and Junk too"
-msgstr "Cerca a totes les carpetes, paperera i brossa incloses"
-
-msgid "Search this folder"
-msgstr "Cerca en aquesta carpeta"
 
 msgid "me"
 msgstr "jo"
@@ -7550,6 +7550,15 @@ msgstr "La bústia d'entrada unificada en mode clar"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#~ msgid "Search all folders but Trash and Junk"
+#~ msgstr "Cerca a totes les carpetes menys la paperera i la brossa"
+
+#~ msgid "Search all folders, Trash and Junk too"
+#~ msgstr "Cerca a totes les carpetes, paperera i brossa incloses"
+
+#~ msgid "Search this folder"
+#~ msgstr "Cerca en aquesta carpeta"
 
 #, fuzzy
 #~ msgid "Same as messages"

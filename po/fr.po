@@ -4222,6 +4222,15 @@ msgstr "Aucun message ici ne passe les filtres."
 msgid "Clear selection"
 msgstr "Effacer la sélection"
 
+#. The scope button beside it says where it looks.
+#, fuzzy
+msgid "Search…"
+msgstr "Recherche…"
+
+#, fuzzy
+msgid "Searching the server…"
+msgstr "Recherche…"
+
 msgid "Choose which folders to search"
 msgstr "Choisir les dossiers dans lesquels rechercher"
 
@@ -4284,16 +4293,6 @@ msgstr "Uniquement le dossier ou la vue affichés dans la liste."
 
 msgid "What this searches"
 msgstr "Ce qui est recherché"
-
-msgid "Search all folders but Trash and Junk"
-msgstr ""
-"Rechercher dans tous les dossiers sauf la Corbeille et les Indésirables"
-
-msgid "Search all folders, Trash and Junk too"
-msgstr "Rechercher dans tous les dossiers, Corbeille et Indésirables compris"
-
-msgid "Search this folder"
-msgstr "Rechercher dans ce dossier"
 
 msgid "me"
 msgstr "moi"
@@ -7624,6 +7623,17 @@ msgstr "La boîte de réception unifiée en mode clair"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#~ msgid "Search all folders but Trash and Junk"
+#~ msgstr ""
+#~ "Rechercher dans tous les dossiers sauf la Corbeille et les Indésirables"
+
+#~ msgid "Search all folders, Trash and Junk too"
+#~ msgstr ""
+#~ "Rechercher dans tous les dossiers, Corbeille et Indésirables compris"
+
+#~ msgid "Search this folder"
+#~ msgstr "Rechercher dans ce dossier"
 
 #, fuzzy
 #~ msgid "Same as messages"

@@ -4382,6 +4382,15 @@ msgstr "Новое сообщение из шаблона"
 msgid "Clear selection"
 msgstr "Снять выделение"
 
+#. The scope button beside it says where it looks.
+#, fuzzy
+msgid "Search…"
+msgstr "Поиск…"
+
+#, fuzzy
+msgid "Searching the server…"
+msgstr "Поиск…"
+
 msgid "Choose which folders to search"
 msgstr "Выберите папки для поиска"
 
@@ -4447,18 +4456,6 @@ msgstr ""
 
 msgid "What this searches"
 msgstr ""
-
-#, fuzzy
-msgid "Search all folders but Trash and Junk"
-msgstr "Папки поиска"
-
-#, fuzzy
-msgid "Search all folders, Trash and Junk too"
-msgstr "Папки поиска"
-
-#, fuzzy
-msgid "Search this folder"
-msgstr "Папки поиска"
 
 msgid "me"
 msgstr "я"
@@ -7852,6 +7849,18 @@ msgstr "Общие входящие в светлом режиме"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#, fuzzy
+#~ msgid "Search all folders but Trash and Junk"
+#~ msgstr "Папки поиска"
+
+#, fuzzy
+#~ msgid "Search all folders, Trash and Junk too"
+#~ msgstr "Папки поиска"
+
+#, fuzzy
+#~ msgid "Search this folder"
+#~ msgstr "Папки поиска"
 
 #, fuzzy
 #~ msgid "Same as messages"

@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- **Added: search finds what a message says** (#509, requested by
+  wobblyhen920, with 3v1n0). Each word typed is now found on its own, in any
+  order, in the subject, the sender, the recipients (by address or name), the
+  preview and the message's text; quoted words are found as written. The text
+  of every body on disk is indexed and found as the start of a word while
+  typing, and once typing pauses each account's server is asked too (IMAP a
+  folder at a time, Gmail through All Mail, JMAP and Microsoft 365 in one
+  request), its finds joining the results as they come. `from:`, `to:`,
+  `subject:`, `in:`, `has:attachment`, `is:unread`, `is:read` and `is:starred`
+  narrow a search.
+
 - **Added: keep mail offline for a chosen period** (#536, requested by
   isorropisths in #474). **Keep mail offline**, in an account's Syncing
   settings, downloads every message of the last week, month or year, or all of

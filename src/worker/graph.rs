@@ -41,6 +41,7 @@ mod offline;
 mod ops;
 mod send;
 mod snooze;
+mod text_search;
 use crate::worker::outbox::{delete_queued, emit_outbox};
 
 /// A label whose name the message leaves out is named from the
@@ -194,6 +195,9 @@ impl<E: Fn(WorkerEvent)> GraphWorker<E> {
         let cache = &self.cache;
         let emit = &|ev| name_labels(&self.account, &self.emit, ev);
         match req {
+            MailRequest::FindText { gen, terms, paths } => {
+                self.on_find_text(gen, terms, paths).await
+            }
             MailRequest::Locate { message_id } => {
                 // No folders to search here beyond what the cache already
                 // held: answer "not found" so the app can report the miss.
