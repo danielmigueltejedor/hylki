@@ -807,6 +807,10 @@ msgstr "Otwórz zaznaczoną wiadomość"
 msgid "Back to the message list"
 msgstr "Powrót do listy wiadomości"
 
+#, fuzzy
+msgid "Open or fold a conversation in the list"
+msgstr "Cała rozmowa"
+
 msgid "Next message in the conversation"
 msgstr "Następna wiadomość w rozmowie"
 

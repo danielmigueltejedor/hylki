@@ -805,6 +805,10 @@ msgstr "Открыть выбранное сообщение"
 msgid "Back to the message list"
 msgstr "Вернуться к списку сообщений"
 
+#, fuzzy
+msgid "Open or fold a conversation in the list"
+msgstr "Всё обсуждение"
+
 msgid "Next message in the conversation"
 msgstr "Следующее сообщение в беседе"
 

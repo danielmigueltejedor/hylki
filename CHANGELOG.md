@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **Added: the arrow keys open and fold conversations in the list** (#540,
+  requested by amadeusp). With the list focused, Right opens the conversation
+  on the selected row out in the list and Left folds it back up, from its row
+  or any of its replies, which moves the selection to the conversation's row.
+  On a row with nothing to open or fold, the keys do what they did before.
+  With **Expandable conversations** off they are unchanged.
+
 - **Added: the scrollbar names the month it is passing.** While the message
   list's scrollbar is dragged in a list sorted by date, a label beside its
   thumb names the month and year of the rows in the middle of the view. Once

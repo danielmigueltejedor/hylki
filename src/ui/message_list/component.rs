@@ -520,6 +520,13 @@ impl SimpleComponent for MessageList {
             MessageListInput::SetPillsBelow(on) => self.on_set_pills_below(on),
             MessageListInput::SortByColumn(column) => self.on_sort_by_column(column, &sender),
             MessageListInput::ToggleThread(key) => self.on_toggle_thread(key, &sender),
+            MessageListInput::FoldByKey { key, head } => {
+                if let Some(head) = head {
+                    self.select_positions(&[head]);
+                    self.focus_row(head);
+                }
+                self.on_toggle_thread(key, &sender);
+            }
             MessageListInput::FinishCollapseThread(key) => self.on_finish_collapse_thread(key),
             MessageListInput::RowActivated(index) => self.on_row_activated(index, &sender),
             MessageListInput::MarkRead(slot) => {

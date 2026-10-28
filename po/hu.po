@@ -783,6 +783,10 @@ msgstr "Kijelölt üzenet megnyitása"
 msgid "Back to the message list"
 msgstr "Vissza az üzenetlistához"
 
+#, fuzzy
+msgid "Open or fold a conversation in the list"
+msgstr "A teljes beszélgetés"
+
 msgid "Next message in the conversation"
 msgstr "A beszélgetés következő üzenete"
 

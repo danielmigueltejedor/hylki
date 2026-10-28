@@ -708,6 +708,9 @@ msgstr ""
 msgid "Back to the message list"
 msgstr ""
 
+msgid "Open or fold a conversation in the list"
+msgstr ""
+
 msgid "Next message in the conversation"
 msgstr ""
 

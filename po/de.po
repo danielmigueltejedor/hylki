@@ -757,6 +757,10 @@ msgstr "Ausgewählte Nachricht öffnen"
 msgid "Back to the message list"
 msgstr "Zurück zur Nachrichtenliste"
 
+#, fuzzy
+msgid "Open or fold a conversation in the list"
+msgstr "Unterhaltung schließen, zurück zur Liste"
+
 msgid "Next message in the conversation"
 msgstr "Nächste Nachricht in der Unterhaltung"
 

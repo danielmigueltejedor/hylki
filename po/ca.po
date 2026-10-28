@@ -757,6 +757,10 @@ msgstr "Obre el missatge seleccionat"
 msgid "Back to the message list"
 msgstr "Torna a la llista de missatges"
 
+#, fuzzy
+msgid "Open or fold a conversation in the list"
+msgstr "Tanca la conversa i torna a la llista"
+
 msgid "Next message in the conversation"
 msgstr "Missatge següent de la conversa"
 

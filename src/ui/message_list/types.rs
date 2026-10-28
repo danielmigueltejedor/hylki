@@ -310,6 +310,13 @@ pub(crate) enum MessageListInput {
     DebugRowMenu,
     /// Expand/collapse a conversation thread.
     ToggleThread((u32, String)),
+    /// Right or Left on a conversation in the list (#540): open it out or
+    /// fold it. `head` is where its row is when the key was pressed on one
+    /// of its replies, which go with the fold, so the keyboard moves there.
+    FoldByKey {
+        key: (u32, String),
+        head: Option<usize>,
+    },
     /// A collapsing thread's replies have finished sliding shut — drop them
     /// from the list for real (see `start_collapse_thread`).
     FinishCollapseThread((u32, String)),

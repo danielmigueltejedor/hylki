@@ -792,7 +792,7 @@ impl MessageList {
     /// Everything the view needs wired: selection, activation and keys.
     pub(super) fn wire_list(
         list: &gtk::ListView,
-        shared: &RowShared,
+        shared: &Rc<RowShared>,
         input: &relm4::Sender<MessageListInput>,
     ) {
         // Multiple selection: plain click selects one (shown in the reader),
@@ -812,8 +812,11 @@ impl MessageList {
         // Delete / Backspace on a focused row deletes the selection (single or
         // multi). Scoped to the list, so typing in the search box is unaffected.
         // Shift+Delete erases it instead, as in Thunderbird (#471).
+        // Right and Left open out and fold conversations, as in a tree
+        // (#540).
         let key = gtk::EventControllerKey::new();
         let s = input.clone();
+        let shared = shared.clone();
         key.connect_key_pressed(move |_, keyval, _, state| {
             let shift = state.contains(gtk::gdk::ModifierType::SHIFT_MASK);
             if shift && matches!(keyval, gtk::gdk::Key::Delete | gtk::gdk::Key::KP_Delete) {
@@ -826,6 +829,9 @@ impl MessageList {
                 // ResolveDelete, not a straight Bulk: a lone thread-head row
                 // stands for its whole conversation (confirmed by the app).
                 let _ = s.send(MessageListInput::ResolveDelete);
+                gtk::glib::Propagation::Stop
+            } else if let Some(fold) = fold_key(&shared, keyval, state) {
+                let _ = s.send(fold);
                 gtk::glib::Propagation::Stop
             } else {
                 gtk::glib::Propagation::Proceed
@@ -881,4 +887,51 @@ impl MessageList {
         // never laid out one more time for nothing before they go.
         run();
     }
+}
+
+/// What Right or Left does on the row the keyboard is on (#540): Right opens
+/// a folded conversation out in the list, Left folds an open one, from its
+/// head or any of its replies. `None` leaves the key to the window's own
+/// shortcuts: the row stands alone, is already as asked, or conversations
+/// do not open out in the list.
+fn fold_key(
+    shared: &RowShared,
+    keyval: gtk::gdk::Key,
+    state: gtk::gdk::ModifierType,
+) -> Option<MessageListInput> {
+    use gtk::gdk::{Key, ModifierType};
+    if state
+        .intersects(ModifierType::CONTROL_MASK | ModifierType::SHIFT_MASK | ModifierType::ALT_MASK)
+    {
+        return None;
+    }
+    let forward = match keyval {
+        Key::Right | Key::KP_Right => true,
+        Key::Left | Key::KP_Left => false,
+        _ => return None,
+    };
+    if !shared.look.borrow().thread_expansion {
+        return None;
+    }
+    let view = shared.view.upgrade()?;
+    // Right to left the tree opens the other way, as GTK's own do.
+    let open = forward != (view.direction() == gtk::TextDirection::Rtl);
+    let pos = shared
+        .bound_rows()
+        .into_iter()
+        .find(|r| r.has_focus_within())
+        .and_then(|r| r.position())?;
+    let mut head = pos;
+    while head > 0 && shared.model.row(head).is_some_and(|r| r.meta.is_child) {
+        head -= 1;
+    }
+    let row = shared.model.row(head)?;
+    let key = row.meta.key.clone()?;
+    if row.meta.expanded == open {
+        return None;
+    }
+    Some(MessageListInput::FoldByKey {
+        key,
+        head: (head != pos).then_some(head),
+    })
 }
