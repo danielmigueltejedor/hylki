@@ -23,7 +23,10 @@ impl AppModel {
                 account_id,
                 folder_id,
                 messages,
-            } => self.on_messages(account_id, folder_id, messages, sender),
+            } => {
+                self.note_snoozed_listing(account_id, folder_id, messages.len());
+                self.on_messages(account_id, folder_id, messages, sender)
+            }
 
             AppMsg::MessagesAppend {
                 account_id,

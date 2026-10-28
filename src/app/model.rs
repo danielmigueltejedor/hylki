@@ -826,6 +826,9 @@ pub(crate) struct AppModel {
     /// Whether the sidebar was last given the unified Snoozed row, which
     /// it has only while something is snoozed (#542).
     pub(super) snoozed_row: std::cell::Cell<bool>,
+    /// How many messages each Snoozed folder holds on the server, by
+    /// (account, path), as the last recount or listing found (#542).
+    pub(super) snoozed_held: HashMap<(u32, String), u32>,
     /// Snoozed mail a worker has been asked to bring back, by (account
     /// address, Message-ID), with when to ask again if no answer comes.
     pub(super) snooze_waking: HashMap<(String, String), std::time::Instant>,

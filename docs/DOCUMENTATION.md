@@ -1036,9 +1036,11 @@ phone or another mail program sees it leave the Inbox too. The folder is
 made the first time something is snoozed; on Gmail it is a label. In the
 Snoozed folder each message shows when it comes back in place of its date.
 A time chosen there replaces the old one, and **Unsnooze** brings the
-message back now. While anything is snoozed, a **Snoozed** row in the unified
-section lists every account's snoozed mail together; **Settings → Sidebar →
-Unified → Snoozed** turns it off. A reply that arrives in the conversation brings it back
+message back now. While any account's Snoozed folder holds mail, a
+**Snoozed** row in the unified section lists it all together; **Settings →
+Sidebar → Unified → Snoozed** turns it off. The folders are counted each time
+Hylki checks for new mail, so mail snoozed on another computer brings the row
+too. A reply that arrives in the conversation brings it back
 early. **Undo** (Ctrl+Z) right after a snooze puts the message back where it
 was.
 

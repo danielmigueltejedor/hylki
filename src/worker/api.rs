@@ -476,6 +476,14 @@ pub(crate) enum WorkerEvent {
         path: String,
         unread: u32,
     },
+    /// How many messages the Snoozed folder `path` holds (#542), snoozed
+    /// here or by another computer, read by the same checks that recount
+    /// the unread chips. The app lists the unified Snoozed row while one
+    /// holds anything. By path, as folder ids shift.
+    SnoozedCount {
+        path: String,
+        count: u32,
+    },
     /// A `SetSeen` has been stored (or failed): the app stops holding its own
     /// read state for that message over what the server reports.
     SeenSettled {

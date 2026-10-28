@@ -59,8 +59,8 @@ pub(crate) use compose::recipients::{
     clean_recipient_field, format_recipient, invalid_recipient, parse_recipients,
 };
 pub(crate) use conn_test::{test_alias_smtp_blocking, test_connection_blocking, ConnTest};
-pub(crate) use folders::chip_counts_all;
 pub(crate) use folders::folder_order;
+pub(crate) use folders::{chip_counts_all, snoozed_counts};
 use graph::run_graph;
 pub(crate) use headers::{clean_display_name, decode_header, unescape_quoted_str};
 pub(crate) use imap::fetch_mode::readable_error;

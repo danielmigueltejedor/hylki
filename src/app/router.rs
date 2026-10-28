@@ -53,7 +53,8 @@ impl AppModel {
             | AppMsg::SnoozeMessages { .. }
             | AppMsg::SnoozeMenu
             | AppMsg::WakeSnoozed
-            | AppMsg::Unsnoozed { .. }) => self.on_snooze(msg, sender),
+            | AppMsg::Unsnoozed { .. }
+            | AppMsg::SnoozedCount { .. }) => self.on_snooze(msg, sender),
             msg @ (AppMsg::ShowOutbox
             | AppMsg::OutboxItems { .. }
             | AppMsg::EditCurrentOutbox

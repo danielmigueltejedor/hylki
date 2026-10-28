@@ -3,10 +3,12 @@
 ## Unreleased
 
 - **Added: Snoozed in the unified section** (#542, requested by
-  UnicornPanel). While anything is snoozed, a Snoozed row lists every
-  account's snoozed mail as one list, each message showing when it comes
-  back, with each account's own Snoozed folder beneath; it goes when the last
-  message comes back, as Filters and Tags show only with something to list.
+  UnicornPanel). While any account's Snoozed folder holds mail, a Snoozed row
+  lists every account's snoozed mail as one list, each message showing when
+  it comes back, with each account's own Snoozed folder beneath; it goes when
+  the last message comes back, as Filters and Tags show only with something
+  to list. The Snoozed folders are counted on the server each time Hylki
+  checks for new mail, so mail snoozed on another computer counts too.
   **Unsnooze** and a new time work there as in an account's folder. **Settings
   → Sidebar → Unified → Snoozed** turns it off, and it has its own unread
   count and icon rail fold-up switches. A unified row whose folder no account

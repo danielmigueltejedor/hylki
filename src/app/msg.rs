@@ -582,6 +582,12 @@ pub(crate) enum AppMsg {
         message_ids: Vec<String>,
         done: bool,
     },
+    /// How many messages an account's Snoozed folder holds (#542).
+    SnoozedCount {
+        account_id: u32,
+        path: String,
+        count: u32,
+    },
 
     // ---- on_workers (workers.rs) ----
     /// Check every account for new mail now.

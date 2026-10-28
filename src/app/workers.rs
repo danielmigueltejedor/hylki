@@ -118,6 +118,11 @@ fn map_event(account_id: u32, event: WorkerEvent) -> AppMsg {
             folder_id,
             unread,
         },
+        WorkerEvent::SnoozedCount { path, count } => AppMsg::SnoozedCount {
+            account_id,
+            path,
+            count,
+        },
         WorkerEvent::FolderUnreadByPath { path, unread } => AppMsg::FolderUnreadByPath {
             account_id,
             path,

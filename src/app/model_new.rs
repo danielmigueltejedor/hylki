@@ -559,6 +559,7 @@ impl AppModel {
             outbox_by_account: HashMap::new(),
             snoozed: super::snooze::load_snoozed(),
             snoozed_row: std::cell::Cell::new(false),
+            snoozed_held: HashMap::new(),
             snooze_waking: HashMap::new(),
             snooze_undone: HashMap::new(),
             snooze_until: None,
