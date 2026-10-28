@@ -89,6 +89,15 @@ impl Preferences {
             .privacy
             .show_spoof_banner_row
             .set_active(init.show_spoof_banner);
+        no_truncate(&widgets.privacy.receipts_row);
+        widgets
+            .privacy
+            .receipts_row
+            .set_selected(super::choices::receipts_index(init.receipts));
+        widgets
+            .composing
+            .request_receipts_row
+            .set_active(init.request_receipts);
         widgets.privacy.gravatar_row.set_active(init.gravatar);
         widgets.list.avatars_row.set_active(init.avatars);
         widgets

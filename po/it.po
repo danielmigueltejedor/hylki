@@ -1240,6 +1240,23 @@ msgstr "Elimina {n} messaggi"
 msgid "Customize Toolbar…"
 msgstr "Personalizza barra degli strumenti…"
 
+msgid "Read receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Read: {subject}"
+msgstr "Accettato: {subject}"
+
+msgid ""
+"This is a read receipt for the message sent to {to} on {date} with the "
+"subject \"{subject}\"."
+msgstr ""
+
+msgid ""
+"It means the message was shown on the recipient's screen, not that it was "
+"read or understood."
+msgstr ""
+
 msgid "Full Release Notes on GitHub"
 msgstr "Note di rilascio complete su GitHub"
 
@@ -3431,6 +3448,10 @@ msgstr "Elimina bozza"
 msgid "Send"
 msgstr "Invia"
 
+#, fuzzy
+msgid "Send options"
+msgstr "Azioni"
+
 msgid "Send now"
 msgstr "Invia ora"
 
@@ -3445,6 +3466,12 @@ msgstr "Lunedì mattina ({time})"
 
 msgid "Pick a date and time…"
 msgstr "Scegli una data e un orario…"
+
+msgid "Request a read receipt"
+msgstr ""
+
+msgid "Not every mail app sends one."
+msgstr ""
 
 msgid "Show From, To and Subject"
 msgstr "Mostra Da, A e Oggetto"
@@ -4821,6 +4848,25 @@ msgstr "Data:"
 msgid "Message"
 msgstr "Messaggio"
 
+msgid "{name} asked for a read receipt."
+msgstr ""
+
+msgid "{name} asked for a read receipt, to be sent to {addr}."
+msgstr ""
+
+msgid "Send Receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Tells the sender you opened this message"
+msgstr "Rispondi a tutti in questo messaggio"
+
+msgid "Ignore"
+msgstr ""
+
+msgid "Sends nothing and stops asking"
+msgstr ""
+
 msgid "Copied"
 msgstr "Copiato"
 
@@ -5814,6 +5860,13 @@ msgstr "Mostra loghi mittenti"
 
 msgid ""
 "Most are fetched from the sender's domain, which learns your IP address."
+msgstr ""
+
+#, fuzzy
+msgid "Send read receipts"
+msgstr "Nascondi destinatari"
+
+msgid "A receipt tells the sender when you opened the message."
 msgstr ""
 
 msgid "Open at startup"
@@ -7362,6 +7415,9 @@ msgid "Undo Send"
 msgstr "Annulla"
 
 msgid "How long Undo is offered after sending."
+msgstr ""
+
+msgid "Request read receipts"
 msgstr ""
 
 #, fuzzy

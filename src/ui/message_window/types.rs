@@ -207,6 +207,11 @@ pub(crate) enum MessageWindowInput {
         message: Box<Message>,
         info: Box<crate::models::Unsubscribe>,
     },
+    /// A card's read receipt banner (#520), handed to the app.
+    ReceiptAnswer {
+        message: Box<Message>,
+        send: bool,
+    },
     /// The lists left so far, for the cards' banners.
     SetUnsubscribed(std::collections::HashMap<String, i64>),
     /// Where a card's unsubscribe request stands.
@@ -234,6 +239,11 @@ pub(crate) enum MessageWindowOutput {
     Unsubscribe {
         message: Box<Message>,
         info: Box<crate::models::Unsubscribe>,
+    },
+    /// A card's read receipt banner: send the receipt, or ignore (#520).
+    ReceiptAnswer {
+        message: Box<Message>,
+        send: bool,
     },
     /// A card's invitation button: answer the organiser, or hand the
     /// meeting to a calendar application (#223).

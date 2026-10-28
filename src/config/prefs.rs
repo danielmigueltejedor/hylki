@@ -147,6 +147,21 @@ pub(crate) enum ReadMark {
     Manual,
 }
 
+/// What to do when a message asks for a read receipt (#520).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub(crate) enum ReceiptPolicy {
+    /// A banner on the message offers to send one.
+    #[default]
+    Ask,
+    /// Sent when the message is shown, unless RFC 8098 says to ask: the
+    /// receipt would go somewhere other than where the mail came from, or
+    /// the message was not addressed to you.
+    Always,
+    /// Never sent, and never asked about.
+    Never,
+}
+
 /// What a hand-off of files from GNOME Files ("Send with Hylki", "Open
 /// With Hylki", "Email…") opens them into.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]

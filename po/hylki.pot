@@ -1129,6 +1129,22 @@ msgstr ""
 msgid "Customize Toolbar…"
 msgstr ""
 
+msgid "Read receipt"
+msgstr ""
+
+msgid "Read: {subject}"
+msgstr ""
+
+msgid ""
+"This is a read receipt for the message sent to {to} on {date} with the "
+"subject \"{subject}\"."
+msgstr ""
+
+msgid ""
+"It means the message was shown on the recipient's screen, not that it was "
+"read or understood."
+msgstr ""
+
 msgid "Full Release Notes on GitHub"
 msgstr ""
 
@@ -3096,6 +3112,9 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
+msgid "Send options"
+msgstr ""
+
 msgid "Send now"
 msgstr ""
 
@@ -3109,6 +3128,12 @@ msgid "Monday morning ({time})"
 msgstr ""
 
 msgid "Pick a date and time…"
+msgstr ""
+
+msgid "Request a read receipt"
+msgstr ""
+
+msgid "Not every mail app sends one."
 msgstr ""
 
 msgid "Show From, To and Subject"
@@ -4319,6 +4344,24 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
+msgid "{name} asked for a read receipt."
+msgstr ""
+
+msgid "{name} asked for a read receipt, to be sent to {addr}."
+msgstr ""
+
+msgid "Send Receipt"
+msgstr ""
+
+msgid "Tells the sender you opened this message"
+msgstr ""
+
+msgid "Ignore"
+msgstr ""
+
+msgid "Sends nothing and stops asking"
+msgstr ""
+
 msgid "Copied"
 msgstr ""
 
@@ -5229,6 +5272,12 @@ msgstr ""
 
 msgid ""
 "Most are fetched from the sender's domain, which learns your IP address."
+msgstr ""
+
+msgid "Send read receipts"
+msgstr ""
+
+msgid "A receipt tells the sender when you opened the message."
 msgstr ""
 
 msgid "Open at startup"
@@ -6641,6 +6690,9 @@ msgid "Undo Send"
 msgstr ""
 
 msgid "How long Undo is offered after sending."
+msgstr ""
+
+msgid "Request read receipts"
 msgstr ""
 
 msgid "Reply Header"

@@ -108,9 +108,9 @@ pub(super) fn wrapper_css(
          color:inherit;font:inherit;font-size:0.95em;font-weight:600;cursor:pointer;}}\
          .hylki-tr-btn:hover{{background:color-mix(in srgb,currentColor 15%,transparent);}}\
          .hylki-tr-btn:active{{background:color-mix(in srgb,currentColor 30%,transparent);}}\
-         .hylki-unsub{{display:flex;align-items:center;gap:10px;padding:8px 14px 9px;\
+         .hylki-unsub,.hylki-mdn{{display:flex;align-items:center;gap:10px;padding:8px 14px 9px;\
          font-size:0.9em;border-bottom:1px solid rgba(128,128,128,0.25);}}\
-         .hylki-unsub:empty{{display:none;}}\
+         .hylki-unsub:empty,.hylki-mdn:empty{{display:none;}}\
          .hylki-unsub-text{{flex:1 1 auto;min-width:0;opacity:0.8;}}\
          .hylki-unsub-btn{{flex:none;border:none;border-radius:6px;\
          padding:3px 12px;background:color-mix(in srgb,currentColor 10%,transparent);\

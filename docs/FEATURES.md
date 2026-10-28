@@ -148,6 +148,10 @@ The full list. The [README](../README.md) carries a shorter one.
 - **One-click unsubscribe:** a banner on list mail that leaves the list for
   you, by request or by email, without a browser where the list allows it,
   and can delete the mail already received from the same address.
+- **Read receipts:** a banner on a message that asks for one sends it or
+  ignores the request, or a setting answers every time; a message you write
+  can ask for one too. See
+  [Read receipts](DOCUMENTATION.md#read-receipts).
 - **OpenPGP:** read encrypted and signed mail, sign and encrypt what you
   send, and manage keys from Settings, through the GnuPG already on your
   computer. See [OpenPGP](DOCUMENTATION.md#openpgp-encrypted-and-signed-mail).

@@ -89,6 +89,7 @@ mod prefs_reader;
 mod prefs_sidebar;
 mod reader_select;
 mod reader_toolbar;
+mod receipts;
 mod release_notes;
 mod removal;
 mod router;

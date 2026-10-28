@@ -166,6 +166,9 @@ fn message_view_output_msg(out: MessageViewOutput) -> AppMsg {
         MessageViewOutput::ReaderMode(on) => AppMsg::SetReaderMode(on),
         MessageViewOutput::Zoom(step) => AppMsg::ZoomMessage(step),
         MessageViewOutput::Unsubscribe { message, info } => AppMsg::Unsubscribe { message, info },
+        MessageViewOutput::ReceiptAnswer { message, send } => {
+            AppMsg::ReceiptAnswer { message, send }
+        }
         MessageViewOutput::InviteAction {
             message,
             invite,

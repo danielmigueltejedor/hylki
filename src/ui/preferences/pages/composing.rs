@@ -28,6 +28,7 @@ pub(in crate::ui::preferences) struct ComposingPage {
     pub(in crate::ui::preferences) signature_position_row: adw::ComboRow,
     pub(in crate::ui::preferences) signature_dashes_row: adw::SwitchRow,
     pub(in crate::ui::preferences) undo_send_row: adw::ComboRow,
+    pub(in crate::ui::preferences) request_receipts_row: adw::SwitchRow,
     pub(in crate::ui::preferences) reply_header_row: adw::EntryRow,
     /// The reply header as last saved, as the row shows it: the apply
     /// button is up only while the text differs from it.
@@ -173,6 +174,15 @@ impl ComposingPage {
                             sender.input(PrefInput::ChangeUndoSend(row.selected()));
                         },
                     },
+
+                    #[name = "request_receipts_row"]
+                    adw::SwitchRow {
+                        set_title: &i18n("Request read receipts"),
+                        set_subtitle: &i18n("Not every mail app sends one."),
+                        connect_active_notify[sender] => move |row| {
+                            let _ = sender.output(PrefOutput::SetRequestReceipts(row.is_active()));
+                        },
+                    },
                 },
 
                 add = &adw::PreferencesGroup {
@@ -254,6 +264,7 @@ impl ComposingPage {
             signature_position_row,
             signature_dashes_row,
             undo_send_row,
+            request_receipts_row,
             reply_header_row,
             reply_header_saved,
             spelling_group,

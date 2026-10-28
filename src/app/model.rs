@@ -390,6 +390,12 @@ pub(crate) struct AppModel {
     /// Whether a "Check this sender" verdict gets the red banner over the
     /// message. A failed check gets it regardless.
     pub(super) show_spoof_banner: bool,
+    /// Answering requests for read receipts (#520), and the requests
+    /// already answered or ignored here (receipts.toml).
+    pub(super) receipts: config::ReceiptPolicy,
+    pub(super) receipts_answered: Vec<config::ReceiptAnswer>,
+    /// New messages ask for a read receipt (#520).
+    pub(super) request_receipts: bool,
     /// Addresses/domains whose incoming inbox mail is auto-deleted (lowercased).
     pub(super) blacklist: Vec<String>,
     /// Seconds the message-list actions palette stays open after the cursor leaves.

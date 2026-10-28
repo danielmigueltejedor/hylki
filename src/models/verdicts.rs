@@ -506,6 +506,8 @@ pub(crate) struct SenderCheck {
     /// The sensitivity label the sender's organization set (#411), read in
     /// the same pass.
     pub(crate) label: Option<crate::mail::sensitivity::SensitivityLabel>,
+    /// The read receipt the sender asked for (#520), read in the same pass.
+    pub(crate) receipt: Option<crate::mail::receipt::ReceiptRequest>,
 }
 
 impl Default for SenderCheck {
@@ -518,6 +520,7 @@ impl Default for SenderCheck {
             unsubscribe: None,
             invite: None,
             label: None,
+            receipt: None,
         }
     }
 }

@@ -187,6 +187,12 @@ pub(crate) enum MessageViewInput {
         account_id: u32,
         id: u32,
     },
+    /// A card's read receipt banner (#520): Send Receipt, or Ignore.
+    ReceiptAnswer {
+        account_id: u32,
+        id: u32,
+        send: bool,
+    },
     /// A card's Translate button or its translation banner (#327): start a
     /// translation, or switch between it and the original.
     Translate {
@@ -501,6 +507,9 @@ pub(crate) enum MessageViewOutput {
         message: Box<Message>,
         info: Box<crate::models::Unsubscribe>,
     },
+    /// A card's read receipt banner (#520): send the receipt, or ignore
+    /// the request.
+    ReceiptAnswer { message: Box<Message>, send: bool },
     /// A card's invitation button (#223): answer the organiser, or hand the
     /// meeting to a calendar application.
     InviteAction {

@@ -1197,6 +1197,23 @@ msgstr "{n} Nachrichten löschen"
 msgid "Customize Toolbar…"
 msgstr "Symbolleiste anpassen…"
 
+msgid "Read receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Read: {subject}"
+msgstr "Akzeptiert: {subject}"
+
+msgid ""
+"This is a read receipt for the message sent to {to} on {date} with the "
+"subject \"{subject}\"."
+msgstr ""
+
+msgid ""
+"It means the message was shown on the recipient's screen, not that it was "
+"read or understood."
+msgstr ""
+
 msgid "Full Release Notes on GitHub"
 msgstr "Vollständige Versionshinweise auf GitHub"
 
@@ -3363,6 +3380,10 @@ msgstr "Entwurf löschen"
 msgid "Send"
 msgstr "Senden"
 
+#, fuzzy
+msgid "Send options"
+msgstr "Abschnitte"
+
 msgid "Send now"
 msgstr "Jetzt senden"
 
@@ -3377,6 +3398,12 @@ msgstr "Montagmorgen ({time})"
 
 msgid "Pick a date and time…"
 msgstr "Datum und Uhrzeit auswählen…"
+
+msgid "Request a read receipt"
+msgstr ""
+
+msgid "Not every mail app sends one."
+msgstr ""
 
 msgid "Show From, To and Subject"
 msgstr "Von, An und Betreff anzeigen"
@@ -4683,6 +4710,25 @@ msgstr "Datum:"
 msgid "Message"
 msgstr "Nachricht"
 
+msgid "{name} asked for a read receipt."
+msgstr ""
+
+msgid "{name} asked for a read receipt, to be sent to {addr}."
+msgstr ""
+
+msgid "Send Receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Tells the sender you opened this message"
+msgstr "Allen antworten auf diese Nachricht"
+
+msgid "Ignore"
+msgstr ""
+
+msgid "Sends nothing and stops asking"
+msgstr ""
+
 msgid "Copied"
 msgstr "Kopiert"
 
@@ -5667,6 +5713,13 @@ msgid ""
 msgstr ""
 "Der Abruf erfolgt überwiegend von der Absender-Domain, wodurch die eigene IP-"
 "Adresse offengelegt wird."
+
+#, fuzzy
+msgid "Send read receipts"
+msgstr "Empfänger ausblenden"
+
+msgid "A receipt tells the sender when you opened the message."
+msgstr ""
 
 msgid "Open at startup"
 msgstr "Beim Start öffnen"
@@ -7212,6 +7265,9 @@ msgstr "Senden widerrufen"
 
 msgid "How long Undo is offered after sending."
 msgstr "Dauer der Einblendung zum Wiederrufen des Sendevorgangs."
+
+msgid "Request read receipts"
+msgstr ""
 
 msgid "Reply Header"
 msgstr "Antwort-Kopfzeile"

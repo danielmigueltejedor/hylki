@@ -335,6 +335,12 @@ pub(crate) struct OutgoingMessage {
     /// plain text so a calendar reads the answer and a person reads the
     /// sentence.
     pub(crate) calendar: Option<CalendarPart>,
+    /// Ask for a read receipt (#520): a `Disposition-Notification-To`
+    /// naming the From address.
+    pub(crate) request_receipt: bool,
+    /// A read receipt (#520): the fields of its report, sent with `body` as
+    /// the words beside them in a `multipart/report`.
+    pub(crate) receipt_report: Option<String>,
 }
 
 /// The calendar half of an outgoing message (#223).

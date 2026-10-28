@@ -745,6 +745,8 @@ pub(crate) enum AppMsg {
         message: Box<Message>,
         info: Box<crate::models::Unsubscribe>,
     },
+    /// A card's read receipt banner (#520): send the receipt, or ignore.
+    ReceiptAnswer { message: Box<Message>, send: bool },
     /// Confirmed: send the request.
     UnsubscribeGo {
         message: Box<Message>,

@@ -29,6 +29,7 @@ mod on_services;
 mod on_show;
 mod page_fade;
 mod print;
+mod receipt_banner;
 mod remote;
 mod render;
 mod sender;

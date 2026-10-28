@@ -120,6 +120,8 @@ impl AppModel {
             launcher_badge: Some(self.launcher_badge),
             show_remote_banner: self.show_remote_banner,
             show_spoof_banner: self.show_spoof_banner,
+            receipts: self.receipts,
+            request_receipts: self.request_receipts,
             sidebar_hover_expand: self.sidebar_hover_expand,
             remember_sidebar: self.remember_sidebar,
             remember_rail: self.remember_rail,

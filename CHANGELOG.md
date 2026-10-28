@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- **Added: read receipts** (#520, requested by dm1sh). A message that asks
+  for a read receipt (RFC 8098) shows a banner with **Send Receipt** and
+  **Ignore**; either answer is remembered, and marked `$MDNSent` on IMAP and
+  JMAP accounts so other mail apps do not ask again. **Settings → Privacy →
+  Send read receipts** asks each time, always sends, or never does; Always
+  still asks when the receipt would go somewhere other than where the mail
+  came from, or the message was not addressed to you. **Request a read
+  receipt** in the menu beside Send asks for one on a message you write, and
+  **Settings → Composing → Request read receipts** ticks it for every new
+  message. A receipt that arrives no longer lists its report as an
+  attachment.
+
 - **Added: the arrow keys open and fold conversations in the list** (#540,
   requested by amadeusp). With the list focused, Right opens the conversation
   on the selected row out in the list and Left folds it back up, from its row

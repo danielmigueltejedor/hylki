@@ -1891,6 +1891,33 @@ and at most every six hours. Starred mail stays, and so does anything without
 the header, however old. It works for IMAP and JMAP accounts; Microsoft 365
 offers no way to search for the header, so the choice is not shown there.
 
+### Read receipts
+
+A message can ask for a read receipt: a short message back to its sender
+saying when it was opened. When one asks, a banner above its text says so,
+with **Send Receipt** and **Ignore**. Either answer is remembered, and on IMAP
+and JMAP accounts the message is marked `$MDNSent`, as Thunderbird and K-9
+Mail mark it, so other mail apps do not ask again. Your own mail, and mail in
+Sent, Drafts, Templates, Junk and Trash, never asks. Neither does mail
+downloaded before Hylki read the request.
+
+**Settings → Privacy → Send read receipts** chooses **Ask each time**,
+**Always** or **Never**. **Always** sends the receipt when the message is
+shown, except when it would go to an address other than the one the mail came
+from (its Return-Path), or the message was not addressed to you in To or Cc:
+those still ask, as RFC 8098 requires. **Never** sends none and shows no
+banner.
+
+The receipt goes from the address the message was sent to, with no copy in
+Sent, as the `multipart/report` RFC 8098 describes: a sentence for the
+person, and a report their mail app reads.
+
+To ask for a receipt on a message you write, tick **Request a read receipt**
+in the menu beside **Send**. **Settings → Composing → Request read receipts**
+ticks it for every new message. Many mail apps send none, or only when the
+person agrees. A receipt that comes back is a message of its own, whose text
+names the message that was opened.
+
 ### Storage
 
 Messages and attachments that have been opened, or fetched ahead for the
@@ -2005,6 +2032,10 @@ for mail whose remote content would load anyway, and not on a metered
 connection when Settings asks to save data there. It is off by default,
 because a sender's tracking pixel then reports a message as opened before you
 open it. Stored as `remote_ahead` in `privacy.toml`.
+
+**Read receipts** are sent only when you press **Send Receipt**, unless
+**Settings → Privacy → Send read receipts** is **Always**. See
+[Read receipts](#read-receipts).
 
 **Translation** is off until a service is chosen in Settings → Translation.
 After that, a message's text goes to that service only when you press

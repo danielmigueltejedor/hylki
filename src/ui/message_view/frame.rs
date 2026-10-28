@@ -90,6 +90,9 @@ thread_local! {
     /// And each card's invitation banner (#223), the same way again.
     pub(super) static LIVE_INVITE: std::cell::RefCell<std::collections::HashMap<(u32, u32), String>> =
         std::cell::RefCell::new(std::collections::HashMap::new());
+    /// And each card's read receipt banner (#520).
+    pub(super) static LIVE_RECEIPT: std::cell::RefCell<std::collections::HashMap<(u32, u32), String>> =
+        std::cell::RefCell::new(std::collections::HashMap::new());
     /// Each card's translation banner (#327), and the translation the card
     /// shows instead of its message, if it shows one. Empty in tests.
     pub(super) static LIVE_TRANSLATE: std::cell::RefCell<TranslationsShown> =

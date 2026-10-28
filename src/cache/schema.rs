@@ -88,6 +88,7 @@ CREATE TABLE IF NOT EXISTS sender_checks (
     unsubscribe TEXT NOT NULL DEFAULT '',
     invite      TEXT NOT NULL DEFAULT '',
     label       TEXT NOT NULL DEFAULT '',
+    receipt     TEXT NOT NULL DEFAULT '',
     PRIMARY KEY (account_id, folder_path, uid)
 );
 CREATE TABLE IF NOT EXISTS attachments (

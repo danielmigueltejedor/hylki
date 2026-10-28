@@ -693,7 +693,7 @@ impl AppModel {
     /// A lone message: its body asked for first if it is not cached, then
     /// the related lookup, then the reader shows it.
     fn show_single(
-        &self,
+        &mut self,
         m: &Message,
         display: Message,
         needs_body: bool,

@@ -129,6 +129,12 @@ impl AppModel {
                 }
             }
 
+            PrefOutput::SetReceipts(policy) => {
+                if pref!(self.receipts = policy) {
+                    self.refresh_receipt_banners();
+                }
+            }
+
             PrefOutput::SetShowSpoofBanner(on) => {
                 if pref!(self.show_spoof_banner = on) {
                     self.message_view

@@ -1211,6 +1211,23 @@ msgstr "Supprimer {n} messages"
 msgid "Customize Toolbar…"
 msgstr "Personnaliser la barre d’outils…"
 
+msgid "Read receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Read: {subject}"
+msgstr "Accepté : {subject}"
+
+msgid ""
+"This is a read receipt for the message sent to {to} on {date} with the "
+"subject \"{subject}\"."
+msgstr ""
+
+msgid ""
+"It means the message was shown on the recipient's screen, not that it was "
+"read or understood."
+msgstr ""
+
 msgid "Full Release Notes on GitHub"
 msgstr "Notes de version complètes sur GitHub"
 
@@ -3373,6 +3390,10 @@ msgstr "Supprimer le brouillon"
 msgid "Send"
 msgstr "Envoyer"
 
+#, fuzzy
+msgid "Send options"
+msgstr "Sections"
+
 msgid "Send now"
 msgstr "Envoyer maintenant"
 
@@ -3387,6 +3408,12 @@ msgstr "Lundi matin ({time})"
 
 msgid "Pick a date and time…"
 msgstr "Choisir une date et une heure…"
+
+msgid "Request a read receipt"
+msgstr ""
+
+msgid "Not every mail app sends one."
+msgstr ""
 
 msgid "Show From, To and Subject"
 msgstr "Afficher l’expéditeur, le destinataire et l’objet"
@@ -4702,6 +4729,25 @@ msgstr "Date :"
 msgid "Message"
 msgstr "Message"
 
+msgid "{name} asked for a read receipt."
+msgstr ""
+
+msgid "{name} asked for a read receipt, to be sent to {addr}."
+msgstr ""
+
+msgid "Send Receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Tells the sender you opened this message"
+msgstr "Répondre à tous sur ce message"
+
+msgid "Ignore"
+msgstr ""
+
+msgid "Sends nothing and stops asking"
+msgstr ""
+
 msgid "Copied"
 msgstr "Copié"
 
@@ -5678,6 +5724,13 @@ msgid ""
 msgstr ""
 "La plupart sont récupérés depuis le domaine de l’expéditeur, qui apprend "
 "ainsi votre adresse IP."
+
+#, fuzzy
+msgid "Send read receipts"
+msgstr "Masquer les destinataires"
+
+msgid "A receipt tells the sender when you opened the message."
+msgstr ""
 
 msgid "Open at startup"
 msgstr "Ouvrir au démarrage"
@@ -7207,6 +7260,9 @@ msgstr "Annuler l’envoi"
 
 msgid "How long Undo is offered after sending."
 msgstr "Durée pendant laquelle Annuler est proposé après l’envoi."
+
+msgid "Request read receipts"
+msgstr ""
 
 #, fuzzy
 msgid "Reply Header"

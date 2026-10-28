@@ -1200,6 +1200,23 @@ msgstr "Suprimeix {n} missatges"
 msgid "Customize Toolbar…"
 msgstr "Personalitza la barra d'eines…"
 
+msgid "Read receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Read: {subject}"
+msgstr "Acceptat: {subject}"
+
+msgid ""
+"This is a read receipt for the message sent to {to} on {date} with the "
+"subject \"{subject}\"."
+msgstr ""
+
+msgid ""
+"It means the message was shown on the recipient's screen, not that it was "
+"read or understood."
+msgstr ""
+
 msgid "Full Release Notes on GitHub"
 msgstr "Notes completes de la versió al GitHub"
 
@@ -3334,6 +3351,10 @@ msgstr "Suprimeix l'esborrany"
 msgid "Send"
 msgstr "Envia"
 
+#, fuzzy
+msgid "Send options"
+msgstr "Seccions"
+
 msgid "Send now"
 msgstr "Envia ara"
 
@@ -3348,6 +3369,12 @@ msgstr "Dilluns al matí ({time})"
 
 msgid "Pick a date and time…"
 msgstr "Tria una data i una hora…"
+
+msgid "Request a read receipt"
+msgstr ""
+
+msgid "Not every mail app sends one."
+msgstr ""
 
 msgid "Show From, To and Subject"
 msgstr "Mostra De, A i Assumpte"
@@ -4655,6 +4682,25 @@ msgstr "Data:"
 msgid "Message"
 msgstr "Missatge"
 
+msgid "{name} asked for a read receipt."
+msgstr ""
+
+msgid "{name} asked for a read receipt, to be sent to {addr}."
+msgstr ""
+
+msgid "Send Receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Tells the sender you opened this message"
+msgstr "Respon a tots d'aquest missatge"
+
+msgid "Ignore"
+msgstr ""
+
+msgid "Sends nothing and stops asking"
+msgstr ""
+
 msgid "Copied"
 msgstr "Copiat"
 
@@ -5625,6 +5671,13 @@ msgid ""
 msgstr ""
 "La majoria s'obtenen del domini del remitent, que llavors aprèn la teva "
 "adreça IP."
+
+#, fuzzy
+msgid "Send read receipts"
+msgstr "Amaga els destinataris"
+
+msgid "A receipt tells the sender when you opened the message."
+msgstr ""
 
 msgid "Open at startup"
 msgstr "Obre en iniciar"
@@ -7139,6 +7192,9 @@ msgstr "Desfés l'enviament"
 
 msgid "How long Undo is offered after sending."
 msgstr "Quant de temps s'ofereix desfer després d'enviar."
+
+msgid "Request read receipts"
+msgstr ""
 
 #, fuzzy
 msgid "Reply Header"

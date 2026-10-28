@@ -277,6 +277,26 @@ pub(super) fn read_mark_at(idx: u32) -> crate::config::ReadMark {
     }
 }
 
+/// The row of the read receipts combo that shows `value` (#520).
+pub(super) fn receipts_index(value: crate::config::ReceiptPolicy) -> u32 {
+    use crate::config::ReceiptPolicy;
+    match value {
+        ReceiptPolicy::Ask => 0,
+        ReceiptPolicy::Always => 1,
+        ReceiptPolicy::Never => 2,
+    }
+}
+
+/// The read receipts value at row `idx` of its combo; past the end asks.
+pub(super) fn receipts_at(idx: u32) -> crate::config::ReceiptPolicy {
+    use crate::config::ReceiptPolicy;
+    match idx {
+        1 => ReceiptPolicy::Always,
+        2 => ReceiptPolicy::Never,
+        _ => ReceiptPolicy::Ask,
+    }
+}
+
 /// The row of the fold messages combo that shows `value`.
 pub(super) fn fold_messages_index(value: crate::config::FoldMessages) -> u32 {
     use crate::config::FoldMessages;
@@ -564,6 +584,15 @@ mod tests {
             assert_eq!(read_mark_at(read_mark_index(v)), v);
         }
         assert_eq!(read_mark_at(9), ReadMark::Shown);
+        use crate::config::ReceiptPolicy;
+        for v in [
+            ReceiptPolicy::Ask,
+            ReceiptPolicy::Always,
+            ReceiptPolicy::Never,
+        ] {
+            assert_eq!(receipts_at(receipts_index(v)), v);
+        }
+        assert_eq!(receipts_at(9), ReceiptPolicy::Ask);
         for v in [
             FoldMessages::Never,
             FoldMessages::Read,

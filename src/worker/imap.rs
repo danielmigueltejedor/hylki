@@ -37,6 +37,8 @@ mod idle;
 pub(super) mod keywords;
 mod ladder;
 #[cfg(test)]
+mod live_receipt_tests;
+#[cfg(test)]
 mod live_tests;
 mod mutate;
 mod offline;

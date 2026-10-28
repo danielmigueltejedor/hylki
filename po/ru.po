@@ -1291,6 +1291,23 @@ msgstr "Удалить {n} сообщений"
 msgid "Customize Toolbar…"
 msgstr "Настроить панель инструментов…"
 
+msgid "Read receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Read: {subject}"
+msgstr "Принято: {subject}"
+
+msgid ""
+"This is a read receipt for the message sent to {to} on {date} with the "
+"subject \"{subject}\"."
+msgstr ""
+
+msgid ""
+"It means the message was shown on the recipient's screen, not that it was "
+"read or understood."
+msgstr ""
+
 msgid "Full Release Notes on GitHub"
 msgstr "Полные примечания к выпуску на GitHub"
 
@@ -3503,6 +3520,10 @@ msgstr "Удалить черновик"
 msgid "Send"
 msgstr "Отправить"
 
+#, fuzzy
+msgid "Send options"
+msgstr "Действия"
+
 msgid "Send now"
 msgstr "Отправить сейчас"
 
@@ -3517,6 +3538,12 @@ msgstr "В понедельник утром ({time})"
 
 msgid "Pick a date and time…"
 msgstr "Выбрать дату и время…"
+
+msgid "Request a read receipt"
+msgstr ""
+
+msgid "Not every mail app sends one."
+msgstr ""
 
 msgid "Show From, To and Subject"
 msgstr "Показать поля «От», «Кому» и «Тема»"
@@ -4880,6 +4907,25 @@ msgstr "Дата"
 msgid "Message"
 msgstr "Сообщения"
 
+msgid "{name} asked for a read receipt."
+msgstr ""
+
+msgid "{name} asked for a read receipt, to be sent to {addr}."
+msgstr ""
+
+msgid "Send Receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Tells the sender you opened this message"
+msgstr "Ответить всем участникам этого сообщения"
+
+msgid "Ignore"
+msgstr ""
+
+msgid "Sends nothing and stops asking"
+msgstr ""
+
 msgid "Copied"
 msgstr "Скопировано"
 
@@ -5875,6 +5921,13 @@ msgstr "Показывать логотипы отправителей"
 
 msgid ""
 "Most are fetched from the sender's domain, which learns your IP address."
+msgstr ""
+
+#, fuzzy
+msgid "Send read receipts"
+msgstr "Скрыть получателей"
+
+msgid "A receipt tells the sender when you opened the message."
 msgstr ""
 
 msgid "Open at startup"
@@ -7427,6 +7480,9 @@ msgid "Undo Send"
 msgstr "Отменить"
 
 msgid "How long Undo is offered after sending."
+msgstr ""
+
+msgid "Request read receipts"
 msgstr ""
 
 #, fuzzy

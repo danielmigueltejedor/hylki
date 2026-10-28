@@ -187,7 +187,7 @@ CREATE TABLE sender_checks (
     trust       TEXT NOT NULL,
     summary     TEXT NOT NULL,
     findings    TEXT NOT NULL,
-    unsubscribe TEXT NOT NULL DEFAULT '', pgp TEXT NOT NULL DEFAULT '', invite TEXT NOT NULL DEFAULT '', label TEXT NOT NULL DEFAULT '',
+    unsubscribe TEXT NOT NULL DEFAULT '', pgp TEXT NOT NULL DEFAULT '', invite TEXT NOT NULL DEFAULT '', label TEXT NOT NULL DEFAULT '', receipt TEXT NOT NULL DEFAULT '',
     PRIMARY KEY (account_id, folder_path, uid)
 )
 

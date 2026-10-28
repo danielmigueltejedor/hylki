@@ -422,6 +422,11 @@ fn unsubscribed_and_invites_toml() {
         "[[answers]]\nkey = \"uid-1\"\nstatus = \"ACCEPTED\"\nat = 1700000000\nsummary = \"Standup\"\n\n\
          [[answers]]\nkey = \"uid-2/20240101T090000Z\"\nstatus = \"DECLINED\"\n",
     );
+    pin_round_trip::<ReceiptAnswerFile>(
+        "receipts.toml",
+        "[[answers]]\nkey = \"abc@example.org\"\nsent = true\nat = 1700000000\n\n\
+         [[answers]]\nkey = \"def@example.org\"\n",
+    );
 }
 
 #[test]

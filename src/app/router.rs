@@ -235,6 +235,7 @@ impl AppModel {
             | AppMsg::UnsubscribeByMail { .. }
             | AppMsg::UnsubscribeDone { .. }) => self.on_unsubscribe(msg, sender),
             msg @ AppMsg::InviteAction { .. } => self.on_invites(msg),
+            AppMsg::ReceiptAnswer { message, send } => self.answer_receipt(&message, send),
             msg @ (AppMsg::ListOverflowMenu
             | AppMsg::ListPaneWidth(..)
             | AppMsg::ListCount(..)
@@ -467,6 +468,7 @@ impl AppModel {
             | PrefOutput::SetToolbarFoldRight(..)
             | PrefOutput::SetShowRemoteBanner(..)
             | PrefOutput::SetShowSpoofBanner(..)
+            | PrefOutput::SetReceipts(..)
             | PrefOutput::SetAutoRemoteContent(..)
             | PrefOutput::SetRemoteAhead(..)
             | PrefOutput::SetThreading(..)
@@ -532,7 +534,8 @@ impl AppModel {
             | PrefOutput::SetSignaturePosition(..)
             | PrefOutput::SetSignatureDashes(..)
             | PrefOutput::SetReplyHeader(..)
-            | PrefOutput::SetUndoSend(..)) => self.on_prefs_compose_pref(pref),
+            | PrefOutput::SetUndoSend(..)
+            | PrefOutput::SetRequestReceipts(..)) => self.on_prefs_compose_pref(pref),
             // The rest of Preferences' outputs are mapped to their own
             // messages before they get here.
             _ => {}

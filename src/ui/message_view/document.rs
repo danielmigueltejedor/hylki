@@ -7,10 +7,11 @@ use super::wrapper_css::wrapper_css;
 
 use super::frame::{
     message_frame, CHROME, GROUND, LIVE_ATTS, LIVE_FOLDBAR, LIVE_FOLDED, LIVE_GROUNDS, LIVE_INVITE,
-    LIVE_TAGS, LIVE_TEMPLATES, LIVE_TRANSLATE, LIVE_TRANSLATE_ON, LIVE_UNSUB, PAGE,
+    LIVE_RECEIPT, LIVE_TAGS, LIVE_TEMPLATES, LIVE_TRANSLATE, LIVE_TRANSLATE_ON, LIVE_UNSUB, PAGE,
 };
 use super::html::attr_escape;
 use super::invite::invite_row_html;
+use super::receipt_banner::receipt_row_html;
 use super::remote::has_remote_resources;
 use super::size_script::SIZE_SCRIPT;
 use super::snippets::{
@@ -398,7 +399,7 @@ fn card_html(cards: &Cards<'_>, m: &Message, ava_html: &str, body: String) -> St
                      <span class=\"hylki-date\">{date}</span></span>\
                    {acts_toggle}{acts}\
                  </div>{rcpt}\
-               </header>{tpl}{invite}{unsub}{tr}{body}{atts}</section>",
+               </header>{tpl}{invite}{receipt}{unsub}{tr}{body}{atts}</section>",
         aid = m.account_id,
         id = m.id,
         // The message's own attachments beneath its body (#213).
@@ -424,6 +425,16 @@ fn card_html(cards: &Cards<'_>, m: &Message, ava_html: &str, body: String) -> St
             invite_row_html(
                 (m.account_id, m.id),
                 i.borrow()
+                    .get(&(m.account_id, m.id))
+                    .map(String::as_str)
+                    .unwrap_or(""),
+            )
+        }),
+        // The read receipt banner (#520), on the same terms.
+        receipt = LIVE_RECEIPT.with(|r| {
+            receipt_row_html(
+                (m.account_id, m.id),
+                r.borrow()
                     .get(&(m.account_id, m.id))
                     .map(String::as_str)
                     .unwrap_or(""),

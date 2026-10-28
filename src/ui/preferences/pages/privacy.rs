@@ -15,6 +15,7 @@ pub(in crate::ui::preferences) struct PrivacyPage {
     pub(in crate::ui::preferences) show_spoof_banner_row: adw::SwitchRow,
     pub(in crate::ui::preferences) gravatar_row: adw::SwitchRow,
     pub(in crate::ui::preferences) sender_logos_row: adw::SwitchRow,
+    pub(in crate::ui::preferences) receipts_row: adw::ComboRow,
 }
 
 impl PrivacyPage {
@@ -81,6 +82,22 @@ impl PrivacyPage {
                         },
                     },
 
+                    #[name = "receipts_row"]
+                    adw::ComboRow {
+                        set_title: &i18n("Send read receipts"),
+                        set_subtitle: &i18n("A receipt tells the sender when you opened the message."),
+                        set_model: Some(&gtk::StringList::new(&[
+                            &i18n("Ask each time"),
+                            &i18n("Always"),
+                            &i18n("Never"),
+                        ])),
+                        connect_selected_notify[sender] => move |row| {
+                            let _ = sender.output(PrefOutput::SetReceipts(
+                                crate::ui::preferences::choices::receipts_at(row.selected()),
+                            ));
+                        },
+                    },
+
                 },
             }
         }
@@ -92,6 +109,7 @@ impl PrivacyPage {
             show_spoof_banner_row,
             gravatar_row,
             sender_logos_row,
+            receipts_row,
         }
     }
 }

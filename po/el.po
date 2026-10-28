@@ -1218,6 +1218,23 @@ msgstr "Διαγραφή {n} μηνυμάτων"
 msgid "Customize Toolbar…"
 msgstr "Προσαρμογή γραμμής εργαλείων…"
 
+msgid "Read receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Read: {subject}"
+msgstr "Αποδεκτή: {subject}"
+
+msgid ""
+"This is a read receipt for the message sent to {to} on {date} with the "
+"subject \"{subject}\"."
+msgstr ""
+
+msgid ""
+"It means the message was shown on the recipient's screen, not that it was "
+"read or understood."
+msgstr ""
+
 msgid "Full Release Notes on GitHub"
 msgstr "Όλες οι σημειώσεις έκδοσης στο GitHub"
 
@@ -3399,6 +3416,10 @@ msgstr "Διαγραφή προχείρου"
 msgid "Send"
 msgstr "Αποστολή"
 
+#, fuzzy
+msgid "Send options"
+msgstr "Ενότητες"
+
 msgid "Send now"
 msgstr "Αποστολή τώρα"
 
@@ -3413,6 +3434,12 @@ msgstr "Δευτέρα πρωί ({time})"
 
 msgid "Pick a date and time…"
 msgstr "Επιλογή ημερομηνίας και ώρας…"
+
+msgid "Request a read receipt"
+msgstr ""
+
+msgid "Not every mail app sends one."
+msgstr ""
 
 msgid "Show From, To and Subject"
 msgstr "Εμφάνιση Από, Προς και Θέμα"
@@ -4727,6 +4754,25 @@ msgstr "Ημερομηνία:"
 msgid "Message"
 msgstr "Μήνυμα"
 
+msgid "{name} asked for a read receipt."
+msgstr ""
+
+msgid "{name} asked for a read receipt, to be sent to {addr}."
+msgstr ""
+
+msgid "Send Receipt"
+msgstr ""
+
+#, fuzzy
+msgid "Tells the sender you opened this message"
+msgstr "Απάντηση σε όλους σε αυτό το μήνυμα"
+
+msgid "Ignore"
+msgstr ""
+
+msgid "Sends nothing and stops asking"
+msgstr ""
+
 msgid "Copied"
 msgstr "Αντιγράφηκε"
 
@@ -5709,6 +5755,13 @@ msgid ""
 msgstr ""
 "Τα περισσότερα λαμβάνονται από τον τομέα του αποστολέα, ο οποίος μαθαίνει τη "
 "διεύθυνση IP σας."
+
+#, fuzzy
+msgid "Send read receipts"
+msgstr "Απόκρυψη παραληπτών"
+
+msgid "A receipt tells the sender when you opened the message."
+msgstr ""
 
 msgid "Open at startup"
 msgstr "Άνοιγμα κατά την εκκίνηση"
@@ -7261,6 +7314,9 @@ msgstr "Αναίρεση αποστολής"
 
 msgid "How long Undo is offered after sending."
 msgstr "Για πόσο χρόνο είναι διαθέσιμη η αναίρεση μετά την αποστολή."
+
+msgid "Request read receipts"
+msgstr ""
 
 #, fuzzy
 msgid "Reply Header"
