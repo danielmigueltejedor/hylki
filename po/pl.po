@@ -6086,6 +6086,9 @@ msgstr "Wyświetl tylko to konto"
 msgid "Inboxes"
 msgstr "Skrzynki odbiorcze"
 
+msgid "Snoozed"
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Liczniki nieprzeczytanych"
 
@@ -7329,9 +7332,6 @@ msgstr ""
 "powyższe zapisywanie kopii."
 
 msgid "Templates"
-msgstr ""
-
-msgid "Snoozed"
 msgstr ""
 
 msgid "Hidden Folders"

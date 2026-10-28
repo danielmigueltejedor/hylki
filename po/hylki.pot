@@ -5369,6 +5369,9 @@ msgstr ""
 msgid "Inboxes"
 msgstr ""
 
+msgid "Snoozed"
+msgstr ""
+
 msgid "Unread counts"
 msgstr ""
 
@@ -6486,9 +6489,6 @@ msgid "For Gmail and others that file sent mail themselves."
 msgstr ""
 
 msgid "Templates"
-msgstr ""
-
-msgid "Snoozed"
 msgstr ""
 
 msgid "Hidden Folders"

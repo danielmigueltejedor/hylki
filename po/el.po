@@ -5864,6 +5864,9 @@ msgstr "Εμφανίζεται μόνο όταν υπάρχουν περισσό
 msgid "Inboxes"
 msgstr "Εισερχόμενα"
 
+msgid "Snoozed"
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Πλήθος μη αναγνωσμένων"
 
@@ -7087,9 +7090,6 @@ msgstr ""
 
 msgid "Templates"
 msgstr "Πρότυπα"
-
-msgid "Snoozed"
-msgstr ""
 
 msgid "Hidden Folders"
 msgstr "Κρυφοί φάκελοι"

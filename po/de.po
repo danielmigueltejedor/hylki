@@ -5825,6 +5825,9 @@ msgstr "Wird nur angezeigt, wenn mehr als ein Konto eingerichtet ist."
 msgid "Inboxes"
 msgstr "Posteingänge"
 
+msgid "Snoozed"
+msgstr "Zurückgestellt"
+
 msgid "Unread counts"
 msgstr "Zähler ungelesener Nachrichten"
 
@@ -7035,9 +7038,6 @@ msgstr ""
 
 msgid "Templates"
 msgstr "Vorlagen"
-
-msgid "Snoozed"
-msgstr "Zurückgestellt"
 
 msgid "Hidden Folders"
 msgstr "Ausgeblendete Ordner"

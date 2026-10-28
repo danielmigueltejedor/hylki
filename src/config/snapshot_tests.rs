@@ -304,6 +304,7 @@ drafts_expanded = true
 archive_expanded = true
 junk_expanded = true
 trash_expanded = true
+snoozed_expanded = true
 favorites = ["a@x	INBOX"]
 favorites_expanded = false
 smart_expanded = false

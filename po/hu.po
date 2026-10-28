@@ -6022,6 +6022,9 @@ msgstr "Csak ezt a fiókot mutasd"
 msgid "Inboxes"
 msgstr "Beérkezett üzenetek"
 
+msgid "Snoozed"
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Olvasatlanok száma"
 
@@ -7266,9 +7269,6 @@ msgstr ""
 "kiküldött leveleket. Letiltja a fenti „Másolat mentése” opciót."
 
 msgid "Templates"
-msgstr ""
-
-msgid "Snoozed"
 msgstr ""
 
 msgid "Hidden Folders"

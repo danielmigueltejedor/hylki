@@ -226,6 +226,10 @@ impl Preferences {
             .set_active(init.unified_chips.trash);
         widgets
             .sidebar
+            .unified_chip_snoozed_row
+            .set_active(init.unified_chips.snoozed);
+        widgets
+            .sidebar
             .unified_starred_row
             .set_active(init.unified_kinds.starred);
         widgets
@@ -248,6 +252,10 @@ impl Preferences {
             .sidebar
             .unified_trash_row
             .set_active(init.unified_kinds.trash);
+        widgets
+            .sidebar
+            .unified_snoozed_row
+            .set_active(init.unified_kinds.snoozed);
         widgets
             .sidebar
             .section_style_row
@@ -392,6 +400,10 @@ impl Preferences {
             .sidebar
             .rail_fold_trash_row
             .set_active(init.rail_fold.trash);
+        widgets
+            .sidebar
+            .rail_fold_snoozed_row
+            .set_active(init.rail_fold.snoozed);
         widgets
             .sidebar
             .rail_fold_filtered_row

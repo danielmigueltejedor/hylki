@@ -135,7 +135,7 @@ fn favorites_load_in_order() {
 fn unified_junk_and_trash_start_off() {
     use crate::models::FolderKind::*;
     let kinds: super::UnifiedKinds = toml::from_str("starred = false").expect("parses");
-    assert!(!kinds.junk && !kinds.trash && kinds.archive);
+    assert!(!kinds.junk && !kinds.trash && !kinds.snoozed && kinds.archive);
     assert_eq!(kinds.listed(), vec![Sent, Drafts, Archive]);
     let all = super::UnifiedKinds {
         junk: true,
@@ -153,6 +153,15 @@ fn unified_junk_and_trash_start_off() {
         }
         .listed(),
         vec![Trash]
+    );
+    // #542: Snoozed closes the run, as it follows Trash in an account.
+    assert_eq!(
+        super::UnifiedKinds {
+            snoozed: true,
+            ..all
+        }
+        .listed(),
+        vec![Starred, Sent, Drafts, Archive, Junk, Trash, Snoozed]
     );
 }
 

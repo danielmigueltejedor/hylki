@@ -5821,6 +5821,9 @@ msgstr "Solo se muestra si hay más de una cuenta."
 msgid "Inboxes"
 msgstr "Bandejas de entrada"
 
+msgid "Snoozed"
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Contadores de no leídos"
 
@@ -7027,9 +7030,6 @@ msgstr ""
 
 msgid "Templates"
 msgstr "Plantillas"
-
-msgid "Snoozed"
-msgstr ""
 
 msgid "Hidden Folders"
 msgstr "Carpetas ocultas"

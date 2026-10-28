@@ -5778,6 +5778,9 @@ msgstr "Només es mostra amb més d'un compte."
 msgid "Inboxes"
 msgstr "Bústies d'entrada"
 
+msgid "Snoozed"
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Recomptes de no llegits"
 
@@ -6977,9 +6980,6 @@ msgstr "Per al Gmail i altres que arxiven ells mateixos el correu enviat."
 
 msgid "Templates"
 msgstr "Plantilles"
-
-msgid "Snoozed"
-msgstr ""
 
 msgid "Hidden Folders"
 msgstr "Carpetes amagades"

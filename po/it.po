@@ -5966,6 +5966,9 @@ msgstr "Mostra solo questo account"
 msgid "Inboxes"
 msgstr "Caselle in arrivo"
 
+msgid "Snoozed"
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Conteggi non letti"
 
@@ -7187,9 +7190,6 @@ msgstr ""
 
 msgid "Templates"
 msgstr "Modelli"
-
-msgid "Snoozed"
-msgstr ""
 
 msgid "Hidden Folders"
 msgstr "Cartelle nascoste"

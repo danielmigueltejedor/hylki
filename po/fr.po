@@ -5829,6 +5829,9 @@ msgstr "Affiché uniquement avec plus d’un compte."
 msgid "Inboxes"
 msgstr "Boîtes de réception"
 
+msgid "Snoozed"
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Compteurs de non-lus"
 
@@ -7037,9 +7040,6 @@ msgstr "Pour Gmail et les services qui classent eux-mêmes le courrier envoyé."
 
 msgid "Templates"
 msgstr "Modèles"
-
-msgid "Snoozed"
-msgstr ""
 
 msgid "Hidden Folders"
 msgstr "Dossiers masqués"

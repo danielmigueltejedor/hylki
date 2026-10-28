@@ -197,6 +197,7 @@ pub(crate) enum AppMsg {
         archive: bool,
         junk: bool,
         trash: bool,
+        snoozed: bool,
         favorites: bool,
         smart: bool,
         contacts: bool,

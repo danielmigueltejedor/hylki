@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- **Added: Snoozed in the unified section** (#542, requested by
+  UnicornPanel). **Settings → Sidebar → Unified → Snoozed** adds a row that
+  lists every account's snoozed mail as one list, each message showing when
+  it comes back, with each account's own Snoozed folder beneath. **Unsnooze**
+  and a new time work there as in an account's folder. It has its own unread
+  count and icon rail fold-up switches, and is off until switched on. A
+  unified row whose folder no account has yet now shows an empty list rather
+  than loading.
+
 - **Added: names from Contacts on mail** (#541, requested by
   samuel-edlmeier). **Settings → Contacts → Show names from Contacts** shows
   the name saved in the address book for a sender or recipient whose address

@@ -179,8 +179,8 @@ no chevrons, a click on a section's icon opens or closes it, and a long
 press or a double click opens or closes the unified rows.
 
 **Settings → Sidebar → Unified** chooses the unified section's rows.
-Inboxes, Starred, Sent, Drafts and Archive are on until switched off; Junk
-and Trash are off until switched on. In the unified Junk and Trash, **Not
+Inboxes, Starred, Sent, Drafts and Archive are on until switched off; Junk,
+Trash and Snoozed are off until switched on. In the unified Junk and Trash, **Not
 Spam** and **Move to Inbox** send each message to its own account's Inbox,
 and the right-click menu of each account's row beneath has **Empty Junk…**
 or **Empty Trash…**. The same item on the unified Junk or Trash row itself
@@ -282,9 +282,9 @@ stays back.
 **Settings → Accounts → the account → Show in All Inboxes** decides whether
 the account's mail is merged into the unified section at the top of the
 sidebar. Switched off, the account's folders are left out of the unified
-Inboxes, Starred, Sent, Drafts, Archive, Junk and Trash rows, their account lists and
-unread counts, and the account's filter folders and tagged mail are left
-out of the unified Filters and Tags. The account keeps its own section in
+Inboxes, Starred, Sent, Drafts, Archive, Junk, Trash and Snoozed rows, their
+account lists and unread counts, and the account's filter folders and tagged
+mail are left out of the unified Filters and Tags. The account keeps its own section in
 the sidebar, and a search still covers its mail.
 
 The tray icon's count and new-mail notifications still include the
@@ -1035,7 +1035,8 @@ phone or another mail program sees it leave the Inbox too. The folder is
 made the first time something is snoozed; on Gmail it is a label. In the
 Snoozed folder each message shows when it comes back in place of its date.
 A time chosen there replaces the old one, and **Unsnooze** brings the
-message back now. A reply that arrives in the conversation brings it back
+message back now. **Settings → Sidebar → Unified → Snoozed** adds a row that
+lists every account's snoozed mail together. A reply that arrives in the conversation brings it back
 early. **Undo** (Ctrl+Z) right after a snooze puts the message back where it
 was.
 

@@ -9,6 +9,7 @@ use std::time::{Duration, Instant};
 use adw::prelude::*;
 use relm4::prelude::*;
 
+use super::types::UnifiedView;
 use crate::config::{self, Snooze};
 use crate::i18n::i18n;
 use crate::models::{FolderKind, Message};
@@ -171,12 +172,16 @@ impl AppModel {
     }
 
     /// Whether what the reader's actions act on is snoozed already: the
-    /// message being read, or a selection made in the Snoozed folder.
+    /// message being read, or a selection made in a Snoozed folder or the
+    /// unified Snoozed (#542).
     pub(super) fn target_snoozed(&self) -> bool {
         let snoozed = |account_id, folder_id| {
             self.folder_kind(account_id, folder_id) == Some(FolderKind::Snoozed)
         };
         if self.many_selected() {
+            if self.unified {
+                return self.unified_view == UnifiedView::Kind(FolderKind::Snoozed);
+            }
             return self
                 .selected
                 .as_ref()

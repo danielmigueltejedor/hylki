@@ -372,6 +372,7 @@ impl AppModel {
             FolderKind::Archive,
             FolderKind::Junk,
             FolderKind::Trash,
+            FolderKind::Snoozed,
         ] {
             let listed = if kind == FolderKind::Inbox {
                 self.unified_inboxes_shown()

@@ -339,6 +339,7 @@ pub(crate) struct AppModel {
     pub(super) archive_expanded: bool,
     pub(super) junk_expanded: bool,
     pub(super) trash_expanded: bool,
+    pub(super) snoozed_expanded: bool,
     /// Favorite folders (#367), as "email\tpath" entries in the order they
     /// were added, and whether their list is open.
     pub(super) favorites: Vec<String>,

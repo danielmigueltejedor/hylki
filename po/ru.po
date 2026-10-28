@@ -6027,6 +6027,9 @@ msgstr "Показывать только эту учётную запись"
 msgid "Inboxes"
 msgstr "Входящие"
 
+msgid "Snoozed"
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Счётчики непрочитанного"
 
@@ -7253,9 +7256,6 @@ msgstr ""
 
 msgid "Templates"
 msgstr "Шаблоны"
-
-msgid "Snoozed"
-msgstr ""
 
 msgid "Hidden Folders"
 msgstr "Скрытые папки"

@@ -5807,6 +5807,9 @@ msgstr "Mostrado apenas quando há mais de uma conta."
 msgid "Inboxes"
 msgstr "Caixas de entrada"
 
+msgid "Snoozed"
+msgstr ""
+
 msgid "Unread counts"
 msgstr "Contagens de mensagens não lidas"
 
@@ -7015,9 +7018,6 @@ msgstr ""
 
 msgid "Templates"
 msgstr "Modelos"
-
-msgid "Snoozed"
-msgstr ""
 
 msgid "Hidden Folders"
 msgstr "Pastas ocultas"
