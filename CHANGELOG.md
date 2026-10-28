@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- **Added: an AppImage** (#235, requested by kem-a). Every release from
+  1.46.0 carries `Hylki-x86_64.AppImage` and `Hylki-aarch64.AppImage`, and
+  every beta `Hylki-Beta-<arch>.AppImage`, the beta app with its own launcher.
+  hylki.hyprlab.co serves the newest of each, and they update from there
+  through Gear Lever, AppImageUpdate or AppImageLauncher. When the system's
+  fonts hang the message view (#296), the AppImage falls back to fonts it
+  carries, as the Flatpak falls back to its runtime's; an update tries the
+  system's fonts again.
+
 - **Added: Snoozed in the unified section** (#542, requested by
   UnicornPanel). While any account's Snoozed folder holds mail, a Snoozed row
   lists every account's snoozed mail as one list, each message showing when
