@@ -114,6 +114,7 @@ pacman -Syu --noconfirm --needed \
     hunspell-de hunspell-el hunspell-en_us hunspell-en_gb hunspell-es_es \
     hunspell-fr-classical hunspell-hu hunspell-it hunspell-nl hunspell-pl \
     hunspell-ro hunspell-ru \
+    ttf-dejavu ttf-liberation adwaita-fonts python \
     gettext desktop-file-utils adwaita-icon-theme hicolor-icon-theme
 
 echo "==> Fetching quick-sharun"
@@ -225,6 +226,57 @@ SUMS
 )
 
 echo "    dictionaries: $(ls "$APPDIR/share/hunspell" | sed 's/\..*//' | sort -u | tr '\n' ' ')"
+
+# The fonts WebKit falls back to when the host's hang it (#296): the
+# Flatpak has the runtime's for this, the AppImage carries its own. Sans,
+# serif and monospace in DejaVu, Liberation for the Arial, Times and Courier
+# that mail asks for by name, Adwaita for the GNOME look. About 20 MB raw.
+echo "==> Fallback fonts"
+FC="$APPDIR/share/hylki/fontconfig"
+install -d "$FC" "$APPDIR/share/hylki/fonts"
+cp -L /usr/share/fonts/TTF/DejaVuSans{,-Bold,-Oblique,-BoldOblique}.ttf \
+      /usr/share/fonts/TTF/DejaVuSerif{,-Bold,-Italic,-BoldItalic}.ttf \
+      /usr/share/fonts/TTF/DejaVuSansMono{,-Bold,-Oblique,-BoldOblique}.ttf \
+      /usr/share/fonts/liberation/Liberation{Sans,Serif,Mono}-*.ttf \
+      /usr/share/fonts/Adwaita/*.ttf \
+      "$APPDIR/share/hylki/fonts/"
+# The rules of the build's conf.d, written into the file rather than
+# included: an include of conf.d resolves to the host's /etc/fonts. Left
+# out, as in the Flatpak's: the ones that add folders (the user's, the
+# local admin's) and the README.
+python3 - "$HERE/packaging/appimage/fonts-fallback.conf" "$FC/fallback.conf" /etc/fonts/conf.d <<'PY'
+# Text, not an XML parser: some of these files use prefixes they never
+# declare (xsi:nil, its:rules), which fontconfig reads and a strict parser
+# refuses. fontconfig itself checks the result below.
+import os, re, sys
+template, dest, confd = sys.argv[1:]
+skip = {"50-user.conf", "51-local.conf"}
+rules = []
+for name in sorted(os.listdir(confd)):
+    if not name.endswith(".conf") or name in skip or name.startswith("05-"):
+        continue
+    text = open(os.path.join(confd, name)).read()
+    found = re.search(r"<fontconfig[^>]*>(.*)</fontconfig>", text, re.S)
+    if not found:
+        continue
+    body = re.sub(r"<!--.*?-->", "", found.group(1), flags=re.S)
+    for tag in ("its:rules", "description", "dir", "cachedir", "include"):
+        body = re.sub(rf"<{tag}\b[^>]*/>|<{tag}\b.*?</{tag}>", "", body, flags=re.S)
+    body = "\n".join(line.rstrip() for line in body.splitlines() if line.strip())
+    if body:
+        rules += [f"  <!-- {name} -->", body]
+text = open(template).read().replace("  <!-- @RULES@ -->", "\n".join(rules))
+open(dest, "w").write(text)
+PY
+# The fallback has to find these fonts and no others, wherever the bundle is
+# mounted: tried from a second, moved copy.
+probe="$(mktemp -d)/share/hylki"
+install -d "$probe"; cp -r "$APPDIR/share/hylki/." "$probe/"
+fonts="$(HOME=$(mktemp -d) FONTCONFIG_FILE="$probe/fontconfig/fallback.conf" fc-list : file 2>"$probe/fc.err")"
+grep -i "fontconfig error" "$probe/fc.err" && { echo "fontconfig refuses the fallback config" >&2; exit 1; }
+echo "$fonts" | grep -v "^$probe/fonts/" | grep . && { echo "fallback fonts reach outside the bundle" >&2; exit 1; }
+echo "    fallback fonts: $(echo "$fonts" | grep -c .), sans-serif is $(HOME=$(mktemp -d) FONTCONFIG_FILE="$probe/fontconfig/fallback.conf" fc-match -f '%{family[0]}' sans-serif)"
+echo 'HYLKI_FONT_FALLBACK_CONF=${SHARUN_DIR}/share/hylki/fontconfig/fallback.conf' >> "$APPDIR/.env"
 
 # Pin the message catalogues rather than leave them to be found: src/i18n.rs
 # looks beside the binary, which happens to land in the right place in the
