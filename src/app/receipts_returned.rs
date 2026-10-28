@@ -43,11 +43,19 @@ impl AppModel {
                 b.key.eq_ignore_ascii_case(&r.message_id) && b.by.eq_ignore_ascii_case(&r.by)
             });
             if !known {
-                tracing::info!("read receipt for <{}> came back from {}", r.message_id, r.by);
+                tracing::info!(
+                    "read receipt for <{}> came back from {}",
+                    r.message_id,
+                    r.by
+                );
                 self.read_by.read.push(config::ReadBy {
                     key: r.message_id.clone(),
                     by: r.by.clone(),
-                    at: if r.at > 0 { r.at } else { crate::datefmt::now() },
+                    at: if r.at > 0 {
+                        r.at
+                    } else {
+                        crate::datefmt::now()
+                    },
                 });
                 changed = true;
                 // Before it is filed: the receipt mail may lend its subject.
@@ -66,11 +74,10 @@ impl AppModel {
     /// Whether any of `addrs` (comma-separated) is one of the user's.
     fn is_own_address(&self, addrs: &str) -> bool {
         let own = self.identities_map();
-        addrs.split(',').map(str::trim).any(|addr| {
-            own.values()
-                .flatten()
-                .any(|a| a.eq_ignore_ascii_case(addr))
-        })
+        addrs
+            .split(',')
+            .map(str::trim)
+            .any(|addr| own.values().flatten().any(|a| a.eq_ignore_ascii_case(addr)))
     }
 
     /// Mark a receipt that came back read and move it where the setting
@@ -133,7 +140,14 @@ impl AppModel {
                         seen: true,
                     },
                 );
-                self.send_to(account_id, MailRequest::MoveMessage { path: src, uid, dest });
+                self.send_to(
+                    account_id,
+                    MailRequest::MoveMessage {
+                        path: src,
+                        uid,
+                        dest,
+                    },
+                );
             }
         }
     }
@@ -201,7 +215,12 @@ impl AppModel {
     /// What read_by.toml says, as the list and the readers look it up.
     pub(super) fn receipt_marks(&self) -> ReceiptMarks {
         let mut marks = ReceiptMarks {
-            asked: self.read_by.asked.iter().map(|a| a.to_lowercase()).collect(),
+            asked: self
+                .read_by
+                .asked
+                .iter()
+                .map(|a| a.to_lowercase())
+                .collect(),
             ..Default::default()
         };
         for r in &self.read_by.read {

@@ -366,6 +366,9 @@ mod tests {
             "",
         )
         .unwrap();
-        assert_eq!((r.message_id.as_str(), r.by.as_str()), ("abc@example.com", "ann@example.org"));
+        assert_eq!(
+            (r.message_id.as_str(), r.by.as_str()),
+            ("abc@example.com", "ann@example.org")
+        );
     }
 }

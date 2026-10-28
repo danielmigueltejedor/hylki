@@ -115,9 +115,10 @@ mod tests {
         assert_eq!(marks.of(&m), None);
         marks.asked.insert("abc@example.com".into());
         assert!(!marks.of(&m).unwrap().read);
-        marks
-            .read
-            .insert("abc@example.com".into(), vec![("ann@example.org".into(), 0)]);
+        marks.read.insert(
+            "abc@example.com".into(),
+            vec![("ann@example.org".into(), 0)],
+        );
         let mark = marks.of(&m).unwrap();
         assert!(mark.read);
         assert_eq!(mark.tooltip, "Read by Ann");
@@ -134,7 +135,10 @@ mod tests {
             .collect(),
             ..Default::default()
         };
-        let m = sent("Ann <ann@example.org>, bob@example.org", "Cy <cy@example.org>");
+        let m = sent(
+            "Ann <ann@example.org>, bob@example.org",
+            "Cy <cy@example.org>",
+        );
         assert_eq!(
             marks.of(&m).unwrap().tooltip,
             "Read by 1 of 3\nbob@example.org"

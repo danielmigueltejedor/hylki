@@ -282,7 +282,12 @@ pub(crate) fn error(account_id: u32, title: &str, body: &str) {
 /// the message read, `open` as `(account, folder, message)`, or raises the
 /// window when it is not to be found. One per message, so a second reader
 /// replaces the first's alert rather than stacking under it.
-pub(crate) fn read_receipt(message_id: &str, title: &str, body: &str, open: Option<(u32, u32, u32)>) {
+pub(crate) fn read_receipt(
+    message_id: &str,
+    title: &str,
+    body: &str,
+    open: Option<(u32, u32, u32)>,
+) {
     let n = gio::Notification::new(title);
     if !body.is_empty() {
         n.set_body(Some(body));
