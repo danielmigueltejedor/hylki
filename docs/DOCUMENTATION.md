@@ -1704,6 +1704,7 @@ several labels is one result: its Inbox copy, else a label's, else All
 Mail's. Folders not opened since Hylki started are searched from the index
 Hylki keeps of them, which covers mail archived to Gmail's All Mail.
 
+
 The sort and filter button in the list's header opens a popover of two
 columns. **Sort by** orders the list by date, newest or oldest first, by
 sender or subject, or puts unread or starred mail first. **Show only** holds
@@ -1850,6 +1851,23 @@ or 30 days) removes older ones a couple of minutes after Hylki starts and
 every six hours after. Either way the list of every message stays, so the
 message list and search are unchanged, and a removed message is fetched again
 when it is opened. Nothing on the server changes.
+
+**Keep mail offline**, in an account's Syncing settings, downloads every
+message of a period ahead of being opened: the last week, month or year, or all
+mail. It works on IMAP, JMAP, Microsoft 365 and POP3 accounts, including ones
+from GNOME Online Accounts. The default, Newest messages, is the fetch ahead
+described above. Trash, Junk and Drafts are left out, and so is OpenPGP mail,
+which is only decrypted when opened. **Include attachments** keeps their files
+too; a POP3 account always downloads a message whole, so it has no such
+switch, and with a period chosen it downloads older mail than the newest 200
+its sync lists, back to the period's start. The download runs
+in the background once the account's index is complete, newest first, gives way
+whenever a message is opened, and waits on a metered connection when Settings
+asks to save data there. A server that refuses it, as Gmail does past its daily
+limit, is asked again later, after an hour at most. **Keep downloaded mail**
+does not remove mail inside an account's period, and **Remove…** clears it,
+after which it is downloaded again. Stored as `offline_mail` and
+`offline_attachments` in `accounts.toml`.
 
 ### Offline and metered connections
 

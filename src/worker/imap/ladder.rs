@@ -31,7 +31,8 @@ impl<E: Emit> ImapWorker<E> {
     /// Climb the ladder: body prefetch, then folder names, the unread sweep
     /// (with auto-empty and list clean-up), attachment prefetch, References
     /// repair and Gmail label fill (only once the index is complete), the
-    /// background index (connecting first if need be), the IDLE resync, IDLE
+    /// background index (connecting first if need be), the offline period's
+    /// download (#536), the IDLE resync, IDLE
     /// itself, and otherwise a plain wait for the next request.
     pub(super) async fn idle(&mut self) -> Idle {
         // Offline, the queues keep for when the network is back; on
@@ -106,6 +107,13 @@ impl<E: Emit> ImapWorker<E> {
                 self.connect_or_wait().await
             } else {
                 self.index_one_chunk().await
+            }
+        } else if ahead && self.offline.due(&self.account) {
+            // The account's offline period (#536), once the index is in.
+            if self.session.is_none() {
+                self.connect_or_wait().await
+            } else {
+                self.keep_offline_batch().await
             }
         } else if self.push_enabled && self.session.is_some() && self.idle_folder.is_some() && net {
             self.idle_on_folder().await

@@ -1465,6 +1465,26 @@ msgstr "Date d’échéance"
 msgid "Date"
 msgstr "Date"
 
+#, fuzzy
+msgid "Newest messages"
+msgstr "Message le plus récent en premier"
+
+#, fuzzy
+msgid "Last week"
+msgstr "Nom"
+
+#, fuzzy
+msgid "Last month"
+msgstr "Se répète chaque mois"
+
+#, fuzzy
+msgid "Last year"
+msgstr "Nom"
+
+#, fuzzy
+msgid "All mail"
+msgstr "Ajouter une adresse e-mail"
+
 msgid "With sent mail"
 msgstr "Avec le courrier envoyé"
 
@@ -6836,6 +6856,19 @@ msgstr ""
 "plus ancien que ce délai est placé dans la Corbeille, sauf s’il est en "
 "favoris."
 
+msgid "Keep mail offline"
+msgstr ""
+
+msgid "Leaves out Trash, Junk and Drafts."
+msgstr ""
+
+#, fuzzy
+msgid "Include attachments"
+msgstr "Aucune pièce jointe"
+
+msgid "Can consume a lot of hard drive space."
+msgstr ""
+
 msgid "Microsoft 365"
 msgstr "Microsoft 365"
 
@@ -7373,6 +7406,9 @@ msgstr "Supprimer…"
 
 msgid "Keep downloaded mail"
 msgstr "Conserver le courrier téléchargé"
+
+msgid "Mail inside an account's offline period is kept."
+msgstr ""
 
 msgid "GNOME Files Integration"
 msgstr "Intégration avec Fichiers de GNOME"

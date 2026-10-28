@@ -16,6 +16,7 @@ mod bodies;
 mod flags;
 mod gallery;
 mod messages;
+mod offline;
 mod open;
 mod outbox;
 mod schema;

@@ -29,6 +29,67 @@ impl Default for PrintOptions {
     }
 }
 
+/// How much of an account's mail is kept on disk ahead of being opened
+/// (#536). `Newest` is the newest messages of each folder, as before; the
+/// others keep every message of the period, or all of it, so it opens with
+/// no network.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub(crate) enum OfflineMail {
+    #[default]
+    Newest,
+    Week,
+    Month,
+    Year,
+    All,
+}
+
+impl OfflineMail {
+    pub(crate) const ALL: [OfflineMail; 5] = [
+        OfflineMail::Newest,
+        OfflineMail::Week,
+        OfflineMail::Month,
+        OfflineMail::Year,
+        OfflineMail::All,
+    ];
+
+    pub(crate) fn label(self) -> String {
+        use crate::i18n::i18n;
+        match self {
+            OfflineMail::Newest => i18n("Newest messages"),
+            OfflineMail::Week => i18n("Last week"),
+            OfflineMail::Month => i18n("Last month"),
+            OfflineMail::Year => i18n("Last year"),
+            OfflineMail::All => i18n("All mail"),
+        }
+    }
+
+    /// Its place in [`OfflineMail::ALL`], for combo rows.
+    pub(crate) fn index(self) -> u32 {
+        OfflineMail::ALL
+            .iter()
+            .position(|s| *s == self)
+            .unwrap_or(0) as u32
+    }
+
+    /// The oldest date (a Unix time) kept offline as of `now`; `None` for
+    /// `Newest`, which keeps no period, and `i64::MIN` for all of it.
+    pub(crate) fn since(self, now: i64) -> Option<i64> {
+        let days = match self {
+            OfflineMail::Newest => return None,
+            OfflineMail::Week => 7,
+            OfflineMail::Month => 31,
+            OfflineMail::Year => 366,
+            OfflineMail::All => return Some(i64::MIN),
+        };
+        Some(now - days * 86_400)
+    }
+
+    pub(super) fn is_default(&self) -> bool {
+        *self == OfflineMail::Newest
+    }
+}
+
 /// Where an account files the copy of a reply it sends (#468).
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "snake_case")]

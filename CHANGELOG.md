@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- **Added: keep mail offline for a chosen period** (#536, requested by
+  isorropisths in #474). **Keep mail offline**, in an account's Syncing
+  settings, downloads every message of the last week, month or year, or all of
+  it, in the background, so it opens with no network; **Include attachments**
+  keeps their files too. It works on IMAP, JMAP, Microsoft 365 and POP3
+  accounts; on POP3 it also brings in older mail than the newest 200 a sync
+  lists. Trash, Junk and Drafts are left out. The download
+  starts once the account's index is complete, goes newest first, gives way
+  whenever a message is opened, waits on a metered connection when Settings
+  asks to save data there, and backs off when the server refuses, as Gmail
+  does past its daily limit. **Keep downloaded mail** no longer removes mail
+  inside an account's period.
+
 - **Added: remote content is cached, and can be loaded ahead** (#474,
   requested by bstegmaier75). Images, stylesheets and fonts a message loads
   from the web are fetched by the app instead of the reader's web engine, whose

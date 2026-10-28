@@ -1467,6 +1467,26 @@ msgstr "Fecha de vencimiento"
 msgid "Date"
 msgstr "Fecha"
 
+#, fuzzy
+msgid "Newest messages"
+msgstr "Mensaje más reciente primero"
+
+#, fuzzy
+msgid "Last week"
+msgstr "Apellidos"
+
+#, fuzzy
+msgid "Last month"
+msgstr "Se repite mensualmente"
+
+#, fuzzy
+msgid "Last year"
+msgstr "Apellidos"
+
+#, fuzzy
+msgid "All mail"
+msgstr "Añadir correo electrónico"
+
 msgid "With sent mail"
 msgstr "Con el correo enviado"
 
@@ -6824,6 +6844,19 @@ msgstr ""
 "suscripción que supere esta antigüedad se moverá a la Papelera, salvo los "
 "mensajes destacados."
 
+msgid "Keep mail offline"
+msgstr ""
+
+msgid "Leaves out Trash, Junk and Drafts."
+msgstr ""
+
+#, fuzzy
+msgid "Include attachments"
+msgstr "No hay archivos adjuntos"
+
+msgid "Can consume a lot of hard drive space."
+msgstr ""
+
 msgid "Microsoft 365"
 msgstr "Microsoft 365"
 
@@ -7357,6 +7390,9 @@ msgstr "Eliminar…"
 
 msgid "Keep downloaded mail"
 msgstr "Conservar el correo descargado"
+
+msgid "Mail inside an account's offline period is kept."
+msgstr ""
 
 msgid "GNOME Files Integration"
 msgstr "Integración con Archivos de GNOME"

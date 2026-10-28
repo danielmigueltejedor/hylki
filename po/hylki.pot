@@ -1361,6 +1361,21 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+msgid "Newest messages"
+msgstr ""
+
+msgid "Last week"
+msgstr ""
+
+msgid "Last month"
+msgstr ""
+
+msgid "Last year"
+msgstr ""
+
+msgid "All mail"
+msgstr ""
+
 msgid "With sent mail"
 msgstr ""
 
@@ -6316,6 +6331,18 @@ msgid ""
 "starred."
 msgstr ""
 
+msgid "Keep mail offline"
+msgstr ""
+
+msgid "Leaves out Trash, Junk and Drafts."
+msgstr ""
+
+msgid "Include attachments"
+msgstr ""
+
+msgid "Can consume a lot of hard drive space."
+msgstr ""
+
 msgid "Microsoft 365"
 msgstr ""
 
@@ -6805,6 +6832,9 @@ msgid "Remove…"
 msgstr ""
 
 msgid "Keep downloaded mail"
+msgstr ""
+
+msgid "Mail inside an account's offline period is kept."
 msgstr ""
 
 msgid "GNOME Files Integration"

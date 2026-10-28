@@ -1459,6 +1459,26 @@ msgstr "Fälligkeitsdatum"
 msgid "Date"
 msgstr "Datum"
 
+#, fuzzy
+msgid "Newest messages"
+msgstr "Neueste Nachricht zuerst"
+
+#, fuzzy
+msgid "Last week"
+msgstr "Nachname"
+
+#, fuzzy
+msgid "Last month"
+msgstr "Wiederholt sich monatlich"
+
+#, fuzzy
+msgid "Last year"
+msgstr "Nachname"
+
+#, fuzzy
+msgid "All mail"
+msgstr "E-Mail hinzufügen"
+
 msgid "With sent mail"
 msgstr "Mit gesendeter E-Mail"
 
@@ -6857,6 +6877,19 @@ msgstr ""
 "E-Mails im Posteingang mit Abmelde-Link, die älter als dieser Wert sind, "
 "werden in den Papierkorb verschoben, sofern sie nicht sternmarkiert sind."
 
+msgid "Keep mail offline"
+msgstr ""
+
+msgid "Leaves out Trash, Junk and Drafts."
+msgstr ""
+
+#, fuzzy
+msgid "Include attachments"
+msgstr "Keine Anhänge"
+
+msgid "Can consume a lot of hard drive space."
+msgstr ""
+
 msgid "Microsoft 365"
 msgstr "Microsoft 365"
 
@@ -7413,6 +7446,9 @@ msgstr "Entfernen…"
 
 msgid "Keep downloaded mail"
 msgstr "Behalte heruntergeladene Nachricht"
+
+msgid "Mail inside an account's offline period is kept."
+msgstr ""
 
 msgid "GNOME Files Integration"
 msgstr "GNOME-Dateiintegration"

@@ -1497,6 +1497,26 @@ msgstr "Data di scadenza"
 msgid "Date"
 msgstr "Data"
 
+#, fuzzy
+msgid "Newest messages"
+msgstr "Messaggio più recente prima"
+
+#, fuzzy
+msgid "Last week"
+msgstr "Cognome"
+
+#, fuzzy
+msgid "Last month"
+msgstr "Si ripete ogni mese"
+
+#, fuzzy
+msgid "Last year"
+msgstr "Cognome"
+
+#, fuzzy
+msgid "All mail"
+msgstr "Aggiungi e-mail"
+
 msgid "With sent mail"
 msgstr ""
 
@@ -6980,6 +7000,19 @@ msgstr ""
 "disiscrizione)più vecchia di questo periodo, a meno che non sia "
 "contrassegnata. Controllato ad ogni sincronizzazione."
 
+msgid "Keep mail offline"
+msgstr ""
+
+msgid "Leaves out Trash, Junk and Drafts."
+msgstr ""
+
+#, fuzzy
+msgid "Include attachments"
+msgstr "Nessun allegato"
+
+msgid "Can consume a lot of hard drive space."
+msgstr ""
+
 #, fuzzy
 msgid "Microsoft 365"
 msgstr "Microsoft 365 / Outlook"
@@ -7537,6 +7570,9 @@ msgstr "Rimuovi…"
 
 msgid "Keep downloaded mail"
 msgstr "Conserva la posta scaricata"
+
+msgid "Mail inside an account's offline period is kept."
+msgstr ""
 
 msgid "GNOME Files Integration"
 msgstr "Integrazione con File GNOME"

@@ -34,6 +34,7 @@ mod index_queue;
 mod jmap;
 mod lane;
 mod mock;
+mod offline;
 mod outbox;
 mod pop3;
 mod preempt;

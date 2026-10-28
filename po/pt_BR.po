@@ -1461,6 +1461,26 @@ msgstr "Data de vencimento"
 msgid "Date"
 msgstr "Data"
 
+#, fuzzy
+msgid "Newest messages"
+msgstr "Mensagem mais recente primeiro"
+
+#, fuzzy
+msgid "Last week"
+msgstr "Sobrenome"
+
+#, fuzzy
+msgid "Last month"
+msgstr "Repete mensalmente"
+
+#, fuzzy
+msgid "Last year"
+msgstr "Sobrenome"
+
+#, fuzzy
+msgid "All mail"
+msgstr "Adicionar email"
+
 msgid "With sent mail"
 msgstr "Com as mensagens enviadas"
 
@@ -6790,6 +6810,19 @@ msgstr ""
 "mais antigas que este prazo são movidas para a Lixeira, exceto se tiverem "
 "estrela."
 
+msgid "Keep mail offline"
+msgstr ""
+
+msgid "Leaves out Trash, Junk and Drafts."
+msgstr ""
+
+#, fuzzy
+msgid "Include attachments"
+msgstr "Sem anexos"
+
+msgid "Can consume a lot of hard drive space."
+msgstr ""
+
 msgid "Microsoft 365"
 msgstr "Microsoft 365"
 
@@ -7316,6 +7349,9 @@ msgstr "Remover…"
 
 msgid "Keep downloaded mail"
 msgstr "Manter emails baixados"
+
+msgid "Mail inside an account's offline period is kept."
+msgstr ""
 
 msgid "GNOME Files Integration"
 msgstr "Integração com Arquivos do GNOME"

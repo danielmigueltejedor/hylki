@@ -1451,6 +1451,26 @@ msgstr "Data de venciment"
 msgid "Date"
 msgstr "Data"
 
+#, fuzzy
+msgid "Newest messages"
+msgstr "Missatge més nou primer"
+
+#, fuzzy
+msgid "Last week"
+msgstr "Cognom"
+
+#, fuzzy
+msgid "Last month"
+msgstr "Es repeteix mensualment"
+
+#, fuzzy
+msgid "Last year"
+msgstr "Cognom"
+
+#, fuzzy
+msgid "All mail"
+msgstr "Afegeix un correu"
+
 msgid "With sent mail"
 msgstr "Amb el correu enviat"
 
@@ -6778,6 +6798,19 @@ msgstr ""
 "El correu de la bústia d'entrada amb un enllaç de baixa més antic que això "
 "es mou a la paperera, tret que estigui destacat."
 
+msgid "Keep mail offline"
+msgstr ""
+
+msgid "Leaves out Trash, Junk and Drafts."
+msgstr ""
+
+#, fuzzy
+msgid "Include attachments"
+msgstr "No hi ha adjunts"
+
+msgid "Can consume a lot of hard drive space."
+msgstr ""
+
 msgid "Microsoft 365"
 msgstr "Microsoft 365"
 
@@ -7301,6 +7334,9 @@ msgstr "Elimina…"
 
 msgid "Keep downloaded mail"
 msgstr "Conserva el correu baixat"
+
+msgid "Mail inside an account's offline period is kept."
+msgstr ""
 
 msgid "GNOME Files Integration"
 msgstr "Integració amb els Fitxers del GNOME"

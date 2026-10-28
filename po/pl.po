@@ -1566,6 +1566,26 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
+#, fuzzy
+msgid "Newest messages"
+msgstr "Najnowsza wiadomość na początku"
+
+#, fuzzy
+msgid "Last week"
+msgstr "Nazwisko"
+
+#, fuzzy
+msgid "Last month"
+msgstr "Powtarza się co miesiąc"
+
+#, fuzzy
+msgid "Last year"
+msgstr "Nazwisko"
+
+#, fuzzy
+msgid "All mail"
+msgstr "Dodaj adres e-mail"
+
 msgid "With sent mail"
 msgstr ""
 
@@ -7129,6 +7149,19 @@ msgid ""
 "starred."
 msgstr ""
 
+msgid "Keep mail offline"
+msgstr ""
+
+msgid "Leaves out Trash, Junk and Drafts."
+msgstr ""
+
+#, fuzzy
+msgid "Include attachments"
+msgstr "Brak załączników"
+
+msgid "Can consume a lot of hard drive space."
+msgstr ""
+
 #, fuzzy
 msgid "Microsoft 365"
 msgstr "Microsoft 365 / Outlook"
@@ -7684,6 +7717,9 @@ msgid "Remove…"
 msgstr "Usuń"
 
 msgid "Keep downloaded mail"
+msgstr ""
+
+msgid "Mail inside an account's offline period is kept."
 msgstr ""
 
 msgid "GNOME Files Integration"
