@@ -243,9 +243,14 @@ pub(crate) enum MessageListInput {
     },
     /// Typing paused in the search field: time to ask the servers (#509),
     /// if `round` is still the search's.
-    SearchServers { round: u64 },
+    SearchServers {
+        round: u64,
+    },
     /// The messages whose body on disk holds each of `terms` (#509).
-    BodyHits { terms: Vec<String>, hits: Vec<HitSet> },
+    BodyHits {
+        terms: Vec<String>,
+        hits: Vec<HitSet>,
+    },
     /// Messages a server found holding every one of `terms` (#509); `done`
     /// once every account asked has answered.
     ServerHits {

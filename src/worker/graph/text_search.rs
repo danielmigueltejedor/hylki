@@ -54,7 +54,10 @@ impl<E: Fn(crate::worker::WorkerEvent)> GraphWorker<E> {
             let (Some(id), Some(folder)) = (m["id"].as_str(), m["parentFolderId"].as_str()) else {
                 continue;
             };
-            if let Some(path) = path_of.get(folder).filter(|p| paths.iter().any(|q| q == *p)) {
+            if let Some(path) = path_of
+                .get(folder)
+                .filter(|p| paths.iter().any(|q| q == *p))
+            {
                 let uid = crate::worker::ids::hash_uid(id);
                 self.state.uids.insert(uid, id.to_string());
                 by_path.entry(path.to_string()).or_default().push(uid);

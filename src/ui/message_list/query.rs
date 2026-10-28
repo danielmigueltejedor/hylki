@@ -152,7 +152,9 @@ mod tests {
 
     #[test]
     fn words_phrases_and_operators_are_told_apart() {
-        let q = Query::parse(r#"Rossi mario "Invoice 44" from:ann to:"Lee K" in:Archive has:attachment is:unread re: 10:30"#);
+        let q = Query::parse(
+            r#"Rossi mario "Invoice 44" from:ann to:"Lee K" in:Archive has:attachment is:unread re: 10:30"#,
+        );
         assert_eq!(q.terms, ["rossi", "mario", "invoice 44", "re:", "10:30"]);
         assert_eq!(q.from, ["ann"]);
         assert_eq!(q.to, ["lee k"]);

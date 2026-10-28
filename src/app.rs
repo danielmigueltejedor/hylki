@@ -109,9 +109,9 @@ mod smart;
 mod snooze;
 mod split_reply;
 mod tags;
-mod text_search;
 #[cfg(test)]
 mod test_support;
+mod text_search;
 mod theme;
 mod transfer;
 mod tray;

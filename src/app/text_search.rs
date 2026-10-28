@@ -167,10 +167,7 @@ impl AppModel {
                 let ids = self.folder_ids();
                 let mut set = HitSet::default();
                 for (path, uid, id) in hits {
-                    let folder = ids
-                        .get(&(account_id, path))
-                        .copied()
-                        .unwrap_or(u32::MAX);
+                    let folder = ids.get(&(account_id, path)).copied().unwrap_or(u32::MAX);
                     set.insert(account_id, folder, uid, &id);
                 }
                 self.message_list.emit(MessageListInput::ServerHits {

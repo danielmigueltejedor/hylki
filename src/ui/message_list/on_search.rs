@@ -2,7 +2,9 @@
 
 use super::filters::{QuickFilter, QuickFilters};
 use super::query::Query;
-use super::search::{HitSet, PoolFolder, SearchHits, SearchScope, SearchText, ServerScope, TextHits};
+use super::search::{
+    HitSet, PoolFolder, SearchHits, SearchScope, SearchText, ServerScope, TextHits,
+};
 use super::types::{MessageListInput, MessageListOutput};
 use super::MessageList;
 use crate::models::Message;
@@ -43,7 +45,11 @@ impl MessageList {
     /// bodies on disk at once, and on the servers once typing pauses. The
     /// answers for words no longer asked are dropped.
     fn find_text(&mut self, sender: &ComponentSender<Self>) {
-        if self.text_hits.as_ref().is_some_and(|h| h.terms == self.parsed.terms) {
+        if self
+            .text_hits
+            .as_ref()
+            .is_some_and(|h| h.terms == self.parsed.terms)
+        {
             return;
         }
         self.stop_server_search();
@@ -116,9 +122,8 @@ impl MessageList {
         // Mostly what stood in already, or nothing again: a rebuild of a
         // whole mailbox's results for no change is felt as typing lags.
         let none = HitSet::default();
-        let same = (0..found.body.len().max(hits.len())).all(|i| {
-            found.body.get(i).map_or(&none, |a| &**a) == hits.get(i).unwrap_or(&none)
-        });
+        let same = (0..found.body.len().max(hits.len()))
+            .all(|i| found.body.get(i).map_or(&none, |a| &**a) == hits.get(i).unwrap_or(&none));
         Rc::make_mut(found).body = hits.into_iter().map(Rc::new).collect();
         if !same {
             self.rebuild();

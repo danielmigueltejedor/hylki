@@ -284,7 +284,11 @@ mod tests {
                 .await
                 .expect("expunged");
             assert_eq!(uids.len(), 3, "the three test messages were found");
-            assert_eq!(ours, [format!("offline 1 {tag}")], "only the week's mail joins the list");
+            assert_eq!(
+                ours,
+                [format!("offline 1 {tag}")],
+                "only the week's mail joins the list"
+            );
             assert!(kept, "its body is on disk");
             assert!(back, "a lost body is downloaded again");
         });

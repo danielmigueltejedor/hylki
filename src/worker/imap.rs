@@ -45,7 +45,6 @@ mod offline;
 mod prefetch;
 mod preview_fetch;
 mod retry;
-mod text_search;
 pub(super) mod send;
 mod setup;
 mod snooze;
@@ -55,6 +54,7 @@ mod structure;
 mod summary;
 mod sweep;
 mod sync;
+mod text_search;
 pub(super) mod watch;
 mod wire;
 

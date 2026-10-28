@@ -502,6 +502,8 @@ fn the_offline_period_is_downloaded_message_by_message() {
     assert!(cache.load_body(1, "Inbox", hash_uid("M1")).is_some());
     assert_eq!(cache.load_attachments(1, "Inbox", hash_uid("M1")).len(), 1);
     assert!(offline.was_tried("Inbox", hash_uid("M9")));
-    assert!(cache.load_body(1, "Deleted Items", hash_uid("M7")).is_none());
+    assert!(cache
+        .load_body(1, "Deleted Items", hash_uid("M7"))
+        .is_none());
     assert!(offline.wait().is_some(), "the period is complete");
 }

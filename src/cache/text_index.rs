@@ -116,7 +116,8 @@ impl Cache {
                  AND NOT EXISTS (SELECT 1 FROM body_text t WHERE t.rowid = b.rowid) \
                  ORDER BY b.rowid LIMIT ?2",
             )?;
-            let rows = stmt.query_map(params![after, batch as i64], |r| Ok((r.get(0)?, r.get(1)?)))?;
+            let rows =
+                stmt.query_map(params![after, batch as i64], |r| Ok((r.get(0)?, r.get(1)?)))?;
             rows.collect::<rusqlite::Result<_>>()?
         };
         let Some(last) = missing.last().map(|(rowid, _)| *rowid) else {
@@ -215,11 +216,11 @@ mod tests {
     #[test]
     fn a_word_is_the_start_of_a_word_and_a_phrase_is_as_written() {
         assert_eq!(fts_term("invo").as_deref(), Some("\"invo\"*"));
+        assert_eq!(fts_term("mario rossi").as_deref(), Some("\"mario rossi\""));
         assert_eq!(
-            fts_term("mario rossi").as_deref(),
-            Some("\"mario rossi\"")
+            fts_term("say \"hi\"").as_deref(),
+            Some("\"say \"\"hi\"\"\"")
         );
-        assert_eq!(fts_term("say \"hi\"").as_deref(), Some("\"say \"\"hi\"\"\""));
         assert_eq!(fts_term("--"), None);
     }
 

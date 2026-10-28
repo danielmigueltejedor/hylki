@@ -156,8 +156,7 @@ impl<E: Fn(WorkerEvent)> GraphWorker<E> {
             let indexing = !self.state.backfill.is_empty() && net;
             let wait = self.state.backfill_wait;
             // Then the account's offline period (#536), once the index is in.
-            let keeping =
-                self.state.backfill.is_empty() && net && Offline::wanted(&self.account);
+            let keeping = self.state.backfill.is_empty() && net && Offline::wanted(&self.account);
             let offline_wait = self.offline.wait();
             let account_id = self.account_id;
             let emit = &|ev| name_labels(&self.account, &self.emit, ev);

@@ -2,9 +2,9 @@
 //! matching (off the main thread for big folders).
 
 use super::filters::{start_of_today, QuickFilter, QuickFilterContext};
+use super::query::Query;
 use super::types::{MessageListInput, MessageListOutput};
 use super::MessageList;
-use super::query::Query;
 use crate::i18n::i18n;
 use crate::models::Message;
 use adw::prelude::*;
@@ -81,15 +81,12 @@ fn recipients_of(m: &Message) -> String {
         .flat_map(|list| list.split(','))
         .map(str::trim)
         .filter(|a| !a.is_empty())
-        .map(|a| {
-            match names
-                .as_ref()
-                .and_then(|n| n.get(&a.to_lowercase()))
-            {
+        .map(
+            |a| match names.as_ref().and_then(|n| n.get(&a.to_lowercase())) {
                 Some(name) => format!("{name} {a}"),
                 None => a.to_string(),
-            }
-        })
+            },
+        )
         .collect::<Vec<_>>()
         .join(", ")
 }
@@ -187,7 +184,10 @@ impl TextHits {
     pub(super) fn carried(before: Option<&TextHits>, terms: &[String]) -> TextHits {
         let typed_on = |old: &[String]| {
             old.len() <= terms.len()
-                && old.iter().zip(terms).all(|(o, n)| n.starts_with(o.as_str()))
+                && old
+                    .iter()
+                    .zip(terms)
+                    .all(|(o, n)| n.starts_with(o.as_str()))
         };
         let Some(before) = before.filter(|b| typed_on(&b.terms)) else {
             return TextHits {
@@ -207,12 +207,7 @@ impl TextHits {
 /// Whether a message with this `found` match (see [`text_match`]) is a
 /// result: every term in its text, or the rest in its body, or a server
 /// found it for all of them.
-pub(super) fn decide(
-    query: &Query,
-    found: u64,
-    m: &Message,
-    hits: Option<&TextHits>,
-) -> bool {
+pub(super) fn decide(query: &Query, found: u64, m: &Message, hits: Option<&TextHits>) -> bool {
     if found & PASSES == 0 {
         return false;
     }
@@ -404,7 +399,8 @@ impl MessageList {
     /// Whether the search reaches past this folder, and so wants the pool.
     /// Naming a folder with `in:` looks across them all, whatever the scope.
     pub(super) fn wants_pool(&self) -> bool {
-        self.searching() && (self.scope != SearchScope::ThisFolder || !self.parsed.folder.is_empty())
+        self.searching()
+            && (self.scope != SearchScope::ThisFolder || !self.parsed.folder.is_empty())
     }
 
     pub(super) fn searching_pool(&self) -> bool {
@@ -485,19 +481,19 @@ impl MessageList {
             && self.scope == SearchScope::AllFolders
             && self.parsed.folder.is_empty()
         {
-                let here: std::collections::HashSet<(u32, u32)> = self
-                    .all
-                    .iter()
-                    .map(|m| (m.account_id, m.folder_id))
-                    .collect();
-                self.pool_folders
-                    .iter()
-                    .filter(|(k, f)| f.waste && !here.contains(k))
-                    .map(|(k, _)| *k)
-                    .collect()
-            } else {
-                Default::default()
-            };
+            let here: std::collections::HashSet<(u32, u32)> = self
+                .all
+                .iter()
+                .map(|m| (m.account_id, m.folder_id))
+                .collect();
+            self.pool_folders
+                .iter()
+                .filter(|(k, f)| f.waste && !here.contains(k))
+                .map(|(k, _)| *k)
+                .collect()
+        } else {
+            Default::default()
+        };
         // `in:` (#509): the folders whose names it gives.
         let folders: Option<std::collections::HashSet<(u32, u32)>> =
             (!self.parsed.folder.is_empty()).then(|| {
@@ -614,4 +610,3 @@ impl MessageList {
             .collect()
     }
 }
-

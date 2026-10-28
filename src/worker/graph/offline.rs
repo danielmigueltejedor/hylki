@@ -55,11 +55,21 @@ pub(super) async fn keep_next(
         offline.not_kept(&path, uid);
         return;
     };
-    let (token, url) = (token.to_string(), format!("{}/me/messages/{gid}/$value", state.base));
+    let (token, url) = (
+        token.to_string(),
+        format!("{}/me/messages/{gid}/$value", state.base),
+    );
     match blocking(move || graph_get_bytes(&token, &url)).await {
         Ok(raw) => {
             offline.succeeded();
-            if !keep(cache, account_id, &path, uid, &raw, account.offline_attachments) {
+            if !keep(
+                cache,
+                account_id,
+                &path,
+                uid,
+                &raw,
+                account.offline_attachments,
+            ) {
                 offline.not_kept(&path, uid);
             }
         }
