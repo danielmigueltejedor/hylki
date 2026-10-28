@@ -675,6 +675,26 @@ msgstr "Ungelesen zuerst"
 msgid "Starred first"
 msgstr "Markierte zuerst"
 
+#, fuzzy
+msgid "Clear Dates"
+msgstr "Filter zurücksetzen"
+
+#, fuzzy
+msgid "Any Date"
+msgstr "Datum"
+
+#, fuzzy
+msgid "{from} to {to}"
+msgstr "Weiterleitung an {to}"
+
+#, fuzzy
+msgid "Since {date}"
+msgstr "läuft ab {date}"
+
+#, fuzzy
+msgid "Until {date}"
+msgstr "läuft ab {date}"
+
 msgid "Sort by"
 msgstr "Sortieren nach"
 
@@ -683,6 +703,16 @@ msgstr "Nur anzeigen"
 
 msgid "Clear Filters"
 msgstr "Filter zurücksetzen"
+
+#, fuzzy
+msgid "Dates"
+msgstr "Datum"
+
+msgid "From"
+msgstr "Von"
+
+msgid "To"
+msgstr "An"
 
 msgid "Sort and filter messages"
 msgstr "Nachrichten sortieren und filtern"
@@ -3365,12 +3395,6 @@ msgstr "Stattdessen jetzt senden"
 
 msgid "Download password for {name}: {password}"
 msgstr "Download-Passwort für {name}: {password}"
-
-msgid "From"
-msgstr "Von"
-
-msgid "To"
-msgstr "An"
 
 msgid "Cc"
 msgstr "Cc"

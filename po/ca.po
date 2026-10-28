@@ -669,6 +669,26 @@ msgstr "No llegits primer"
 msgid "Starred first"
 msgstr "Destacats primer"
 
+#, fuzzy
+msgid "Clear Dates"
+msgstr "Esborra els filtres"
+
+#, fuzzy
+msgid "Any Date"
+msgstr "Data"
+
+#, fuzzy
+msgid "{from} to {to}"
+msgstr "{cur} de {total}"
+
+#, fuzzy
+msgid "Since {date}"
+msgstr "caduca el {date}"
+
+#, fuzzy
+msgid "Until {date}"
+msgstr "caduca el {date}"
+
 msgid "Sort by"
 msgstr "Ordena per"
 
@@ -677,6 +697,16 @@ msgstr "Mostra només"
 
 msgid "Clear Filters"
 msgstr "Esborra els filtres"
+
+#, fuzzy
+msgid "Dates"
+msgstr "Data"
+
+msgid "From"
+msgstr "De"
+
+msgid "To"
+msgstr "A"
 
 msgid "Sort and filter messages"
 msgstr "Ordena i filtra missatges"
@@ -3323,12 +3353,6 @@ msgstr "Envia-ho ara"
 
 msgid "Download password for {name}: {password}"
 msgstr "Contrasenya de descàrrega per a {name}: {password}"
-
-msgid "From"
-msgstr "De"
-
-msgid "To"
-msgstr "A"
 
 msgid "Cc"
 msgstr "Cc"

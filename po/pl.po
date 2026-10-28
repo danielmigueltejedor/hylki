@@ -715,6 +715,25 @@ msgstr "Najpierw nieprzeczytane"
 msgid "Starred first"
 msgstr "Najpierw nieprzeczytane"
 
+#, fuzzy
+msgid "Clear Dates"
+msgstr "Wyszukaj filtry"
+
+msgid "Any Date"
+msgstr ""
+
+#, fuzzy
+msgid "{from} to {to}"
+msgstr "{cur} z {total}"
+
+#, fuzzy
+msgid "Since {date}"
+msgstr "wygasa {date}"
+
+#, fuzzy
+msgid "Until {date}"
+msgstr "wygasa {date}"
+
 msgid "Sort by"
 msgstr "Sortowanie według"
 
@@ -725,6 +744,15 @@ msgstr "Wyświetl tylko nieprzeczytane"
 #, fuzzy
 msgid "Clear Filters"
 msgstr "Wyszukaj filtry"
+
+msgid "Dates"
+msgstr ""
+
+msgid "From"
+msgstr "Od"
+
+msgid "To"
+msgstr "Do"
 
 #, fuzzy
 msgid "Sort and filter messages"
@@ -3533,12 +3561,6 @@ msgstr "Zamiast tego wyślij teraz"
 
 msgid "Download password for {name}: {password}"
 msgstr "Hasło do pobrania pliku {name}: {password}"
-
-msgid "From"
-msgstr "Od"
-
-msgid "To"
-msgstr "Do"
 
 msgid "Cc"
 msgstr "DW"

@@ -36,7 +36,7 @@ mod threading;
 mod types;
 mod views;
 
-pub(crate) use filters::{CheckFilter, QuickFilter, QuickFilters};
+pub(crate) use filters::{CheckFilter, DateBound, QuickFilter, QuickFilters};
 pub(crate) use layout::after_next_paint;
 pub(crate) use search::search_text_of;
 pub(crate) use search::{load_address_names, HitSet, PoolFolder, SearchScope, ServerScope};

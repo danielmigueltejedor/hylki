@@ -1740,7 +1740,7 @@ with each other and with plain words:
 A value with spaces goes in quotes: `from:"mario rossi"`. A colon in any other
 word, such as `10:30` or `re:`, is searched for as written.
 
-The sort and filter button in the list's header opens a popover of two
+The sort and filter button in the list's header opens a popover of three
 columns. **Sort by** orders the list by date, newest or oldest first, by
 sender or subject, or puts unread or starred mail first. **Show only** holds
 the quick filters:
@@ -1753,13 +1753,22 @@ the quick filters:
 - **Tagged**: the message has a tag or a Gmail label
 - **Today**: it arrived since midnight on this computer's clock
 
+In **Dates**, the list shows only the mail that arrived from the start of
+the **From** day to the end of the **To** day, on this computer's clock.
+Choosing **From** or **To** sets it to the day in blue on the calendar below
+them, or moves the calendar to the day it already has; a click on a day then
+sets it. A click on a day with neither chosen sets **From**. An end left at
+**Any Date** is open, to show everything since, or up to, a day. **Clear
+Dates** opens both ends again. Older mail is there as soon as the folder's
+index has reached it.
+
 A click turns a filter on or off and leaves the popover open, so an order
 and several filters can be set at once; together the filters show only the
-mail that matches all of them. While any is
-on the button is in the accent color and its tooltip names them. **Clear
-Filters** turns them all off. They apply to whichever folder or search is
-shown, and last until Hylki is closed. In Focus Mode they are under
-**Filter** and **Sort** in the list's ⋯ menu.
+mail that matches all of them. While any is on the button is in the accent
+color and its tooltip names them, with the dates. **Clear Filters** turns
+them all off. They apply to whichever folder or search is shown, and last
+until Hylki is closed. In Focus Mode they are under **Filter** and **Sort**
+in the list's ⋯ menu; the dates are set in the popover only.
 
 Clicking the unread dot on a row marks that message read without selecting
 or opening it. A conversation's dot that is lit only for an unread reply

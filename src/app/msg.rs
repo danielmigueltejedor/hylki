@@ -14,7 +14,7 @@ use crate::models::{
     Account, Attachment, Folder, FolderKind, KeywordFinding, Message, ThreadSummary,
 };
 use crate::ui::attachments_gallery::GalleryRequest;
-use crate::ui::message_list::{BulkAction, QuickFilter, RowAction};
+use crate::ui::message_list::{BulkAction, DateBound, QuickFilter, RowAction};
 use crate::ui::preferences::PrefOutput;
 use crate::ui::sidebar::CtxAction;
 use crate::worker::OutgoingMessage;
@@ -345,6 +345,10 @@ pub(crate) enum AppMsg {
     OpenReaderFind,
     /// Turn one of the list header's quick filters on or off (#97, #441).
     SetQuickFilter(QuickFilter, bool),
+    /// Set or clear one end of the quick filters' date range.
+    SetFilterDate(DateBound, Option<chrono::NaiveDate>),
+    /// Open both ends of the quick filters' date range.
+    ClearFilterDates,
     /// Turn every quick filter off.
     ClearQuickFilters,
     /// Delay-policy read marking (#100): fires a couple of seconds after a

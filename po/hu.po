@@ -690,6 +690,25 @@ msgstr "Olvasatlanok elöl"
 msgid "Starred first"
 msgstr "Olvasatlanok elöl"
 
+#, fuzzy
+msgid "Clear Dates"
+msgstr "Keresési szűrők"
+
+msgid "Any Date"
+msgstr ""
+
+#, fuzzy
+msgid "{from} to {to}"
+msgstr "{cur} / {total}"
+
+#, fuzzy
+msgid "Since {date}"
+msgstr "lejár: {date}"
+
+#, fuzzy
+msgid "Until {date}"
+msgstr "lejár: {date}"
+
 msgid "Sort by"
 msgstr "Rendezés"
 
@@ -700,6 +719,15 @@ msgstr "Csak olvasatlanok megjelenítése"
 #, fuzzy
 msgid "Clear Filters"
 msgstr "Keresési szűrők"
+
+msgid "Dates"
+msgstr ""
+
+msgid "From"
+msgstr "Feladó"
+
+msgid "To"
+msgstr "Címzett"
 
 #, fuzzy
 msgid "Sort and filter messages"
@@ -3490,12 +3518,6 @@ msgstr "Küldés inkább most"
 
 msgid "Download password for {name}: {password}"
 msgstr "Letöltési jelszó ehhez: {name}: {password}"
-
-msgid "From"
-msgstr "Feladó"
-
-msgid "To"
-msgstr "Címzett"
 
 msgid "Cc"
 msgstr "Másolat (Cc)"

@@ -665,6 +665,7 @@ fn quick_filters_narrow_together() {
         )),
         tags: Vec::new(),
         today: 900,
+        span: filters.span(),
     };
     let mut m = msg(1, "a", "");
     m.cc = "\"Doe, Jo\" <jo@example.com>, Me <ME@example.com>".into();
@@ -691,6 +692,43 @@ fn quick_filters_narrow_together() {
     .passes(&m));
     m.timestamp = 800;
     assert!(!ctx(all.with(QuickFilter::Today, true)).passes(&m));
+}
+
+/// The date range takes in the whole of both days it names, on this
+/// computer's clock, whichever way round they were picked.
+#[test]
+fn date_range_spans_whole_days() {
+    use super::filters::{start_of_day, DateBound};
+    let day = chrono::NaiveDate::from_ymd_opt(2026, 3, 10).unwrap();
+    let before = day.pred_opt().unwrap();
+    let after = day.succ_opt().unwrap();
+    let ctx = |filters: QuickFilters| QuickFilterContext {
+        filters,
+        own: Default::default(),
+        contacts: None,
+        tags: Vec::new(),
+        today: 0,
+        span: filters.span(),
+    };
+    let range = |from, to| {
+        QuickFilters::default()
+            .with_date(DateBound::From, from)
+            .with_date(DateBound::To, to)
+    };
+    let mut m = msg(1, "a", "");
+    for at in [start_of_day(day), start_of_day(after) - 1] {
+        m.timestamp = at;
+        assert!(ctx(range(Some(day), Some(day))).passes(&m));
+        assert!(ctx(range(Some(after), Some(before))).passes(&m));
+        assert!(ctx(range(Some(day), None)).passes(&m));
+        assert!(ctx(range(None, Some(day))).passes(&m));
+        assert!(!ctx(range(Some(after), None)).passes(&m));
+        assert!(!ctx(range(None, Some(before))).passes(&m));
+    }
+    m.timestamp = start_of_day(after);
+    assert!(!ctx(range(Some(day), Some(day))).passes(&m));
+    assert!(!range(None, None).has_dates());
+    assert!(!range(Some(day), None).is_empty());
 }
 
 /// #515: what a search looks in is made once, lowercased, and a query

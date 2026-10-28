@@ -477,6 +477,7 @@ impl MessageList {
             } else {
                 0
             },
+            span: self.quick.span(),
         };
         // An "All folders" search leaves Trash and Junk out, but for the
         // folder the list is showing (#374), or one `in:` names.

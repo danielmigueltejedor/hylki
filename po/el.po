@@ -681,6 +681,26 @@ msgstr "Μη αναγνωσμένα πρώτα"
 msgid "Starred first"
 msgstr "Με τα μηνύματα με αστέρι πρώτα"
 
+#, fuzzy
+msgid "Clear Dates"
+msgstr "Εκκαθάριση φίλτρων"
+
+#, fuzzy
+msgid "Any Date"
+msgstr "Ημερομηνία"
+
+#, fuzzy
+msgid "{from} to {to}"
+msgstr "{cur} από {total}"
+
+#, fuzzy
+msgid "Since {date}"
+msgstr "λήγει στις {date}"
+
+#, fuzzy
+msgid "Until {date}"
+msgstr "λήγει στις {date}"
+
 msgid "Sort by"
 msgstr "Ταξινόμηση κατά"
 
@@ -689,6 +709,16 @@ msgstr "Εμφάνιση μόνο"
 
 msgid "Clear Filters"
 msgstr "Εκκαθάριση φίλτρων"
+
+#, fuzzy
+msgid "Dates"
+msgstr "Ημερομηνία"
+
+msgid "From"
+msgstr "Από"
+
+msgid "To"
+msgstr "Προς"
 
 msgid "Sort and filter messages"
 msgstr "Ταξινόμηση και φιλτράρισμα μηνυμάτων"
@@ -3388,12 +3418,6 @@ msgstr "Αποστολή τώρα αντί για αργότερα"
 
 msgid "Download password for {name}: {password}"
 msgstr "Κωδικός λήψης για {name}: {password}"
-
-msgid "From"
-msgstr "Από"
-
-msgid "To"
-msgstr "Προς"
 
 msgid "Cc"
 msgstr "Κοιν."

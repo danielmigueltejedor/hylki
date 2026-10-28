@@ -120,6 +120,8 @@ impl AppModel {
             | AppMsg::OpenListSearch
             | AppMsg::OpenReaderFind
             | AppMsg::SetQuickFilter(..)
+            | AppMsg::SetFilterDate(..)
+            | AppMsg::ClearFilterDates
             | AppMsg::ClearQuickFilters
             | AppMsg::DeferredMarkRead { .. }
             | AppMsg::SelectionKeys(..)

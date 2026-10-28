@@ -710,6 +710,26 @@ msgstr "Сначала непрочитанные"
 msgid "Starred first"
 msgstr "Сначала отмеченные"
 
+#, fuzzy
+msgid "Clear Dates"
+msgstr "Поиск фильтров"
+
+#, fuzzy
+msgid "Any Date"
+msgstr "Дата"
+
+#, fuzzy
+msgid "{from} to {to}"
+msgstr "{cur} из {total}"
+
+#, fuzzy
+msgid "Since {date}"
+msgstr "срок действия истекает {date}"
+
+#, fuzzy
+msgid "Until {date}"
+msgstr "срок действия истекает {date}"
+
 msgid "Sort by"
 msgstr "Сортировать по"
 
@@ -720,6 +740,16 @@ msgstr "Только непрочитанные"
 #, fuzzy
 msgid "Clear Filters"
 msgstr "Поиск фильтров"
+
+#, fuzzy
+msgid "Dates"
+msgstr "Дата"
+
+msgid "From"
+msgstr "От"
+
+msgid "To"
+msgstr "Кому"
 
 #, fuzzy
 msgid "Sort and filter messages"
@@ -3492,12 +3522,6 @@ msgstr "Отправить сейчас вместо запланированн�
 
 msgid "Download password for {name}: {password}"
 msgstr "Пароль для скачивания {name}: {password}"
-
-msgid "From"
-msgstr "От"
-
-msgid "To"
-msgstr "Кому"
 
 msgid "Cc"
 msgstr "Копия"

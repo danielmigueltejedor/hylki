@@ -2531,6 +2531,10 @@ textview.console-view text selection {
   margin-top: 6px;
   font-weight: normal;
 }
+/* Its date range: From and To, and the calendar that sets them. */
+.sort-filter-dates {
+  margin: 4px 8px;
+}
 
 /* Undo Send countdown (#534): the line along the toast's bottom edge. */
 toast-countdown {

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- **Added: a date range in the sort and filter popover.** Its new **Dates**
+  column holds **From**, **To** and a calendar that sets whichever is chosen,
+  and the list shows only the mail that arrived between the two days, both
+  included, on this computer's clock. Either end can stay at **Any Date**.
+  It narrows a search too; **Clear Dates** removes it, and **Clear Filters**
+  removes it with the rest.
+
 - **Added: search finds what a message says** (#509, requested by
   wobblyhen920, with 3v1n0). Each word typed is now found on its own, in any
   order, in the subject, the sender, the recipients (by address or name), the

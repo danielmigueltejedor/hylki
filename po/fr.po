@@ -676,6 +676,26 @@ msgstr "Non lus en premier"
 msgid "Starred first"
 msgstr "Favoris en premier"
 
+#, fuzzy
+msgid "Clear Dates"
+msgstr "Effacer les filtres"
+
+#, fuzzy
+msgid "Any Date"
+msgstr "Date"
+
+#, fuzzy
+msgid "{from} to {to}"
+msgstr "transfère à {to}"
+
+#, fuzzy
+msgid "Since {date}"
+msgstr "expire le {date}"
+
+#, fuzzy
+msgid "Until {date}"
+msgstr "expire le {date}"
+
 msgid "Sort by"
 msgstr "Trier par"
 
@@ -684,6 +704,16 @@ msgstr "Afficher uniquement"
 
 msgid "Clear Filters"
 msgstr "Effacer les filtres"
+
+#, fuzzy
+msgid "Dates"
+msgstr "Date"
+
+msgid "From"
+msgstr "De"
+
+msgid "To"
+msgstr "À"
 
 msgid "Sort and filter messages"
 msgstr "Trier et filtrer les messages"
@@ -3362,12 +3392,6 @@ msgstr "Envoyer maintenant à la place"
 
 msgid "Download password for {name}: {password}"
 msgstr "Mot de passe de téléchargement pour {name} : {password}"
-
-msgid "From"
-msgstr "De"
-
-msgid "To"
-msgstr "À"
 
 msgid "Cc"
 msgstr "Cc"

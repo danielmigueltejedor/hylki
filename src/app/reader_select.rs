@@ -6,7 +6,7 @@ use relm4::prelude::*;
 use crate::config;
 use crate::models::{thread_ids, Message, ThreadSummary};
 use crate::ui::contacts_page::ContactsPageInput;
-use crate::ui::message_list::{MessageListInput, QuickFilters};
+use crate::ui::message_list::{DateBound, MessageListInput, QuickFilters};
 use crate::ui::message_view::MessageViewInput;
 use crate::worker::MailRequest;
 
@@ -160,6 +160,16 @@ impl AppModel {
             }
 
             AppMsg::SetQuickFilter(f, on) => self.set_quick_filters(self.quick_filters.with(f, on)),
+
+            AppMsg::SetFilterDate(end, day) => {
+                self.set_quick_filters(self.quick_filters.with_date(end, day))
+            }
+
+            AppMsg::ClearFilterDates => self.set_quick_filters(
+                self.quick_filters
+                    .with_date(DateBound::From, None)
+                    .with_date(DateBound::To, None),
+            ),
 
             AppMsg::ClearQuickFilters => self.set_quick_filters(QuickFilters::default()),
 

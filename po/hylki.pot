@@ -626,6 +626,21 @@ msgstr ""
 msgid "Starred first"
 msgstr ""
 
+msgid "Clear Dates"
+msgstr ""
+
+msgid "Any Date"
+msgstr ""
+
+msgid "{from} to {to}"
+msgstr ""
+
+msgid "Since {date}"
+msgstr ""
+
+msgid "Until {date}"
+msgstr ""
+
 msgid "Sort by"
 msgstr ""
 
@@ -633,6 +648,15 @@ msgid "Show only"
 msgstr ""
 
 msgid "Clear Filters"
+msgstr ""
+
+msgid "Dates"
+msgstr ""
+
+msgid "From"
+msgstr ""
+
+msgid "To"
 msgstr ""
 
 msgid "Sort and filter messages"
@@ -3091,12 +3115,6 @@ msgid "Send now instead"
 msgstr ""
 
 msgid "Download password for {name}: {password}"
-msgstr ""
-
-msgid "From"
-msgstr ""
-
-msgid "To"
 msgstr ""
 
 msgid "Cc"
