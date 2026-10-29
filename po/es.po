@@ -104,6 +104,10 @@ msgstr "Ajustes"
 msgid "Show Accounts"
 msgstr "Mostrar cuentas"
 
+#, fuzzy
+msgid "Reading Pane"
+msgstr "Lectura"
+
 msgid "Focus Mode"
 msgstr "Modo de concentración"
 
@@ -4571,9 +4575,6 @@ msgstr "Mostrar contenido remoto"
 msgid "Block remote content"
 msgstr "Bloquear contenido remoto"
 
-msgid "Received"
-msgstr "Recibido"
-
 msgid "Click to open this message"
 msgstr "Haz clic para abrir este mensaje"
 
@@ -7275,6 +7276,13 @@ msgstr "Línea separadora sobre la firma"
 msgid "The standard “-- ” line, which other mail apps recognize."
 msgstr "La línea estándar «-- » que reconocen otras aplicaciones de correo."
 
+#, fuzzy
+msgid "Fold quoted text"
+msgstr "Mostrar texto citado"
+
+msgid "Replies and forwards open with the original behind •••."
+msgstr ""
+
 msgid "Undo Send"
 msgstr "Deshacer envío"
 
@@ -7750,6 +7758,9 @@ msgstr "La bandeja de entrada unificada en modo claro"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#~ msgid "Received"
+#~ msgstr "Recibido"
 
 #~ msgid "Search all folders but Trash and Junk"
 #~ msgstr "Buscar en todas las carpetas excepto Papelera y Correo no deseado"

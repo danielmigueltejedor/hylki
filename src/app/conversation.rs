@@ -165,6 +165,11 @@ impl AppModel {
     pub(super) const THREAD_CACHE_MAX: usize = 8;
 
     pub(super) fn show_message(&mut self, message: Option<Message>, loading: bool) {
+        // A hidden reader draws nothing: a body arriving for the selected
+        // row would otherwise load a page no one sees (#475).
+        if !self.reading_pane && message.is_some() {
+            return;
+        }
         let allow_remote = message.as_ref().is_some_and(|m| self.remote_allowed(m));
         let (account_name, account_color) = match message.as_ref() {
             Some(m) => (
@@ -225,6 +230,9 @@ impl AppModel {
     /// the top: a conversation can now include replies of your own pulled in from
     /// Sent, and one of those being the newest shouldn't retitle the reader.
     pub(super) fn show_thread(&mut self) {
+        if !self.reading_pane {
+            return;
+        }
         let Some(head) = self.current_thread.first() else {
             return;
         };

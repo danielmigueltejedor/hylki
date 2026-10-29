@@ -136,6 +136,9 @@ impl AppModel {
             | AppMsg::PopoutMoveTo { .. }
             | AppMsg::PopoutShortcut { .. }
             | AppMsg::ViewSource) => self.on_popout(msg, sender),
+            msg @ (AppMsg::SetReadingPane(..) | AppMsg::PopoutSeen { .. }) => {
+                self.on_reading_pane(msg)
+            }
             msg @ (AppMsg::LoadAttachmentsFor(..)
             | AppMsg::DeletePopoutAttachment { .. }
             | AppMsg::ShowLightbox { .. }

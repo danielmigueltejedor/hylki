@@ -204,11 +204,13 @@ pub(super) struct MainMenu {
     pub(super) undo: gtk::gio::Menu,
     pub(super) show_accounts_action: gtk::gio::SimpleAction,
     pub(super) focus_action: gtk::gio::SimpleAction,
+    pub(super) reading_pane_action: gtk::gio::SimpleAction,
 }
 
 /// Sectioned: settings / printing / window & help / quit.
 pub(super) fn build_main_menu(
     show_accounts: bool,
+    reading_pane: bool,
     focus: &config::FocusMode,
     sender: &ComponentSender<AppModel>,
 ) -> MainMenu {
@@ -233,6 +235,12 @@ pub(super) fn build_main_menu(
             "app.show-accounts",
             "<Ctrl><Shift>a",
         ));
+        // Off, the list takes the window and messages open in their own
+        // (#475). The menu is its only switch.
+        sidebar.append(
+            Some(i18n("Reading Pane").as_str()),
+            Some("app.reading-pane"),
+        );
         // Focus Mode: the distraction-free layout (also Ctrl+Shift+F
         // and Settings → Appearance, where its parts are chosen).
         sidebar.append(Some(i18n("Focus Mode").as_str()), Some("app.focus-mode"));
@@ -260,7 +268,21 @@ pub(super) fn build_main_menu(
         undo: model_undo_menu,
         show_accounts_action: show_accounts_action(show_accounts, sender),
         focus_action: focus_mode_action(focus, sender),
+        reading_pane_action: reading_pane_action(reading_pane, sender),
     }
+}
+
+/// The "reading-pane" check item's action.
+fn reading_pane_action(on: bool, sender: &ComponentSender<AppModel>) -> gtk::gio::SimpleAction {
+    let action = gtk::gio::SimpleAction::new_stateful("reading-pane", None, &on.to_variant());
+    let s = sender.clone();
+    action.connect_change_state(move |action, value| {
+        if let Some(on) = value.and_then(|v| v.get::<bool>()) {
+            action.set_state(&on.to_variant());
+            s.input(AppMsg::SetReadingPane(on));
+        }
+    });
+    action
 }
 
 /// The "show-accounts" check item's action; flipping it is the Settings

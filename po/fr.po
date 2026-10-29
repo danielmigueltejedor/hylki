@@ -107,6 +107,10 @@ msgstr "Paramètres"
 msgid "Show Accounts"
 msgstr "Afficher les comptes"
 
+#, fuzzy
+msgid "Reading Pane"
+msgstr "Lecture"
+
 msgid "Focus Mode"
 msgstr "Mode Focus"
 
@@ -4584,9 +4588,6 @@ msgstr "Afficher le contenu distant"
 msgid "Block remote content"
 msgstr "Bloquer le contenu distant"
 
-msgid "Received"
-msgstr "Reçu"
-
 msgid "Click to open this message"
 msgstr "Cliquez pour ouvrir ce message"
 
@@ -7291,6 +7292,13 @@ msgstr ""
 "La ligne standard « -- » suivie d’une espace, que reconnaissent les autres "
 "applications de messagerie."
 
+#, fuzzy
+msgid "Fold quoted text"
+msgstr "Afficher le texte cité"
+
+msgid "Replies and forwards open with the original behind •••."
+msgstr ""
+
 msgid "Undo Send"
 msgstr "Annuler l’envoi"
 
@@ -7765,6 +7773,9 @@ msgstr "La boîte de réception unifiée en mode clair"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#~ msgid "Received"
+#~ msgstr "Reçu"
 
 #~ msgid "Search all folders but Trash and Junk"
 #~ msgstr ""

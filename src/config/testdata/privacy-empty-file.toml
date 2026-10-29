@@ -112,6 +112,7 @@ keep_downloads_days = 0
 run_in_background = false
 autostart = false
 start_fullscreen = false
+reading_pane = true
 tray = false
 tray_icon = "symbolic"
 tray_mail = true

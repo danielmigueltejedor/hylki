@@ -106,6 +106,10 @@ msgstr "Ustawienia"
 msgid "Show Accounts"
 msgstr "Wyświetlanie kont"
 
+#, fuzzy
+msgid "Reading Pane"
+msgstr "Czytanie"
+
 msgid "Focus Mode"
 msgstr "Tryb skupienia"
 
@@ -4792,9 +4796,6 @@ msgstr "Wyświetl zdalne treści"
 msgid "Block remote content"
 msgstr "Blokuj zdalne treści"
 
-msgid "Received"
-msgstr ""
-
 #, fuzzy
 msgid "Click to open this message"
 msgstr "Odpowiedz na tę wiadomość"
@@ -7589,6 +7590,13 @@ msgid "Separator line above the signature"
 msgstr ""
 
 msgid "The standard “-- ” line, which other mail apps recognize."
+msgstr ""
+
+#, fuzzy
+msgid "Fold quoted text"
+msgstr "Wyświetl zdalne treści"
+
+msgid "Replies and forwards open with the original behind •••."
 msgstr ""
 
 #, fuzzy

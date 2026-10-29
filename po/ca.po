@@ -105,6 +105,10 @@ msgstr "Paràmetres"
 msgid "Show Accounts"
 msgstr "Mostra els comptes"
 
+#, fuzzy
+msgid "Reading Pane"
+msgstr "Lectura"
+
 msgid "Focus Mode"
 msgstr "Mode d'enfocament"
 
@@ -4537,9 +4541,6 @@ msgstr "Mostra el contingut remot"
 msgid "Block remote content"
 msgstr "Bloca el contingut remot"
 
-msgid "Received"
-msgstr "Rebut"
-
 msgid "Click to open this message"
 msgstr "Fes clic per obrir aquest missatge"
 
@@ -7223,6 +7224,13 @@ msgstr "Línia separadora a sobre de la signatura"
 msgid "The standard “-- ” line, which other mail apps recognize."
 msgstr "La línia estàndard «-- », que altres aplicacions de correu reconeixen."
 
+#, fuzzy
+msgid "Fold quoted text"
+msgstr "Mostra el text citat"
+
+msgid "Replies and forwards open with the original behind •••."
+msgstr ""
+
 msgid "Undo Send"
 msgstr "Desfés l'enviament"
 
@@ -7693,6 +7701,9 @@ msgstr "La bústia d'entrada unificada en mode clar"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#~ msgid "Received"
+#~ msgstr "Rebut"
 
 #~ msgid "Search all folders but Trash and Junk"
 #~ msgstr "Cerca a totes les carpetes menys la paperera i la brossa"

@@ -172,6 +172,9 @@ impl Component for MessageWindow {
     fn update(&mut self, msg: Self::Input, sender: ComponentSender<Self>, root: &Self::Root) {
         match msg {
             MessageWindowInput::Ignore => {}
+            MessageWindowInput::Seen { account_id, id } => {
+                let _ = sender.output(MessageWindowOutput::MarkSeen { account_id, id });
+            }
             MessageWindowInput::SetContentTheme(o) => {
                 self.view.emit(MessageViewInput::SetContentTheme(o));
             }
@@ -404,7 +407,9 @@ fn from_reader(out: MessageViewOutput) -> MessageWindowInput {
             MessageWindowInput::CardAction { action, message }
         }
         MessageViewOutput::ContactSender(m) => MessageWindowInput::ContactFor(m),
-        MessageViewOutput::MarkSeen { .. } => MessageWindowInput::Ignore,
+        MessageViewOutput::MarkSeen { account_id, id } => {
+            MessageWindowInput::Seen { account_id, id }
+        }
         MessageViewOutput::CardMenu { message, x, y, hit } => {
             MessageWindowInput::CardMenu { message, x, y, hit }
         }

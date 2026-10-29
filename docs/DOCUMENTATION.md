@@ -1628,6 +1628,17 @@ your language's default paper size before that.
 
 ### Message list layout
 
+**Main menu → Reading Pane** switches the reader beside the list off and on.
+Off, the list takes the whole width of the window in single lines, whatever
+the layout below says, and the window's close button moves to the list's
+header. Clicking a row selects it and nothing more: the keys, the right-click
+menu and the selection bar act on it, but it stays unread. A double-click,
+**Enter** or, with Gmail's keys, **o** opens it in a window of its own (see
+[A message in its own window](#a-message-in-its-own-window)), which marks it
+read as **Settings → Reading → Mark as read** says. A conversation opens
+whole, each message marked as its window scrolls through it. Hylki remembers
+the choice.
+
 **Settings → Message List → Layout** sets how the list shows a message.
 **Cards** gives the sender, the subject and the start of the text lines of
 their own. **Single line** puts them on one line in columns: the sender's

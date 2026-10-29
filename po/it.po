@@ -104,6 +104,10 @@ msgstr "Impostazioni"
 msgid "Show Accounts"
 msgstr "Mostra account"
 
+#, fuzzy
+msgid "Reading Pane"
+msgstr "Lettura"
+
 msgid "Focus Mode"
 msgstr "Modalità focus"
 
@@ -4703,9 +4707,6 @@ msgstr "Mostra contenuto remoto"
 msgid "Block remote content"
 msgstr "Blocca contenuto remoto"
 
-msgid "Received"
-msgstr "Ricevuto"
-
 msgid "Click to open this message"
 msgstr "Clicca per aprire questo messaggio"
 
@@ -7447,6 +7448,13 @@ msgid "The standard “-- ” line, which other mail apps recognize."
 msgstr ""
 
 #, fuzzy
+msgid "Fold quoted text"
+msgstr "Mostra testo citato"
+
+msgid "Replies and forwards open with the original behind •••."
+msgstr ""
+
+#, fuzzy
 msgid "Undo Send"
 msgstr "Annulla"
 
@@ -7926,6 +7934,9 @@ msgstr "La posta in arrivo unificata in modalità chiara"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#~ msgid "Received"
+#~ msgstr "Ricevuto"
 
 #, fuzzy
 #~ msgid "Search all folders but Trash and Junk"

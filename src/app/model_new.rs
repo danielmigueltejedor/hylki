@@ -84,6 +84,7 @@ impl AppModel {
             undo: model_undo_menu,
             show_accounts_action,
             focus_action,
+            reading_pane_action,
         } = main_menu;
         crate::ui::keymap::set_key_mode(prefs.single_key_shortcuts, prefs.gmail_keys);
         let launcher_badge = prefs.launcher_badge();
@@ -380,6 +381,7 @@ impl AppModel {
             run_in_background: std::rc::Rc::new(std::cell::Cell::new(prefs.run_in_background)),
             autostart: config::load_autostart(),
             start_fullscreen: prefs.start_fullscreen,
+            reading_pane: prefs.reading_pane,
             tray_enabled: prefs.tray,
             tray_icon: prefs.tray_icon,
             tray_mail: prefs.tray_mail,
@@ -420,6 +422,7 @@ impl AppModel {
             show_accounts_action,
             focus,
             focus_action,
+            reading_pane_action,
             list_header_widgets: std::cell::OnceCell::new(),
             chevrons_left: prefs.chevrons_left,
             account_click_folds: prefs.account_click_folds,

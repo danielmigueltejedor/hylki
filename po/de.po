@@ -108,6 +108,10 @@ msgstr "Einstellungen"
 msgid "Show Accounts"
 msgstr "Konten anzeigen"
 
+#, fuzzy
+msgid "Reading Pane"
+msgstr "Lesen"
+
 msgid "Focus Mode"
 msgstr "Fokusmodus"
 

@@ -116,6 +116,7 @@ impl AppModel {
             run_in_background: self.run_in_background.get(),
             autostart: self.autostart,
             start_fullscreen: self.start_fullscreen,
+            reading_pane: self.reading_pane,
             tray: self.tray_enabled,
             tray_icon: self.tray_icon,
             tray_mail: self.tray_mail,

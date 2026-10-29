@@ -469,6 +469,10 @@ pub(crate) struct PrivacyFile {
     /// The main window opens fullscreen (#511).
     #[serde(default)]
     pub(crate) start_fullscreen: bool,
+    /// The reader beside the list (#475). Off, the list takes the whole
+    /// width in single lines and messages open in their own windows.
+    #[serde(default = "default_on")]
+    pub(crate) reading_pane: bool,
     /// Publish a tray icon (StatusNotifierItem) for desktops that draw one
     /// (issue #116). Off by default: GNOME has no tray without an extension.
     #[serde(default)]
@@ -781,6 +785,7 @@ impl Default for PrivacyFile {
             run_in_background: false,
             autostart: false,
             start_fullscreen: false,
+            reading_pane: true,
             tray: false,
             tray_icon: TrayIcon::default(),
             tray_mail: true,

@@ -113,6 +113,7 @@ impl AppModel {
         let app = relm4::main_application();
         app.add_action(&self.show_accounts_action);
         app.add_action(&self.focus_action);
+        app.add_action(&self.reading_pane_action);
         let window = root.clone();
         let outgoing = self.outgoing.clone();
         let quit = gtk::gio::SimpleAction::new("quit", None);

@@ -487,6 +487,8 @@ pub(crate) struct AppModel {
     pub(super) autostart: bool,
     /// The window opens fullscreen (#511).
     pub(super) start_fullscreen: bool,
+    /// The reader beside the list (#475); off, messages open in windows.
+    pub(super) reading_pane: bool,
     /// Tray icon (issue #116): the setting, the icon choice, and the running
     /// item while the setting is on.
     pub(super) tray_enabled: bool,
@@ -586,6 +588,8 @@ pub(crate) struct AppModel {
     pub(super) focus: config::FocusMode,
     /// The main menu's "Focus Mode" check item.
     pub(super) focus_action: gtk::gio::SimpleAction,
+    /// The main menu's "Reading Pane" check item, the setting's only switch.
+    pub(super) reading_pane_action: gtk::gio::SimpleAction,
     /// The message list header's foldable controls and the ⋯ that stands in
     /// for them in Focus Mode (set in init).
     pub(super) list_header_widgets: std::cell::OnceCell<ListHeaderWidgets>,

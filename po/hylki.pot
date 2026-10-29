@@ -95,6 +95,9 @@ msgstr ""
 msgid "Show Accounts"
 msgstr ""
 
+msgid "Reading Pane"
+msgstr ""
+
 msgid "Focus Mode"
 msgstr ""
 

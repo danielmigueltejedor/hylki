@@ -107,6 +107,10 @@ msgstr "Beállítások"
 msgid "Show Accounts"
 msgstr "Fiókok megjelenítése"
 
+#, fuzzy
+msgid "Reading Pane"
+msgstr "Olvasás"
+
 msgid "Focus Mode"
 msgstr "Fókusz mód"
 
@@ -4735,9 +4739,6 @@ msgstr "Távoli tartalom megjelenítése"
 msgid "Block remote content"
 msgstr "Távoli tartalom letiltása"
 
-msgid "Received"
-msgstr ""
-
 #, fuzzy
 msgid "Click to open this message"
 msgstr "Válasz erre az üzenetre"
@@ -7528,6 +7529,13 @@ msgid "Separator line above the signature"
 msgstr "Az aláírás feletti elválasztóvonal"
 
 msgid "The standard “-- ” line, which other mail apps recognize."
+msgstr ""
+
+#, fuzzy
+msgid "Fold quoted text"
+msgstr "Távoli tartalom megjelenítése"
+
+msgid "Replies and forwards open with the original behind •••."
 msgstr ""
 
 #, fuzzy

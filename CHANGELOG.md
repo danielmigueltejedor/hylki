@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- **Added: the reading pane can be switched off** (#475, requested by
+  fhangel). **Main menu → Reading Pane** hides the reader beside the list.
+  The list then takes the whole width in single lines, whatever **Settings →
+  Message List → Layout** says, and a message opens in a window of its own on
+  a double-click, **Enter** or Gmail's **o**. Selecting a row does not mark
+  it read: opening its window does, as **Settings → Reading → Mark as read**
+  says, and a conversation's window marks each message as it is read
+  through. The keys, the right-click menu and the selection bar act on the
+  selected rows as before. The choice is kept between runs.
+
 ## 1.46.0 — 2026-10-29
 
 Everything from 1.46.0-beta.1 to 1.46.0-beta.5, and what main gained since:

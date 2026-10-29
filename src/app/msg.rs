@@ -375,6 +375,10 @@ pub(crate) enum AppMsg {
     },
     /// A popped-out message window was closed (remove it from the map).
     PopoutClosed((u32, u32)),
+    /// A conversation card in a message window was read through.
+    PopoutSeen { account_id: u32, id: u32 },
+    /// The main menu's Reading Pane item (#475).
+    SetReadingPane(bool),
     /// Add a contact from a popout window's sender.
     AddContactFrom { name: String, email: String },
     /// A message window's Move To: the folder picker over that window, at

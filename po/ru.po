@@ -104,6 +104,10 @@ msgstr "Настройки"
 msgid "Show Accounts"
 msgstr "Показывать учётные записи"
 
+#, fuzzy
+msgid "Reading Pane"
+msgstr "Чтение"
+
 msgid "Focus Mode"
 msgstr "Режим фокусировки"
 
@@ -4756,9 +4760,6 @@ msgstr "Показать удалённое содержимое"
 msgid "Block remote content"
 msgstr "Блокировать удалённое содержимое"
 
-msgid "Received"
-msgstr "Получено"
-
 msgid "Click to open this message"
 msgstr "Нажмите, чтобы открыть это сообщение"
 
@@ -7512,6 +7513,13 @@ msgid "The standard “-- ” line, which other mail apps recognize."
 msgstr ""
 
 #, fuzzy
+msgid "Fold quoted text"
+msgstr "Показать цитируемый текст"
+
+msgid "Replies and forwards open with the original behind •••."
+msgstr ""
+
+#, fuzzy
 msgid "Undo Send"
 msgstr "Отменить"
 
@@ -7991,6 +7999,9 @@ msgstr "Общие входящие в светлом режиме"
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#~ msgid "Received"
+#~ msgstr "Получено"
 
 #, fuzzy
 #~ msgid "Search all folders but Trash and Junk"

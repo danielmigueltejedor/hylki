@@ -108,6 +108,10 @@ msgstr "Ρυθμίσεις"
 msgid "Show Accounts"
 msgstr "Εμφάνιση λογαριασμών"
 
+#, fuzzy
+msgid "Reading Pane"
+msgstr "Ανάγνωση"
+
 msgid "Focus Mode"
 msgstr "Λειτουργία συγκέντρωσης"
 
@@ -4609,9 +4613,6 @@ msgstr "Εμφάνιση απομακρυσμένου περιεχομένου"
 msgid "Block remote content"
 msgstr "Αποκλεισμός απομακρυσμένου περιεχομένου"
 
-msgid "Received"
-msgstr "Ελήφθη"
-
 msgid "Click to open this message"
 msgstr "Κάντε κλικ για να ανοίξετε αυτό το μήνυμα"
 
@@ -7345,6 +7346,13 @@ msgid "The standard “-- ” line, which other mail apps recognize."
 msgstr ""
 "Η τυπική γραμμή «-- », την οποία αναγνωρίζουν άλλες εφαρμογές αλληλογραφίας."
 
+#, fuzzy
+msgid "Fold quoted text"
+msgstr "Εμφάνιση παρατιθέμενου κειμένου"
+
+msgid "Replies and forwards open with the original behind •••."
+msgstr ""
+
 msgid "Undo Send"
 msgstr "Αναίρεση αποστολής"
 
@@ -7823,6 +7831,9 @@ msgstr "Τα ενοποιημένα εισερχόμενα σε φωτεινή �
 
 msgid "Hyprlab"
 msgstr "Hyprlab"
+
+#~ msgid "Received"
+#~ msgstr "Ελήφθη"
 
 #~ msgid "Search all folders but Trash and Junk"
 #~ msgstr "Αναζήτηση σε όλους τους φακέλους εκτός από Κάδο και Ανεπιθύμητα"

@@ -89,6 +89,7 @@ mod prefs_reader;
 mod prefs_sidebar;
 mod reader_select;
 mod reader_toolbar;
+mod reading_pane;
 mod receipts;
 mod receipts_returned;
 mod release_notes;
@@ -356,9 +357,11 @@ impl SimpleComponent for AppModel {
                             add_top_bar = &adw::HeaderBar {
                                 add_css_class: "flat",
                                 // Middle pane: no window controls (the reader pane's
-                                // header carries the window's close button).
+                                // header carries the window's close button),
+                                // unless there is no reader pane (#475).
                                 set_show_start_title_buttons: false,
-                                set_show_end_title_buttons: false,
+                                #[watch]
+                                set_show_end_title_buttons: !model.reading_pane,
                                 // No folder title here — the sidebar's selection
                                 // already names it. An empty label keeps the
                                 // window's "Hylki" title from appearing instead.
@@ -459,6 +462,9 @@ impl SimpleComponent for AppModel {
                             // on an explicit one; the window's own minimum is what
                             // really binds vertically.
                             set_size_request: (READER_MIN_WIDTH, 200),
+                            // Hidden, the list takes the whole width (#475).
+                            #[watch]
+                            set_visible: model.reading_pane,
                             #[wrap(Some)]
                             set_child = &adw::ToolbarView {
                             #[name = "reader_header"]
@@ -845,7 +851,12 @@ impl SimpleComponent for AppModel {
     ) -> ComponentParts<Self> {
         let boot = Boot::read(&root);
         let children = Children::launch(&boot, &sender);
-        let main_menu = build_main_menu(boot.prefs.show_accounts, &boot.focus, &sender);
+        let main_menu = build_main_menu(
+            boot.prefs.show_accounts,
+            boot.prefs.reading_pane,
+            &boot.focus,
+            &sender,
+        );
         let mut model = AppModel::new(&root, &sender, boot, children, main_menu);
         model.prime_and_connect(&sender);
         schedule_download_prune();

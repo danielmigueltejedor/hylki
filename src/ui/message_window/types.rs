@@ -74,6 +74,12 @@ pub(crate) enum MessageWindowInput {
     PrintPreview,
     /// No-op (unreachable output mapping).
     Ignore,
+    /// A conversation card was scrolled through: the app marks it read
+    /// when the window is where mail is read (#475).
+    Seen {
+        account_id: u32,
+        id: u32,
+    },
     /// A message body arrived from the server — the popped-out message itself
     /// or, in a conversation window, any member of the thread.
     SetBody {
@@ -273,6 +279,11 @@ pub(crate) enum MessageWindowOutput {
     },
     /// Download this message's attachments from the server.
     LoadAttachments(Box<Message>),
+    /// A conversation card has been read (see `MessageViewOutput::MarkSeen`).
+    MarkSeen {
+        account_id: u32,
+        id: u32,
+    },
     /// The folder picker for this message, at window point (x, y).
     MoveTo {
         message: Box<Message>,
