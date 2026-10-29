@@ -1632,7 +1632,9 @@ your language's default paper size before that.
 Off, the list takes the whole width of the window in single lines, whatever
 the layout below says, and the toolbar and the window's close button move to
 the list's header. The toolbar folds into its ⋯ menu there as it does in the
-reader, and leaves out Find and Print, which have no reader to act on.
+reader, leaves out Find and Print, which have no reader to act on, and gives
+way to the selection bar while several rows are selected. Replies, forwards
+and new messages open in a window of their own.
 Clicking a row selects it and nothing more: the keys, the right-click
 menu and the selection bar act on it, but it stays unread. A double-click,
 **Enter** or, with Gmail's keys, **o** opens it in a window of its own (see

@@ -425,8 +425,10 @@ impl SimpleComponent for AppModel {
                                 #[name = "list_tools"]
                                 pack_end = &gtk::Box {
                                     add_css_class: "list-tools",
+                                    // The selection bar carries the actions
+                                    // for several rows; not twice.
                                     #[watch]
-                                    set_visible: !model.reading_pane,
+                                    set_visible: !model.reading_pane && !model.many_selected(),
                                 },
                                 // Focus Mode: the ⋯ that stands in for the
                                 // search, filters, count and sort while they

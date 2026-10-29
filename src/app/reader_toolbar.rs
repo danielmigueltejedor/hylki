@@ -463,7 +463,9 @@ impl AppModel {
             &tb.list_header
         };
         let (collapsed, compact) = self.toolbar_fold();
+        // Hidden in the list header, the row would measure too short.
         if compact
+            || (!self.reading_pane && self.many_selected())
             || self.reader_compose.is_some()
             || self.showing_outbox
             || self.focus.active(config::FocusPart::ReaderToolbar)

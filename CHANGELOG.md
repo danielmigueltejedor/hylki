@@ -11,8 +11,10 @@
   says, and a conversation's window marks each message as it is read
   through. The toolbar moves to the list's header, between the filter
   button and the window controls, folding into its ⋯ menu as it does in the
-  reader and greyed out until a row is selected; Find and Print, which act on
-  the reader, are left out. The keys, the right-click menu and the selection
+  reader, greyed out until a row is selected and making way for the selection
+  bar when several are; Find and Print, which act on the reader, are left
+  out. A reply, a forward or a new message opens in a window of its own,
+  whatever **Settings → Composing** says about the reading pane. The keys, the right-click menu and the selection
   bar act on the selected rows as before. The choice is kept between runs.
 
 ## 1.46.0 — 2026-10-29
