@@ -44,7 +44,9 @@ pub(super) fn wrapper_css(
          .hylki-mark svg{{width:16px;height:16px;}}\
          .hylki-mark svg,.hylki-mark svg *{{fill:currentColor;}}\
          .hylki-mark-none{{width:16px;height:16px;}}\
-         .hylki-msg.starred .hylki-mark-off,.hylki-msg:not(.starred) .hylki-mark-on{{display:none;}}\
+         /* The star keeps its place unstarred, so starring moves nothing. */\
+         .hylki-mark-star{{color:#e5a50a;opacity:1;}}\
+         .hylki-msg:not(.starred) .hylki-mark-star{{visibility:hidden;}}\
          body.hylki-folds .hylki-msg-hdr{{cursor:pointer;}}\
          @media print{{.hylki-msg.hylki-folded>:not(.hylki-fbar){{display:revert !important;}}\
          .hylki-msg.hylki-folded>.hylki-fbar{{display:none !important;}}}}\

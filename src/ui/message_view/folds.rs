@@ -43,9 +43,10 @@ impl MessageView {
 
     /// The marks in a card's header, beside the date, as a folded card
     /// showed them once on a bar of its own (#326): whether it is starred and
-    /// whether it carries files. Both stars are there, and the card's
-    /// `starred` class picks one, so a star toggled on the card flips in
-    /// place. Mail you sent says so in a chip instead (see `card_labels`).
+    /// whether it carries files. The star is the toolbar's, in its color,
+    /// and only a starred card shows it: the card's `starred` class does, so
+    /// a star toggled on the card shows or goes in place. Mail you sent says
+    /// so in a chip instead (see `card_labels`).
     pub(super) fn card_marks_html(&self, m: &Message) -> String {
         let icon = |class: &str, name: &str, title: &str| {
             format!(
@@ -62,9 +63,12 @@ impl MessageView {
             "<span class=\"hylki-mark hylki-mark-none\"></span>".to_string()
         };
         format!(
-            "<span class=\"hylki-marks\">{}{}{clip}</span>",
-            icon(" hylki-mark-on", "starred-symbolic", &i18n("Starred")),
-            icon(" hylki-mark-off", "hylki-non-starred-symbolic", ""),
+            "<span class=\"hylki-marks\">{}{clip}</span>",
+            icon(
+                " hylki-mark-star",
+                "hylki-non-starred-symbolic",
+                &i18n("Starred")
+            ),
         )
     }
 
