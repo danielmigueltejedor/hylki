@@ -136,6 +136,17 @@
   switched-on entry is shaded like a pressed button and keeps its own icon
   instead of a tick.
 
+- **Fixed: a black window on an X server without shared memory** (#547,
+  reported by valqk). On a display with no GPU, such as Xvnc, GTK draws with
+  Mesa's software driver, which hands each frame to the X server through
+  shared memory; when the server could not attach it (an Xvnc started from
+  inetd or a systemd socket), older Mesa drew nothing. Hylki now tries the
+  same before GTK starts and draws with Cairo when it fails. A renderer
+  chosen in Settings → System → Renderer, or a `GSK_RENDERER` in the
+  environment, still wins. The Debian package now depends on the SVG image
+  loader, which Debian's GTK only recommends, so its icons load on a system
+  installed without recommended packages.
+
 - **Fixed: the count in the sidebar's unread chip sat high** (#545, by
   Valentin Morice). At the default text size the number is now centered in
   the chip, which keeps its height.
