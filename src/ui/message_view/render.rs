@@ -209,7 +209,7 @@ impl MessageView {
                 .collect()
         });
         LIVE_FOLDBAR.with(|b| {
-            *b.borrow_mut() = if self.thread.len() > 1 {
+            *b.borrow_mut() = if self.carded() {
                 self.thread
                     .iter()
                     .map(|m| ((m.account_id, m.id), self.fold_bar_html(m)))

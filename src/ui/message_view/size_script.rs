@@ -189,7 +189,7 @@ setTimeout(ready,450);\
 var hs=document.querySelectorAll('.hylki-msg-hdr');\
 for(var j=0;j<hs.length;j++){hs[j].addEventListener('dblclick',function(){\
 try{window.webkit.messageHandlers.hylki.postMessage('open:'+this.dataset.key);}catch(_){}});}\
-if(document.querySelectorAll('.hylki-msg').length>1){document.body.classList.add('hylki-folds');\
+if(document.body.classList.contains('hylki-conv')){document.body.classList.add('hylki-folds');\
 for(var j=0;j<hs.length;j++){(function(h){var tm=null;\
 h.addEventListener('click',function(e){\
 if(e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;\

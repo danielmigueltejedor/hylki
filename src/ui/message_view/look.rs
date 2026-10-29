@@ -109,16 +109,15 @@ impl MessageView {
         // The cover matches it so the spinner gives way to the document
         // without a change of color.
         let (ground, page, chrome) = self.theme_grounds(dark);
-        let (bg, kind) =
-            if self.thread.len() > 1 || (!self.thread.is_empty() && self.single_message_card) {
-                (&page, "page")
-            } else if self.thread.len() == 1
-                && (self.reader_mode || !paints_own_background(&self.thread[0].body))
-            {
-                (&chrome, "chrome")
-            } else {
-                (&ground, "ground")
-            };
+        let (bg, kind) = if self.carded() {
+            (&page, "page")
+        } else if self.thread.len() == 1
+            && (self.reader_mode || !paints_own_background(&self.thread[0].body))
+        {
+            (&chrome, "chrome")
+        } else {
+            (&ground, "ground")
+        };
         self.webview.set_background_color(&ground_rgba(bg));
         // The spinner and the cover stand in for the message, so they answer to
         // the message's theme: #1e1e1e matches the document's own dark ground,

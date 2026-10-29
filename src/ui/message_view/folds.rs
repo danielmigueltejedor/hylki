@@ -15,7 +15,7 @@ impl MessageView {
     /// message stepped to inside the conversation is opened by hand instead
     /// (see `Show`).
     pub(super) fn folded_cards(&self) -> std::collections::HashSet<(u32, u32)> {
-        if self.thread.len() <= 1 {
+        if !self.carded() {
             return Default::default();
         }
         let newest = self
@@ -73,12 +73,15 @@ impl MessageView {
         };
         // Below the sender, as many lines of preview as the message list
         // shows (#326). No subject: the conversation's is the heading above.
+        // The box keeps all its lines when the text is shorter or missing, so
+        // every folded card stands the same height.
         let preview = crate::models::preview_display(&m.preview);
-        let preview = if self.fold_preview_lines > 0 && !preview.trim().is_empty() {
+        let preview = if self.fold_preview_lines > 0 {
             format!(
-                "<div class=\"hylki-fbar-prev\" style=\"-webkit-line-clamp:{}\">{}</div>",
-                self.fold_preview_lines,
+                "<div class=\"hylki-fbar-prev\" \
+                 style=\"-webkit-line-clamp:{n};height:calc({n} * 1.35em)\">{}</div>",
                 escape_html(preview.trim()),
+                n = self.fold_preview_lines,
             )
         } else {
             String::new()
@@ -99,7 +102,7 @@ impl MessageView {
     /// Fold and open the cards of the live document to match
     /// [`MessageView::folded_cards`], without building it again.
     pub(super) fn patch_folds(&self) {
-        if !self.webview_ready || self.thread.len() <= 1 {
+        if !self.webview_ready || !self.carded() {
             return;
         }
         let keys: Vec<String> = self

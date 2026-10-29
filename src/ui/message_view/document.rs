@@ -148,9 +148,8 @@ impl MessageView {
         // A lone message cards up too when the preference asks (#57);
         // otherwise it keeps the full-bleed treatment below.
         let carded = thread.len() > 1 || (conversation && single_message_card);
-        // Card selection only means something between cards: a lone message is
-        // already the selection, so it never wears the accent outline.
-        let mark_selection = thread.len() > 1;
+        // A full-bleed message is no card to outline.
+        let mark_selection = carded;
         let cards = Cards {
             thread,
             folder_labels,
