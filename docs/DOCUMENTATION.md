@@ -1630,17 +1630,17 @@ your language's default paper size before that.
 
 **Main menu → Reading Pane** puts the reader **Right** of the list, **Below**
 it or **Off**. Below or off, the list shows a message on a single line, whatever
-the layout below says, and the toolbar and the window's close button move to
-the list's header, at the top of the window. The toolbar folds into its ⋯ menu
-there as it does in the reader, and gives way to the selection bar while
-several rows are selected. Replies, forwards and new messages open in a window
-of their own. Below, drag the line between the list and the reader to set the
-list's height, which Hylki remembers apart from its width beside the reader,
-and the attachments start folded.
+the layout below says, the window's close button moves to the list's header,
+and replies, forwards and new messages open in a window of their own. Below,
+the toolbar stays at the top of the reader; drag the line between the list and
+the reader to set the list's height, which Hylki remembers apart from its width
+beside the reader, and the attachments start folded.
 
-Off, the list takes the whole window. Find, which searches the reader, is left
-out of the toolbar; Print prints the selected message, or its whole
-conversation. Clicking a row selects it and nothing more: the keys, the
+Off, the list takes the whole window and the toolbar moves to its header, at
+the top of the window. It folds into its ⋯ menu there as it does in the reader,
+and gives way to the selection bar while several rows are selected. Find, which
+searches the reader, is left out; Print prints the selected message, or its
+whole conversation. Clicking a row selects it and nothing more: the keys, the
 right-click menu and the selection bar act on it, but it stays unread. A
 double-click, **Enter** or, with Gmail's keys, **o** opens it in a window of
 its own (see [A message in its own window](#a-message-in-its-own-window)),

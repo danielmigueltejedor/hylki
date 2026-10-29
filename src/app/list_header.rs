@@ -491,7 +491,7 @@ impl AppModel {
     pub(super) fn push_single_line(&self) {
         // With the reader below or off the list is a table (#475).
         let on = match self.list_layout {
-            _ if self.toolbar_in_list() => true,
+            _ if self.reading_pane != config::ReadingPane::Right => true,
             config::ListLayout::Cards => false,
             config::ListLayout::SingleLine => true,
             config::ListLayout::Automatic => self.list_wide,

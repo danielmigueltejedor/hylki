@@ -29,11 +29,10 @@ pub(super) struct ReaderToolbarWidgets {
     /// The Outbox's own buttons' revealers (Edit, Send, Send all).
     pub(super) outbox: Vec<gtk::Revealer>,
     pub(super) spinner: gtk::Widget,
-    /// With the reading pane off (#475) the buttons move to this box in
-    /// the list header, a gap between the two groups.
+    /// With the reader below the list or off (#475) the buttons move to
+    /// this box in the list header.
     pub(super) list_header: adw::HeaderBar,
     pub(super) list_tools: gtk::Box,
-    pub(super) gap: gtk::Widget,
     bin: adw::BreakpointBin,
     breakpoint: adw::Breakpoint,
     /// The second breakpoint: below this the buttons draw narrower, or the
@@ -413,10 +412,16 @@ impl AppModel {
             let tools = tb.list_tools.measure(gtk::Orientation::Horizontal, -1).0;
             (header - tools).max(0)
         };
+        // Below the list, the reader's header has no window controls.
+        let controls = if self.controls_in_list() && !self.toolbar_in_list() {
+            0
+        } else {
+            tb.controls.get()
+        };
         let threshold = if tb.button_w <= 0 {
             READER_ACTIONS_BREAKPOINT + f64::from(extra)
         } else {
-            (tb.base + extra + tb.controls.get() + shown * tb.button_w) as f64 + 24.0
+            (tb.base + extra + controls + shown * tb.button_w) as f64 + 24.0
         };
         tracing::info!(
             "reader toolbar: {shown} buttons × {}px + base {}px + controls {}px → collapse below {threshold:.0}px",
@@ -428,7 +433,7 @@ impl AppModel {
         // Until the folded row is measured, a generous estimate: each button
         // with the headerbar's spacing, and its padding at both ends.
         let left = (self.reader_toolbar.left.len() + 1) as i32;
-        let estimate = left * (tb.button_w.max(36) + 6) + extra + tb.controls.get() + 48;
+        let estimate = left * (tb.button_w.max(36) + 6) + extra + controls + 48;
         tb.compact_measured.set(false);
         tb.full_measured.set(false);
         tb.full_need.set(threshold as i32);
@@ -727,11 +732,6 @@ impl AppModel {
             spinner: widgets.tb_spinner.clone().upcast(),
             list_header: widgets.list_header.clone(),
             list_tools: widgets.list_tools.clone(),
-            gap: {
-                let gap = gtk::Box::new(gtk::Orientation::Horizontal, 0);
-                gap.set_width_request(12);
-                gap.upcast()
-            },
             bin: widgets.reader_bin.clone(),
             breakpoint: bp,
             compact_breakpoint: compact_bp,

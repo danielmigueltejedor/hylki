@@ -1471,7 +1471,9 @@ headerbar.reader-toolbar.compact box.end > button {
   padding-right: 1px;
 }
 
-/* The same toolbar in the list header, while the reading pane is off. */
+/* The same toolbar in the list header, with the reader below the list or
+   off: spaced as in the reader's header (the box's own spacing is 6px,
+   as a headerbar's). */
 headerbar box.list-tools {
   border-spacing: 1px;
 }

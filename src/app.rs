@@ -387,7 +387,7 @@ impl SimpleComponent for AppModel {
                                 // unless there is no reader pane (#475).
                                 set_show_start_title_buttons: false,
                                 #[watch]
-                                set_show_end_title_buttons: model.toolbar_in_list(),
+                                set_show_end_title_buttons: model.controls_in_list(),
                                 // No folder title here — the sidebar's selection
                                 // already names it. An empty label keeps the
                                 // window's "Hylki" title from appearing instead.
@@ -434,6 +434,9 @@ impl SimpleComponent for AppModel {
                                 #[name = "list_tools"]
                                 pack_end = &gtk::Box {
                                     add_css_class: "list-tools",
+                                    // The headerbar's own spacing, so the
+                                    // buttons sit as they do in the reader.
+                                    set_spacing: 6,
                                     // The selection bar carries the actions
                                     // for several rows; not twice.
                                     #[watch]
@@ -508,10 +511,10 @@ impl SimpleComponent for AppModel {
                             set_child = &adw::ToolbarView {
                             #[name = "reader_header"]
                             add_top_bar = &adw::HeaderBar {
-                                // Below the list its buttons are in the
-                                // list's header, at the top of the window.
+                                // Below the list the window's controls are
+                                // in the list's header, at the top.
                                 #[watch]
-                                set_visible: !model.toolbar_in_list(),
+                                set_show_end_title_buttons: !model.controls_in_list(),
                                 // Rightmost of the packed items, beside the window
                                 // controls: the overflow ⋯ that stands in for the
                                 // action buttons while collapsed.

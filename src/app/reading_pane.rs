@@ -142,10 +142,15 @@ impl AppModel {
         self.reading_pane != config::ReadingPane::Off
     }
 
-    /// Whether the toolbar and the window controls are in the list's
-    /// header, at the top of the window: with the reader below the list or
-    /// off.
+    /// Whether the toolbar is in the list's header, at the top of the
+    /// window: with the reader off. Below the list, it stays on the reader.
     pub(super) fn toolbar_in_list(&self) -> bool {
+        self.reading_pane == config::ReadingPane::Off
+    }
+
+    /// Whether the window's controls are in the list's header: with the
+    /// reader below the list or off, the list's header is the window's top.
+    pub(super) fn controls_in_list(&self) -> bool {
         self.reading_pane != config::ReadingPane::Right
     }
 
@@ -182,13 +187,13 @@ impl AppModel {
     }
 
     /// The toolbar in the list header, in the saved order: the Outbox's
-    /// buttons, the left group, a gap, the right group and the ⋯.
+    /// buttons, the left group, the right group and the ⋯, evenly spaced.
     pub(super) fn layout_list_tools(&self, tb: &ReaderToolbarWidgets) {
         let overflow: gtk::Widget = self.reader_overflow_btn.clone().upcast();
         let outbox = tb.outbox.iter().map(|r| r.clone().upcast::<gtk::Widget>());
         let all: Vec<gtk::Widget> = outbox
             .chain(tb.buttons.iter().map(|(_, w)| w.clone()))
-            .chain([tb.gap.clone(), tb.spinner.clone(), overflow.clone()])
+            .chain([tb.spinner.clone(), overflow.clone()])
             .collect();
         for w in &all {
             detach(w);
@@ -201,7 +206,6 @@ impl AppModel {
         for w in self.reader_toolbar.left.iter().filter_map(find) {
             tb.list_tools.append(w);
         }
-        tb.list_tools.append(&tb.gap);
         tb.list_tools.append(&tb.spinner);
         for w in self.reader_toolbar.right.iter().filter_map(find) {
             tb.list_tools.append(w);
