@@ -1,6 +1,17 @@
 # Changelog
 
-## Unreleased
+## 1.46.0 — 2026-10-29
+
+Everything from 1.46.0-beta.1 to 1.46.0-beta.5, and what main gained since:
+an AppImage, the RPM, Debian package and AppImage for ARM64, Snooze,
+fullscreen, read receipts, search through a message's text and on the
+server, mail kept offline, cached remote content, a date range in the list,
+quotes folded in the composer, folding and marks on a lone message card,
+and a search for other people's OpenPGP keys. German is complete.
+
+- **Translations:** German (PRs #523, #539 and #544 by Samuel Edlmeier) is
+  complete; French (PRs #519 and #522 by frenchy82) and Portuguese and
+  Brazilian Portuguese (PR #526 by somepaulo) are up to date.
 
 - **Added: an AppImage** (#235, requested by kem-a). Every release from
   1.46.0 carries `Hylki-x86_64.AppImage` and `Hylki-aarch64.AppImage`, and
@@ -25,6 +36,13 @@
   message's own window. The Light / Dark Mode and Reader View switches stay
   at the right end of the line, and with all three hidden the line goes.
   On by default.
+
+- **Added: a lone message card folds and selects** like a conversation's
+  cards: a click on its header folds it, a click on it takes the selection
+  outline. A folded card keeps its header as it is open, with the preview
+  lines under it, and every card header shows the star, a paperclip for
+  attachments and, on mail you sent, a Sent chip in place of the folder's
+  name.
 
 - **Added: Snoozed in the unified section** (#542, requested by
   UnicornPanel). While any account's Snoozed folder holds mail, a Snoozed row
@@ -120,8 +138,6 @@
   before, while a message is read: only where it would load on opening, from
   bodies already downloaded, and not on a metered connection when Settings
   asks to save data there. The fetches send no cookies and no Referer.
-
-- **Translations:** German (PRs #539 and #544 by Samuel Edlmeier) completed.
 
 - **Added: zoom in the rich text composer** (#535, requested by
   j-canaan). Ctrl+, Ctrl-, Ctrl+0 and Ctrl with the scroll wheel zoom the
@@ -277,8 +293,6 @@
   `dir` on each line that runs the other way, so it reads as it did in the
   composer. Mail with no right-to-left text is sent exactly as before, and a
   `dir` written by hand is kept. The Markdown preview shows the same.
-
-- **Translations:** French (PR #519 by frenchy82) brought up to date.
 
 - **Fixed: a picked LDAP directory showed nobody** (#307, reported by
   3v1n0). A person whose address was kept in any other book was dropped

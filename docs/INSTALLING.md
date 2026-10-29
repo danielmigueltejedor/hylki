@@ -50,8 +50,7 @@ package adds the repository itself, so an RPM installed from a download
 keeps updating too; it is the same `/etc/yum.repos.d/hylki.repo`, kept if you
 edit it (set `enabled=0` to stop updates from it).
 
-The RPM targets current Fedora releases (44+) on x86_64, and on aarch64 from
-1.46.0 (the betas from 1.46.0-beta.5). On anything older, use the Flatpak or
+The RPM targets current Fedora releases (44+) on x86_64 and aarch64. On anything older, use the Flatpak or
 [build from source](BUILDING.md).
 
 ## Debian and Ubuntu
@@ -78,14 +77,13 @@ package adds the repository itself, as the RPM does: the same
 `Enabled: no` to stop updates from it).
 
 The package needs libadwaita 1.7: Debian 13 (trixie) and later, or Ubuntu
-25.10 and later, on x86_64, and on arm64 from 1.46.0 (the betas from
-1.46.0-beta.5). Ubuntu 24.04 LTS and the distributions built
+25.10 and later, on x86_64 and arm64. Ubuntu 24.04 LTS and the distributions built
 on it, such as Linux Mint 22, have an older libadwaita; use the Flatpak there.
 
 ## AppImage
 
-One file that runs on any distribution, for **x86_64 and aarch64 (ARM64)**,
-from 1.46.0 (the betas from 1.46.0-beta.5). Download the one matching
+One file that runs on any distribution, for **x86_64 and aarch64 (ARM64)**.
+Download the one matching
 `uname -m`, make it executable and run it:
 
 ```sh
