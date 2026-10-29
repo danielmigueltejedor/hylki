@@ -92,9 +92,10 @@ pub(super) fn document(
            blockquote.hylki-quote-mail{{background:#ffffff;color:#1e1e1e;\
              color-scheme:light;}}\
            .hylki-sig{{opacity:0.85;}}\
-           /* The font set for new messages is for what is written here:\
-              the signature and the quoted original keep the editor's. */\
-           body>.hylki-sig,body>.hylki-quote-attr,\
+           /* The font set for new messages is for what is written here,\
+              the signature included (#548), which its editor shows in that\
+              font: the quoted original keeps the editor's. */\
+           body>.hylki-quote-attr,\
            body>.hylki-quote-attr+blockquote{{font:{EDITOR_FONT};}}\
            a{{color:#3584e4;}}\
            {plain_css}\
