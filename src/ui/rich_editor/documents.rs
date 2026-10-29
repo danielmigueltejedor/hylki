@@ -4,9 +4,10 @@
 use super::exec;
 use super::fonts::EDITOR_FONT;
 use super::fonts::{body_font, font_style};
-use super::scripts::{EMOJI_SCRIPT, HISTORY_SCRIPT, LINES_SCRIPT, PASTE_SCRIPT};
+use super::scripts::{EMOJI_SCRIPT, FOLD_SCRIPT, HISTORY_SCRIPT, LINES_SCRIPT, PASTE_SCRIPT};
 use super::signature::{find_src_attr, quoted_value};
 use super::toolbar::js_str;
+use crate::i18n::i18n;
 
 /// The contentEditable HTML document, themed for light/dark. Its ground is
 /// the theme's own view background (#148), read through `webview`, so a
@@ -32,11 +33,20 @@ pub(super) fn document(
     let body_font = body_font();
     let prefs = crate::config::load_privacy();
     let compose_font = js_str(&font_style(&prefs.compose_font, prefs.compose_font_size));
+    let fold_quote = prefs.fold_quote;
+    let fold_tips = format!(
+        "[{},{}]",
+        js_str(&i18n("Show quoted text")),
+        js_str(&i18n("Hide quoted text"))
+    );
     let script = format!(
         "<script>window.__hylkiPasteRich={paste_rich};\
          window.__hylkiComposeFont={compose_font};\
          window.__hylkiReturnParagraph={return_paragraph};\
-         window.__hylkiPlain={plain};</script>{LINES_SCRIPT}{PASTE_SCRIPT}{HISTORY_SCRIPT}{EMOJI_SCRIPT}"
+         window.__hylkiFoldQuote={fold_quote};\
+         window.__hylkiFoldTips={fold_tips};\
+         window.__hylkiPlain={plain};</script>\
+         {LINES_SCRIPT}{PASTE_SCRIPT}{FOLD_SCRIPT}{HISTORY_SCRIPT}{EMOJI_SCRIPT}"
     );
     let (plain_attr, plain_css) = if plain {
         let mono = monospace_family();
@@ -97,6 +107,21 @@ pub(super) fn document(
               font: the quoted original keeps the editor's. */\
            body>.hylki-quote-attr,\
            body>.hylki-quote-attr+blockquote{{font:{EDITOR_FONT};}}\
+           /* The folded quote's button (#549), and the \"wrote:\" line and\
+              quote before it, hidden while folded. The `html` outranks\
+              the plain view's reset of every block. */\
+           html body>div[data-hylki-ui=fold]{{display:table;margin:10px 0;\
+             padding:0 7px;border-radius:6px;cursor:pointer;\
+             background:rgba(128,128,128,0.2);-webkit-user-select:none;\
+             user-select:none;}}\
+           html body>div[data-hylki-ui=fold]:hover{{\
+             background:rgba(128,128,128,0.32);}}\
+           html body>div[data-hylki-ui=fold]::before{{\
+             content:'\\2022\\2022\\2022';font:bold 9px/14px sans-serif;\
+             letter-spacing:1px;opacity:0.7;}}\
+           html.hylki-folded body>:has(+div[data-hylki-ui=fold]),\
+           html.hylki-folded body>:has(+*+div[data-hylki-ui=fold]){{\
+             display:none;}}\
            a{{color:#3584e4;}}\
            {plain_css}\
          </style>{script}\

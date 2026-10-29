@@ -538,6 +538,7 @@ impl AppModel {
             | PrefOutput::SetReplyPosition(..)
             | PrefOutput::SetSignaturePosition(..)
             | PrefOutput::SetSignatureDashes(..)
+            | PrefOutput::SetFoldQuote(..)
             | PrefOutput::SetReplyHeader(..)
             | PrefOutput::SetUndoSend(..)
             | PrefOutput::SetRequestReceipts(..)

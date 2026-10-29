@@ -133,6 +133,7 @@ pub(crate) struct PrefInit {
     /// Where the signature sits in a reply or forward (#237).
     pub(crate) signature_position: crate::config::SignaturePosition,
     pub(crate) signature_dashes: bool,
+    pub(crate) fold_quote: bool,
     /// The line above a reply's quote, "" for the default (#528).
     pub(crate) reply_header: String,
     /// Undo Send delay in seconds, 0 for off (#434).
@@ -569,6 +570,7 @@ pub(crate) enum PrefOutput {
     SetReplyPosition(crate::config::ReplyPosition),
     SetSignaturePosition(crate::config::SignaturePosition),
     SetSignatureDashes(bool),
+    SetFoldQuote(bool),
     SetReplyHeader(String),
     SetUndoSend(u32),
     Closed,

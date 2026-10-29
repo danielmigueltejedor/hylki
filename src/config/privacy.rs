@@ -326,6 +326,11 @@ pub(crate) struct PrivacyFile {
     /// Off by default, as in most mail programs today.
     #[serde(default)]
     pub(crate) signature_dashes: bool,
+    /// Whether a reply or forward opens with the quoted original folded
+    /// behind a button (#549): the reading pane beside the composer already
+    /// shows it. It is sent either way.
+    #[serde(default = "default_on")]
+    pub(crate) fold_quote: bool,
     /// The line above the quote in a reply, with `{name}`, `{address}`,
     /// `{date}` and `{time}` filled in (#528). Empty for the default, in the
     /// app's language.
@@ -741,6 +746,7 @@ impl Default for PrivacyFile {
             reply_position: ReplyPosition::default(),
             signature_position: SignaturePosition::default(),
             signature_dashes: false,
+            fold_quote: true,
             reply_header: String::new(),
             undo_send_secs: default_undo_send_secs(),
             spellcheck: true,

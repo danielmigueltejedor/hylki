@@ -71,6 +71,7 @@ follow_plain = false
 reply_position = "top"
 signature_position = "above_quote"
 signature_dashes = false
+fold_quote = true
 reply_header = ""
 undo_send_secs = 5
 spellcheck = true

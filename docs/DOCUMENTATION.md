@@ -957,6 +957,14 @@ anything reading it did not. The recipient still gets them. In dark mode a
 quoted message that sets its own colors keeps the light ground it was
 designed for.
 
+The quoted message opens folded behind a ••• button, since the reading pane
+beside the composer shows it already. A click shows it, with the button
+moved above it to fold it again. It is sent either way. A delete that would
+reach the folded quote, such as Select All and Delete, opens it instead of
+removing text that cannot be seen; the next one removes it. Markdown and
+HTML source show the quote as source. **Settings → Composing → Fold quoted
+text**, on by default, switched off, opens every quote in full.
+
 A message that was replied to shows a reply arrow in the message list, one
 that was forwarded a forward arrow, and one that was both shows both. A
 conversation's row shows them for its newest message in the folder. The

@@ -4196,9 +4196,6 @@ msgstr ""
 msgid "Block remote content"
 msgstr ""
 
-msgid "Received"
-msgstr ""
-
 msgid "Click to open this message"
 msgstr ""
 
@@ -6714,6 +6711,12 @@ msgid "Separator line above the signature"
 msgstr ""
 
 msgid "The standard “-- ” line, which other mail apps recognize."
+msgstr ""
+
+msgid "Fold quoted text"
+msgstr ""
+
+msgid "Replies and forwards open with the original behind •••."
 msgstr ""
 
 msgid "Undo Send"
