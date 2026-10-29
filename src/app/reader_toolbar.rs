@@ -791,9 +791,10 @@ pub(super) fn detach(w: &gtk::Widget) {
 }
 
 /// The buttons that act on the message in the reading pane, which have
-/// nothing to act on while it is off (#475).
+/// nothing to act on while it is off (#475). Print opens the message's
+/// window and prints there instead.
 pub(super) fn reader_only(item: config::ToolbarItem) -> bool {
-    matches!(item, config::ToolbarItem::Find | config::ToolbarItem::Print)
+    item == config::ToolbarItem::Find
 }
 
 /// The controls' width comes from the headerbar's own live

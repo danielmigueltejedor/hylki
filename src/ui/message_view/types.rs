@@ -115,6 +115,14 @@ pub(crate) enum MessageViewInput {
     /// Render the message to a PDF and open it, so the layout can be checked
     /// before any paper is used.
     PrintPreview,
+    /// Print `thread` (`message` naming the job) rather than what is on
+    /// screen: the reading pane is off, and nothing is (#475).
+    PrintMessages {
+        message: Box<Message>,
+        thread: Vec<Message>,
+        allow_remote: bool,
+        preview: bool,
+    },
     /// Set the message-content theme: `None` follows the system, `Some(dark)`
     /// forces light/dark for email content only (not the app UI).
     SetContentTheme(Option<bool>),

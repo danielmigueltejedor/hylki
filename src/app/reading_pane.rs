@@ -9,6 +9,7 @@ use relm4::prelude::*;
 use crate::config;
 use crate::models::Message;
 use crate::ui::message_list::MessageListInput;
+use crate::ui::message_view::MessageViewInput;
 
 use super::conversation::body_key;
 use super::model::AppModel;
@@ -245,4 +246,97 @@ impl AppModel {
             self.mark_opened_read(&m);
         }
     }
+
+    /// Print with no reading pane: the selected message, or its whole
+    /// conversation, straight to the printer or the preview, once every
+    /// body is here. The hidden reader builds the page.
+    pub(super) fn print_without_reader(&mut self, preview: bool) {
+        let Some(m) = self.current.clone() else {
+            return;
+        };
+        let thread = if self.current_thread.len() > 1 {
+            // In the order the reader and a message window show it.
+            let mut listed = self.current_thread.clone();
+            if self.thread_newest_first {
+                listed.reverse();
+            }
+            self.thread_cache
+                .get(&body_key(&m))
+                .cloned()
+                .unwrap_or(listed)
+        } else {
+            vec![m.clone()]
+        };
+        let thread: Vec<Message> = thread
+            .into_iter()
+            .map(|mut t| {
+                if t.body.is_empty() {
+                    match self.body_cache.get(&body_key(&t)) {
+                        Some(body) => t.body = body.clone(),
+                        None => self.request_body(&t),
+                    }
+                }
+                t
+            })
+            .collect();
+        self.pending_print = Some(PendingPrint {
+            message: m,
+            thread,
+            preview,
+        });
+        self.try_pending_print();
+    }
+
+    /// A body arrived: one a print may be waiting for.
+    pub(super) fn print_body_arrived(&mut self, account_id: u32, id: u32, body: &str) {
+        let Some(p) = &mut self.pending_print else {
+            return;
+        };
+        for t in p.thread.iter_mut() {
+            if (t.account_id, t.id) == (account_id, id) {
+                t.body = body.to_string();
+            }
+        }
+        self.try_pending_print();
+    }
+
+    fn try_pending_print(&mut self) {
+        if self
+            .pending_print
+            .as_ref()
+            .is_none_or(|p| p.thread.iter().any(|t| t.body.is_empty()))
+        {
+            return;
+        }
+        let Some(p) = self.pending_print.take() else {
+            return;
+        };
+        let allow_remote = self.remote_allowed(&p.message);
+        self.message_view.emit(MessageViewInput::PrintMessages {
+            message: Box::new(p.message),
+            thread: p.thread,
+            allow_remote,
+            preview: p.preview,
+        });
+    }
+
+    fn request_body(&self, m: &Message) {
+        if let Some(path) = self.resolve_folder_path(m) {
+            self.send_to(
+                m.account_id,
+                crate::worker::MailRequest::LoadBody {
+                    message_id: m.id,
+                    path,
+                    uid: m.uid,
+                },
+            );
+        }
+    }
+}
+
+/// A print asked for with the pane off, waiting for the bodies it needs.
+pub(crate) struct PendingPrint {
+    message: Message,
+    thread: Vec<Message>,
+    preview: bool,
 }

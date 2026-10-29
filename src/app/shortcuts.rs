@@ -467,8 +467,12 @@ impl AppModel {
                 // from a broken menu item.
                 let preview = matches!(msg, AppMsg::PrintPreview);
                 tracing::info!(preview, open = self.current.is_some(), "print requested");
-                if self.current.is_none() || !self.reading_pane {
+                if self.current.is_none() {
                     self.notice(i18n("Open a message first, then print it."));
+                    return;
+                }
+                if !self.reading_pane {
+                    self.print_without_reader(preview);
                     return;
                 }
                 self.message_view.emit(if preview {

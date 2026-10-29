@@ -315,6 +315,7 @@ impl AppModel {
         if let Some(k) = key {
             self.body_cache.insert(k, body.clone());
         }
+        self.print_body_arrived(account_id, message_id, &body);
         self.resume_auto_forwards(account_id, message_id, key, false);
         if self.hand_body_to_waiter(account_id, message_id, &body, &sender) {
             return;

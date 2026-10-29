@@ -3,19 +3,21 @@
 ## Unreleased
 
 - **Added: the reading pane can be switched off** (#475, requested by
-  fhangel). **Main menu → Reading Pane** hides the reader beside the list.
-  The list then takes the whole width in single lines, whatever **Settings →
+  fhangel). **Main menu → Reading Pane** hides the reader beside the list. The
+  list then takes the whole width in single lines, whatever **Settings →
   Message List → Layout** says, and a message opens in a window of its own on
-  a double-click, **Enter** or Gmail's **o**. Selecting a row does not mark
-  it read: opening its window does, as **Settings → Reading → Mark as read**
-  says, and a conversation's window marks each message as it is read
-  through. The toolbar moves to the list's header, between the filter
-  button and the window controls, folding into its ⋯ menu as it does in the
-  reader, greyed out until a row is selected and making way for the selection
-  bar when several are; Find and Print, which act on the reader, are left
-  out. A reply, a forward or a new message opens in a window of its own,
-  whatever **Settings → Composing** says about the reading pane. The keys, the right-click menu and the selection
-  bar act on the selected rows as before. The choice is kept between runs.
+  a double-click, **Enter** or Gmail's **o**. Selecting a row does not mark it
+  read: opening its window does, as **Settings → Reading → Mark as read**
+  says, and a conversation's window marks each message as it is read through.
+  The toolbar moves to the list's header, between the filter button and the
+  window controls, folding into its ⋯ menu as it does in the reader, greyed
+  out until a row is selected and making way for the selection bar when
+  several are. Find, which searches the reader, is left out, and Print prints
+  the selected message, or its whole conversation, with its preview as usual.
+  A reply, a forward or a new message opens in a window of its own, whatever
+  **Settings → Composing** says about the reading pane. The keys, the
+  right-click menu and the selection bar act on the selected rows as before.
+  The choice is kept between runs.
 
 ## 1.46.0 — 2026-10-29
 

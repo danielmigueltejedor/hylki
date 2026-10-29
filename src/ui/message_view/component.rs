@@ -462,6 +462,12 @@ impl Component for MessageView {
             MessageViewInput::AllowSenderAlways => self.on_allow_sender_always(&sender),
             MessageViewInput::Print => self.on_print(),
             MessageViewInput::PrintPreview => self.on_print_preview(),
+            MessageViewInput::PrintMessages {
+                message,
+                thread,
+                allow_remote,
+                preview,
+            } => self.on_print_messages(*message, thread, allow_remote, preview),
             MessageViewInput::FacesChanged => self.render(),
 
             MessageViewInput::ThemeChanged => self.on_theme_changed(),

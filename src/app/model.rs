@@ -174,6 +174,8 @@ pub(crate) struct AppModel {
     pub(super) list_compact: bool,
     /// The list's width and the toolbar's fold widths in the list header.
     pub(super) list_fold: std::rc::Rc<super::reading_pane::ListFold>,
+    /// A print with the reading pane off, waiting for its bodies.
+    pub(super) pending_print: Option<super::reading_pane::PendingPrint>,
     /// The right group stays in the ⋯ menu at every width.
     pub(super) toolbar_fold_right: bool,
     /// The collapsed header's ⋯ button — the anchor its menu pops from.
