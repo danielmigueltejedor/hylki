@@ -11,6 +11,14 @@
   carries, as the Flatpak falls back to its runtime's; an update tries the
   system's fonts again.
 
+- **Added: the quote in a reply or forward opens folded** (#549, requested
+  by scotthews). The composer shows the quoted message behind a ••• button,
+  as the reader does, since the reading pane beside it shows the message
+  already; a click shows it and the button, then above it, folds it again.
+  It is sent either way, and a delete that would reach it while folded opens
+  it instead. Rich and plain text fold; Markdown and HTML source do not.
+  **Settings → Composing → Fold quoted text**, on by default, turns it off.
+
 - **Added: a setting to hide the account in the message header** (#546, by
   Valentin Morice). **Settings → Reading → Show account in message header**
   hides the account chip above the subject, in the main window and in a
