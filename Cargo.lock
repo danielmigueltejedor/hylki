@@ -1424,6 +1424,8 @@ dependencies = [
  "ksni",
  "lettre",
  "libadwaita",
+ "libc",
+ "libloading",
  "mail-parser",
  "markup5ever_rcdom",
  "pangocairo",

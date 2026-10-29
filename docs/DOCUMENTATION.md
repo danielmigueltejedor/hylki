@@ -1873,6 +1873,12 @@ works:
 flatpak override --user --env=GSK_RENDERER=gl co.hyprlab.Hylki
 ```
 
+Left on **Automatic** on X11, Hylki checks before GTK starts that the X
+server can attach its shared memory, which Mesa's software driver needs on
+a display without a GPU, such as Xvnc. When it cannot, Hylki draws with
+Software, and the log says `renderer: cairo, the X server cannot attach
+shared memory`.
+
 ### Sensitivity labels
 
 A message an organization has classified with Microsoft Purview, such as
