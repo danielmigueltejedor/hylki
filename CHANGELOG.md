@@ -147,6 +147,16 @@
   loader, which Debian's GTK only recommends, so its icons load on a system
   installed without recommended packages.
 
+- **Fixed: the signature in a slightly different font from the message**
+  (#548, reported by scotthews). With a font or size set for new messages
+  in Settings → Composing, the composer showed the signature in its own
+  font, while the signature editor showed it in the one set for new
+  messages. A font picked there that matched it was stored as no font at
+  all, so the signature came out in a near miss. The signature now takes
+  the font set for new messages in the composer and in the sent message,
+  as the signature editor shows it; text given its own font keeps it, and
+  the quoted original still keeps the composer's.
+
 - **Fixed: the count in the sidebar's unread chip sat high** (#545, by
   Valentin Morice). At the default text size the number is now centered in
   the chip, which keeps its height.
