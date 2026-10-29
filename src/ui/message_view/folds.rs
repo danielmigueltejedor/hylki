@@ -42,10 +42,10 @@ impl MessageView {
     }
 
     /// The marks in a card's header, beside the date, as a folded card
-    /// showed them once on a bar of its own (#326): whether it is starred,
-    /// whether it was sent or received, and whether it carries files. Both
-    /// stars are there, and the card's `starred` class picks one, so a star
-    /// toggled on the card flips in place.
+    /// showed them once on a bar of its own (#326): whether it is starred and
+    /// whether it carries files. Both stars are there, and the card's
+    /// `starred` class picks one, so a star toggled on the card flips in
+    /// place. Mail you sent says so in a chip instead (see `card_labels`).
     pub(super) fn card_marks_html(&self, m: &Message) -> String {
         let icon = |class: &str, name: &str, title: &str| {
             format!(
@@ -53,11 +53,6 @@ impl MessageView {
                 attr_escape(title),
                 inline_icon_svg(name)
             )
-        };
-        let place = if self.sent.contains(&(m.account_id, m.id)) {
-            icon("", "mail-send-symbolic", &i18n("Sent"))
-        } else {
-            icon("", "mail-inbox-symbolic", &i18n("Received"))
         };
         // An empty slot when there are no files, so the marks of every card
         // stand in the same columns.
@@ -67,10 +62,24 @@ impl MessageView {
             "<span class=\"hylki-mark hylki-mark-none\"></span>".to_string()
         };
         format!(
-            "<span class=\"hylki-marks\">{}{}{place}{clip}</span>",
+            "<span class=\"hylki-marks\">{}{}{clip}</span>",
             icon(" hylki-mark-on", "starred-symbolic", &i18n("Starred")),
             icon(" hylki-mark-off", "hylki-non-starred-symbolic", ""),
         )
+    }
+
+    /// The chip beside each card's sender: the folder a message was read
+    /// from when it isn't the one on screen, and "Sent" on a card of mail you
+    /// sent, which takes the place of its folder's name. Received mail is
+    /// the rule, and carries no chip for it.
+    pub(super) fn card_labels(&self) -> std::collections::HashMap<(u32, u32), String> {
+        let mut labels = self.folder_labels.clone();
+        if self.carded() {
+            for key in &self.sent {
+                labels.insert(*key, i18n("Sent"));
+            }
+        }
+        labels
     }
 
     /// What a folded card shows under its header, which stays exactly as it

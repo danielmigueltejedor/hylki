@@ -177,6 +177,11 @@ impl AppModel {
             .as_ref()
             .and_then(|m| self.sender_cache.get(&body_key(m)))
             .cloned();
+        let sent = message
+            .iter()
+            .filter(|m| self.folder_kind(m.account_id, m.folder_id) == Some(FolderKind::Sent))
+            .map(|m| (m.account_id, m.id))
+            .collect();
         self.message_view.emit(MessageViewInput::Show {
             thread: message.into_iter().collect(),
             allow_remote,
@@ -185,7 +190,7 @@ impl AppModel {
             loading,
             primary: None, // a single message is its own primary
             folder_labels: HashMap::new(),
-            sent: Default::default(),
+            sent,
             // A single message is one small frame; it is never covered anyway.
             instant: true,
         });

@@ -148,6 +148,7 @@ impl MessageView {
             self.no_autoread.contains(&key).hash(&mut h);
             self.sender_style.contains(&key).hash(&mut h);
             self.folder_labels.get(&key).hash(&mut h);
+            self.sent.contains(&key).hash(&mut h);
             self.template_folders
                 .contains(&(m.account_id, m.folder_id))
                 .hash(&mut h);
@@ -246,7 +247,7 @@ impl MessageView {
         });
         Self::conversation_document(
             &self.thread,
-            &self.folder_labels,
+            &self.card_labels(),
             &self.no_autoread,
             &self.frame_heights,
             &self.selected_cards,

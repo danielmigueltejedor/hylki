@@ -293,7 +293,7 @@ pub(crate) struct MessageView {
     /// which never painted (#332): the next document loaded on screen is owed
     /// it, unless the reader has a place to keep by then.
     scroll_owed: bool,
-    /// The conversation's messages filed in Sent, for the folded bar.
+    /// The messages on screen filed in Sent, which wear a Sent chip.
     sent: std::collections::HashSet<(u32, u32)>,
     /// Cards opened or folded by hand: these win over the default for as
     /// long as they stay in the conversation on screen.
