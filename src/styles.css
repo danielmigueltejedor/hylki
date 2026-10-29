@@ -1471,6 +1471,24 @@ headerbar.reader-toolbar.compact box.end > button {
   padding-right: 1px;
 }
 
+/* The same toolbar in the list header, while the reading pane is off. */
+headerbar box.list-tools {
+  border-spacing: 1px;
+}
+headerbar box.list-tools button.image-button {
+  min-width: 28px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+headerbar box.list-tools.compact {
+  border-spacing: 0;
+}
+headerbar box.list-tools.compact button {
+  min-width: 24px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
 .reader-header {
   /* The account chip's top sits level with the top of the message list's
      first highlight pill, so the two panes start on one line instead of the

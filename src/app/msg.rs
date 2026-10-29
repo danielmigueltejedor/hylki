@@ -379,6 +379,9 @@ pub(crate) enum AppMsg {
     PopoutSeen { account_id: u32, id: u32 },
     /// The main menu's Reading Pane item (#475).
     SetReadingPane(bool),
+    /// The list crossed a fold width of the toolbar in its header, while
+    /// the reading pane is off.
+    SetListFold { collapsed: bool, compact: bool },
     /// Add a contact from a popout window's sender.
     AddContactFrom { name: String, email: String },
     /// A message window's Move To: the folder picker over that window, at

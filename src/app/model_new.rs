@@ -181,6 +181,9 @@ impl AppModel {
             attachments_loading: false,
             reader_actions_collapsed: false,
             reader_compact: false,
+            list_actions_collapsed: false,
+            list_compact: false,
+            list_fold: Default::default(),
             reader_toolbar: config::load_reader_toolbar(),
             reader_toolbar_widgets: std::cell::OnceCell::new(),
             reader_overflow_btn: {

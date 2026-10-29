@@ -1,6 +1,8 @@
 //! The reading pane switched off (#475): the list takes the whole window,
 //! a selected message is only selected, and mail is read in its own window.
 
+use std::cell::Cell;
+
 use adw::prelude::*;
 use relm4::prelude::*;
 
@@ -11,12 +13,77 @@ use crate::ui::message_list::MessageListInput;
 use super::conversation::body_key;
 use super::model::AppModel;
 use super::msg::AppMsg;
+use super::reader_toolbar::{detach, ReaderToolbarWidgets};
+
+/// Where the toolbar folds in the list header (#475). The reader's own
+/// breakpoints measure the reader pane, which is hidden, so the list's
+/// width decides instead: the strip over the list reports it.
+#[derive(Default)]
+pub(crate) struct ListFold {
+    active: Cell<bool>,
+    width: Cell<i32>,
+    /// Below this the right group goes into the ⋯ menu.
+    full: Cell<i32>,
+    /// Below this the buttons draw narrower as well.
+    compact: Cell<i32>,
+    /// What the app was last told: (collapsed, compact).
+    told: Cell<Option<(bool, bool)>>,
+}
+
+impl ListFold {
+    pub(super) fn resized(&self, width: i32, sender: &relm4::Sender<AppMsg>) {
+        self.width.set(width);
+        self.check(sender);
+    }
+
+    pub(super) fn set_needs(&self, full: i32, compact: i32, sender: &relm4::Sender<AppMsg>) {
+        self.full.set(full);
+        self.compact.set(compact);
+        self.check(sender);
+    }
+
+    pub(super) fn set_active(&self, on: bool, sender: &relm4::Sender<AppMsg>) {
+        self.active.set(on);
+        self.told.set(None);
+        self.check(sender);
+    }
+
+    /// As the reader's breakpoints do: the compact one applies alone.
+    fn check(&self, sender: &relm4::Sender<AppMsg>) {
+        let width = self.width.get();
+        if !self.active.get() || width <= 0 {
+            return;
+        }
+        let compact = width <= self.compact.get();
+        let collapsed = !compact && width <= self.full.get();
+        if self.told.replace(Some((collapsed, compact))) != Some((collapsed, compact)) {
+            let _ = sender.send(AppMsg::SetListFold { collapsed, compact });
+        }
+    }
+}
 
 impl AppModel {
     /// The messages the router sends here (see `AppModel::route`).
     pub(super) fn on_reading_pane(&mut self, msg: AppMsg) {
         match msg {
             AppMsg::SetReadingPane(on) => self.set_reading_pane(on),
+            AppMsg::SetListFold { collapsed, compact } => {
+                self.list_actions_collapsed = collapsed;
+                self.list_compact = compact;
+                self.reader_overflow_btn
+                    .set_visible(self.reader_overflow_wanted());
+                if let Some(tb) = self.reader_toolbar_widgets.get() {
+                    if compact {
+                        tb.list_tools.add_css_class("compact");
+                    } else {
+                        tb.list_tools.remove_css_class("compact");
+                    }
+                }
+                let s = self.self_sender.clone();
+                self.after_paint(move || {
+                    let _ = s.send(AppMsg::MeasureReaderFold);
+                });
+            }
             AppMsg::PopoutSeen { account_id, id } => self.mark_window_card_read(account_id, id),
             _ => unreachable!("not routed to on_reading_pane"),
         }
@@ -54,6 +121,48 @@ impl AppModel {
             self.message_list.emit(MessageListInput::ReclaimFocus);
         }
         self.push_single_line();
+        self.list_fold.set_active(!on, &self.self_sender);
+        self.relayout_reader_toolbar();
+        self.reader_overflow_btn
+            .set_visible(self.reader_overflow_wanted());
+    }
+
+    /// Whether the toolbar's right group is folded for want of room, and
+    /// whether its buttons draw narrower, in whichever header holds it.
+    pub(super) fn toolbar_fold(&self) -> (bool, bool) {
+        if self.reading_pane {
+            (self.reader_actions_collapsed, self.reader_compact)
+        } else {
+            (self.list_actions_collapsed, self.list_compact)
+        }
+    }
+
+    /// The toolbar in the list header, in the saved order: the Outbox's
+    /// buttons, the left group, a gap, the right group and the ⋯.
+    pub(super) fn layout_list_tools(&self, tb: &ReaderToolbarWidgets) {
+        let overflow: gtk::Widget = self.reader_overflow_btn.clone().upcast();
+        let outbox = tb.outbox.iter().map(|r| r.clone().upcast::<gtk::Widget>());
+        let all: Vec<gtk::Widget> = outbox
+            .chain(tb.buttons.iter().map(|(_, w)| w.clone()))
+            .chain([tb.gap.clone(), tb.spinner.clone(), overflow.clone()])
+            .collect();
+        for w in &all {
+            detach(w);
+        }
+        let find =
+            |item: &config::ToolbarItem| tb.buttons.iter().find(|(i, _)| i == item).map(|(_, w)| w);
+        for r in &tb.outbox {
+            tb.list_tools.append(r);
+        }
+        for w in self.reader_toolbar.left.iter().filter_map(find) {
+            tb.list_tools.append(w);
+        }
+        tb.list_tools.append(&tb.gap);
+        tb.list_tools.append(&tb.spinner);
+        for w in self.reader_toolbar.right.iter().filter_map(find) {
+            tb.list_tools.append(w);
+        }
+        tb.list_tools.append(&overflow);
     }
 
     /// A row selected with the pane off: it becomes the message the keys,

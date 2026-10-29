@@ -168,6 +168,12 @@ pub(crate) struct AppModel {
     /// The pane is too narrow for the left group beside the overflow button
     /// and the window controls at full size: the buttons draw narrower.
     pub(super) reader_compact: bool,
+    /// The same two, for the toolbar in the list header while the reading
+    /// pane is off (#475): the list's width decides them there.
+    pub(super) list_actions_collapsed: bool,
+    pub(super) list_compact: bool,
+    /// The list's width and the toolbar's fold widths in the list header.
+    pub(super) list_fold: std::rc::Rc<super::reading_pane::ListFold>,
     /// The right group stays in the ⋯ menu at every width.
     pub(super) toolbar_fold_right: bool,
     /// The collapsed header's ⋯ button — the anchor its menu pops from.

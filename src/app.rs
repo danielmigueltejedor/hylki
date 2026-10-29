@@ -353,7 +353,24 @@ impl SimpleComponent for AppModel {
                         set_shrink_end_child: false,
 
                         #[wrap(Some)]
-                        set_start_child = &adw::ToolbarView {
+                        set_start_child = &gtk::Overlay {
+                            // A strip across the top that says how wide the
+                            // list is: with the reading pane off, that decides
+                            // when the toolbar folds (#475).
+                            add_overlay = &gtk::DrawingArea {
+                                set_can_target: false,
+                                set_valign: gtk::Align::Start,
+                                set_content_height: 1,
+                                connect_resize[
+                                    sender,
+                                    fold = model.list_fold.clone()
+                                ] => move |_, width, _| {
+                                    fold.resized(width, sender.input_sender());
+                                },
+                            },
+                            #[wrap(Some)]
+                            set_child = &adw::ToolbarView {
+                            #[name = "list_header"]
                             add_top_bar = &adw::HeaderBar {
                                 add_css_class: "flat",
                                 // Middle pane: no window controls (the reader pane's
@@ -401,9 +418,19 @@ impl SimpleComponent for AppModel {
                                 // pack_end packs right-to-left: sort rightmost.
                                 // Quick filters (#97, #441): session state,
                                 // like Mail.app's filter bar.
+                                // The reader's toolbar, while there is no
+                                // reading pane to carry it (#475): beside the
+                                // window controls, so packed first. Filled by
+                                // relayout_reader_toolbar.
+                                #[name = "list_tools"]
+                                pack_end = &gtk::Box {
+                                    add_css_class: "list-tools",
+                                    #[watch]
+                                    set_visible: !model.reading_pane,
+                                },
                                 // Focus Mode: the ⋯ that stands in for the
                                 // search, filters, count and sort while they
-                                // are folded away. Rightmost, so packed first.
+                                // are folded away.
                                 #[name = "lh_overflow"]
                                 pack_end = &gtk::Revealer {
                                     set_transition_type: gtk::RevealerTransitionType::SlideLeft,
@@ -450,6 +477,7 @@ impl SimpleComponent for AppModel {
                             },
                             #[wrap(Some)]
                             set_content = model.message_list.widget(),
+                            },
                         },
 
                         #[wrap(Some)]

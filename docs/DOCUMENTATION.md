@@ -1630,8 +1630,10 @@ your language's default paper size before that.
 
 **Main menu → Reading Pane** switches the reader beside the list off and on.
 Off, the list takes the whole width of the window in single lines, whatever
-the layout below says, and the window's close button moves to the list's
-header. Clicking a row selects it and nothing more: the keys, the right-click
+the layout below says, and the toolbar and the window's close button move to
+the list's header. The toolbar folds into its ⋯ menu there as it does in the
+reader, and leaves out Find and Print, which have no reader to act on.
+Clicking a row selects it and nothing more: the keys, the right-click
 menu and the selection bar act on it, but it stays unread. A double-click,
 **Enter** or, with Gmail's keys, **o** opens it in a window of its own (see
 [A message in its own window](#a-message-in-its-own-window)), which marks it
