@@ -306,7 +306,8 @@ card.addEventListener('mouseenter',function(){if(timer){clearTimeout(timer);time
 var as=document.querySelectorAll('.hylki-act');\
 for(var k=0;k<as.length;k++){as[k].addEventListener('click',function(e){\
 e.stopPropagation();e.preventDefault();reportPos();\
-if(this.dataset.act==='star')this.classList.toggle('on');\
+if(this.dataset.act==='star'){var on=this.classList.toggle('on');\
+var sm=this.closest('.hylki-msg');if(sm)sm.classList.toggle('starred',on);}\
 var extra='';if(this.dataset.act==='moveto'){var br=this.getBoundingClientRect();\
 extra=':'+(br.left+br.width/2)+','+br.bottom+','+window.innerWidth;}\
 try{window.webkit.messageHandlers.hylki.postMessage(this.dataset.act+':'+this.dataset.key+extra);}catch(_){}});\

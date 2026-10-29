@@ -7,8 +7,8 @@ use super::wrapper_css::wrapper_css;
 
 use super::frame::{
     message_frame, CHROME, GROUND, LIVE_ATTS, LIVE_FOLDBAR, LIVE_FOLDED, LIVE_GROUNDS, LIVE_INVITE,
-    LIVE_READ, LIVE_RECEIPT, LIVE_TAGS, LIVE_TEMPLATES, LIVE_TRANSLATE, LIVE_TRANSLATE_ON,
-    LIVE_UNSUB, PAGE,
+    LIVE_MARKS, LIVE_READ, LIVE_RECEIPT, LIVE_TAGS, LIVE_TEMPLATES, LIVE_TRANSLATE,
+    LIVE_TRANSLATE_ON, LIVE_UNSUB, PAGE,
 };
 use super::html::attr_escape;
 use super::invite::invite_row_html;
@@ -389,13 +389,13 @@ fn card_html(cards: &Cards<'_>, m: &Message, ava_html: &str, body: String) -> St
         sens = inline_icon_svg("tag-outline-symbolic"),
     );
     format!(
-        "<section class=\"hylki-msg{sel}{unread_cls}{folded_cls}\" data-key=\"{aid}:{id}\">\
+        "<section class=\"hylki-msg{sel}{unread_cls}{starred_cls}{folded_cls}\" data-key=\"{aid}:{id}\">\
                <header class=\"hylki-msg-hdr\" data-key=\"{aid}:{id}\" \
                  title=\"{hdr_title}\">\
                  <div class=\"hylki-hdr-line\">\
                    {ava}{dot}<span class=\"hylki-from\">{from}</span>{verify}{addr}\
                    <span class=\"hylki-tags\" data-key=\"{aid}:{id}\">{tags}</span>\
-                   <span class=\"hylki-hdr-meta\">{folder}{rcpt_toggle}{read}\
+                   <span class=\"hylki-hdr-meta\">{folder}{rcpt_toggle}{marks}{read}\
                      <span class=\"hylki-date\">{date}</span></span>\
                    {acts_toggle}{acts}\
                  </div>{rcpt}\
@@ -503,6 +503,13 @@ fn card_html(cards: &Cards<'_>, m: &Message, ava_html: &str, body: String) -> St
             ""
         },
         unread_cls = if m.unread { " unread" } else { "" },
+        starred_cls = if m.starred { " starred" } else { "" },
+        marks = LIVE_MARKS.with(|b| {
+            b.borrow()
+                .get(&(m.account_id, m.id))
+                .cloned()
+                .unwrap_or_default()
+        }),
         // Folded (#326): the header and a line of preview.
         folded_cls = if LIVE_FOLDED.with(|f| f.borrow().contains(&(m.account_id, m.id))) {
             " hylki-folded"

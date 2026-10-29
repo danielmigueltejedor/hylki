@@ -39,6 +39,12 @@ pub(super) fn wrapper_css(
          margin:-6px 0 12px;padding:0;padding-inline:50px 16px;position:relative;z-index:2;\
          cursor:pointer;user-select:none;}}\
          .hylki-msg.hylki-folded>:not(.hylki-fbar):not(.hylki-msg-hdr){{display:none;}}\
+         .hylki-marks{{display:inline-flex;gap:8px;align-self:center;flex:none;}}\
+         .hylki-mark{{display:inline-flex;opacity:0.55;line-height:0;}}\
+         .hylki-mark svg{{width:16px;height:16px;}}\
+         .hylki-mark svg,.hylki-mark svg *{{fill:currentColor;}}\
+         .hylki-mark-none{{width:16px;height:16px;}}\
+         .hylki-msg.starred .hylki-mark-off,.hylki-msg:not(.starred) .hylki-mark-on{{display:none;}}\
          body.hylki-folds .hylki-msg-hdr{{cursor:pointer;}}\
          @media print{{.hylki-msg.hylki-folded>:not(.hylki-fbar){{display:revert !important;}}\
          .hylki-msg.hylki-folded>.hylki-fbar{{display:none !important;}}}}\

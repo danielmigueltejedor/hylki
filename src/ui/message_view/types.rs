@@ -94,6 +94,9 @@ pub(crate) enum MessageViewInput {
         /// (account, message id) — "Sent" beside a reply of yours read from the
         /// Inbox. Messages from the folder on screen aren't in here.
         folder_labels: std::collections::HashMap<(u32, u32), String>,
+        /// The conversation's messages filed in a Sent folder: a folded card
+        /// shows a paper plane for those, an inbox for the rest (#326).
+        sent: std::collections::HashSet<(u32, u32)>,
     },
     LoadRemoteOnce,
     AllowSenderAlways,

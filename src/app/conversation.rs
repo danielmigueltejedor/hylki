@@ -5,7 +5,7 @@ use std::collections::{HashMap, HashSet};
 
 use relm4::prelude::*;
 
-use crate::models::{thread_ids, Message};
+use crate::models::{thread_ids, FolderKind, Message};
 use crate::ui::message_list::MessageListInput;
 use crate::ui::message_view::MessageViewInput;
 use crate::worker::MailRequest;
@@ -185,6 +185,7 @@ impl AppModel {
             loading,
             primary: None, // a single message is its own primary
             folder_labels: HashMap::new(),
+            sent: Default::default(),
             // A single message is one small frame; it is never covered anyway.
             instant: true,
         });
@@ -255,12 +256,22 @@ impl AppModel {
             account_color: Some(self.account_color(account_id)),
             loading,
             folder_labels: self.thread_folder_labels(),
+            sent: self.thread_sent(),
             primary: Some(Box::new(primary)),
             // Nothing to wait for when the conversation was already assembled
             // and its bodies are in hand.
             instant: self.thread_painted && !loading,
         });
         self.push_member_checks();
+    }
+
+    /// The open conversation's messages that are filed in a Sent folder.
+    fn thread_sent(&self) -> std::collections::HashSet<(u32, u32)> {
+        self.current_thread
+            .iter()
+            .filter(|m| self.folder_kind(m.account_id, m.folder_id) == Some(FolderKind::Sent))
+            .map(|m| (m.account_id, m.id))
+            .collect()
     }
 
     /// Name the folder each conversation message came from, for the ones that

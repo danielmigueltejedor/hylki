@@ -25,6 +25,7 @@ impl MessageWindow {
             account_color: self.account_color.clone(),
             primary: None,
             folder_labels: std::collections::HashMap::new(),
+            sent: Default::default(),
             loading: self.loading,
             // The popout renders what it was handed; no staged reveal.
             instant: true,

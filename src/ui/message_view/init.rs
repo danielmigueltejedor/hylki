@@ -122,6 +122,7 @@ impl MessageView {
             fold_preview_lines: 1,
             painted_hidden: false,
             scroll_owed: false,
+            sent: std::collections::HashSet::new(),
             folds: std::collections::HashMap::new(),
             translations: std::collections::HashMap::new(),
             detected: std::cell::RefCell::new(std::collections::HashMap::new()),
