@@ -171,6 +171,11 @@ build_deb() {
     deps="$(cd "$work" && dpkg-shlibdeps -O -e"$pkg/usr/bin/hylki" 2>/dev/null)"
     deps="${deps#shlibs:Depends=}"
     [ -n "$deps" ] || { echo "dpkg-shlibdeps found no dependencies" >&2; exit 1; }
+    # The app's icons are SVG, which GTK reads through a gdk-pixbuf loader
+    # that no linked library names: Debian's GTK only recommends it, so an
+    # install without recommends drew warnings and blank icons (#547). Newer
+    # releases load images through glycin instead.
+    deps="$deps, librsvg2-common | glycin-loaders"
     # Renamed from "veem" in 1.6.0 and from "vireo" in 1.35.0; the Debian
     # packages of either (up to 1.7.0) are replaced, and user data carries
     # over on first start.
