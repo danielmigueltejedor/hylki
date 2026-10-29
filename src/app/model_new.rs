@@ -185,6 +185,7 @@ impl AppModel {
             list_compact: false,
             list_fold: Default::default(),
             pending_print: None,
+            mail_split: std::cell::OnceCell::new(),
             reader_toolbar: config::load_reader_toolbar(),
             reader_toolbar_widgets: std::cell::OnceCell::new(),
             reader_overflow_btn: {

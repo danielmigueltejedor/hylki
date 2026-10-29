@@ -104,6 +104,15 @@ msgstr "Настройки"
 msgid "Show Accounts"
 msgstr "Показывать учётные записи"
 
+msgid "Right"
+msgstr "Справа"
+
+msgid "Below"
+msgstr ""
+
+msgid "Off"
+msgstr "Выкл."
+
 #, fuzzy
 msgid "Reading Pane"
 msgstr "Чтение"
@@ -2076,9 +2085,6 @@ msgstr "Сервис отклонил запрос (ошибка {code})."
 
 msgid "Enter the LibreTranslate server's address in Settings → Translation."
 msgstr "Введите адрес сервера LibreTranslate в меню Параметры → Перевод."
-
-msgid "Off"
-msgstr "Выкл."
 
 msgid "Choose a translation service in Settings → Translation first."
 msgstr "Сначала выберите сервис перевода в меню Параметры → Перевод."
@@ -5550,9 +5556,6 @@ msgstr "Последняя открытая папка"
 
 msgid "Left"
 msgstr "Слева"
-
-msgid "Right"
-msgstr "Справа"
 
 msgid "1 line"
 msgstr "1 строка"

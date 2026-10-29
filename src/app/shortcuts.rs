@@ -471,7 +471,7 @@ impl AppModel {
                     self.notice(i18n("Open a message first, then print it."));
                     return;
                 }
-                if !self.reading_pane {
+                if !self.reader_shown() {
                     self.print_without_reader(preview);
                     return;
                 }

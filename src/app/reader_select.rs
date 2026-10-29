@@ -61,7 +61,7 @@ impl AppModel {
     pub(super) fn on_reader_select(&mut self, msg: AppMsg, sender: ComponentSender<Self>) {
         match msg {
             AppMsg::OpenedByKey { already_open } => {
-                if !self.reading_pane {
+                if !self.reader_shown() {
                     // No pane to read it in: Gmail's o or Enter opens a
                     // window, now or once the row is selected (#475).
                     if already_open {
@@ -414,7 +414,7 @@ impl AppModel {
         solo: bool,
         sender: ComponentSender<Self>,
     ) {
-        if !self.reading_pane {
+        if !self.reader_shown() {
             self.select_without_reader(m, thread, &sender);
             return;
         }

@@ -95,6 +95,15 @@ msgstr ""
 msgid "Show Accounts"
 msgstr ""
 
+msgid "Right"
+msgstr ""
+
+msgid "Below"
+msgstr ""
+
+msgid "Off"
+msgstr ""
+
 msgid "Reading Pane"
 msgstr ""
 
@@ -1831,9 +1840,6 @@ msgid "The service refused the request (error {code})."
 msgstr ""
 
 msgid "Enter the LibreTranslate server's address in Settings → Translation."
-msgstr ""
-
-msgid "Off"
 msgstr ""
 
 msgid "Choose a translation service in Settings → Translation first."
@@ -4929,9 +4935,6 @@ msgid "The last folder"
 msgstr ""
 
 msgid "Left"
-msgstr ""
-
-msgid "Right"
 msgstr ""
 
 msgid "1 line"

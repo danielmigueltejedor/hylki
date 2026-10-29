@@ -179,7 +179,7 @@ impl AppModel {
         // Fetch the body unless the in-flight selection request already will
         // (single click precedes the double click), to avoid a duplicate fetch.
         // With the reading pane off a selection fetches nothing (#475).
-        let already_loading = self.reading_pane
+        let already_loading = self.reader_shown()
             && self
                 .current
                 .as_ref()

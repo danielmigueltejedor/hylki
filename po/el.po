@@ -108,6 +108,15 @@ msgstr "Ρυθμίσεις"
 msgid "Show Accounts"
 msgstr "Εμφάνιση λογαριασμών"
 
+msgid "Right"
+msgstr "Δεξιά"
+
+msgid "Below"
+msgstr ""
+
+msgid "Off"
+msgstr "Ανενεργό"
+
 #, fuzzy
 msgid "Reading Pane"
 msgstr "Ανάγνωση"
@@ -1996,9 +2005,6 @@ msgid "Enter the LibreTranslate server's address in Settings → Translation."
 msgstr ""
 "Εισαγάγετε τη διεύθυνση του διακομιστή LibreTranslate στις Ρυθμίσεις → "
 "Μετάφραση."
-
-msgid "Off"
-msgstr "Ανενεργό"
 
 msgid "Choose a translation service in Settings → Translation first."
 msgstr "Επιλέξτε πρώτα μια υπηρεσία μετάφρασης στις Ρυθμίσεις → Μετάφραση."
@@ -5390,9 +5396,6 @@ msgstr "Ο τελευταίος φάκελος"
 
 msgid "Left"
 msgstr "Αριστερά"
-
-msgid "Right"
-msgstr "Δεξιά"
 
 msgid "1 line"
 msgstr "1 γραμμή"

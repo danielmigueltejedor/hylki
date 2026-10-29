@@ -8,6 +8,7 @@ use relm4::prelude::*;
 
 use crate::config;
 use crate::models::Message;
+use crate::ui::attachment_drawer::AttachmentDrawerInput;
 use crate::ui::message_list::MessageListInput;
 use crate::ui::message_view::MessageViewInput;
 
@@ -67,7 +68,7 @@ impl AppModel {
     /// The messages the router sends here (see `AppModel::route`).
     pub(super) fn on_reading_pane(&mut self, msg: AppMsg) {
         match msg {
-            AppMsg::SetReadingPane(on) => self.set_reading_pane(on),
+            AppMsg::SetReadingPane(pane) => self.set_reading_pane(pane),
             AppMsg::SetListFold { collapsed, compact } => {
                 self.list_actions_collapsed = collapsed;
                 self.list_compact = compact;
@@ -90,19 +91,27 @@ impl AppModel {
         }
     }
 
-    fn set_reading_pane(&mut self, on: bool) {
+    fn set_reading_pane(&mut self, pane: config::ReadingPane) {
+        let key = pane.key();
         if self
             .reading_pane_action
             .state()
-            .and_then(|v| v.get::<bool>())
-            != Some(on)
+            .and_then(|v| v.get::<String>())
+            .as_deref()
+            != Some(key)
         {
-            self.reading_pane_action.set_state(&on.to_variant());
+            self.reading_pane_action.set_state(&key.to_variant());
         }
-        if !pref!(self.reading_pane = on) {
+        let was = self.reading_pane;
+        if !pref!(self.reading_pane = pane) {
             return;
         }
-        if on {
+        // Only the reader beside the list writes in it: an inline reply is
+        // saved or kept in its own window.
+        if was == config::ReadingPane::Right {
+            self.release_reader_compose();
+        }
+        if was == config::ReadingPane::Off {
             // The reader shows what is selected now. It was never drawn
             // while the pane was off, so it must not look already shown.
             let open = self.current.as_ref().map(|c| (c.account_id, c.id));
@@ -110,28 +119,62 @@ impl AppModel {
             if let Some(key) = open {
                 self.message_list.emit(MessageListInput::SelectAndLoad(key));
             }
-        } else {
-            // An inline reply is saved or kept in its own window, and the
-            // hidden reader lets go of what it was showing. The selection
-            // stays, for the keys and menus that act on it.
-            self.release_reader_compose();
+        } else if !self.reader_shown() {
+            // The hidden reader lets go of what it was showing. The
+            // selection stays, for the keys and menus that act on it.
             self.attachments.clear();
             self.attachments_loading = false;
             self.sync_attachment_drawer();
             self.show_message(None, false);
             self.message_list.emit(MessageListInput::ReclaimFocus);
         }
+        self.place_reader();
         self.push_single_line();
-        self.list_fold.set_active(!on, &self.self_sender);
+        self.list_fold
+            .set_active(self.toolbar_in_list(), &self.self_sender);
         self.relayout_reader_toolbar();
         self.reader_overflow_btn
             .set_visible(self.reader_overflow_wanted());
     }
 
+    /// Whether the reader is there at all.
+    pub(super) fn reader_shown(&self) -> bool {
+        self.reading_pane != config::ReadingPane::Off
+    }
+
+    /// Whether the toolbar and the window controls are in the list's
+    /// header, at the top of the window: with the reader below the list or
+    /// off.
+    pub(super) fn toolbar_in_list(&self) -> bool {
+        self.reading_pane != config::ReadingPane::Right
+    }
+
+    /// Turn the split for where the reader sits, at the list's remembered
+    /// width or height. Below, the attachment drawer starts folded: the
+    /// pane is short.
+    pub(super) fn place_reader(&self) {
+        let Some(split) = self.mail_split.get() else {
+            return;
+        };
+        let below = self.reading_pane == config::ReadingPane::Below;
+        let (orientation, position) = if below {
+            (gtk::Orientation::Vertical, config::load_list_pane_height())
+        } else {
+            (gtk::Orientation::Horizontal, config::load_list_pane_width())
+        };
+        if split.orientation() != orientation {
+            split.set_orientation(orientation);
+            split.set_position(position);
+        }
+        if below {
+            self.attachment_drawer.emit(AttachmentDrawerInput::Fold);
+        }
+    }
+
     /// Whether the toolbar's right group is folded for want of room, and
     /// whether its buttons draw narrower, in whichever header holds it.
     pub(super) fn toolbar_fold(&self) -> (bool, bool) {
-        if self.reading_pane {
+        if !self.toolbar_in_list() {
             (self.reader_actions_collapsed, self.reader_compact)
         } else {
             (self.list_actions_collapsed, self.list_compact)
@@ -217,7 +260,7 @@ impl AppModel {
     /// to read it in: a lone message is marked read as the setting says.
     /// A conversation is marked card by card as the window shows them.
     pub(super) fn mark_window_read(&mut self, m: &Message, conversation: bool) {
-        if self.reading_pane || conversation || !m.unread {
+        if self.reader_shown() || conversation || !m.unread {
             return;
         }
         if self.read_mark != config::ReadMark::Manual {
@@ -227,7 +270,7 @@ impl AppModel {
 
     /// A conversation card read through in a message window.
     fn mark_window_card_read(&mut self, account_id: u32, id: u32) {
-        if self.reading_pane {
+        if self.reader_shown() {
             return;
         }
         let folder = self.popouts.values().find_map(|p| {

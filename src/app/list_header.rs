@@ -489,9 +489,9 @@ impl AppModel {
     /// Tell the list whether to lay messages out on one line (#334): the
     /// Layout setting, or for Automatic, the width of the pane.
     pub(super) fn push_single_line(&self) {
-        // Without the reading pane the list is a table (#475).
+        // With the reader below or off the list is a table (#475).
         let on = match self.list_layout {
-            _ if !self.reading_pane => true,
+            _ if self.toolbar_in_list() => true,
             config::ListLayout::Cards => false,
             config::ListLayout::SingleLine => true,
             config::ListLayout::Automatic => self.list_wide,

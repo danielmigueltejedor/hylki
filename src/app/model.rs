@@ -174,6 +174,9 @@ pub(crate) struct AppModel {
     pub(super) list_compact: bool,
     /// The list's width and the toolbar's fold widths in the list header.
     pub(super) list_fold: std::rc::Rc<super::reading_pane::ListFold>,
+    /// The list and the reader's split, turned on its side for the reader
+    /// below the list (#475).
+    pub(super) mail_split: std::cell::OnceCell<gtk::Paned>,
     /// A print with the reading pane off, waiting for its bodies.
     pub(super) pending_print: Option<super::reading_pane::PendingPrint>,
     /// The right group stays in the ⋯ menu at every width.
@@ -496,7 +499,7 @@ pub(crate) struct AppModel {
     /// The window opens fullscreen (#511).
     pub(super) start_fullscreen: bool,
     /// The reader beside the list (#475); off, messages open in windows.
-    pub(super) reading_pane: bool,
+    pub(super) reading_pane: config::ReadingPane,
     /// Tray icon (issue #116): the setting, the icon choice, and the running
     /// item while the setting is on.
     pub(super) tray_enabled: bool,

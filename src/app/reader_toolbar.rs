@@ -229,7 +229,7 @@ impl AppModel {
         for group in groups {
             let mut section = Vec::new();
             for item_kind in group {
-                if !self.reading_pane && reader_only(*item_kind) {
+                if !self.reader_shown() && reader_only(*item_kind) {
                     continue;
                 }
                 match item_kind {
@@ -312,7 +312,7 @@ impl AppModel {
         use config::ToolbarSide;
         self.reader_compose.is_none()
             && (item == config::ToolbarItem::Delete || !self.showing_outbox)
-            && (self.reading_pane || !reader_only(item))
+            && (self.reader_shown() || !reader_only(item))
             && match self.reader_toolbar.side(item) {
                 Some(ToolbarSide::Left) => true,
                 // The compact breakpoint is applied alone, in place of the
@@ -351,7 +351,7 @@ impl AppModel {
         else {
             return;
         };
-        if !self.reading_pane {
+        if self.toolbar_in_list() {
             self.layout_list_tools(tb);
             self.refresh_reader_breakpoint();
             return;
@@ -406,7 +406,7 @@ impl AppModel {
         };
         let shown = (self.reader_toolbar.left.len() + self.reader_toolbar.right.len()) as i32;
         // In the list header, the list's own controls come on top.
-        let extra = if self.reading_pane {
+        let extra = if !self.toolbar_in_list() {
             0
         } else {
             let header = tb.list_header.measure(gtk::Orientation::Horizontal, -1).0;
@@ -457,7 +457,7 @@ impl AppModel {
         else {
             return;
         };
-        let header = if self.reading_pane {
+        let header = if !self.toolbar_in_list() {
             reader_header
         } else {
             &tb.list_header
@@ -465,7 +465,7 @@ impl AppModel {
         let (collapsed, compact) = self.toolbar_fold();
         // Hidden in the list header, the row would measure too short.
         if compact
-            || (!self.reading_pane && self.many_selected())
+            || (self.toolbar_in_list() && self.many_selected())
             || self.reader_compose.is_some()
             || self.showing_outbox
             || self.focus.active(config::FocusPart::ReaderToolbar)
@@ -514,7 +514,7 @@ impl AppModel {
                     .right
                     .iter()
                     .filter(|i| **i != config::ToolbarItem::Tags || !self.tags.is_empty())
-                    .filter(|i| self.reading_pane || !reader_only(**i))
+                    .filter(|i| self.reader_shown() || !reader_only(**i))
                     .count() as i32;
                 // The ⋯ goes as the right group comes.
                 let need = min - button + right * (button + gap) + gap;
@@ -746,7 +746,7 @@ impl AppModel {
         // Packs the saved order and sets the real threshold.
         self.relayout_reader_toolbar();
         self.list_fold
-            .set_active(!self.reading_pane, &self.self_sender);
+            .set_active(self.toolbar_in_list(), &self.self_sender);
         watch_decoration_layout(header, sender);
         self.connect_toolbar_menus(sender);
     }

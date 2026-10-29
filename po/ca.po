@@ -105,6 +105,15 @@ msgstr "Paràmetres"
 msgid "Show Accounts"
 msgstr "Mostra els comptes"
 
+msgid "Right"
+msgstr "Dreta"
+
+msgid "Below"
+msgstr ""
+
+msgid "Off"
+msgstr "Desactivat"
+
 #, fuzzy
 msgid "Reading Pane"
 msgstr "Lectura"
@@ -1970,9 +1979,6 @@ msgstr "El servei ha refusat la sol·licitud (error {code})."
 msgid "Enter the LibreTranslate server's address in Settings → Translation."
 msgstr ""
 "Introdueix l'adreça del servidor LibreTranslate a Paràmetres → Traducció."
-
-msgid "Off"
-msgstr "Desactivat"
 
 msgid "Choose a translation service in Settings → Translation first."
 msgstr "Tria primer un servei de traducció a Paràmetres → Traducció."
@@ -5315,9 +5321,6 @@ msgstr "L'última carpeta"
 
 msgid "Left"
 msgstr "Esquerra"
-
-msgid "Right"
-msgstr "Dreta"
 
 msgid "1 line"
 msgstr "1 línia"

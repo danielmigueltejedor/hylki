@@ -107,6 +107,15 @@ msgstr "Beállítások"
 msgid "Show Accounts"
 msgstr "Fiókok megjelenítése"
 
+msgid "Right"
+msgstr "Jobbra"
+
+msgid "Below"
+msgstr ""
+
+msgid "Off"
+msgstr "Ki"
+
 #, fuzzy
 msgid "Reading Pane"
 msgstr "Olvasás"
@@ -2055,9 +2064,6 @@ msgstr ""
 
 msgid "Enter the LibreTranslate server's address in Settings → Translation."
 msgstr ""
-
-msgid "Off"
-msgstr "Ki"
 
 msgid "Choose a translation service in Settings → Translation first."
 msgstr ""
@@ -5540,9 +5546,6 @@ msgstr "Az utolsó mappa"
 
 msgid "Left"
 msgstr "Balra"
-
-msgid "Right"
-msgstr "Jobbra"
 
 msgid "1 line"
 msgstr "1 sor"

@@ -378,7 +378,7 @@ pub(crate) enum AppMsg {
     /// A conversation card in a message window was read through.
     PopoutSeen { account_id: u32, id: u32 },
     /// The main menu's Reading Pane item (#475).
-    SetReadingPane(bool),
+    SetReadingPane(crate::config::ReadingPane),
     /// The list crossed a fold width of the toolbar in its header, while
     /// the reading pane is off.
     SetListFold { collapsed: bool, compact: bool },

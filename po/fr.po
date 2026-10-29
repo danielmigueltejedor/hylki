@@ -107,6 +107,15 @@ msgstr "Paramètres"
 msgid "Show Accounts"
 msgstr "Afficher les comptes"
 
+msgid "Right"
+msgstr "Droite"
+
+msgid "Below"
+msgstr ""
+
+msgid "Off"
+msgstr "Désactivé"
+
 #, fuzzy
 msgid "Reading Pane"
 msgstr "Lecture"
@@ -1987,9 +1996,6 @@ msgstr "Le service a refusé la requête (erreur {code})."
 msgid "Enter the LibreTranslate server's address in Settings → Translation."
 msgstr ""
 "Saisissez l’adresse du serveur LibreTranslate dans Paramètres → Traduction."
-
-msgid "Off"
-msgstr "Désactivé"
 
 msgid "Choose a translation service in Settings → Translation first."
 msgstr ""
@@ -5362,9 +5368,6 @@ msgstr "Le dernier dossier"
 
 msgid "Left"
 msgstr "Gauche"
-
-msgid "Right"
-msgstr "Droite"
 
 msgid "1 line"
 msgstr "1 ligne"

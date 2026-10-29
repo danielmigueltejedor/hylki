@@ -302,6 +302,7 @@ impl SimpleComponent for AppModel {
                             "mail"
                         },
 
+                    #[name = "mail_split"]
                     add_named[Some("mail")] = &gtk::Paned {
                         set_orientation: gtk::Orientation::Horizontal,
                         // Thin handle so the panes sit flush (just a 1px divider),
@@ -327,9 +328,13 @@ impl SimpleComponent for AppModel {
                             ))
                         ] => move |p| {
                             let pos = p.position();
+                            // With the reader below, the list's height (#475).
+                            let below = p.orientation() == gtk::Orientation::Vertical;
                             // Automatic layout follows the width as it is
                             // dragged, not once the drag has settled (#334).
-                            sender.input(AppMsg::ListPaneWidth(pos));
+                            if !below {
+                                sender.input(AppMsg::ListPaneWidth(pos));
+                            }
                             if let Some(id) = pending.borrow_mut().take() {
                                 id.remove();
                             }
@@ -338,7 +343,11 @@ impl SimpleComponent for AppModel {
                                 std::time::Duration::from_millis(600),
                                 move || {
                                     *armed.borrow_mut() = None;
-                                    crate::config::save_list_pane_width(pos);
+                                    if below {
+                                        crate::config::save_list_pane_height(pos);
+                                    } else {
+                                        crate::config::save_list_pane_width(pos);
+                                    }
                                 },
                             ));
                         },
@@ -378,7 +387,7 @@ impl SimpleComponent for AppModel {
                                 // unless there is no reader pane (#475).
                                 set_show_start_title_buttons: false,
                                 #[watch]
-                                set_show_end_title_buttons: !model.reading_pane,
+                                set_show_end_title_buttons: model.toolbar_in_list(),
                                 // No folder title here — the sidebar's selection
                                 // already names it. An empty label keeps the
                                 // window's "Hylki" title from appearing instead.
@@ -428,7 +437,7 @@ impl SimpleComponent for AppModel {
                                     // The selection bar carries the actions
                                     // for several rows; not twice.
                                     #[watch]
-                                    set_visible: !model.reading_pane && !model.many_selected(),
+                                    set_visible: model.toolbar_in_list() && !model.many_selected(),
                                 },
                                 // Focus Mode: the ⋯ that stands in for the
                                 // search, filters, count and sort while they
@@ -494,11 +503,15 @@ impl SimpleComponent for AppModel {
                             set_size_request: (READER_MIN_WIDTH, 200),
                             // Hidden, the list takes the whole width (#475).
                             #[watch]
-                            set_visible: model.reading_pane,
+                            set_visible: model.reader_shown(),
                             #[wrap(Some)]
                             set_child = &adw::ToolbarView {
                             #[name = "reader_header"]
                             add_top_bar = &adw::HeaderBar {
+                                // Below the list its buttons are in the
+                                // list's header, at the top of the window.
+                                #[watch]
+                                set_visible: !model.toolbar_in_list(),
                                 // Rightmost of the packed items, beside the window
                                 // controls: the overflow ⋯ that stands in for the
                                 // action buttons while collapsed.
@@ -913,9 +926,11 @@ impl SimpleComponent for AppModel {
         let reader_snooze_btn = model.reader_snooze_btn.clone();
         let widgets = view_output!();
         let _ = model.reader_header.set(widgets.reader_header.clone());
+        let _ = model.mail_split.set(widgets.mail_split.clone());
         let _ = model.toasts.set(widgets.toasts.clone());
         model.init_reader_header_menu(&widgets, &sender);
         model.init_reader_toolbar_fold(&widgets, &sender);
+        model.place_reader();
         model.init_compose_overlay(&widgets);
         model.init_gallery_page(&widgets, &sender);
         model.install_notification_actions(&sender);

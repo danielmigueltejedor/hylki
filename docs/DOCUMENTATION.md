@@ -1628,21 +1628,25 @@ your language's default paper size before that.
 
 ### Message list layout
 
-**Main menu → Reading Pane** switches the reader beside the list off and on.
-Off, the list takes the whole width of the window in single lines, whatever
+**Main menu → Reading Pane** puts the reader **Right** of the list, **Below**
+it or **Off**. Below or off, the list shows a message on a single line, whatever
 the layout below says, and the toolbar and the window's close button move to
-the list's header. The toolbar folds into its ⋯ menu there as it does in the
-reader and gives way to the selection bar while several rows are selected.
-Find, which searches the reader, is left out; Print prints the selected
-message, or its whole conversation. Replies, forwards
-and new messages open in a window of their own.
-Clicking a row selects it and nothing more: the keys, the right-click
-menu and the selection bar act on it, but it stays unread. A double-click,
-**Enter** or, with Gmail's keys, **o** opens it in a window of its own (see
-[A message in its own window](#a-message-in-its-own-window)), which marks it
-read as **Settings → Reading → Mark as read** says. A conversation opens
-whole, each message marked as its window scrolls through it. Hylki remembers
-the choice.
+the list's header, at the top of the window. The toolbar folds into its ⋯ menu
+there as it does in the reader, and gives way to the selection bar while
+several rows are selected. Replies, forwards and new messages open in a window
+of their own. Below, drag the line between the list and the reader to set the
+list's height, which Hylki remembers apart from its width beside the reader,
+and the attachments start folded.
+
+Off, the list takes the whole window. Find, which searches the reader, is left
+out of the toolbar; Print prints the selected message, or its whole
+conversation. Clicking a row selects it and nothing more: the keys, the
+right-click menu and the selection bar act on it, but it stays unread. A
+double-click, **Enter** or, with Gmail's keys, **o** opens it in a window of
+its own (see [A message in its own window](#a-message-in-its-own-window)),
+which marks it read as **Settings → Reading → Mark as read** says. A
+conversation opens whole, each message marked as its window scrolls through
+it. Hylki remembers the choice.
 
 **Settings → Message List → Layout** sets how the list shows a message.
 **Cards** gives the sender, the subject and the start of the text lines of

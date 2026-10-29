@@ -210,7 +210,7 @@ pub(super) struct MainMenu {
 /// Sectioned: settings / printing / window & help / quit.
 pub(super) fn build_main_menu(
     show_accounts: bool,
-    reading_pane: bool,
+    reading_pane: config::ReadingPane,
     focus: &config::FocusMode,
     sender: &ComponentSender<AppModel>,
 ) -> MainMenu {
@@ -235,12 +235,20 @@ pub(super) fn build_main_menu(
             "app.show-accounts",
             "<Ctrl><Shift>a",
         ));
-        // Off, the list takes the window and messages open in their own
-        // (#475). The menu is its only switch.
-        sidebar.append(
-            Some(i18n("Reading Pane").as_str()),
-            Some("app.reading-pane"),
-        );
+        // Where the reader sits (#475). Off, the list takes the window
+        // and messages open in their own. The menu is its only switch.
+        let pane = gtk::gio::Menu::new();
+        for (label, key) in [
+            (i18n("Right"), config::ReadingPane::Right),
+            (i18n("Below"), config::ReadingPane::Below),
+            (i18n("Off"), config::ReadingPane::Off),
+        ] {
+            pane.append(
+                Some(label.as_str()),
+                Some(&format!("app.reading-pane::{}", key.key())),
+            );
+        }
+        sidebar.append_submenu(Some(i18n("Reading Pane").as_str()), &pane);
         // Focus Mode: the distraction-free layout (also Ctrl+Shift+F
         // and Settings → Appearance, where its parts are chosen).
         sidebar.append(Some(i18n("Focus Mode").as_str()), Some("app.focus-mode"));
@@ -272,14 +280,24 @@ pub(super) fn build_main_menu(
     }
 }
 
-/// The "reading-pane" check item's action.
-fn reading_pane_action(on: bool, sender: &ComponentSender<AppModel>) -> gtk::gio::SimpleAction {
-    let action = gtk::gio::SimpleAction::new_stateful("reading-pane", None, &on.to_variant());
+/// The "reading-pane" radio items' action, its state the pane's key.
+fn reading_pane_action(
+    pane: config::ReadingPane,
+    sender: &ComponentSender<AppModel>,
+) -> gtk::gio::SimpleAction {
+    let action = gtk::gio::SimpleAction::new_stateful(
+        "reading-pane",
+        Some(gtk::glib::VariantTy::STRING),
+        &pane.key().to_variant(),
+    );
     let s = sender.clone();
     action.connect_change_state(move |action, value| {
-        if let Some(on) = value.and_then(|v| v.get::<bool>()) {
-            action.set_state(&on.to_variant());
-            s.input(AppMsg::SetReadingPane(on));
+        let pane = value
+            .and_then(|v| v.get::<String>())
+            .and_then(|k| config::ReadingPane::from_key(&k));
+        if let Some(pane) = pane {
+            action.set_state(&pane.key().to_variant());
+            s.input(AppMsg::SetReadingPane(pane));
         }
     });
     action

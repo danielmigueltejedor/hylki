@@ -108,6 +108,15 @@ msgstr "Einstellungen"
 msgid "Show Accounts"
 msgstr "Konten anzeigen"
 
+msgid "Right"
+msgstr "Rechts"
+
+msgid "Below"
+msgstr ""
+
+msgid "Off"
+msgstr "Aus"
+
 #, fuzzy
 msgid "Reading Pane"
 msgstr "Lesen"
@@ -1974,9 +1983,6 @@ msgid "Enter the LibreTranslate server's address in Settings → Translation."
 msgstr ""
 "Adresse des LibreTranslate-Servers unter „Einstellungen“ → „Übersetzung“ "
 "eintragen"
-
-msgid "Off"
-msgstr "Aus"
 
 msgid "Choose a translation service in Settings → Translation first."
 msgstr ""
@@ -5337,9 +5343,6 @@ msgstr "Zuletzt verwendeter Ordner"
 
 msgid "Left"
 msgstr "Links"
-
-msgid "Right"
-msgstr "Rechts"
 
 msgid "1 line"
 msgstr "1 Zeile"

@@ -7,7 +7,7 @@ use std::path::PathBuf;
 
 use super::look::{
     default_list_columns, default_text_scale, AppTheme, ClockStyle, DateStyle, ListLayout,
-    MessageTheme, TrayIcon,
+    MessageTheme, ReadingPane, TrayIcon,
 };
 use super::prefs::{
     default_files_limit_mb, default_reader_zoom, default_swipe_sensitivity, default_undo_send_secs,
@@ -469,10 +469,11 @@ pub(crate) struct PrivacyFile {
     /// The main window opens fullscreen (#511).
     #[serde(default)]
     pub(crate) start_fullscreen: bool,
-    /// The reader beside the list (#475). Off, the list takes the whole
-    /// width in single lines and messages open in their own windows.
-    #[serde(default = "default_on")]
-    pub(crate) reading_pane: bool,
+    /// Where the reader sits (#475): beside the list, below it, or off,
+    /// the list then taking the whole window and messages opening in
+    /// their own windows.
+    #[serde(default)]
+    pub(crate) reading_pane: ReadingPane,
     /// Publish a tray icon (StatusNotifierItem) for desktops that draw one
     /// (issue #116). Off by default: GNOME has no tray without an extension.
     #[serde(default)]
@@ -785,7 +786,7 @@ impl Default for PrivacyFile {
             run_in_background: false,
             autostart: false,
             start_fullscreen: false,
-            reading_pane: true,
+            reading_pane: ReadingPane::Right,
             tray: false,
             tray_icon: TrayIcon::default(),
             tray_mail: true,

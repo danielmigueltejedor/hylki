@@ -197,8 +197,9 @@ impl AppModel {
         focus: Option<(u32, u32)>,
         sender: &ComponentSender<Self>,
     ) {
-        // No reading pane to open in (#475): a window of its own.
-        if !self.reading_pane {
+        // No reading pane to open in, or one too short below the list to
+        // write in (#475): a window of its own.
+        if self.reading_pane != config::ReadingPane::Right {
             self.open_compose(account_id, prefill, sender);
             return;
         }
