@@ -1,7 +1,6 @@
 //! Folded cards (#326): which cards open folded, and their bars.
 
 use super::html::attr_escape;
-use super::snippets::{fold_bar_date, inline_icon_svg, FOLD_BAR_FACE};
 use super::MessageView;
 use crate::encoding::escape_html;
 use crate::i18n::i18n;
@@ -41,61 +40,24 @@ impl MessageView {
             .collect()
     }
 
-    /// A folded card's one line, as Proton Mail draws it: who it is from,
-    /// then whether it is starred, whether it was sent or received, whether
-    /// it carries files, and the day. A click on it opens the card.
+    /// What a folded card shows under its header, which stays exactly as it
+    /// is open: as many lines of preview as the message list shows (#326),
+    /// and nothing when the list shows none. The box keeps all its lines
+    /// when the text is shorter or missing, so every folded card stands the
+    /// same height. A click on it opens the card.
     pub(super) fn fold_bar_html(&self, m: &Message) -> String {
-        let key = (m.account_id, m.id);
-        let from = crate::contacts::shown_name_or_addr(&m.from_name, &m.from_addr);
-        let icon = |name: &str, title: &str| {
-            format!(
-                "<span class=\"hylki-fbar-ico\" title=\"{}\">{}</span>",
-                attr_escape(title),
-                inline_icon_svg(name)
-            )
-        };
-        let star = if m.starred {
-            icon("starred-symbolic", &i18n("Starred"))
-        } else {
-            icon("hylki-non-starred-symbolic", "")
-        };
-        let place = if self.sent.contains(&key) {
-            icon("mail-send-symbolic", &i18n("Sent"))
-        } else {
-            icon("mail-inbox-symbolic", &i18n("Received"))
-        };
-        // An empty slot when there are no files, so the icons of every bar
-        // stand in the same columns.
-        let clip = if m.has_attachment {
-            icon("mail-attachment-symbolic", &i18n("Has attachments"))
-        } else {
-            "<span class=\"hylki-fbar-ico hylki-fbar-none\"></span>".to_string()
-        };
-        // Below the sender, as many lines of preview as the message list
-        // shows (#326). No subject: the conversation's is the heading above.
-        // The box keeps all its lines when the text is shorter or missing, so
-        // every folded card stands the same height.
+        if self.fold_preview_lines == 0 {
+            return String::new();
+        }
         let preview = crate::models::preview_display(&m.preview);
-        let preview = if self.fold_preview_lines > 0 {
-            format!(
-                "<div class=\"hylki-fbar-prev\" \
-                 style=\"-webkit-line-clamp:{n};height:calc({n} * 1.35em)\">{}</div>",
-                escape_html(preview.trim()),
-                n = self.fold_preview_lines,
-            )
-        } else {
-            String::new()
-        };
         format!(
-            "<div class=\"hylki-fbar\" data-key=\"{}:{}\" title=\"{}\">\
-             {FOLD_BAR_FACE}<div class=\"hylki-fbar-main\"><div class=\"hylki-fbar-top\">\
-             <span class=\"hylki-fbar-from\">{}</span>{star}{place}{clip}\
-             <span class=\"hylki-fbar-date\">{}</span></div>{preview}</div></div>",
-            key.0,
-            key.1,
+            "<div class=\"hylki-fbar\" data-key=\"{}:{}\" title=\"{}\" \
+             style=\"-webkit-line-clamp:{n};height:calc({n} * 1.35em)\">{}</div>",
+            m.account_id,
+            m.id,
             attr_escape(&i18n("Click to open this message")),
-            escape_html(&from),
-            escape_html(&fold_bar_date(m)),
+            escape_html(preview.trim()),
+            n = self.fold_preview_lines,
         )
     }
 

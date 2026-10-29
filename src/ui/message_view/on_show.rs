@@ -21,7 +21,6 @@ impl MessageView {
         primary: Option<Box<Message>>,
         folder_labels: std::collections::HashMap<(u32, u32), String>,
         instant: bool,
-        sent: std::collections::HashSet<(u32, u32)>,
     ) {
         let shown = primary.map(|p| *p).or_else(|| thread.first().cloned());
         // A new message: the previous message's verdict must not linger
@@ -78,7 +77,6 @@ impl MessageView {
         }
         self.thread = thread;
         self.folder_labels = folder_labels;
-        self.sent = sent;
         self.account_name = account_name;
         self.loading = loading;
         self.instant = instant;

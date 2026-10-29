@@ -443,7 +443,6 @@ impl Component for MessageView {
                 primary,
                 folder_labels,
                 instant,
-                sent,
             } => self.on_show(
                 thread,
                 allow_remote,
@@ -453,7 +452,6 @@ impl Component for MessageView {
                 primary,
                 folder_labels,
                 instant,
-                sent,
             ),
             MessageViewInput::LoadRemoteOnce => self.on_load_remote_once(&sender),
             MessageViewInput::ToggleRemote { account_id, id } => {

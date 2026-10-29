@@ -17,7 +17,7 @@ use super::remote::has_remote_resources;
 use super::size_script::SIZE_SCRIPT;
 use super::snippets::{
     att_row_html, card_action_button, inline_icon_svg, paints_own_background, recipient_count,
-    recipients_html, tag_chips_html, template_row_html, unsub_row_html, FOLD_BAR_FACE,
+    recipients_html, tag_chips_html, template_row_html, unsub_row_html,
 };
 use super::MessageView;
 use crate::encoding::escape_html;
@@ -389,7 +389,7 @@ fn card_html(cards: &Cards<'_>, m: &Message, ava_html: &str, body: String) -> St
         sens = inline_icon_svg("tag-outline-symbolic"),
     );
     format!(
-        "<section class=\"hylki-msg{sel}{unread_cls}{folded_cls}\" data-key=\"{aid}:{id}\">{fbar}\
+        "<section class=\"hylki-msg{sel}{unread_cls}{folded_cls}\" data-key=\"{aid}:{id}\">\
                <header class=\"hylki-msg-hdr\" data-key=\"{aid}:{id}\" \
                  title=\"{hdr_title}\">\
                  <div class=\"hylki-hdr-line\">\
@@ -399,7 +399,7 @@ fn card_html(cards: &Cards<'_>, m: &Message, ava_html: &str, body: String) -> St
                      <span class=\"hylki-date\">{date}</span></span>\
                    {acts_toggle}{acts}\
                  </div>{rcpt}\
-               </header>{tpl}{invite}{receipt}{unsub}{tr}{body}{atts}</section>",
+               </header>{fbar}{tpl}{invite}{receipt}{unsub}{tr}{body}{atts}</section>",
         aid = m.account_id,
         id = m.id,
         // The message's own attachments beneath its body (#213).
@@ -509,11 +509,12 @@ fn card_html(cards: &Cards<'_>, m: &Message, ava_html: &str, body: String) -> St
         } else {
             ""
         },
-        // What a folded card shows instead of all of it (#326).
+        // What a folded card shows under its header instead of the
+        // rest (#326).
         fbar = LIVE_FOLDBAR.with(|b| {
             b.borrow()
                 .get(&(m.account_id, m.id))
-                .map(|bar| bar.replace(FOLD_BAR_FACE, ava_html))
+                .cloned()
                 .unwrap_or_default()
         }),
         // `escape_html`, not `attr_escape`: these land in element
