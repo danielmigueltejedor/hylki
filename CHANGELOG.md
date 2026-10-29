@@ -11,6 +11,13 @@
   carries, as the Flatpak falls back to its runtime's; an update tries the
   system's fonts again.
 
+- **Added: a setting to hide the account in the message header** (#546, by
+  Valentin Morice). **Settings → Reading → Show account in message header**
+  hides the account chip above the subject, in the main window and in a
+  message's own window. The Light / Dark Mode and Reader View switches stay
+  at the right end of the line, and with all three hidden the line goes.
+  On by default.
+
 - **Added: Snoozed in the unified section** (#542, requested by
   UnicornPanel). While any account's Snoozed folder holds mail, a Snoozed row
   lists every account's snoozed mail as one list, each message showing when
