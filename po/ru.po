@@ -928,6 +928,9 @@ msgstr "Включить или выключить режим концентра
 msgid "Fullscreen on or off"
 msgstr "Включить или выключить режим концентрации"
 
+msgid "Reading pane right of the list, below it, or off"
+msgstr ""
+
 msgid "Message zoom in or out"
 msgstr "Увеличить или уменьшить масштаб сообщения"
 
@@ -1113,6 +1116,18 @@ msgstr "Поиск сообщений…"
 #, fuzzy
 msgid "Show or Hide the Sidebar"
 msgstr "Показывать или скрывать учётные записи на боковой панели"
+
+#, fuzzy
+msgid "Reading Pane Right"
+msgstr "Чтение"
+
+#, fuzzy
+msgid "Reading Pane Below"
+msgstr "Чтение"
+
+#, fuzzy
+msgid "Reading Pane Off"
+msgstr "Чтение"
 
 msgid "Mail Accounts"
 msgstr "Почтовые учётные записи"

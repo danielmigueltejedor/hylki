@@ -895,6 +895,9 @@ msgstr "Ενεργοποίηση ή απενεργοποίηση της Λειτ
 msgid "Fullscreen on or off"
 msgstr "Ενεργοποίηση ή απενεργοποίηση της Λειτουργίας συγκέντρωσης"
 
+msgid "Reading pane right of the list, below it, or off"
+msgstr ""
+
 msgid "Message zoom in or out"
 msgstr "Μεγέθυνση ή σμίκρυνση του μηνύματος"
 
@@ -1048,6 +1051,18 @@ msgstr "Αναζήτηση μηνυμάτων"
 
 msgid "Show or Hide the Sidebar"
 msgstr "Εμφάνιση ή απόκρυψη της πλευρικής στήλης"
+
+#, fuzzy
+msgid "Reading Pane Right"
+msgstr "Ανάγνωση"
+
+#, fuzzy
+msgid "Reading Pane Below"
+msgstr "Ανάγνωση"
+
+#, fuzzy
+msgid "Reading Pane Off"
+msgstr "Ανάγνωση"
 
 msgid "Mail Accounts"
 msgstr "Λογαριασμοί αλληλογραφίας"

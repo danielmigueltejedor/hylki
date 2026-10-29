@@ -930,6 +930,9 @@ msgstr "Włącz lub wyłącz tryb skupienia"
 msgid "Fullscreen on or off"
 msgstr "Włącz lub wyłącz tryb skupienia"
 
+msgid "Reading pane right of the list, below it, or off"
+msgstr ""
+
 msgid "Message zoom in or out"
 msgstr "Powiększ lub pomniejsz wiadomość"
 
@@ -1114,6 +1117,18 @@ msgstr "Przeszukaj wiadomości…"
 #, fuzzy
 msgid "Show or Hide the Sidebar"
 msgstr "Wyświetl lub ukryj konta w panelu bocznym"
+
+#, fuzzy
+msgid "Reading Pane Right"
+msgstr "Czytanie"
+
+#, fuzzy
+msgid "Reading Pane Below"
+msgstr "Czytanie"
+
+#, fuzzy
+msgid "Reading Pane Off"
+msgstr "Czytanie"
 
 msgid "Mail Accounts"
 msgstr "Konta pocztowe"

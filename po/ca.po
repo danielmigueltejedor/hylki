@@ -880,6 +880,9 @@ msgstr "Activa o desactiva el mode d'enfocament"
 msgid "Fullscreen on or off"
 msgstr "Activa o desactiva el mode d'enfocament"
 
+msgid "Reading pane right of the list, below it, or off"
+msgstr ""
+
 msgid "Message zoom in or out"
 msgstr "Amplia o redueix el missatge"
 
@@ -1033,6 +1036,18 @@ msgstr "Cerca missatges"
 
 msgid "Show or Hide the Sidebar"
 msgstr "Mostra o amaga la barra lateral"
+
+#, fuzzy
+msgid "Reading Pane Right"
+msgstr "Lectura"
+
+#, fuzzy
+msgid "Reading Pane Below"
+msgstr "Lectura"
+
+#, fuzzy
+msgid "Reading Pane Off"
+msgstr "Lectura"
 
 msgid "Mail Accounts"
 msgstr "Comptes de correu"

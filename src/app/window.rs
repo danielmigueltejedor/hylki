@@ -148,6 +148,19 @@ impl AppModel {
                 &[accel],
             );
         }
+        // Ctrl+Alt+1, 2 and 3: the reader right of the list, below it, or
+        // off (#475). The menu shows them beside its radio items.
+        for (pane, accel) in [
+            (config::ReadingPane::Right, "<Ctrl><Alt>1"),
+            (config::ReadingPane::Below, "<Ctrl><Alt>2"),
+            (config::ReadingPane::Off, "<Ctrl><Alt>3"),
+        ] {
+            gtk::prelude::GtkApplicationExt::set_accels_for_action(
+                &app,
+                &format!("app.reading-pane::{}", pane.key()),
+                &[accel],
+            );
+        }
         // Ctrl+Shift+F switches Focus Mode on and off.
         gtk::prelude::GtkApplicationExt::set_accels_for_action(
             &app,

@@ -900,6 +900,9 @@ msgstr "Modalità focus attiva/disattiva"
 msgid "Fullscreen on or off"
 msgstr "Modalità focus attiva/disattiva"
 
+msgid "Reading pane right of the list, below it, or off"
+msgstr ""
+
 msgid "Message zoom in or out"
 msgstr "Zoom del messaggio avanti o indietro"
 
@@ -1072,6 +1075,18 @@ msgstr "Cerca messaggi"
 
 msgid "Show or Hide the Sidebar"
 msgstr "Mostra o nascondi la barra laterale"
+
+#, fuzzy
+msgid "Reading Pane Right"
+msgstr "Lettura"
+
+#, fuzzy
+msgid "Reading Pane Below"
+msgstr "Lettura"
+
+#, fuzzy
+msgid "Reading Pane Off"
+msgstr "Lettura"
 
 msgid "Mail Accounts"
 msgstr "Account e-mail"

@@ -910,6 +910,9 @@ msgstr "Fókuszmód be- vagy kikapcsolása"
 msgid "Fullscreen on or off"
 msgstr "Fókuszmód be- vagy kikapcsolása"
 
+msgid "Reading pane right of the list, below it, or off"
+msgstr ""
+
 msgid "Message zoom in or out"
 msgstr "Üzenet nagyítása vagy kicsinyítése"
 
@@ -1095,6 +1098,18 @@ msgstr "Üzenetek keresése..."
 #, fuzzy
 msgid "Show or Hide the Sidebar"
 msgstr "Fiókok megjelenítése vagy elrejtése az oldalsávban"
+
+#, fuzzy
+msgid "Reading Pane Right"
+msgstr "Olvasás"
+
+#, fuzzy
+msgid "Reading Pane Below"
+msgstr "Olvasás"
+
+#, fuzzy
+msgid "Reading Pane Off"
+msgstr "Olvasás"
 
 msgid "Mail Accounts"
 msgstr "Levelezési fiókok"

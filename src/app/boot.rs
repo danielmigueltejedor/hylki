@@ -236,7 +236,7 @@ pub(super) fn build_main_menu(
             "<Ctrl><Shift>a",
         ));
         // Where the reader sits (#475). Off, the list takes the window
-        // and messages open in their own. The menu is its only switch.
+        // and messages open in their own. Ctrl+Alt+1, 2 and 3 choose too.
         let pane = gtk::gio::Menu::new();
         for (label, key) in [
             (i18n("Right"), config::ReadingPane::Right),

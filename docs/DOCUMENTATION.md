@@ -1629,7 +1629,8 @@ your language's default paper size before that.
 ### Message list layout
 
 **Main menu → Reading Pane** puts the reader **Right** of the list, **Below**
-it or **Off**. Below or off, the list shows a message on a single line, whatever
+it or **Off**; <kbd>Ctrl+Alt+1</kbd>, <kbd>Ctrl+Alt+2</kbd> and
+<kbd>Ctrl+Alt+3</kbd> do the same. Below or off, the list shows a message on a single line, whatever
 the layout below says, the window's close button moves to the list's header,
 and replies, forwards and new messages open in a window of their own. Below,
 the toolbar stays at the top of the reader; drag the line between the list and

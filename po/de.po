@@ -879,6 +879,9 @@ msgstr "Fokusmodus ein- oder ausschalten"
 msgid "Fullscreen on or off"
 msgstr "Vollbildmodus ein- oder ausschalten"
 
+msgid "Reading pane right of the list, below it, or off"
+msgstr ""
+
 msgid "Message zoom in or out"
 msgstr "Nachrichtenansicht vergrößern oder verkleinern"
 
@@ -1032,6 +1035,18 @@ msgstr "Nachrichten durchsuchen"
 
 msgid "Show or Hide the Sidebar"
 msgstr "Seitenleiste ein- oder ausblenden"
+
+#, fuzzy
+msgid "Reading Pane Right"
+msgstr "Lesen"
+
+#, fuzzy
+msgid "Reading Pane Below"
+msgstr "Lesen"
+
+#, fuzzy
+msgid "Reading Pane Off"
+msgstr "Lesen"
 
 msgid "Mail Accounts"
 msgstr "E-Mail-Konten"

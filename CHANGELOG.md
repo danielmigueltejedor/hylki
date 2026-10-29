@@ -4,23 +4,24 @@
 
 - **Added: the reading pane can sit below the list, or be switched off**
   (#475, requested by fhangel). **Main menu → Reading Pane** puts the reader
-  **Right** of the list, as before, **Below** it or **Off**. Below or off, the
-  list shows single lines, whatever **Settings → Message List → Layout** says,
-  the window controls move to the list's header, and a reply, a forward or a
-  new message opens in a window of its own, whatever **Settings → Composing**
-  says about the reading pane. Below, the toolbar stays at the top of the
-  reader, the list's height is remembered apart from its width, and the
-  attachments start folded. Off, the list takes the whole window and the
-  toolbar moves to its header, between the filter button and the window
-  controls, folding into its ⋯ menu as it does in the reader, greyed out until
-  a row is selected and making way for the selection bar when several are;
-  Find, which searches the reader, is left out, and Print prints the selected
-  message, or its whole conversation. A message opens in a window of its own
-  on a double-click, **Enter** or Gmail's **o**. Selecting a row does not mark
-  it read: opening its window does, as **Settings → Reading → Mark as read**
-  says, and a conversation's window marks each message as it is read through.
-  The keys, the right-click menu and the selection bar act on the selected
-  rows as before.
+  **Right** of the list, as before, **Below** it or **Off**, as do
+  **Ctrl+Alt+1**, **Ctrl+Alt+2** and **Ctrl+Alt+3**. Below or off, the list
+  shows single lines, whatever **Settings → Message List → Layout** says, the
+  window controls move to the list's header, and a reply, a forward or a new
+  message opens in a window of its own, whatever **Settings → Composing** says
+  about the reading pane. Below, the toolbar stays at the top of the reader,
+  the list's height is remembered apart from its width, and the attachments
+  start folded. Off, the list takes the whole window and the toolbar moves to
+  its header, between the filter button and the window controls, folding into
+  its ⋯ menu as it does in the reader, greyed out until a row is selected and
+  making way for the selection bar when several are; Find, which searches the
+  reader, is left out, and Print prints the selected message, or its whole
+  conversation. A message opens in a window of its own on a double-click,
+  **Enter** or Gmail's **o**. Selecting a row does not mark it read: opening
+  its window does, as **Settings → Reading → Mark as read** says, and a
+  conversation's window marks each message as it is read through. The keys,
+  the right-click menu and the selection bar act on the selected rows as
+  before.
 
 ## 1.46.0 — 2026-10-29
 

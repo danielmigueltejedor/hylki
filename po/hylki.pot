@@ -825,6 +825,9 @@ msgstr ""
 msgid "Fullscreen on or off"
 msgstr ""
 
+msgid "Reading pane right of the list, below it, or off"
+msgstr ""
+
 msgid "Message zoom in or out"
 msgstr ""
 
@@ -975,6 +978,15 @@ msgid "Search Messages"
 msgstr ""
 
 msgid "Show or Hide the Sidebar"
+msgstr ""
+
+msgid "Reading Pane Right"
+msgstr ""
+
+msgid "Reading Pane Below"
+msgstr ""
+
+msgid "Reading Pane Off"
 msgstr ""
 
 msgid "Mail Accounts"

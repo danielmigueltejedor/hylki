@@ -888,6 +888,9 @@ msgstr "Ativar ou desativar o modo de foco"
 msgid "Fullscreen on or off"
 msgstr "Ativar ou desativar a tela inteira"
 
+msgid "Reading pane right of the list, below it, or off"
+msgstr ""
+
 msgid "Message zoom in or out"
 msgstr "Aumentar ou reduzir o zoom da mensagem"
 
@@ -1041,6 +1044,18 @@ msgstr "Pesquisar mensagens"
 
 msgid "Show or Hide the Sidebar"
 msgstr "Mostrar ou ocultar a barra lateral"
+
+#, fuzzy
+msgid "Reading Pane Right"
+msgstr "Leitura"
+
+#, fuzzy
+msgid "Reading Pane Below"
+msgstr "Leitura"
+
+#, fuzzy
+msgid "Reading Pane Off"
+msgstr "Leitura"
 
 msgid "Mail Accounts"
 msgstr "Contas de email"
