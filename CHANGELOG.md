@@ -129,6 +129,10 @@
   switched-on entry is shaded like a pressed button and keeps its own icon
   instead of a tick.
 
+- **Fixed: the count in the sidebar's unread chip sat high** (#545, by
+  Valentin Morice). At the default text size the number is now centered in
+  the chip, which keeps its height.
+
 - **Fixed: Tab stopped going round the composer after the body.** Tab off
   the end of the body gave the keyboard to a hidden part of the editor,
   which then kept every Tab and Shift+Tab. Tab and Shift+Tab now come round
