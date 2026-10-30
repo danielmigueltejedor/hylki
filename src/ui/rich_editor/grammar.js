@@ -126,7 +126,10 @@
      again once typing stops. */
   document.addEventListener('compositionstart', function(){ composing = true; });
   document.addEventListener('compositionend', function(){ composing = false; });
-  document.addEventListener('input', function(){
+  document.addEventListener('input', function(ev){
+    /* An input method can start a composition and never say it ended; the
+       next keystroke that is not part of one says it for it. */
+    composing = !!ev.isComposing;
     if(!on) return;
     var sel = getSelection();
     var c = sel.rangeCount ? sel.getRangeAt(0) : null;
