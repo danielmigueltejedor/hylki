@@ -6689,9 +6689,9 @@ msgid "Copy mail to On This Computer"
 msgstr ""
 
 msgid ""
-"Downloads every message in every folder of this account to this computer, "
-"except Trash, Junk and Drafts, into a folder named after the account. Mail "
-"deleted here stays there."
+"Downloads copies of every message from every folder of this account to this "
+"computer (except Trash, Junk and Drafts.) These are then browsable inside "
+"'On my computer'"
 msgstr ""
 
 msgid "Import"
