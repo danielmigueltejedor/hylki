@@ -659,7 +659,7 @@ impl EditorForm {
                     // Mail downloaded ahead of being opened (#536).
                     #[name = "offline_mail_row"]
                     adw::ComboRow {
-                        set_title: &i18n("Keep mail offline"),
+                        set_title: &i18n("Keep mail cached"),
                         set_subtitle: &i18n("Leaves out Trash, Junk and Drafts."),
                     },
                     #[name = "offline_attachments_row"]

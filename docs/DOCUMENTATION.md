@@ -357,7 +357,7 @@ into the folder.
 **Settings → Accounts → the account → Syncing → Copy mail to On This
 Computer** copies every message of the account into a folder named after it,
 with the account's folders inside: Inbox, Sent and the rest. The account
-downloads its mail in the background to do it, as **Keep mail offline**
+downloads its mail in the background to do it, as **Keep mail cached**
 does, and leaves out Trash, Junk and Drafts. New mail is copied within about
 a minute of the account receiving it. While messages are being copied the
 refresh button turns, and the status bar, when opened, says how many are
@@ -2146,7 +2146,7 @@ every six hours after. Either way the list of every message stays, so the
 message list and search are unchanged, and a removed message is fetched again
 when it is opened. Nothing on the server changes.
 
-**Keep mail offline**, in an account's Syncing settings, downloads every
+**Keep mail cached**, in an account's Syncing settings, downloads every
 message of a period ahead of being opened: the last week, month or year, or all
 mail. It works on IMAP, JMAP, Microsoft 365 and POP3 accounts, including ones
 from GNOME Online Accounts. The default, Newest messages, is the fetch ahead
