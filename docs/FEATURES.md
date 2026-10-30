@@ -103,6 +103,8 @@ The full list. The [README](../README.md) carries a shorter one.
   by handle or menu, with an optional recompress on send.
 - **Spell check** in one language or several at once, through the system
   dictionaries.
+- **Grammar and style checking** through a LanguageTool server of your own
+  or a LanguageTool account, each paragraph in its own language.
 - **Undo and redo** across the whole message.
 - **Quote folding:** a long quoted original folds away, interleaved replies
   intact.

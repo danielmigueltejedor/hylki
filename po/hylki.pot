@@ -1828,6 +1828,30 @@ msgstr ""
 msgid "This message hasn't been checked."
 msgstr ""
 
+msgid "Enter the LanguageTool server's address in Settings → Composing."
+msgstr ""
+
+msgid "Enter the server's address first."
+msgstr ""
+
+msgid "The server's answer could not be read."
+msgstr ""
+
+msgid "The server could not be reached: {e}"
+msgstr ""
+
+msgid "The server did not accept the username and key."
+msgstr ""
+
+msgid "The message is too long for the server."
+msgstr ""
+
+msgid "Too many requests: try again in a moment."
+msgstr ""
+
+msgid "The server refused the request (error {code})."
+msgstr ""
+
 msgid ""
 "{reason} If your organization manages your account, an administrator can "
 "approve Hylki for everyone at {link}"
@@ -1840,9 +1864,6 @@ msgid "The service could not be reached: {e}"
 msgstr ""
 
 msgid "The service did not accept the key."
-msgstr ""
-
-msgid "Too many requests: try again in a moment."
 msgstr ""
 
 msgid "This month's allowance is used up."
@@ -4840,6 +4861,47 @@ msgstr ""
 msgid "Custom File"
 msgstr ""
 
+msgid "Grammar"
+msgstr ""
+
+msgid ""
+"What you write goes to the server as you type, without the quote or the "
+"signature."
+msgstr ""
+
+msgid "Check grammar and style"
+msgstr ""
+
+msgid "Right-click a marked phrase for suggestions."
+msgstr ""
+
+msgid "LanguageTool server"
+msgstr ""
+
+msgid "Username (LanguageTool Premium)"
+msgstr ""
+
+msgid "API key (LanguageTool Premium)"
+msgstr ""
+
+msgid "Check the settings"
+msgstr ""
+
+msgid "Sends a test sentence to the server."
+msgstr ""
+
+msgid "Check"
+msgstr ""
+
+msgid "Checking…"
+msgstr ""
+
+msgid "The check stopped unexpectedly."
+msgstr ""
+
+msgid "It works: {server} answered."
+msgstr ""
+
 msgid "Messages already read"
 msgstr ""
 
@@ -5535,6 +5597,12 @@ msgstr ""
 msgid "Monospace"
 msgstr ""
 
+msgid "Grammar check failed: {error}"
+msgstr ""
+
+msgid "No suggestions"
+msgstr ""
+
 msgid "Spelling Language"
 msgstr ""
 
@@ -5759,13 +5827,7 @@ msgstr ""
 msgid "Region (empty for a global resource)"
 msgstr ""
 
-msgid "Check the settings"
-msgstr ""
-
 msgid "Translates a greeting to test the service."
-msgstr ""
-
-msgid "Check"
 msgstr ""
 
 msgid "Messages"
@@ -5783,9 +5845,6 @@ msgid ""
 msgstr ""
 
 msgid "Key (if the server asks for one)"
-msgstr ""
-
-msgid "Checking…"
 msgstr ""
 
 msgid "It works: “{sent}” came back as “{back}”."

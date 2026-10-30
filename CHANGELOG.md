@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- **Added: grammar and style checking in the composer** (#452, requested by
+  warpedwood). **Settings → Composing → Check grammar and style** sends what
+  is written to a LanguageTool server, one of your own, LanguageTool's free
+  service or a Premium account, about a second after typing stops, and marks
+  what it finds: a mistake with a wavy blue line, a matter of style with a
+  dotted one. Right-clicking a mark puts the problem, its suggestions and
+  **Ignore** at the top of the menu, and a suggestion goes in as one edit.
+  The quote and the signature are not sent. Each paragraph is checked in its
+  own language, recognised offline from among the spelling languages, and
+  misspelled words are left to the spell checker. Rich text and plain text
+  are checked, Markdown and HTML are not. The settings are in
+  `grammar.toml`, the Premium key in the keyring.
+
 - **Added: the reading pane can sit below the list, or be switched off**
   (#475, requested by fhangel). **Main menu → Reading Pane** puts the reader
   **Right** of the list, as before, **Below** it or **Off**, as do

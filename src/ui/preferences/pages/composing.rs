@@ -1,5 +1,5 @@
 //! Settings → Composing: format, reply and signature placement, undo
-//! send, and spelling.
+//! send, spelling and grammar.
 
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -267,6 +267,7 @@ impl ComposingPage {
                 },
             }
         }
+        page.add(&super::super::grammar::group());
         let reply_header_saved = Rc::new(RefCell::new(String::new()));
         wire_reply_header(
             &reply_header_row,

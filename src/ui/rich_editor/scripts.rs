@@ -57,3 +57,8 @@ pub(super) const PASTE_SCRIPT: &str = concat!("<script>", include_str!("paste.js
 /// `__hylkiFoldQuote` is set (#549). After [`PASTE_SCRIPT`], whose plain
 /// view flattens the body first.
 pub(super) const FOLD_SCRIPT: &str = concat!("<script>", include_str!("fold.js"), "</script>");
+
+/// Grammar and style marks (#452), drawn over the text the user wrote once
+/// the host switches them on. See [`super::grammar`].
+pub(super) const GRAMMAR_SCRIPT: &str =
+    concat!("<script>", include_str!("grammar.js"), "</script>");

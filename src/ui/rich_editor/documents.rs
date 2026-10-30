@@ -4,7 +4,9 @@
 use super::exec;
 use super::fonts::EDITOR_FONT;
 use super::fonts::{body_font, font_style};
-use super::scripts::{EMOJI_SCRIPT, FOLD_SCRIPT, HISTORY_SCRIPT, LINES_SCRIPT, PASTE_SCRIPT};
+use super::scripts::{
+    EMOJI_SCRIPT, FOLD_SCRIPT, GRAMMAR_SCRIPT, HISTORY_SCRIPT, LINES_SCRIPT, PASTE_SCRIPT,
+};
 use super::signature::{find_src_attr, quoted_value};
 use super::toolbar::js_str;
 use crate::i18n::i18n;
@@ -46,7 +48,8 @@ pub(super) fn document(
          window.__hylkiFoldQuote={fold_quote};\
          window.__hylkiFoldTips={fold_tips};\
          window.__hylkiPlain={plain};</script>\
-         {LINES_SCRIPT}{PASTE_SCRIPT}{FOLD_SCRIPT}{HISTORY_SCRIPT}{EMOJI_SCRIPT}"
+         {LINES_SCRIPT}{PASTE_SCRIPT}{FOLD_SCRIPT}{HISTORY_SCRIPT}{EMOJI_SCRIPT}\
+         {GRAMMAR_SCRIPT}"
     );
     let (plain_attr, plain_css) = if plain {
         let mono = monospace_family();
@@ -84,6 +87,13 @@ pub(super) fn document(
            ::highlight(hylki-misspell){{\
              text-decoration:underline wavy #e01b24;\
              background-color:rgba(224,27,36,0.10);}}\
+           /* Grammar and style (#452): a mistake wavy, a matter of style\
+              dotted, both in the accent blue the misspelling's red is not. */\
+           ::highlight(hylki-grammar){{\
+             text-decoration:underline wavy #3584e4;\
+             background-color:rgba(53,132,228,0.10);}}\
+           ::highlight(hylki-style){{\
+             text-decoration:underline dotted #3584e4;}}\
            blockquote{{margin:0;margin-inline-start:8px;padding-inline-start:10px;\
              border-inline-start:3px solid rgba(128,128,128,0.4);}}\
            /* Each paragraph written here takes the direction of its own\

@@ -15,6 +15,7 @@ keyboard.
 - [CardDAV accounts](#carddav-accounts)
 - [LDAP directories](#ldap-directories)
 - [Translating messages](#translating-messages)
+- [Grammar checking](#grammar-checking)
 - [Writing in Markdown or HTML](#writing-in-markdown-or-html)
 - [OpenPGP (encrypted and signed mail)](#openpgp-encrypted-and-signed-mail)
 - [Send with Hylki from GNOME Files](#send-with-hylki-from-gnome-files)
@@ -1223,6 +1224,47 @@ A word added under **Added words** goes into the first chosen language's
 word list. The subject accepts it at once, and the message body after a
 restart.
 
+### Grammar checking
+
+**Settings → Composing → Check grammar and style** sends what you write to a
+LanguageTool server and marks what it finds: a mistake with a wavy blue
+line, a matter of style with a dotted one. Right-clicking a mark shows what
+is wrong at the top of the menu, with the suggestions to put in its place
+and **Ignore**, which leaves that problem alone in every composer until the
+app is closed. A suggestion goes in as one edit, so Ctrl+Z takes it back.
+
+The text is checked about a second after typing stops. The quoted message
+and the signature are left out. It works in rich text and plain text; a
+message written in Markdown or HTML is not checked.
+
+**LanguageTool server** is where the text goes:
+
+| Server | Address | Notes |
+| --- | --- | --- |
+| Your own | `http://localhost:8081`, or wherever it runs | Nothing leaves the computer or the network it runs on. |
+| LanguageTool's free service | `https://api.languagetool.org` | No account. About 20 checks a minute, and 20,000 characters each. |
+| LanguageTool Premium | `https://api.languagetoolplus.com` | Fill in **Username** with the account's email address, and **API key** with the key from the account page. |
+
+A server of your own can be the LanguageTool server from
+[languagetool.org](https://languagetool.org/dev), or a container image of
+it, for example:
+
+```sh
+podman run -d --name languagetool -p 127.0.0.1:8081:8010 docker.io/erikvl87/languagetool
+```
+
+**Check the settings** sends a test sentence and names the server that
+answered. When checking fails while you write, right-clicking the body says
+why.
+
+Each paragraph is checked in its own language, one of those chosen for
+spelling in **Settings → Composing → Languages**, recognised on this
+computer, so a message in French and English is checked as both. A
+paragraph too short to tell goes with the one before it. Misspelled words
+are left to the spell checker while it is on, so they are not marked twice.
+
+The settings are in `grammar.toml`; the API key is in the keyring.
+
 ### Writing in Markdown or HTML
 
 A message can be written in any of four formats, chosen in **Settings →
@@ -2112,6 +2154,11 @@ open it. Stored as `remote_ahead` in `privacy.toml`.
 **Read receipts** are sent only when you press **Send Receipt**, unless
 **Settings → Privacy → Send read receipts** is **Always**. See
 [Read receipts](#read-receipts).
+
+**Grammar checking** is off until switched on in Settings → Composing.
+After that, what you write in the composer goes to the LanguageTool server
+set there as you type, without the quote or the signature. See
+[Grammar checking](#grammar-checking).
 
 **Translation** is off until a service is chosen in Settings → Translation.
 After that, a message's text goes to that service only when you press
