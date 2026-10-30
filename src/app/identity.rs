@@ -217,9 +217,10 @@ impl AppModel {
     /// An account as messages name it: the nickname and the address, else
     /// "Account N". Not the sender name, which is often the same on every
     /// account and so cannot say which one is meant. Uses config (available
-    /// even before the account connects), then live data.
+    /// even before the account connects, the demo's stand-ins included),
+    /// then live data.
     pub(super) fn account_label(&self, account_id: u32) -> String {
-        self.saved_account_config(account_id)
+        self.account_config(account_id)
             .map(|c| (c.display_label(), c.email.clone()))
             .or_else(|| {
                 self.accounts
