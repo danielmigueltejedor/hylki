@@ -355,6 +355,9 @@ impl AppModel {
                     account,
                 },
                 AccountsOutput::Removed { email } => AppMsg::AccountRemoved { email },
+                AccountsOutput::ImportMail { sources, mbox } => {
+                    AppMsg::ImportLocalMail { sources, mbox }
+                }
                 AccountsOutput::Reordered(emails) => AppMsg::AccountsReordered(emails),
                 AccountsOutput::EnabledChanged { email, enabled } => {
                     AppMsg::AccountEnabledChanged { email, enabled }

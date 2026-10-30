@@ -205,3 +205,16 @@ fn only_an_empty_folder_is_deleted() {
     assert!(!md.has_folder("Old"));
     assert!(md.delete_folder("INBOX").is_err());
 }
+
+#[test]
+fn age_in_a_folder_counts_from_when_mail_came_in() {
+    let (_d, mut md) = tree();
+    let uid = md.deliver("INBOX", RAW, "", &[]).unwrap();
+    let now = crate::datefmt::now();
+    assert!(md.older_than("INBOX", now - 3600).is_empty());
+    assert_eq!(md.older_than("INBOX", now + 3600), [uid]);
+    // A move is a new arrival in the Trash.
+    let moved = md.move_to("INBOX", uid, "Trash").unwrap();
+    assert!(md.older_than("Trash", now - 3600).is_empty());
+    assert_eq!(md.older_than("Trash", now + 3600), [moved]);
+}

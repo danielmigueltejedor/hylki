@@ -75,6 +75,8 @@ pub(in crate::ui::accounts) struct EditorForm {
     pub(in crate::ui::accounts) clean_lists_row: adw::ComboRow,
     pub(in crate::ui::accounts) offline_mail_row: adw::ComboRow,
     pub(in crate::ui::accounts) offline_attachments_row: adw::SwitchRow,
+    pub(in crate::ui::accounts) copy_local_row: adw::SwitchRow,
+    pub(in crate::ui::accounts) import_group: adw::PreferencesGroup,
     pub(in crate::ui::accounts) graph_group: adw::PreferencesGroup,
     pub(in crate::ui::accounts) graph_directory_row: adw::SwitchRow,
     pub(in crate::ui::accounts) directory_only_row: adw::SwitchRow,
@@ -665,6 +667,40 @@ impl EditorForm {
                         set_title: &i18n("Include attachments"),
                         set_subtitle: &i18n("Can consume a lot of hard drive space."),
                     },
+                    // Every message copied to On This Computer (#552).
+                    #[name = "copy_local_row"]
+                    adw::SwitchRow {
+                        set_title: &i18n("Copy mail to On This Computer"),
+                        set_subtitle: &i18n("Into a folder named after this account. Mail deleted here stays there."),
+                    },
+                },
+
+                // On This Computer only (#552): mail from another
+                // program's folders.
+                #[name = "import_group"]
+                add = &adw::PreferencesGroup {
+                    set_title: &i18n("Import"),
+                    set_description: Some(i18n("Mail already here is not imported again.").as_str()),
+                    set_visible: false,
+
+                    adw::ActionRow {
+                        set_title: &i18n("Maildir folders"),
+                        set_subtitle: &i18n("Evolution's On This Computer, Dovecot and other Maildir trees."),
+                        add_suffix = &gtk::Button {
+                            set_label: &i18n("Choose…"),
+                            set_valign: gtk::Align::Center,
+                            connect_clicked => AccountsInput::ImportLocal(false),
+                        },
+                    },
+                    adw::ActionRow {
+                        set_title: &i18n("Mbox files"),
+                        set_subtitle: &i18n("Thunderbird's folders and other mbox files."),
+                        add_suffix = &gtk::Button {
+                            set_label: &i18n("Choose…"),
+                            set_valign: gtk::Align::Center,
+                            connect_clicked => AccountsInput::ImportLocal(true),
+                        },
+                    },
                 },
 
                 // What a Microsoft 365 account can use from
@@ -917,6 +953,8 @@ impl EditorForm {
             clean_lists_row,
             offline_mail_row,
             offline_attachments_row,
+            copy_local_row,
+            import_group,
             graph_group,
             graph_directory_row,
             directory_only_row,

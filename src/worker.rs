@@ -159,6 +159,9 @@ async fn run(
     rx: mpsc::UnboundedReceiver<MailRequest>,
     emit: impl Fn(WorkerEvent) + Clone + Send + 'static,
 ) {
+    if let Some(account) = &account {
+        local::copy::register(account_id, account);
+    }
     match account {
         Some(account) if account.protocol == crate::config::Protocol::Pop3 => {
             run_pop3(account_id, account, rx, emit).await

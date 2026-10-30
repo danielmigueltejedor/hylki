@@ -161,12 +161,22 @@ CREATE VIRTUAL TABLE IF NOT EXISTS body_text USING fts5(
 CREATE TRIGGER IF NOT EXISTS body_text_gone AFTER DELETE ON bodies BEGIN
     DELETE FROM body_text WHERE rowid = old.rowid;
 END;
+-- The mail of an account copied to On This Computer (#552), by Message-ID,
+-- or where it has none by its place. The local tree keeps the same list,
+-- which fills this table again after the cache is dropped.
+CREATE TABLE IF NOT EXISTS local_copies (
+    account_id  INTEGER NOT NULL,
+    message_id  TEXT    NOT NULL,
+    folder_path TEXT    NOT NULL,
+    uid         INTEGER NOT NULL,
+    PRIMARY KEY (account_id, message_id, folder_path, uid)
+);
 ";
 
 /// Every table whose rows belong to one account, by `account_id`. An account's
 /// id is its place in the account list, so `Cache::claim_accounts` moves
 /// these rows when the places change.
-pub(super) const ACCOUNT_TABLES: [&str; 11] = [
+pub(super) const ACCOUNT_TABLES: [&str; 12] = [
     "folders",
     "refs_repair",
     "messages",
@@ -178,6 +188,7 @@ pub(super) const ACCOUNT_TABLES: [&str; 11] = [
     "attachments_checked",
     "attachment_meta",
     "attachment_scan",
+    "local_copies",
 ];
 
 /// The tables holding what was downloaded for one message, which are

@@ -16,7 +16,9 @@ The full list. The [README](../README.md) carries a shorter one.
   See [Configuration](DOCUMENTATION.md#gnome-online-accounts). Pausing an account's Mail
   service in GNOME Settings pauses it here.
 - **On This Computer:** folders kept on this computer, not on a server, for
-  an archive of mail moved in from any account. Stored as Maildir, the
+  an archive of mail moved or copied in from any account, copied
+  automatically from an account that asks for it, or imported from
+  Evolution's local folders, Dovecot or mbox files. Stored as Maildir, the
   layout Dovecot uses. See [Configuration](DOCUMENTATION.md#on-this-computer).
 - **Per-alias SMTP:** each address on an account can send through its own
   server and credentials.
@@ -40,7 +42,8 @@ The full list. The [README](../README.md) carries a shorter one.
   conversation, and an expanded conversation shows your replies from Sent
   and its archived messages alongside the folder's own.
 - **Moving mail between accounts:** Move To lists every account's folders,
-  and mail dragged onto another account's folder goes there too.
+  and mail dragged onto another account's folder goes there too. Copy To
+  stores a copy anywhere and leaves the original.
 - **Full folder management:** create, rename, move, reorder and delete
   folders, assign the special roles (Drafts, Sent, Junk, Trash, Archive),
   and hide the ones you never open. An Exchange server's calendar, contacts

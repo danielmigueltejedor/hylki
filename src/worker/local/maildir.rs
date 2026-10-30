@@ -55,8 +55,9 @@ struct FolderIndex {
 pub(super) struct Maildir {
     root: PathBuf,
     folders: HashMap<String, FolderIndex>,
-    /// Files delivered this session, for unique names within a second.
-    delivered: u32,
+    /// Uid files are written when this is lifted, not at each message: a
+    /// batch of moves or an import rewrote a large folder's file each time.
+    holding: bool,
 }
 
 impl Maildir {
@@ -65,7 +66,7 @@ impl Maildir {
         let md = Maildir {
             root,
             folders: HashMap::new(),
-            delivered: 0,
+            holding: false,
         };
         md.make_folder_dirs(INBOX)?;
         md.make_folder_dirs("Trash")?;
@@ -78,19 +79,11 @@ impl Maildir {
 
     /// The directory of the folder at `path` (`/` between levels).
     fn dir(&self, path: &str) -> PathBuf {
-        if path == INBOX {
-            return self.root.clone();
-        }
-        let name: Vec<String> = path.split('/').map(encode_name).collect();
-        self.root.join(format!(".{}", name.join(".")))
+        folder_dir(&self.root, path)
     }
 
     fn make_folder_dirs(&self, path: &str) -> std::io::Result<()> {
-        let dir = self.dir(path);
-        for sub in ["cur", "new", "tmp"] {
-            std::fs::create_dir_all(dir.join(sub))?;
-        }
-        Ok(())
+        make_folder_dirs(&self.root, path)
     }
 
     /// Every folder's path, the Inbox first.
@@ -299,17 +292,8 @@ impl Maildir {
         // Read before the file lands, or the reading would number it too.
         self.index(path)?;
         let dir = self.dir(path);
-        let unique = self.unique_name();
-        let tmp = dir.join("tmp").join(&unique);
-        {
-            let mut f = std::fs::File::create(&tmp)?;
-            f.write_all(raw)?;
-            f.sync_all()?;
-        }
         let letters = keyword_letters(&dir, keywords, true);
-        let name = file_name(&unique, flags, &letters);
-        std::fs::rename(&tmp, dir.join("cur").join(&name))?;
-        sync_dir(&dir.join("cur"));
+        let name = write_message(&dir, raw, &format!("{flags}{letters}"))?;
         let index = self.index(path)?;
         let uid = index.next_uid.max(1);
         index.next_uid = uid + 1;
@@ -421,6 +405,30 @@ impl Maildir {
         Ok(())
     }
 
+    /// The messages that came into the folder before `cutoff` (a Unix
+    /// time): a file's change time is when it was last delivered or moved,
+    /// which is how long it has been in the folder.
+    pub(super) fn older_than(&mut self, path: &str, cutoff: i64) -> Vec<u32> {
+        use std::os::unix::fs::MetadataExt;
+        if self.scan(path).is_err() {
+            return Vec::new();
+        }
+        let cur = self.dir(path).join("cur");
+        self.folders
+            .get(path)
+            .map(|index| {
+                index
+                    .files
+                    .iter()
+                    .filter(|(_, name)| {
+                        std::fs::metadata(cur.join(name.as_str())).is_ok_and(|m| m.ctime() < cutoff)
+                    })
+                    .map(|(uid, _)| *uid)
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+
     /// How many messages the folder holds, and how many of them are
     /// unread, from the file names alone.
     pub(super) fn counts(&self, path: &str) -> (u32, u32) {
@@ -446,8 +454,28 @@ impl Maildir {
         (total, unread)
     }
 
+    /// Hold the uid files back while `hold`, for a batch; lifting it
+    /// writes every one that changed.
+    pub(super) fn hold_uid_files(&mut self, hold: bool) {
+        self.holding = hold;
+        if !hold {
+            let dirty: Vec<String> = self
+                .folders
+                .iter()
+                .filter(|(_, i)| i.dirty)
+                .map(|(p, _)| p.clone())
+                .collect();
+            for path in dirty {
+                self.flush_folder(&path);
+            }
+        }
+    }
+
     /// Write the folder's uid file if numbers were given since.
     fn flush_folder(&mut self, path: &str) {
+        if self.holding {
+            return;
+        }
         let dir = self.dir(path);
         let Some(index) = self.folders.get_mut(path).filter(|i| i.dirty) else {
             return;
@@ -461,23 +489,81 @@ impl Maildir {
             Err(e) => tracing::warn!("local mail: could not write the uid file of {path}: {e}"),
         }
     }
+}
 
-    /// A name no other file in the tree has: Maildir's time, process and
-    /// count, and the host.
-    fn unique_name(&mut self) -> String {
-        self.delivered += 1;
-        let now = std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .unwrap_or_default();
-        let host = hostname().replace(['/', ':'], "_");
-        format!(
-            "{}.M{}P{}Q{}.{host}",
-            now.as_secs(),
-            now.subsec_micros(),
-            std::process::id(),
-            self.delivered
-        )
+/// The directory of the folder at `path` (`/` between levels) in the tree
+/// at `root`.
+fn folder_dir(root: &Path, path: &str) -> PathBuf {
+    if path == INBOX {
+        return root.to_path_buf();
     }
+    let name: Vec<String> = path.split('/').map(encode_name).collect();
+    root.join(format!(".{}", name.join(".")))
+}
+
+fn make_folder_dirs(root: &Path, path: &str) -> std::io::Result<()> {
+    let dir = folder_dir(root, path);
+    for sub in ["cur", "new", "tmp"] {
+        std::fs::create_dir_all(dir.join(sub))?;
+    }
+    Ok(())
+}
+
+/// Write a message into the folder at `dir`: in full under `tmp`, synced,
+/// then renamed into `cur` with `flags` (letters in any order). Returns
+/// the file's name.
+fn write_message(dir: &Path, raw: &[u8], flags: &str) -> std::io::Result<String> {
+    let unique = unique_name();
+    let tmp = dir.join("tmp").join(&unique);
+    {
+        let mut f = std::fs::File::create(&tmp)?;
+        f.write_all(raw)?;
+        f.sync_all()?;
+    }
+    let name = file_name(&unique, flags, "");
+    std::fs::rename(&tmp, dir.join("cur").join(&name))?;
+    sync_dir(&dir.join("cur"));
+    Ok(name)
+}
+
+/// Store a message in the tree at `root` from outside its worker, as any
+/// Maildir delivery does: the worker numbers it the next time it reads the
+/// folder. The folder at `path`, and every one above it, are made if
+/// missing.
+pub(in crate::worker) fn deliver_into(
+    root: &Path,
+    path: &str,
+    raw: &[u8],
+    flags: &str,
+) -> std::io::Result<()> {
+    let mut above = String::new();
+    for level in path.split('/') {
+        if !above.is_empty() {
+            above.push('/');
+        }
+        above.push_str(level);
+        make_folder_dirs(root, &above)?;
+    }
+    write_message(&folder_dir(root, path), raw, flags).map(|_| ())
+}
+
+/// A name no other file in the tree has: Maildir's time, process and
+/// count, and the host. The count is the process's, as every account's
+/// worker may deliver.
+fn unique_name() -> String {
+    use std::sync::atomic::{AtomicU32, Ordering};
+    static DELIVERED: AtomicU32 = AtomicU32::new(0);
+    let n = DELIVERED.fetch_add(1, Ordering::Relaxed) + 1;
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap_or_default();
+    let host = hostname().replace(['/', ':'], "_");
+    format!(
+        "{}.M{}P{}Q{n}.{host}",
+        now.as_secs(),
+        now.subsec_micros(),
+        std::process::id(),
+    )
 }
 
 /// A folder path the tree can hold: no empty level, nothing hidden.
@@ -495,7 +581,7 @@ fn encode_name(name: &str) -> String {
     name.replace('_', "_5F").replace('.', "_2E")
 }
 
-fn decode_name(name: &str) -> String {
+pub(super) fn decode_name(name: &str) -> String {
     let mut out = String::with_capacity(name.len());
     let mut rest = name;
     while let Some(i) = rest.find('_') {
@@ -522,7 +608,7 @@ fn unique_of(name: &str) -> &str {
 }
 
 /// A file name's unique part and its flags.
-fn split_name(name: &str) -> (&str, &str) {
+pub(super) fn split_name(name: &str) -> (&str, &str) {
     match name.split_once(":2,") {
         Some((unique, flags)) => (unique, flags),
         None => (name.split(':').next().unwrap_or(name), ""),
@@ -560,7 +646,7 @@ fn entry(uid: u32, name: &str, letters: &BTreeMap<char, String>) -> Entry {
 }
 
 /// The tags a file name's lower case letters stand for.
-fn keywords_of(flags: &str, letters: &BTreeMap<char, String>) -> Vec<String> {
+pub(super) fn keywords_of(flags: &str, letters: &BTreeMap<char, String>) -> Vec<String> {
     flags
         .chars()
         .filter_map(|c| letters.get(&c).cloned())
@@ -589,7 +675,7 @@ fn read_uids(dir: &Path) -> (Vec<(u32, String)>, u32) {
 }
 
 /// A folder's tag letters: `a` for the tag numbered 0, and so on.
-fn read_keywords(dir: &Path) -> BTreeMap<char, String> {
+pub(super) fn read_keywords(dir: &Path) -> BTreeMap<char, String> {
     let Ok(text) = std::fs::read_to_string(dir.join(KEYWORDS_FILE)) else {
         return BTreeMap::new();
     };

@@ -111,6 +111,15 @@ CREATE TABLE label_fill (
     PRIMARY KEY (account_id, folder_path)
 )
 
+table local_copies
+CREATE TABLE local_copies (
+    account_id  INTEGER NOT NULL,
+    message_id  TEXT    NOT NULL,
+    folder_path TEXT    NOT NULL,
+    uid         INTEGER NOT NULL,
+    PRIMARY KEY (account_id, message_id, folder_path, uid)
+)
+
 table local_tags
 CREATE TABLE local_tags (
     account_id  INTEGER NOT NULL,
@@ -213,6 +222,9 @@ index sqlite_autoindex_folders_1
 
 
 index sqlite_autoindex_label_fill_1
+
+
+index sqlite_autoindex_local_copies_1
 
 
 index sqlite_autoindex_local_tags_1

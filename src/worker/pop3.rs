@@ -325,6 +325,8 @@ impl<E: Fn(WorkerEvent)> Pop3Worker<E> {
                 emit(WorkerEvent::Folders(pop3_folders(account_id)));
             }
 
+            // Only On This Computer imports mail (#552).
+            MailRequest::ImportMail { .. } => {}
             MailRequest::Settle { path, uids } => emit(WorkerEvent::MovesSettled { path, uids }),
 
             MailRequest::ExportRaw { token, uid, .. } => {

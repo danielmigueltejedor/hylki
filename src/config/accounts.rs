@@ -342,6 +342,10 @@ pub(crate) struct AccountConfig {
     /// Whether that mail's attachments are kept too.
     #[serde(default, skip_serializing_if = "is_false")]
     pub(crate) offline_attachments: bool,
+    /// Every message is copied to On This Computer too (#552), into a
+    /// folder named after the account.
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub(crate) copy_to_local: bool,
     /// The OpenPGP key (fingerprint) that signs mail from this account and
     /// opens what is encrypted to it (#133); `None` = the key whose address
     /// matches.
@@ -615,6 +619,7 @@ pub(crate) fn blank_account() -> AccountConfig {
         clean_lists_days: 0,
         offline_mail: Default::default(),
         offline_attachments: false,
+        copy_to_local: false,
         pgp_key: None,
         in_unified: true,
         folder_sort: None,

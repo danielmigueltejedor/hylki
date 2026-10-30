@@ -4,15 +4,32 @@
 
 - **Added: On This Computer, folders kept on this computer** (#552).
   **Settings → Accounts → On This Computer → Add** adds an account with no
-  server, as Evolution has, for an archive of mail moved in from any other
-  account with **Move To** or by dragging it onto one of its folders. It
-  starts with an Inbox and a Trash, and folders are made, renamed and deleted
-  as on any account. Nothing is sent from it: a reply to mail filed there is
-  sent from the account the mail was addressed to. Every message is rendered
-  into the cache in the background, so search covers all of it, and it stays
-  out of All Inboxes until switched on. The mail is a Maildir++ tree in
-  `~/.local/share/hylki/local-mail/`, the layout Dovecot uses, with tags in
-  `dovecot-keywords`, so a tree from Dovecot can be copied in.
+  server, as Evolution has, for an archive of mail moved or copied in from
+  any other account with **Move To**, **Copy To** or by dragging it onto one
+  of its folders. It starts with an Inbox and a Trash, and folders are made,
+  renamed and deleted as on any account. Nothing is sent from it: a reply to
+  mail filed there is sent from the account the mail was addressed to. Every
+  message is rendered into the cache in the background, so search covers
+  all of it, and it stays out of All Inboxes until switched on. Its Junk and
+  Trash can be emptied automatically, counting from when mail was moved in.
+  The mail is a Maildir++ tree in `~/.local/share/hylki/local-mail/`, the
+  layout Dovecot uses, with tags in `dovecot-keywords`.
+
+- **Added: Copy To** (#552). A message's right-click menu, in the list and
+  in the reader, has **Copy To…**, which stores the message again in a folder
+  of the same account or of another one and leaves the original.
+
+- **Added: copying an account's mail to On This Computer** (#552).
+  **Settings → Accounts → the account → Syncing → Copy mail to On This
+  Computer** downloads the account's mail in the background and copies every
+  message into a folder named after the account, leaving out Trash, Junk and
+  Drafts. Mail deleted or moved on the server stays in the copy, and a
+  message is copied once, wherever it moves.
+
+- **Added: importing mail into On This Computer** (#552). **Import** in its
+  settings takes a Maildir tree, such as Evolution's own local folders or
+  Dovecot's, or mbox files, such as Thunderbird's, with their read, starred
+  and replied state. Mail its folder already holds is not imported again.
 
 - **Added: grammar and style checking in the composer** (#452, requested by
   warpedwood). **Settings → Composing → Check grammar and style** checks what

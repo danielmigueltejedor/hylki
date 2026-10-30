@@ -18,6 +18,7 @@ use crate::cache::Cache;
 use crate::config::{AccountConfig, OfflineMail};
 use crate::i18n::{i18n, i18n_f};
 use crate::models::{Folder, FolderKind, Message};
+use crate::worker::chores::{auto_empty_due, auto_empty_roles, role_folder_path};
 use crate::worker::folders::{
     chip_count_of, chip_counts_all, classify_with_source, number_folders, snoozed_counts,
 };
@@ -25,7 +26,9 @@ use crate::worker::index_queue::index_pause;
 use crate::worker::offline::{keep, Offline};
 use crate::worker::{summary_from_raw, MailRequest, WorkerEvent};
 
+pub(super) mod copy;
 mod handle;
+mod import;
 mod maildir;
 mod ops;
 
@@ -52,6 +55,10 @@ struct LocalWorker<E> {
     /// reads them before it renders anything, so search finds mail in a
     /// folder never opened.
     unread_folders: Vec<String>,
+    /// When Junk and Trash were last emptied of old mail.
+    last_auto_empty: Option<std::time::Instant>,
+    /// Mail being imported from another program's folders.
+    import: import::Import,
 }
 
 /// Run the On This Computer account until the UI drops its sender.
@@ -87,11 +94,21 @@ pub(super) async fn run_local(
     let mut worker = LocalWorker::new(account_id, account, store, cache, emit);
     loop {
         let indexing = worker.cache.is_some();
-        let wait = worker.offline.wait();
+        // A folder to read goes at once; the rendering keeps its pauses.
+        let wait = if worker.unread_folders.is_empty() {
+            worker.offline.wait()
+        } else {
+            None
+        };
+        let importing = !worker.import.is_empty();
         let req = tokio::select! {
             biased;
             req = rx.recv() => req,
-            _ = index_pause(wait), if indexing => {
+            () = async {}, if importing => {
+                worker.import_step();
+                continue;
+            }
+            _ = index_pause(wait), if indexing && !importing => {
                 worker.index_step();
                 continue;
             }
@@ -155,6 +172,8 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
             offline: Offline::default(),
             folders: Vec::new(),
             unread_folders: Vec::new(),
+            last_auto_empty: None,
+            import: import::Import::default(),
         };
         worker.refresh_folders();
         worker.unread_folders = worker.folders.iter().map(|f| f.path.clone()).collect();
@@ -320,14 +339,52 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
         (self.emit)(WorkerEvent::FolderSynced { folder_id });
     }
 
-    /// The unread counts again, from the file names.
+    /// The unread counts again, from the file names. A folder holding
+    /// another number of files than the cache knows (mail copied in from
+    /// another account, #552, or put there by hand) is read again in the
+    /// background.
     fn on_refresh_unread(&mut self) {
+        self.auto_empty();
         self.refresh_folders();
         for f in &self.folders {
             (self.emit)(WorkerEvent::FolderUnread {
                 folder_id: f.id,
                 unread: f.unread,
             });
+        }
+        let Some(c) = self.cache.as_ref() else {
+            return;
+        };
+        for f in &self.folders {
+            let on_disk = self.store.counts(&f.path).0 as usize;
+            if on_disk != c.count_messages(self.account_id, &f.path)
+                && !self.unread_folders.contains(&f.path)
+            {
+                self.unread_folders.push(f.path.clone());
+            }
+        }
+    }
+
+    /// Delete what has been in Junk or Trash longer than the account's
+    /// choice (#140), counted from when it was moved there.
+    fn auto_empty(&mut self) {
+        if !auto_empty_due(&self.account, &mut self.last_auto_empty) {
+            return;
+        }
+        for (kind, role, days) in auto_empty_roles(&self.account) {
+            let Some(path) = role_folder_path(&self.account, &self.folders, kind, role) else {
+                continue;
+            };
+            let cutoff = crate::datefmt::now() - i64::from(days) * 86_400;
+            let uids = self.store.older_than(&path, cutoff);
+            if uids.is_empty() {
+                continue;
+            }
+            self.on_purge(&path, &uids);
+            tracing::info!(
+                "auto-empty: deleted {} message(s) older than {days} days from {path} on this computer",
+                uids.len()
+            );
         }
     }
 

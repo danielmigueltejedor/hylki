@@ -120,10 +120,15 @@ impl AccountsWindow {
             _ => self.accounts.push(account.clone()),
         }
         self.rebuild_account_list(&widgets.accounts.accounts_list, &sender);
+        let wants_local = account.copy_to_local;
         let _ = sender.output(AccountsOutput::Saved {
             original_email,
             account: Box::new(account),
         });
+        // Copying to On This Computer (#552) adds it when there is none.
+        if wants_local {
+            self.on_add_local(widgets, sender.clone());
+        }
         widgets.nav.pop();
     }
 
@@ -284,6 +289,8 @@ fn keep_from_original(account: &mut AccountConfig, orig: &AccountConfig) {
         kept.avatar = account.avatar.clone();
         kept.gravatar = account.gravatar;
         kept.in_unified = account.in_unified;
+        kept.empty_junk_days = account.empty_junk_days;
+        kept.empty_trash_days = account.empty_trash_days;
         kept.folder_sort = account.folder_sort;
         kept.folder_roles = account.folder_roles.clone();
         kept.hidden_folders = account.hidden_folders.clone();

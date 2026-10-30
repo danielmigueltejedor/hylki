@@ -1165,6 +1165,12 @@ pub(crate) enum AppMsg {
     ImportGoaAccount(Box<AccountConfig>),
     /// An account was removed in Settings: its secrets and its config go.
     AccountRemoved { email: String },
+    /// Import mail from another program into On This Computer (#552):
+    /// Maildir trees, or with `mbox`, mbox files.
+    ImportLocalMail {
+        sources: Vec<std::path::PathBuf>,
+        mbox: bool,
+    },
     /// GNOME Online Accounts changed on the session bus. Carries the fresh live
     /// state, already fetched (debounced) on the watcher thread so the GTK main
     /// thread never does D-Bus I/O — re-reconcile against it.
@@ -1259,6 +1265,20 @@ pub(crate) enum AppMsg {
     },
     /// That picker's answer.
     MoveMessagesTo {
+        account_id: u32,
+        dest: String,
+        messages: Vec<Message>,
+    },
+    /// Copy To… (#552): the folder picker for copying `messages`, as
+    /// [`AppMsg::ListMoveTo`] opens it for a move.
+    ListCopyTo {
+        messages: Vec<Message>,
+        offer_whole: bool,
+        x: f64,
+        y: f64,
+    },
+    /// That picker's answer.
+    CopyMessagesTo {
         account_id: u32,
         dest: String,
         messages: Vec<Message>,

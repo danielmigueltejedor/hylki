@@ -222,6 +222,13 @@ pub(crate) enum MailRequest {
         seen: bool,
         flagged: bool,
     },
+    /// Import mail from another program into On This Computer (#552):
+    /// Maildir trees, or with `mbox`, mbox files. Only that account's
+    /// worker answers it.
+    ImportMail {
+        sources: Vec<std::path::PathBuf>,
+        mbox: bool,
+    },
     /// Take one attachment out of a message on the server (#289), found by
     /// its name and, among files sharing the name, its decoded size.
     /// IMAP and JMAP store a copy without it and delete the original, so

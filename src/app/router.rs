@@ -347,6 +347,7 @@ impl AppModel {
             | AppMsg::ApplyWelcomePrefs(..)
             | AppMsg::ImportGoaAccount(..)
             | AppMsg::AccountRemoved { .. }
+            | AppMsg::ImportLocalMail { .. }
             | AppMsg::GoaChanged(..)
             | AppMsg::SetAccount(..)) => self.on_accounts(msg, sender),
             msg @ (AppMsg::OpenConsole | AppMsg::ExportLogTo(..)) => self.on_diagnostics(msg),
@@ -371,6 +372,8 @@ impl AppModel {
             | AppMsg::MoveToMenu
             | AppMsg::ListMoveTo { .. }
             | AppMsg::MoveMessagesTo { .. }
+            | AppMsg::ListCopyTo { .. }
+            | AppMsg::CopyMessagesTo { .. }
             | AppMsg::MoveSelectionTo { .. }) => self.on_move_tag(msg, sender),
             msg @ (AppMsg::ReaderTagMenu | AppMsg::CardMenu { .. }) => {
                 self.on_card_menu(msg, sender)

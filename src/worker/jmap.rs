@@ -373,6 +373,8 @@ impl<E: Fn(WorkerEvent)> JmapWorker<E> {
             MailRequest::FlushOutbox { id } => self.on_flush_outbox(id).await,
             MailRequest::RefreshUnread => self.on_refresh_unread().await,
             MailRequest::Reconnect => self.on_reconnect().await,
+            // Only On This Computer imports mail (#552).
+            MailRequest::ImportMail { .. } => {}
             MailRequest::Settle { path, uids } => emit(WorkerEvent::MovesSettled { path, uids }),
             MailRequest::ExportRaw {
                 token, path, uid, ..

@@ -176,6 +176,7 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
                 seen,
                 flagged,
             } => self.on_import_raw(token, path, raw, seen, flagged),
+            MailRequest::ImportMail { sources, mbox } => self.on_import(sources, mbox),
             MailRequest::DeleteAttachment {
                 message_id,
                 path,

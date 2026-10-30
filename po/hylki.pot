@@ -78,6 +78,9 @@ msgstr ""
 msgid "Could not import account: {e}"
 msgstr ""
 
+msgid "On This Computer is switched off"
+msgstr ""
+
 msgid "Delete the attachment from the server?"
 msgstr ""
 
@@ -183,6 +186,9 @@ msgid "Mark as Spam"
 msgstr ""
 
 msgid "Move To…"
+msgstr ""
+
+msgid "Copy To…"
 msgstr ""
 
 msgid "Archive"
@@ -1243,8 +1249,18 @@ msgstr ""
 msgid "Snooze until"
 msgstr ""
 
+msgid "One message could not be copied to {account}: {error}"
+msgid_plural "{n} messages could not be copied to {account}: {error}"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "One message could not be moved to {account}: {error}"
 msgid_plural "{n} messages could not be moved to {account}: {error}"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Copying one message to {account}…"
+msgid_plural "Copying {n} messages to {account}…"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -2258,6 +2274,12 @@ msgstr ""
 msgid "Port (IMAP 993 / POP3 995)"
 msgstr ""
 
+msgid "Import Mbox Files"
+msgstr ""
+
+msgid "Import Maildir Folders"
+msgstr ""
+
 msgid "Signed in as {address}, not {email}."
 msgstr ""
 
@@ -2310,8 +2332,8 @@ msgid "Add Account…"
 msgstr ""
 
 msgid ""
-"Folders on this computer, not on a server, for mail moved here from any "
-"account."
+"Store mail in folders that live on this computer. Move or copy mail from any "
+"account to here."
 msgstr ""
 
 msgid "Add"
@@ -6333,6 +6355,12 @@ msgstr ""
 msgid "Mail is not sent from On This Computer: choose another From address"
 msgstr ""
 
+msgid "Could not import {path}: {e}"
+msgstr ""
+
+msgid "Importing {done} of {total} messages…"
+msgstr ""
+
 msgid "A folder by that name already exists"
 msgstr ""
 
@@ -6650,6 +6678,30 @@ msgid "Include attachments"
 msgstr ""
 
 msgid "Can consume a lot of hard drive space."
+msgstr ""
+
+msgid "Copy mail to On This Computer"
+msgstr ""
+
+msgid "Into a folder named after this account. Mail deleted here stays there."
+msgstr ""
+
+msgid "Import"
+msgstr ""
+
+msgid "Mail already here is not imported again."
+msgstr ""
+
+msgid "Maildir folders"
+msgstr ""
+
+msgid "Evolution's On This Computer, Dovecot and other Maildir trees."
+msgstr ""
+
+msgid "Mbox files"
+msgstr ""
+
+msgid "Thunderbird's folders and other mbox files."
 msgstr ""
 
 msgid "Microsoft 365"

@@ -318,14 +318,23 @@ IMAP and JMAP accounts can receive mail this way, and so can
 can be moved from but not into: Microsoft files a message added to a folder
 as a draft, and POP3 has only an inbox.
 
+### Copying mail to another folder
+
+**Copy To…**, in a message's right-click menu in the list and in the
+reader, opens the same picker as Move To. The message is stored again in
+the folder picked, with its read and starred state, and the original stays
+where it is. It works within an account and across accounts, into any
+folder of an account that can receive mail (see above), and a copy is not
+undone with Ctrl+Z.
+
 ### On This Computer
 
 **Settings → Accounts → On This Computer → Add** adds folders kept on this
 computer rather than on a server, as Evolution's account of the same name
 does. It starts with an Inbox and a Trash. Folders are made, renamed and
-deleted as on any account, and mail comes in by being moved there from
-another account with **Move To** or by dragging it onto one of its folders
-(see [Moving mail to another account](#moving-mail-to-another-account)).
+deleted as on any account, and mail comes in by being moved or copied there
+from another account with **Move To** or **Copy To**, or by dragging it onto
+one of its folders (see [Moving mail to another account](#moving-mail-to-another-account)).
 Moving mail to a folder it does not have yet, such as Archive or Snoozed,
 makes the folder.
 
@@ -337,18 +346,51 @@ answers and unsubscribe mail for its messages go out the same way.
 Every message is rendered into the cache in the background, so a search
 covers the whole archive, and clearing downloaded mail in **Settings →
 System** leaves it alone. It is not in All Inboxes until
-**Show in All Inboxes** is switched on.
+**Show in All Inboxes** is switched on. **Empty Junk automatically** and
+**Empty Trash automatically** count the days from when a message was moved
+into the folder.
+
+#### Copying an account's mail automatically
+
+**Settings → Accounts → the account → Syncing → Copy mail to On This
+Computer** copies every message of the account into a folder named after it,
+with the account's folders inside: Inbox, Sent and the rest. The account
+downloads its mail in the background to do it, as **Keep mail offline**
+does, and leaves out Trash, Junk and Drafts. What is deleted or moved on the
+server afterwards stays in the copy as it was, and a message moved to
+another folder on the server is not copied again. Switching the setting on
+adds On This Computer when there is none. Which messages are copied is
+listed in `hylki-copied/` beside the folders.
+
+#### Importing from another program
+
+**Settings → Accounts → On This Computer → Import** takes mail from
+another program's folders:
+
+- **Maildir folders**: a Maildir tree, such as Evolution's own On This
+  Computer folders in `~/.local/share/evolution/mail/local/` (where the
+  picker opens when they are there) or Dovecot's. The tree's Inbox goes to
+  the Inbox and every other folder to the folder of the same name, with its
+  read, starred and replied state and Dovecot's tags.
+- **Mbox files**: one or more mbox files, such as Thunderbird's, each into a
+  folder named after the file. Thunderbird's `Name.sbd` directories become
+  the folders above it, and its read, starred, replied and forwarded marks
+  are kept. A message the file marks as deleted is left out.
+
+A message whose Message-ID its folder already holds is left out, so an
+import run twice adds nothing. The status bar counts the import as it goes,
+and the folders appear when it is done.
+
+#### Where the mail is kept
 
 The folders are a Maildir++ tree in `~/.local/share/hylki/local-mail/`
 (`~/.var/app/co.hyprlab.Hylki/data/hylki/local-mail/` in the Flatpak): the
 Inbox at the top, every other folder a `.Name` directory beside it, a
 sub-folder `.Parent.Child`. Each message is one file, read, starred and
 replied to are letters in its name, and tags are listed in
-`dovecot-keywords`, as Dovecot keeps them. A Maildir++ tree from Dovecot
-can be copied in while Hylki is closed, and
-messages dropped into a folder's `new` directory are found when the folder
-opens. Removing the account leaves the folders where they are, and adding
-it again finds them.
+`dovecot-keywords`, as Dovecot keeps them. Messages dropped into a folder's
+`new` directory are found when the folder opens. Removing the account leaves
+the folders where they are, and adding it again finds them.
 
 ### Deleting an attachment from the server
 

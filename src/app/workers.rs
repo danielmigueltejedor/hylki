@@ -491,12 +491,16 @@ impl AppModel {
             }
         } else {
             self.claim_cached_accounts();
+            // Copying to On This Computer (#552) needs it there, and on.
+            let local = self.config.iter().any(|c| c.is_local() && c.enabled);
             for (i, account) in self.config.iter().enumerate() {
                 if !account.enabled {
                     continue;
                 }
                 let account_id = i as u32 + 1;
-                let worker = Self::spawn_worker(account_id, Some(account.clone()), sender);
+                let mut account = account.clone();
+                account.copy_to_local &= local;
+                let worker = Self::spawn_worker(account_id, Some(account), sender);
                 self.workers.insert(account_id, worker);
                 // Anything left queued by a previous run has to show up now, not
                 // only after the next failed send.

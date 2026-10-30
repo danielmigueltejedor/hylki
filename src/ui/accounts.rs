@@ -363,6 +363,9 @@ impl Component for AccountsWindow {
             AccountsInput::SearchSenders(text) => self.on_search_senders(text),
             AccountsInput::AddAccount => self.on_add_account(widgets, sender),
             AccountsInput::AddLocal => self.on_add_local(widgets, sender),
+            AccountsInput::ImportLocal(mbox) => {
+                super::accounts::local::pick_import(mbox, &sender, root)
+            }
             AccountsInput::EditAccountByEmail(email) => {
                 self.on_edit_account_by_email(email, widgets, sender)
             }

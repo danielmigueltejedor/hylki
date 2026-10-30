@@ -304,6 +304,8 @@ pub(super) async fn run_mock(
                 autosave,
                 message_id: None,
             }),
+            // Only On This Computer imports mail (#552).
+            MailRequest::ImportMail { .. } => {}
             MailRequest::Settle { path, uids } => emit(WorkerEvent::MovesSettled { path, uids }),
             MailRequest::ExportRaw { token, uid, .. } => emit(WorkerEvent::RawExported {
                 token,

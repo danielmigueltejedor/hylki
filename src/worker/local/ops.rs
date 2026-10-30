@@ -93,6 +93,7 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
         let made = self.folder(dest).is_none();
         let mut moved = 0;
         let mut first_error = None;
+        self.store.hold_uid_files(true);
         for &uid in uids {
             let new_uid = match self.store.move_to(path, uid, dest) {
                 Ok(new_uid) => new_uid,
@@ -112,6 +113,7 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
             }
             moved += 1;
         }
+        self.store.hold_uid_files(false);
         if made {
             self.refresh_folders();
         }
