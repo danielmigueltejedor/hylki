@@ -331,7 +331,9 @@ undone with Ctrl+Z.
 
 **Settings → Accounts → On This Computer → Add** adds folders kept on this
 computer rather than on a server, as Evolution's account of the same name
-does. It starts with an Inbox and a Trash. Folders are made, renamed and
+does. It starts with a Trash, and an Inbox that is shown only while it
+holds mail, as mail copied from an account goes to a folder named after
+the account. Folders are made, renamed and
 deleted as on any account, and mail comes in by being moved or copied there
 from another account with **Move To** or **Copy To**, or by dragging it onto
 one of its folders (see [Moving mail to another account](#moving-mail-to-another-account)).

@@ -228,8 +228,17 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
             *total = all;
             f.unread = if chip_counts_all(f.kind) { all } else { unseen };
         }
-        list.retain(|(f, _)| {
-            !crate::models::folder_is_hidden(&f.path, Some("/"), &self.account.hidden_folders)
+        // The Inbox is the tree's top, which Maildir always has, but mail
+        // copied from other accounts goes to folders of their own, so an
+        // empty one only takes room. It shows again once something is in
+        // it. Numbered with the rest first, so the others keep their ids.
+        list.retain(|(f, total)| {
+            !(f.path == INBOX && *total == 0)
+                && !crate::models::folder_is_hidden(
+                    &f.path,
+                    Some("/"),
+                    &self.account.hidden_folders,
+                )
         });
         let snoozed = snoozed_counts(&list, |(f, total)| (f, *total));
         let folders: Vec<Folder> = list.into_iter().map(|(f, _)| f).collect();

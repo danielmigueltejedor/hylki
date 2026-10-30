@@ -6,7 +6,8 @@
   **Settings → Accounts → On This Computer → Add** adds an account with no
   server, as Evolution has, for an archive of mail moved or copied in from
   any other account with **Move To**, **Copy To** or by dragging it onto one
-  of its folders. It starts with an Inbox and a Trash, and folders are made,
+  of its folders. It starts with a Trash, and its Inbox is shown only while
+  it holds mail. Folders are made,
   renamed and deleted as on any account. Nothing is sent from it: a reply to
   mail filed there is sent from the account the mail was addressed to. Every
   message is rendered into the cache in the background, so search covers

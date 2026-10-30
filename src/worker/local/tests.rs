@@ -64,20 +64,28 @@ fn last_list(events: &Events, folder_id: u32) -> Vec<Message> {
         .unwrap_or_default()
 }
 
+/// A new account shows its Trash; its Inbox, empty, stays out of sight
+/// until mail is put in it, and the Trash keeps its id either way.
 #[test]
-fn a_new_account_lists_an_inbox_and_a_trash() {
+fn an_empty_inbox_is_not_listed() {
     let dir = Scratch::new();
-    let (w, events) = worker(&dir);
-    let kinds: Vec<(String, FolderKind)> =
-        w.folders.iter().map(|f| (f.path.clone(), f.kind)).collect();
+    let (mut w, events) = worker(&dir);
+    let kinds = |w: &LocalWorker<_>| -> Vec<(String, FolderKind, u32)> {
+        w.folders
+            .iter()
+            .map(|f| (f.path.clone(), f.kind, f.id))
+            .collect()
+    };
+    assert_eq!(kinds(&w), [("Trash".to_string(), FolderKind::Trash, 2)]);
+    assert!(matches!(events.borrow()[0], WorkerEvent::Folders(_)));
+    import(&mut w, INBOX, false);
     assert_eq!(
-        kinds,
+        kinds(&w),
         [
-            ("INBOX".to_string(), FolderKind::Inbox),
-            ("Trash".to_string(), FolderKind::Trash)
+            ("INBOX".to_string(), FolderKind::Inbox, 1),
+            ("Trash".to_string(), FolderKind::Trash, 2)
         ]
     );
-    assert!(matches!(events.borrow()[0], WorkerEvent::Folders(_)));
 }
 
 #[test]
