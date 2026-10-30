@@ -195,7 +195,9 @@ impl Sidebar {
             email.set_ellipsize(gtk::pango::EllipsizeMode::End);
             email.add_css_class("account-email");
             vbox.append(&name);
-            vbox.append(&email);
+            if !section.account.is_local() {
+                vbox.append(&email);
+            }
             hbox.append(&vbox);
             if self.chevrons_left {
                 chevron.set_pixel_size(15);

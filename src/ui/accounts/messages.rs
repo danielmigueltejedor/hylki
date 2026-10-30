@@ -51,6 +51,8 @@ pub(crate) enum AccountsInput {
     /// The app's live folder lists per account email (for Special Folders).
     SetFolderChoices(std::collections::HashMap<String, Vec<(String, String)>>),
     AddAccount,
+    /// Add the On This Computer account (#552).
+    AddLocal,
     EditAccount(usize),
     /// Open the editor for the account with this address (the sidebar's
     /// "Account Settings…"), leaving another account's editor if one is up.

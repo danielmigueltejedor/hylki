@@ -177,7 +177,7 @@ impl AppModel {
             i18n("It means the message was shown on the recipient's screen, not that it was read or understood."),
         );
         let mut out = machine_message(
-            m.account_id,
+            self.sending_account(m),
             from_alias,
             request.to.clone(),
             subject,

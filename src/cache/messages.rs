@@ -574,6 +574,61 @@ impl Cache {
         copies.len()
     }
 
+    /// Move a message's rows to `dest` under `new_uid`. An On This Computer
+    /// account (#552) moves the file itself, and what was rendered of it
+    /// stays good, search index and all.
+    pub(crate) fn relocate_message(
+        &self,
+        account_id: u32,
+        folder_path: &str,
+        uid: u32,
+        dest: &str,
+        new_uid: u32,
+    ) {
+        for table in [
+            "messages",
+            "bodies",
+            "sender_checks",
+            "attachments",
+            "attachments_checked",
+            "attachment_meta",
+            "attachment_scan",
+        ] {
+            let _ = self.conn.execute(
+                &format!(
+                    "UPDATE OR REPLACE {table} SET folder_path = ?4, uid = ?5 \
+                     WHERE account_id = ?1 AND folder_path = ?2 AND uid = ?3"
+                ),
+                params![account_id, folder_path, uid, dest, new_uid],
+            );
+        }
+    }
+
+    /// Move the rows of folder `old` and of the folders below it to `new`,
+    /// as an On This Computer account (#552) renames them on disk, where
+    /// each message keeps its number.
+    pub(crate) fn rename_folder_rows(&self, account_id: u32, old: &str, new: &str) {
+        let len = old.chars().count() as i64;
+        for table in [
+            "messages",
+            "bodies",
+            "sender_checks",
+            "attachments",
+            "attachments_checked",
+            "attachment_meta",
+            "attachment_scan",
+        ] {
+            let _ = self.conn.execute(
+                &format!(
+                    "UPDATE OR REPLACE {table} SET folder_path = ?3 || substr(folder_path, ?4 + 1) \
+                     WHERE account_id = ?1 \
+                     AND (folder_path = ?2 OR substr(folder_path, 1, ?4 + 1) = ?2 || '/')"
+                ),
+                params![account_id, old, new, len],
+            );
+        }
+    }
+
     pub(crate) fn delete_message(&self, account_id: u32, folder_path: &str, uid: u32) {
         for table in ["messages", "bodies", "attachments", "attachments_checked"] {
             let _ = self.conn.execute(

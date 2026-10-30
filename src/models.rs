@@ -33,3 +33,11 @@ pub(crate) struct Account {
     /// Accent color used for the account dot, as a CSS color string.
     pub(crate) accent: String,
 }
+
+impl Account {
+    /// The On This Computer account (#552), whose `email` is a key and
+    /// no address to show.
+    pub(crate) fn is_local(&self) -> bool {
+        self.email == crate::config::LOCAL_ACCOUNT
+    }
+}

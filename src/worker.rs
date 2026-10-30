@@ -33,6 +33,7 @@ mod imap;
 mod index_queue;
 mod jmap;
 mod lane;
+mod local;
 mod mock;
 mod offline;
 mod outbox;
@@ -167,6 +168,9 @@ async fn run(
         }
         Some(account) if account.protocol == crate::config::Protocol::Jmap => {
             jmap::run_jmap(account_id, account, rx, emit).await
+        }
+        Some(account) if account.protocol == crate::config::Protocol::Local => {
+            local::run_local(account_id, account, rx, emit).await
         }
         Some(account) => run_imap(account_id, account, rx, emit).await,
         None => run_mock(account_id, rx, emit).await,

@@ -15,6 +15,9 @@ The full list. The [README](../README.md) carries a shorter one.
   Settings, IMAP and SMTP accounts and Microsoft 365 over Graph included.
   See [Configuration](DOCUMENTATION.md#gnome-online-accounts). Pausing an account's Mail
   service in GNOME Settings pauses it here.
+- **On This Computer:** folders kept on this computer, not on a server, for
+  an archive of mail moved in from any account. Stored as Maildir, the
+  layout Dovecot uses. See [Configuration](DOCUMENTATION.md#on-this-computer).
 - **Per-alias SMTP:** each address on an account can send through its own
   server and credentials.
 - **Any From address:** type a name and address for one message, such as a

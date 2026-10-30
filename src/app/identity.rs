@@ -45,11 +45,46 @@ impl AppModel {
             .unwrap_or_else(|| "#3584e4".to_string())
     }
 
+    /// The account that sends for `m`: its own, unless `m` is filed On This
+    /// Computer (#552), which sends nothing. Then it is the account the
+    /// message was addressed to, by its address or an alias, else the first
+    /// in the sidebar that sends.
+    pub(super) fn sending_account(&self, m: &crate::models::Message) -> u32 {
+        if !self
+            .saved_account_config(m.account_id)
+            .is_some_and(AccountConfig::is_local)
+        {
+            return m.account_id;
+        }
+        let to: Vec<String> = [&m.to, &m.cc]
+            .into_iter()
+            .flat_map(|f| crate::worker::parse_recipients(f))
+            .map(|(_, e)| e.to_lowercase())
+            .collect();
+        let sends = |c: &&AccountConfig| c.enabled && !c.is_local();
+        let addressed = self.config.iter().filter(sends).find(|c| {
+            to.contains(&c.email.to_lowercase())
+                || c.aliases
+                    .iter()
+                    .any(|al| to.contains(&config::split_identity(&al.identity).1.to_lowercase()))
+        });
+        let first = || {
+            self.ordered_emails()
+                .into_iter()
+                .find_map(|e| self.config.iter().filter(sends).find(|c| c.email == e))
+        };
+        addressed
+            .or_else(first)
+            .and_then(|c| self.config.iter().position(|x| std::ptr::eq(x, c)))
+            .map_or(m.account_id, |i| i as u32 + 1)
+    }
+
     /// Every address the accounts send from, their aliases included, lower
     /// case.
     pub(super) fn own_addresses(&self) -> std::collections::HashSet<String> {
         self.effective_config()
             .iter()
+            .filter(|a| !a.is_local())
             .flat_map(|a| {
                 std::iter::once(a.email.clone()).chain(
                     a.aliases

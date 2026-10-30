@@ -2309,6 +2309,14 @@ msgstr ""
 msgid "Add Account…"
 msgstr ""
 
+msgid ""
+"Folders on this computer, not on a server, for mail moved here from any "
+"account."
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
 msgid "GNOME Online Accounts"
 msgstr ""
 
@@ -2429,6 +2437,9 @@ msgstr ""
 msgid "Custom OAuth"
 msgstr ""
 
+msgid "Folders on this computer"
+msgstr ""
+
 msgid "IMAP/POP3 account"
 msgstr ""
 
@@ -2439,6 +2450,11 @@ msgid "Mail account"
 msgstr ""
 
 msgid "Enter a client ID and sign in before saving"
+msgstr ""
+
+msgid ""
+"Remove {name} from Hylki? Its folders and the mail in them stay on this "
+"computer, in {dir}, and come back if it is added again."
 msgstr ""
 
 msgid "Edit HTML"
@@ -5953,9 +5969,6 @@ msgstr ""
 msgid "The sign-in window was closed."
 msgstr ""
 
-msgid "Add"
-msgstr ""
-
 msgid "✓ {email} — added"
 msgstr ""
 
@@ -6312,6 +6325,30 @@ msgid "That folder is not on the server"
 msgstr ""
 
 msgid "Could not reach the JMAP server: {e}"
+msgstr ""
+
+msgid "Mail on this computer is not sent, and has no drafts"
+msgstr ""
+
+msgid "Mail is not sent from On This Computer: choose another From address"
+msgstr ""
+
+msgid "A folder by that name already exists"
+msgstr ""
+
+msgid "The folder still holds mail"
+msgstr ""
+
+msgid "That is not a folder name"
+msgstr ""
+
+msgid "Could not store the message: {e}"
+msgstr ""
+
+msgid "Could not open the folders on this computer: {e}"
+msgstr ""
+
+msgid "Reading {n} messages…"
 msgstr ""
 
 #. Nothing failed: the message waits for the network, which the

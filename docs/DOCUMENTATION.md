@@ -9,6 +9,7 @@ keyboard.
 
 - [Configuration](#configuration)
 - [GNOME Online Accounts](#gnome-online-accounts)
+- [On This Computer](#on-this-computer)
 - [OAuth (Google / Microsoft)](#oauth-google--microsoft)
 - [Cloud attachments (Nextcloud, OneDrive, Dropbox, Seafile)](#cloud-attachments-nextcloud-onedrive-dropbox-seafile)
 - [Address books](#address-books)
@@ -312,9 +313,42 @@ the message where it was and says why.
 the copy in the other account's Trash; Redo does the move again. A move from
 or to an account without a Trash folder cannot be undone.
 
-IMAP and JMAP accounts can receive mail this way. A Microsoft account and a
-POP3 account can be moved from but not into: Microsoft files a message added
-to a folder as a draft, and POP3 has only an inbox.
+IMAP and JMAP accounts can receive mail this way, and so can
+[On This Computer](#on-this-computer). A Microsoft account and a POP3 account
+can be moved from but not into: Microsoft files a message added to a folder
+as a draft, and POP3 has only an inbox.
+
+### On This Computer
+
+**Settings → Accounts → On This Computer → Add** adds folders kept on this
+computer rather than on a server, as Evolution's account of the same name
+does. It starts with an Inbox and a Trash. Folders are made, renamed and
+deleted as on any account, and mail comes in by being moved there from
+another account with **Move To** or by dragging it onto one of its folders
+(see [Moving mail to another account](#moving-mail-to-another-account)).
+Moving mail to a folder it does not have yet, such as Archive or Snoozed,
+makes the folder.
+
+Nothing is sent from it: it has no From address in the composer, and a reply
+to a message filed there is sent from the account the message was addressed
+to, or from the first account in the sidebar. Read receipts, invitation
+answers and unsubscribe mail for its messages go out the same way.
+
+Every message is rendered into the cache in the background, so a search
+covers the whole archive, and clearing downloaded mail in **Settings →
+System** leaves it alone. It is not in All Inboxes until
+**Show in All Inboxes** is switched on.
+
+The folders are a Maildir++ tree in `~/.local/share/hylki/local-mail/`
+(`~/.var/app/co.hyprlab.Hylki/data/hylki/local-mail/` in the Flatpak): the
+Inbox at the top, every other folder a `.Name` directory beside it, a
+sub-folder `.Parent.Child`. Each message is one file, read, starred and
+replied to are letters in its name, and tags are listed in
+`dovecot-keywords`, as Dovecot keeps them. A Maildir++ tree from Dovecot
+can be copied in while Hylki is closed, and
+messages dropped into a folder's `new` directory are found when the folder
+opens. Removing the account leaves the folders where they are, and adding
+it again finds them.
 
 ### Deleting an attachment from the server
 

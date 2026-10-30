@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- **Added: On This Computer, folders kept on this computer** (#552).
+  **Settings → Accounts → On This Computer → Add** adds an account with no
+  server, as Evolution has, for an archive of mail moved in from any other
+  account with **Move To** or by dragging it onto one of its folders. It
+  starts with an Inbox and a Trash, and folders are made, renamed and deleted
+  as on any account. Nothing is sent from it: a reply to mail filed there is
+  sent from the account the mail was addressed to. Every message is rendered
+  into the cache in the background, so search covers all of it, and it stays
+  out of All Inboxes until switched on. The mail is a Maildir++ tree in
+  `~/.local/share/hylki/local-mail/`, the layout Dovecot uses, with tags in
+  `dovecot-keywords`, so a tree from Dovecot can be copied in.
+
 - **Added: grammar and style checking in the composer** (#452, requested by
   warpedwood). **Settings → Composing → Check grammar and style** checks what
   is written about a second after typing stops, and marks what it finds: a

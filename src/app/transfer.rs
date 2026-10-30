@@ -67,14 +67,19 @@ type TrashPair = (u32, String, String, u32, String, String);
 
 impl AppModel {
     /// Whether mail from another account can be moved into this one (#265):
-    /// IMAP and JMAP accounts take a message whole. A Microsoft account
-    /// files one posted to a folder as a draft, and POP3 has only an inbox.
+    /// IMAP and JMAP accounts take a message whole, and so does On This
+    /// Computer (#552), which is what it is for. A Microsoft account files
+    /// one posted to a folder as a draft, and POP3 has only an inbox.
     fn can_receive(&self, account_id: u32) -> bool {
         if demo_mode() {
             return true;
         }
         self.saved_account_config(account_id).is_some_and(|c| {
-            c.enabled && matches!(c.protocol, config::Protocol::Imap | config::Protocol::Jmap)
+            c.enabled
+                && matches!(
+                    c.protocol,
+                    config::Protocol::Imap | config::Protocol::Jmap | config::Protocol::Local
+                )
         })
     }
 
