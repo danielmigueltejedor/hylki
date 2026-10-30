@@ -26,6 +26,10 @@ const CANDIDATES: usize = 200;
 /// new mail, or a period that moved on, has more to download.
 pub(super) const RECHECK: Duration = Duration::from_secs(15 * 60);
 
+/// The same for an account copying its mail to On This Computer (#552):
+/// new mail is looked for every minute, so it is there soon after it came.
+const COPY_RECHECK: Duration = Duration::from_secs(60);
+
 /// The longest wait after a failure, and the one after a server says the
 /// account is over its limit.
 const MAX_BACKOFF: Duration = Duration::from_secs(30 * 60);
@@ -113,7 +117,11 @@ impl Offline {
             .collect();
         if found.is_empty() {
             tracing::debug!(account_id, "offline mail: the period is all on disk");
-            self.rest(RECHECK);
+            self.rest(if account.copy_to_local {
+                COPY_RECHECK
+            } else {
+                RECHECK
+            });
             return false;
         }
         self.queue.extend(found);

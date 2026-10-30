@@ -37,6 +37,9 @@ use maildir::{Entry, Maildir, INBOX};
 /// Messages one background step renders into the cache.
 const INDEX_BATCH: usize = 20;
 
+/// How long after a copy from another account lands its folder is read.
+const COPIES_SETTLE: std::time::Duration = std::time::Duration::from_secs(3);
+
 /// A folder read for the first time with more new messages than this says
 /// so in the status bar while it reads them.
 const QUIET_READ: usize = 200;
@@ -92,6 +95,9 @@ pub(super) async fn run_local(
         .map_err(|e| tracing::warn!("cache unavailable: {e}"))
         .ok();
     let mut worker = LocalWorker::new(account_id, account, store, cache, emit);
+    // Copies from other accounts (#552) are shown a few seconds after the
+    // first lands, so a batch is one look at the folders, not twenty.
+    let mut copies_due: Option<tokio::time::Instant> = None;
     loop {
         let indexing = worker.cache.is_some();
         // A folder to read goes at once; the rendering keeps its pauses.
@@ -104,6 +110,15 @@ pub(super) async fn run_local(
         let req = tokio::select! {
             biased;
             req = rx.recv() => req,
+            () = copy::DELIVERED.notified(), if copies_due.is_none() => {
+                copies_due = Some(tokio::time::Instant::now() + COPIES_SETTLE);
+                continue;
+            }
+            () = tokio::time::sleep_until(copies_due.unwrap_or_else(tokio::time::Instant::now)), if copies_due.is_some() => {
+                copies_due = None;
+                worker.show_copies();
+                continue;
+            }
             () = async {}, if importing => {
                 worker.import_step();
                 continue;
@@ -257,13 +272,15 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
                 &[("n", &fresh.to_string())],
             )));
         }
-        let mut changed = fresh > 0;
         let mut messages = Vec::with_capacity(entries.len());
+        // New and changed rows only: a large folder is not rewritten whole
+        // each time a message comes in.
+        let mut changed = Vec::new();
         for e in &entries {
-            let mut m = match known.remove(&e.uid) {
-                Some(m) => m,
+            let (mut m, new) = match known.remove(&e.uid) {
+                Some(m) => (m, false),
                 None => match self.store.read(path, e.uid) {
-                    Ok(raw) => summary_from_raw(account_id, folder_id, e.uid, &raw),
+                    Ok(raw) => (summary_from_raw(account_id, folder_id, e.uid, &raw), true),
                     Err(err) => {
                         tracing::warn!("local mail: could not read {path}/{}: {err}", e.uid);
                         continue;
@@ -271,17 +288,18 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
                 },
             };
             m.folder_id = folder_id;
-            changed |= apply_entry(&mut m, e);
+            if apply_entry(&mut m, e) || new {
+                changed.push(m.clone());
+            }
             messages.push(m);
         }
         // Gone from disk: deleted or moved by another program.
         if let Some(c) = self.cache.as_ref() {
             for uid in known.keys() {
                 c.delete_message(account_id, path, *uid);
-                changed = true;
             }
-            if changed {
-                c.save_messages(account_id, path, &messages);
+            if !changed.is_empty() {
+                c.upsert_messages(account_id, path, &changed);
             }
         }
         if fresh > QUIET_READ {
@@ -337,6 +355,27 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
         }
         (self.emit)(WorkerEvent::BackfillDone { folder_id });
         (self.emit)(WorkerEvent::FolderSynced { folder_id });
+    }
+
+    /// Copies from other accounts (#552) have landed: list the folders
+    /// again, and show each folder whose files the cache does not know
+    /// yet, as opening it would.
+    fn show_copies(&mut self) {
+        self.refresh_folders();
+        let Some(c) = self.cache.as_ref() else {
+            return;
+        };
+        let changed: Vec<(u32, String)> = self
+            .folders
+            .iter()
+            .filter(|f| {
+                self.store.counts(&f.path).0 as usize != c.count_messages(self.account_id, &f.path)
+            })
+            .map(|f| (f.id, f.path.clone()))
+            .collect();
+        for (folder_id, path) in changed {
+            self.on_load_messages(folder_id, path);
+        }
     }
 
     /// The unread counts again, from the file names. A folder holding

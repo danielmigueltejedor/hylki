@@ -34,6 +34,9 @@ struct Target {
 
 static TARGETS: LazyLock<Mutex<HashMap<u32, Target>>> = LazyLock::new(Default::default);
 
+/// Rung when a copy lands, so the local account's worker shows it.
+pub(super) static DELIVERED: tokio::sync::Notify = tokio::sync::Notify::const_new();
+
 /// Take note of an account's setting as its worker starts, and read the
 /// list of what it has copied back into the cache.
 pub(in crate::worker) fn register(account_id: u32, account: &AccountConfig) {
@@ -108,6 +111,7 @@ pub(in crate::worker) fn copy(cache: &Cache, account_id: u32, path: &str, uid: u
         Ok(()) => {
             append_ledger(&target.ledger, &key);
             cache.note_local_copy(account_id, &key);
+            DELIVERED.notify_one();
         }
         Err(e) => tracing::warn!("local mail: could not copy {path}/{uid} to {dest}: {e}"),
     }

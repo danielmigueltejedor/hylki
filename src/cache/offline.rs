@@ -24,6 +24,14 @@ fn kept_in(table: &str) -> String {
     )
 }
 
+/// Of the copies of one message (Gmail and Proton file each in All Mail as
+/// well), the one listed first is the one kept: the Inbox's, then a
+/// folder's of its own, and only then a catch-all's, so a message copied to
+/// On This Computer (#552) lands where it was filed.
+const PLACE_ORDER: &str = "CASE WHEN upper(m.folder_path) = 'INBOX' THEN 0 \
+     WHEN m.folder_path LIKE '%All Mail' OR m.folder_path LIKE '%Starred' \
+     OR m.folder_path LIKE '%Important' THEN 2 ELSE 1 END";
+
 /// A candidate row: folder path, uid, and the Message-ID, sender and date
 /// that tell copies of one message apart from different messages.
 type Candidate = (String, u32, String, String, i64);
@@ -69,10 +77,16 @@ impl Cache {
             (Some(_), false) => format!("m.ts >= ? AND {missing}"),
             (None, _) => format!("NOT {COPIED}"),
         };
+        // Only folders the account lists now: rows left under a folder
+        // the server no longer has (or never had, from before rows followed
+        // their accounts) were asked for again and again, and every refusal
+        // held the rest back for minutes.
         let sql = format!(
             "SELECT m.folder_path, m.uid, m.message_id, m.from_addr, m.ts FROM messages m \
-             WHERE m.account_id = ?{skipped} AND {wanted} \
-             ORDER BY m.ts DESC LIMIT ?"
+             WHERE m.account_id = ?{skipped} \
+             AND m.folder_path IN (SELECT f.path FROM folders f WHERE f.account_id = m.account_id) \
+             AND {wanted} \
+             ORDER BY m.ts DESC, {PLACE_ORDER} LIMIT ?"
         );
         let mut args: Vec<Value> = vec![Value::from(i64::from(account_id))];
         args.extend(skip.iter().map(|p| Value::from(p.clone())));
@@ -142,6 +156,23 @@ mod tests {
     use super::super::test_util::add_msg;
     use super::*;
 
+    /// List these folders for account 1, as its last folder listing did.
+    fn listed(c: &Cache, paths: &[&str]) {
+        let folders: Vec<crate::models::Folder> = paths
+            .iter()
+            .enumerate()
+            .map(|(i, p)| crate::models::Folder {
+                id: i as u32 + 1,
+                account_id: 1,
+                name: p.to_string(),
+                path: p.to_string(),
+                kind: crate::models::FolderKind::Custom,
+                unread: 0,
+            })
+            .collect();
+        c.save_folders(1, &folders);
+    }
+
     fn set_id(c: &Cache, folder: &str, uid: u32, id: &str) {
         c.conn
             .execute(
@@ -154,6 +185,7 @@ mod tests {
     #[test]
     fn lists_what_the_period_still_lacks() {
         let c = Cache::in_memory().unwrap();
+        listed(&c, &["INBOX", "Trash"]);
         add_msg(&c, "INBOX", 1, "a", "old", 100);
         add_msg(&c, "INBOX", 2, "a", "kept", 300);
         add_msg(&c, "INBOX", 3, "a", "new", 400);
@@ -187,6 +219,7 @@ mod tests {
     #[test]
     fn one_download_serves_every_copy() {
         let c = Cache::in_memory().unwrap();
+        listed(&c, &["INBOX", "[Gmail]/All Mail"]);
         add_msg(&c, "INBOX", 1, "a", "s", 400);
         add_msg(&c, "[Gmail]/All Mail", 9, "a", "s", 400);
         set_id(&c, "INBOX", 1, "<x@y>");
@@ -207,6 +240,7 @@ mod tests {
     #[test]
     fn copying_lists_what_is_not_copied_yet() {
         let c = Cache::in_memory().unwrap();
+        listed(&c, &["INBOX", "Work", "Archive"]);
         add_msg(&c, "INBOX", 1, "a", "old", 100);
         add_msg(&c, "INBOX", 2, "a", "new", 400);
         add_msg(&c, "Work", 3, "a", "no id", 300);
@@ -232,6 +266,38 @@ mod tests {
         set_id(&c, "Archive", 8, "m2@x");
         assert!(c.is_local_copy(1, &("m2@x".into(), "Archive".into(), 8)));
         assert_eq!(c.offline_missing(1, None, false, true, &[], 10).len(), 1);
+    }
+
+    /// A message filed twice is fetched from its Inbox, not from All Mail.
+    #[test]
+    fn the_inbox_copy_comes_before_all_mail() {
+        let c = Cache::in_memory().unwrap();
+        listed(&c, &["All Mail", "INBOX", "Work"]);
+        for (folder, uid) in [("All Mail", 1), ("INBOX", 2), ("All Mail", 3), ("Work", 4)] {
+            add_msg(&c, folder, uid, "a", "s", 400);
+        }
+        set_id(&c, "All Mail", 1, "in@x");
+        set_id(&c, "INBOX", 2, "in@x");
+        set_id(&c, "All Mail", 3, "work@x");
+        set_id(&c, "Work", 4, "work@x");
+        let mut got = c.offline_missing(1, None, false, true, &[], 10);
+        got.sort();
+        assert_eq!(got, [("INBOX".to_string(), 2), ("Work".to_string(), 4)]);
+    }
+
+    /// Rows under a folder the account does not list (gone from the
+    /// server, or left from before rows followed their accounts) are never
+    /// asked for.
+    #[test]
+    fn only_listed_folders_are_downloaded() {
+        let c = Cache::in_memory().unwrap();
+        listed(&c, &["INBOX"]);
+        add_msg(&c, "INBOX", 1, "a", "here", 100);
+        add_msg(&c, "[Gmail]/All Mail", 2, "a", "ghost", 500);
+        assert_eq!(
+            c.offline_missing(1, Some(0), false, true, &[], 10),
+            vec![("INBOX".to_string(), 1)]
+        );
     }
 
     #[test]

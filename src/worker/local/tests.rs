@@ -297,3 +297,19 @@ fn mail_sent_from_here_goes_back_to_its_composer() {
         }
     )));
 }
+
+/// A copy another account's worker drops into the tree (#552) is listed,
+/// and its folder shown, when the local worker looks.
+#[test]
+fn copies_from_another_account_are_shown() {
+    let dir = Scratch::new();
+    let (mut w, events) = worker(&dir);
+    super::maildir::deliver_into(&dir.path().join("local"), "iCloud/Inbox", RAW, "S").unwrap();
+    w.show_copies();
+    let folder = w.folder("iCloud/Inbox").expect("listed").clone();
+    assert!(w.folder("iCloud").is_some());
+    let list = last_list(&events, folder.id);
+    assert_eq!(list.len(), 1);
+    assert_eq!(list[0].subject, "Kept");
+    assert!(!list[0].unread);
+}

@@ -356,7 +356,8 @@ into the folder.
 Computer** copies every message of the account into a folder named after it,
 with the account's folders inside: Inbox, Sent and the rest. The account
 downloads its mail in the background to do it, as **Keep mail offline**
-does, and leaves out Trash, Junk and Drafts. What is deleted or moved on the
+does, and leaves out Trash, Junk and Drafts. New mail is copied within about
+a minute of the account receiving it. What is deleted or moved on the
 server afterwards stays in the copy as it was, and a message moved to
 another folder on the server is not copied again. Switching the setting on
 adds On This Computer when there is none. Which messages are copied is

@@ -209,6 +209,8 @@ mod tests {
             .build()
             .unwrap();
         let cache = Cache::in_memory().expect("cache");
+        // As the worker lists it on start: only listed folders are kept.
+        cache.save_folders(1, &super::super::pop3_folders(1));
         let events = RefCell::new(Vec::new());
         rt.block_on(async {
             // What the inbox holds already is cached, as a sync leaves it.

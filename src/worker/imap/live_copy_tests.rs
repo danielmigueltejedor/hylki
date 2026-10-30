@@ -69,6 +69,17 @@ fn live_copy_to_this_computer() {
             .expect("list");
         assert_eq!(listed.len(), 2);
         cache.save_messages(1, &folder, &listed);
+        cache.save_folders(
+            1,
+            &[crate::models::Folder {
+                id: 1,
+                account_id: 1,
+                name: folder.clone(),
+                path: folder.clone(),
+                kind: crate::models::FolderKind::Custom,
+                unread: 0,
+            }],
+        );
 
         crate::worker::local::copy::register_at(1, &account, root.clone());
         let mut offline = Offline::default();
