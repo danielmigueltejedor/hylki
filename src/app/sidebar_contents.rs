@@ -190,10 +190,18 @@ impl AppModel {
             .collect();
         self.message_list
             .emit(MessageListInput::SetAccountColors(colors));
+        // The column is narrow: the nickname alone, which an address would
+        // only push out of view.
         let names: std::collections::HashMap<u32, String> = self
             .accounts
             .iter()
-            .map(|a| (a.id, self.account_label(a.id)))
+            .map(|a| {
+                let nickname = self
+                    .account_config(a.id)
+                    .map(|c| c.display_label())
+                    .unwrap_or_else(|| a.label.clone());
+                (a.id, nickname)
+            })
             .collect();
         let graph: std::collections::HashSet<u32> = self
             .accounts
