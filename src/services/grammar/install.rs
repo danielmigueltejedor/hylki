@@ -279,6 +279,35 @@ mod tests {
     }
 
     #[test]
+    fn a_zip_unpacks_into_the_install_folder() {
+        use std::io::Write as _;
+        let dir = std::env::temp_dir().join(format!("hylki-gr-zip-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let file = dir.join("a.zip");
+        let mut z = zip::ZipWriter::new(std::fs::File::create(&file).unwrap());
+        let opts = zip::write::SimpleFileOptions::default()
+            .compression_method(zip::CompressionMethod::Deflated);
+        z.start_file("LanguageTool-6.6/languagetool-server.jar", opts)
+            .unwrap();
+        z.write_all(b"jar").unwrap();
+        z.finish().unwrap();
+        let archive = Archive {
+            url: "",
+            size: 0,
+            sha256: "",
+            kind: Kind::Zip,
+            folder: "languagetool",
+        };
+        unpack(&archive, &file, &dir.join("languagetool")).unwrap();
+        assert_eq!(
+            std::fs::read(dir.join("languagetool/languagetool-server.jar")).unwrap(),
+            b"jar"
+        );
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    #[test]
     fn sizes_read_in_megabytes() {
         assert_eq!(megabytes(13_445_972), "14 MB");
         assert_eq!(megabytes(1), "1 MB");
