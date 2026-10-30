@@ -59,8 +59,13 @@ pub(in crate::ui::preferences) fn group() -> adw::PreferencesGroup {
         })
     };
 
-    let get_row = get::Get::new(save.clone());
-    group.add(get_row.widget());
+    let get_rows = [
+        get::Get::new(Engine::Harper, save.clone()),
+        get::Get::new(Engine::Local, save.clone()),
+    ];
+    for row in &get_rows {
+        group.add(row.widget());
+    }
 
     let server = server_rows(&settings, save.clone());
     for row in &server.rows {
@@ -68,8 +73,8 @@ pub(in crate::ui::preferences) fn group() -> adw::PreferencesGroup {
     }
 
     let shape: Rc<dyn Fn()> = {
-        let (engine_row, get_row, check_row) =
-            (engine_row.clone(), get_row.clone(), check_row.clone());
+        let (engine_row, get_rows, check_row) =
+            (engine_row.clone(), get_rows.clone(), check_row.clone());
         let server_rows = server.rows.clone();
         Rc::new(move || {
             let on = check_row.is_active();
@@ -77,20 +82,24 @@ pub(in crate::ui::preferences) fn group() -> adw::PreferencesGroup {
             engine_row.set_subtitle(&match engine {
                 Engine::Harper => i18n("English only. Nothing leaves this computer."),
                 Engine::Local => {
-                    i18n("Many languages, on this computer. Uses about 1 GB of memory.")
+                    i18n("Multi-language support. Nothing leaves this computer. Uses 1GB of RAM")
                 }
                 Engine::Server => i18n("What you write is sent to the server as you type."),
             });
             // One download at a time, and it is for the checker shown.
-            engine_row.set_sensitive(on && !get_row.busy());
-            get_row.show(engine, on);
+            engine_row.set_sensitive(on && !get_rows.iter().any(get::Get::busy));
+            for row in &get_rows {
+                row.show(engine, on);
+            }
             for r in &server_rows {
                 r.set_visible(engine == Engine::Server);
                 r.set_sensitive(on);
             }
         })
     };
-    get_row.on_change(shape.clone());
+    for row in &get_rows {
+        row.on_change(shape.clone());
+    }
     shape();
 
     {

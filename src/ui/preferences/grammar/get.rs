@@ -1,6 +1,7 @@
-//! The row that gets the checker chosen: what it is, a Download button, the
-//! download's progress and a Cancel button while it runs, and Remove once
-//! it is on this computer.
+//! A downloadable checker's row: what it is, a Download button when it is
+//! the one chosen, the download's progress and a Cancel button while it
+//! runs, and Remove once it is on this computer, whichever is chosen then,
+//! so a download can always be undone.
 
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
@@ -28,9 +29,9 @@ struct Inner {
     bar: gtk::ProgressBar,
     button: gtk::Button,
     action: Cell<Action>,
-    engine: Cell<Engine>,
-    running: RefCell<Option<(Engine, Arc<Progress>)>>,
-    error: RefCell<Option<(Engine, String)>>,
+    engine: Engine,
+    running: RefCell<Option<Arc<Progress>>>,
+    error: RefCell<Option<String>>,
     changed: RefCell<Option<Rc<dyn Fn()>>>,
     save: Save,
 }
@@ -39,7 +40,8 @@ struct Inner {
 pub(super) struct Get(Rc<Inner>);
 
 impl Get {
-    pub(super) fn new(save: Save) -> Self {
+    /// The row for `engine`, Harper or LanguageTool.
+    pub(super) fn new(engine: Engine, save: Save) -> Self {
         let row = adw::ActionRow::new();
         row.set_subtitle_lines(3);
         let bar = gtk::ProgressBar::new();
@@ -55,7 +57,7 @@ impl Get {
             bar,
             button: button.clone(),
             action: Cell::new(Action::Download),
-            engine: Cell::new(Engine::Harper),
+            engine,
             running: RefCell::new(None),
             error: RefCell::new(None),
             changed: RefCell::new(None),
@@ -84,15 +86,12 @@ impl Get {
         self.0.running.borrow().is_some()
     }
 
-    /// Show the state of `engine`'s download, `on` when checking is.
-    pub(super) fn show(&self, engine: Engine, on: bool) {
+    /// Show the state of the download, with `chosen` the checker chosen
+    /// and `on` when checking is. Once downloaded the row stays, to remove
+    /// it, even when checking is off or another checker is chosen.
+    pub(super) fn show(&self, chosen: Engine, on: bool) {
         let s = &self.0;
-        s.engine.set(engine);
-        s.row.set_visible(engine != Engine::Server);
-        s.row.set_sensitive(on);
-        if engine == Engine::Server {
-            return;
-        }
+        let engine = s.engine;
         let (name, available, installed, size) = match engine {
             Engine::Harper => (
                 "Harper",
@@ -107,16 +106,15 @@ impl Get {
                 local::download_size(),
             ),
         };
+        let running = s.running.borrow().clone();
+        s.row
+            .set_visible(chosen == engine || installed.is_some() || running.is_some());
+        s.row
+            .set_sensitive(on || installed.is_some() || running.is_some());
         s.row.set_title(name);
         s.button.remove_css_class("suggested-action");
         s.bar.set_visible(false);
         s.button.set_visible(true);
-        let running = s
-            .running
-            .borrow()
-            .as_ref()
-            .filter(|(e, _)| *e == engine)
-            .map(|(_, p)| p.clone());
         if let Some(progress) = running {
             let done = progress.done.load(Ordering::Relaxed);
             let total = progress.total.load(Ordering::Relaxed).max(1);
@@ -138,12 +136,7 @@ impl Get {
             ));
             self.set_action(Action::Remove);
         } else {
-            let error = s
-                .error
-                .borrow()
-                .as_ref()
-                .filter(|(e, _)| *e == engine)
-                .map(|(_, why)| why.clone());
+            let error = s.error.borrow().clone();
             s.row.set_subtitle(&error.unwrap_or_else(|| {
                 i18n_f(
                     "Not downloaded yet. The download is {size}.",
@@ -172,10 +165,10 @@ impl Get {
     }
 
     fn clicked(&self) {
-        let engine = self.0.engine.get();
+        let engine = self.0.engine;
         match self.0.action.get() {
             Action::Cancel => {
-                if let Some((_, p)) = self.0.running.borrow().as_ref() {
+                if let Some(p) = self.0.running.borrow().as_ref() {
                     p.cancel.store(true, Ordering::Relaxed);
                 }
             }
@@ -190,7 +183,7 @@ impl Get {
                     .await
                     .unwrap_or_else(|_| Err(i18n("The files could not be removed.")));
                     if let Err(why) = result {
-                        *get.0.error.borrow_mut() = Some((engine, why));
+                        *get.0.error.borrow_mut() = Some(why);
                     }
                     get.0.button.set_sensitive(true);
                     get.changed();
@@ -202,7 +195,7 @@ impl Get {
 
     fn download(&self, engine: Engine) {
         let progress = Arc::new(Progress::default());
-        *self.0.running.borrow_mut() = Some((engine, progress.clone()));
+        *self.0.running.borrow_mut() = Some(progress.clone());
         self.0.error.borrow_mut().take();
         // The checker being downloaded is the one used, from now on.
         (self.0.save)(&|s| s.engine = Some(engine));
@@ -238,7 +231,7 @@ impl Get {
                 Err(_) if progress.cancel.load(Ordering::Relaxed) => {}
                 Err(why) => {
                     tracing::warn!("grammar checker download failed: {why}");
-                    *get.0.error.borrow_mut() = Some((engine, why));
+                    *get.0.error.borrow_mut() = Some(why);
                 }
             }
             get.changed();

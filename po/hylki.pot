@@ -4969,7 +4969,7 @@ msgstr ""
 msgid "English only. Nothing leaves this computer."
 msgstr ""
 
-msgid "Many languages, on this computer. Uses about 1 GB of memory."
+msgid "Multi-language support. Nothing leaves this computer. Uses 1GB of RAM"
 msgstr ""
 
 msgid "What you write is sent to the server as you type."
