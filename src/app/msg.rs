@@ -239,8 +239,13 @@ pub(crate) enum AppMsg {
         dest: String,
         items: Vec<(u32, u32, u32, u32)>,
     },
-    /// Create a custom folder under an account (from the right-click menu).
-    CreateFolder { account_id: u32, name: String },
+    /// Create a custom folder under an account (from the right-click menu):
+    /// inside `parent`, or at the top level when it is "" (#554).
+    CreateFolder {
+        account_id: u32,
+        parent: String,
+        name: String,
+    },
     /// Move a folder under a new parent (sidebar drag-and-drop, #51).
     /// `dest` is the new parent's path, or "" for the account's top level.
     MoveFolder {

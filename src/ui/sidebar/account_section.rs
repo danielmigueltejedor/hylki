@@ -544,7 +544,10 @@ impl Sidebar {
         add_btn.set_child(Some(&add_box));
         let cs = sender.clone();
         add_btn.connect_clicked(move |_| {
-            let _ = cs.output(SidebarOutput::Context(CtxAction::NewFolder(id)));
+            let _ = cs.output(SidebarOutput::Context(CtxAction::NewFolder {
+                account_id: id,
+                parent: String::new(),
+            }));
         });
         add_btn
     }
@@ -728,7 +731,13 @@ fn attach_account_menu(
                 },
             ));
         }
-        items.push((i18n_noop("New Folder…"), CtxAction::NewFolder(id)));
+        items.push((
+            i18n_noop("New Folder…"),
+            CtxAction::NewFolder {
+                account_id: id,
+                parent: String::new(),
+            },
+        ));
         if own_order {
             items.push((
                 i18n_noop("Reset Folder Order"),

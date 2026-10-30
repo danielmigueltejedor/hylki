@@ -209,6 +209,19 @@ impl AppModel {
         self.send_to(account_id, MailRequest::CreateFolder { path });
     }
 
+    /// Open a folder's branch of the tree, remembered as if its caret had
+    /// been clicked; the next rebuild shows it.
+    pub(super) fn expand_folder(&mut self, account_id: u32, path: &str) {
+        let Some(email) = self.email_of(account_id) else {
+            return;
+        };
+        let key = folder_key(&email, path);
+        if self.tree_collapsed.contains(&key) {
+            self.tree_collapsed.retain(|k| *k != key);
+            self.save_sidebar_state();
+        }
+    }
+
     /// Hide folders (#239): remembered on the account, taken off the
     /// sidebar at once, and the worker told so its next listing, and every
     /// sync after it, leaves them out. A hidden folder that was open gives

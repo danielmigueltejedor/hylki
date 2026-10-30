@@ -468,10 +468,13 @@ msgstr ""
 msgid "Unstar"
 msgstr ""
 
-msgid "New Folder"
+msgid "Create a folder inside {name}."
 msgstr ""
 
 msgid "Create a new folder for this account."
+msgstr ""
+
+msgid "New Folder"
 msgstr ""
 
 msgid "Cancel"

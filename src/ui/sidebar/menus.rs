@@ -122,8 +122,16 @@ pub(super) fn folder_menu_items(
             },
         ));
     }
-    // Only user-created folders can be renamed or deleted.
+    // Only user-created folders can be renamed or deleted, or hold
+    // folders of their own (as a drag onto one allows, #554).
     if f.kind == FolderKind::Custom {
+        items.push((
+            i18n_noop("New Folder…"),
+            CtxAction::NewFolder {
+                account_id: id,
+                parent: f.path.clone(),
+            },
+        ));
         items.push((
             i18n_noop("Rename Folder…"),
             CtxAction::RenameFolder {

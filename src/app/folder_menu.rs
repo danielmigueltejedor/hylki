@@ -15,13 +15,20 @@ use super::undo::UndoStep;
 use crate::ui::dialog::confirm_destructive;
 
 impl AppModel {
-    /// Prompt for a new custom folder name and create it under `account_id`.
+    /// Prompt for a new custom folder name and create it under `account_id`,
+    /// inside `parent` when there is one (#554).
     #[allow(deprecated)] // adw::MessageDialog: AlertDialog would change how it looks
-    fn prompt_new_folder(&self, account_id: u32, sender: &ComponentSender<Self>) {
+    fn prompt_new_folder(&self, account_id: u32, parent: String, sender: &ComponentSender<Self>) {
+        let body = match self.folder_by_path(account_id, &parent) {
+            Some(f) if !parent.is_empty() => {
+                i18n_f("Create a folder inside {name}.", &[("name", &f.name)])
+            }
+            _ => i18n("Create a new folder for this account."),
+        };
         let dialog = adw::MessageDialog::new(
             Some(&self.window),
             Some(i18n("New Folder").as_str()),
-            Some(i18n("Create a new folder for this account.").as_str()),
+            Some(body.as_str()),
         );
         dialog.add_response("cancel", &i18n("Cancel"));
         dialog.add_response("ok", &i18n("Create"));
@@ -36,7 +43,11 @@ impl AppModel {
             if resp == "ok" {
                 let name = entry.text().to_string();
                 if !name.trim().is_empty() {
-                    s.input(AppMsg::CreateFolder { account_id, name });
+                    s.input(AppMsg::CreateFolder {
+                        account_id,
+                        parent: parent.clone(),
+                        name,
+                    });
                 }
             }
         });
@@ -243,17 +254,25 @@ impl AppModel {
                 self.drop_move(dest_account, dest, items);
             }
 
-            AppMsg::CreateFolder { account_id, name } => {
+            AppMsg::CreateFolder {
+                account_id,
+                parent,
+                name,
+            } => {
                 let name = name.trim();
                 if !name.is_empty() {
                     // The server names mailboxes in modified UTF-7, so a name
                     // with any non-ASCII character has to be encoded before it
                     // becomes a path (issue #1, in the other direction).
-                    let path = format!(
-                        "{}{}",
-                        self.folder_namespace(account_id),
-                        crate::mail::mutf7::encode(name)
-                    );
+                    let leaf = crate::mail::mutf7::encode(name);
+                    let path = if parent.is_empty() {
+                        format!("{}{leaf}", self.folder_namespace(account_id))
+                    } else {
+                        // Its parent opens, or the new folder would be
+                        // made out of sight.
+                        self.expand_folder(account_id, &parent);
+                        format!("{parent}{}{leaf}", self.folder_delimiter(account_id))
+                    };
                     self.create_folder(account_id, path.clone());
                     self.push_undo(
                         account_id,
@@ -419,8 +438,8 @@ impl AppModel {
             CtxAction::RemoveAccount(account_id) => {
                 self.confirm_remove_account(account_id, &sender);
             }
-            CtxAction::NewFolder(account_id) => {
-                self.prompt_new_folder(account_id, &sender);
+            CtxAction::NewFolder { account_id, parent } => {
+                self.prompt_new_folder(account_id, parent, &sender);
             }
             CtxAction::DeleteFolder {
                 account_id,
