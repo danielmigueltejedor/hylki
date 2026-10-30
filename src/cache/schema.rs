@@ -10,7 +10,19 @@ CREATE TABLE IF NOT EXISTS folders (
     kind       INTEGER NOT NULL,
     unread     INTEGER NOT NULL,
     ord        INTEGER NOT NULL,
+    childless  INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (account_id, path)
+);
+-- How an IMAP account's folders nest (#554), as its server said at the
+-- last connect: the delimiter (NULL for a flat server), the personal
+-- namespace (NULL for none) and whether the server said it (0 without
+-- NAMESPACE). Known before the next connect, so the sidebar draws the
+-- tree and folders can be made at once.
+CREATE TABLE IF NOT EXISTS imap_hierarchy (
+    account_id INTEGER NOT NULL PRIMARY KEY,
+    delimiter  TEXT,
+    prefix     TEXT,
+    said       INTEGER NOT NULL DEFAULT 1
 );
 CREATE TABLE IF NOT EXISTS msgid_case (
     lower TEXT NOT NULL PRIMARY KEY,
@@ -176,8 +188,9 @@ CREATE TABLE IF NOT EXISTS local_copies (
 /// Every table whose rows belong to one account, by `account_id`. An account's
 /// id is its place in the account list, so `Cache::claim_accounts` moves
 /// these rows when the places change.
-pub(super) const ACCOUNT_TABLES: [&str; 12] = [
+pub(super) const ACCOUNT_TABLES: [&str; 13] = [
     "folders",
+    "imap_hierarchy",
     "refs_repair",
     "messages",
     "local_tags",

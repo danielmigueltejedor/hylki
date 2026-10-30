@@ -151,10 +151,7 @@ impl AppModel {
             .collect();
         let folder_sort = self.folder_sort_of(account.id);
         let own_folder_sort = self.own_folder_sort(account.id);
-        let hierarchy = crate::ui::sidebar::Hierarchy {
-            delimiter: self.folder_delimiter(account.id),
-            namespace: self.folder_namespace(account.id),
-        };
+        let hierarchy = self.drawn_hierarchy(account.id);
         let filtered = self.account_filtered_folders(account.id);
         let has_filters = self
             .filters

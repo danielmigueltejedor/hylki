@@ -381,6 +381,8 @@ impl AppModel {
             }
             msg @ AppMsg::ImportSettingsFrom(..) => self.on_prefs_data(msg),
             msg @ (AppMsg::SetFolders { .. }
+            | AppMsg::SetHierarchy { .. }
+            | AppMsg::FolderMadeAt { .. }
             | AppMsg::FolderUnread { .. }
             | AppMsg::SeenSettled { .. }
             | AppMsg::Answered { .. }

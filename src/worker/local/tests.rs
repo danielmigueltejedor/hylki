@@ -77,7 +77,9 @@ fn an_empty_inbox_is_not_listed() {
             .collect()
     };
     assert_eq!(kinds(&w), [("Trash".to_string(), FolderKind::Trash, 2)]);
-    assert!(matches!(events.borrow()[0], WorkerEvent::Folders(_)));
+    // How the folders nest comes first, then the folders (#554).
+    assert!(matches!(events.borrow()[0], WorkerEvent::Hierarchy(_)));
+    assert!(matches!(events.borrow()[1], WorkerEvent::Folders(_)));
     import(&mut w, INBOX, false);
     assert_eq!(
         kinds(&w),

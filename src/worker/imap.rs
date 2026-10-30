@@ -39,10 +39,13 @@ mod ladder;
 #[cfg(test)]
 mod live_copy_tests;
 #[cfg(test)]
+mod live_hierarchy_tests;
+#[cfg(test)]
 mod live_receipt_tests;
 #[cfg(test)]
 mod live_tests;
 mod mutate;
+mod namespace;
 mod offline;
 mod prefetch;
 mod preview_fetch;

@@ -112,6 +112,9 @@ impl<E: Fn(WorkerEvent)> GraphWorker<E> {
         let cache = &worker.cache;
         let emit = &|ev| name_labels(&worker.account, &worker.emit, ev);
         emit(WorkerEvent::account(account_id, account));
+        emit(WorkerEvent::Hierarchy(
+            crate::models::FolderHierarchy::slashed(true),
+        ));
 
         // Cached folders immediately, then the live list.
         let cached_folders = cache

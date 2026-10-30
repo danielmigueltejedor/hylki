@@ -380,6 +380,16 @@ pub(crate) enum WorkerEvent {
     /// anyone at the domain.
     Identities(Vec<(String, String)>),
     Folders(Vec<Folder>),
+    /// How the account's folders nest and are named (#554), sent before
+    /// the first `Folders` and again whenever the server says otherwise.
+    Hierarchy(crate::models::FolderHierarchy),
+    /// A folder asked for at `asked` was made at `made` instead: the
+    /// server refused the top level and took it inside the Inbox, its
+    /// namespace (#554).
+    FolderMadeAt {
+        asked: String,
+        made: String,
+    },
     /// How many messages the accounts copying to On This Computer (#552)
     /// still have to copy, all together; 0 when they are done. Sent by
     /// that account's worker.

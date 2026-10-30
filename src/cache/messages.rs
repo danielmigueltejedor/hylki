@@ -3,7 +3,7 @@
 
 use rusqlite::{params, Connection};
 
-use crate::models::{Folder, FolderKind, Message};
+use crate::models::{Folder, FolderHierarchy, FolderKind, Message};
 
 use super::{join_labels, message_columns, message_from_row, split_labels, Cache};
 
@@ -70,7 +70,11 @@ pub(crate) fn note_msgid_case(exact: &str) {
 pub(crate) fn folders_equal(a: &[Folder], b: &[Folder]) -> bool {
     a.len() == b.len()
         && a.iter().zip(b).all(|(x, y)| {
-            x.path == y.path && x.name == y.name && x.kind == y.kind && x.unread == y.unread
+            x.path == y.path
+                && x.name == y.name
+                && x.kind == y.kind
+                && x.unread == y.unread
+                && x.childless == y.childless
         })
 }
 
@@ -130,7 +134,7 @@ impl Cache {
     pub(crate) fn load_folders(&self, account_id: u32) -> Vec<Folder> {
         let run = || -> rusqlite::Result<Vec<Folder>> {
             let mut stmt = self.conn.prepare(
-                "SELECT path, name, kind, unread FROM folders WHERE account_id = ?1 ORDER BY ord",
+                "SELECT path, name, kind, unread, childless FROM folders WHERE account_id = ?1 ORDER BY ord",
             )?;
             let rows = stmt.query_map([account_id], |row| {
                 Ok((
@@ -138,11 +142,12 @@ impl Cache {
                     row.get::<_, String>(1)?,
                     row.get::<_, i64>(2)?,
                     row.get::<_, u32>(3)?,
+                    row.get::<_, bool>(4)?,
                 ))
             })?;
             let mut folders = Vec::new();
             for (i, r) in rows.enumerate() {
-                let (path, name, kind, unread) = r?;
+                let (path, name, kind, unread, childless) = r?;
                 folders.push(Folder {
                     id: i as u32 + 1,
                     account_id,
@@ -150,6 +155,7 @@ impl Cache {
                     path,
                     kind: kind_from_i64(kind),
                     unread,
+                    childless,
                 });
             }
             Ok(folders)
@@ -166,15 +172,16 @@ impl Cache {
             tx.execute("DELETE FROM folders WHERE account_id = ?1", [account_id])?;
             for (i, f) in folders.iter().enumerate() {
                 tx.execute(
-                    "INSERT INTO folders (account_id, path, name, kind, unread, ord)
-                     VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+                    "INSERT INTO folders (account_id, path, name, kind, unread, ord, childless)
+                     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
                     params![
                         account_id,
                         f.path,
                         f.name,
                         kind_to_i64(f.kind),
                         f.unread,
-                        i as i64
+                        i as i64,
+                        f.childless
                     ],
                 )?;
             }
@@ -182,6 +189,46 @@ impl Cache {
         };
         if let Err(e) = run() {
             tracing::warn!("cache save_folders failed: {e}");
+        }
+    }
+
+    /// An IMAP account's hierarchy as its server last told it (#554).
+    pub(crate) fn load_imap_hierarchy(&self, account_id: u32) -> Option<FolderHierarchy> {
+        self.conn
+            .query_row(
+                "SELECT delimiter, prefix, said FROM imap_hierarchy WHERE account_id = ?1",
+                [account_id],
+                |row| {
+                    Ok((
+                        row.get::<_, Option<String>>(0)?,
+                        row.get::<_, Option<String>>(1)?,
+                        row.get::<_, bool>(2)?,
+                    ))
+                },
+            )
+            .ok()
+            .map(|(delimiter, prefix, said)| {
+                let h = FolderHierarchy::imap(delimiter.and_then(|d| d.chars().next()), prefix);
+                if said {
+                    h
+                } else {
+                    h.unsaid()
+                }
+            })
+    }
+
+    pub(crate) fn save_imap_hierarchy(&self, account_id: u32, hierarchy: &FolderHierarchy) {
+        let prefix = hierarchy.top_level.then_some(hierarchy.prefix.as_str());
+        if let Err(e) = self.conn.execute(
+            "INSERT OR REPLACE INTO imap_hierarchy (account_id, delimiter, prefix, said) VALUES (?1, ?2, ?3, ?4)",
+            params![
+                account_id,
+                hierarchy.delimiter.map(String::from),
+                prefix,
+                hierarchy.prefix_said
+            ],
+        ) {
+            tracing::warn!("cache save_imap_hierarchy failed: {e}");
         }
     }
 

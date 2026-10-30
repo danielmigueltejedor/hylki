@@ -69,6 +69,9 @@ pub(super) async fn run_mock(
     if let Some(account) = backend.accounts().into_iter().find(|a| a.id == account_id) {
         emit(WorkerEvent::Account(account));
     }
+    emit(WorkerEvent::Hierarchy(
+        crate::models::FolderHierarchy::maildir(),
+    ));
     emit(WorkerEvent::Folders(backend.folders(account_id)));
     // HYLKI_DEMO_ARRIVAL=<secs>: a reply lands in account 1's Inbox
     // conversation after that long, as a sync would bring it — for

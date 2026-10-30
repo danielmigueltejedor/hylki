@@ -523,7 +523,16 @@ msgid ""
 "Every message in them will be erased from the server. This can’t be undone."
 msgstr ""
 
+msgid "This account can't have folders at the top level."
+msgstr ""
+
+msgid "Folders on this account can't hold other folders."
+msgstr ""
+
 msgid "Create Folder"
+msgstr ""
+
+msgid "{name} can't hold other folders."
 msgstr ""
 
 msgid "archive"
@@ -533,6 +542,9 @@ msgid "trash"
 msgstr ""
 
 msgid "destination"
+msgstr ""
+
+msgid "A folder can't be moved into itself."
 msgstr ""
 
 msgid "Move Folder"
@@ -594,6 +606,9 @@ msgid "Attach Anyway"
 msgstr ""
 
 msgid "Upload to Cloud Storage"
+msgstr ""
+
+msgid "The account has to connect before its folders can change."
 msgstr ""
 
 msgid "This message carries no calendar file to open."
@@ -1717,6 +1732,12 @@ msgid "{used} of {limit} used"
 msgstr ""
 
 msgid "{free} free ({pct}%)"
+msgstr ""
+
+msgid "A folder needs a name."
+msgstr ""
+
+msgid "A folder name can't contain “{c}” on this account."
 msgstr ""
 
 msgid "Encrypted message"
@@ -6251,7 +6272,7 @@ msgstr ""
 msgid "Could not create folder: {e}"
 msgstr ""
 
-msgid "Could not rename folder: unknown folder"
+msgid "the folder it goes in is gone"
 msgstr ""
 
 msgid "Could not rename folder: {e}"

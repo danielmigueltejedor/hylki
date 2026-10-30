@@ -222,10 +222,15 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
                 self.refresh_folders();
                 self.unread_folders.push(path);
             }
-            Err(e) => (self.emit)(WorkerEvent::error(i18n_f(
-                "Could not create folder: {e}",
-                &[("e", &e)],
-            ))),
+            Err(e) => {
+                (self.emit)(WorkerEvent::error(i18n_f(
+                    "Could not create folder: {e}",
+                    &[("e", &e)],
+                )));
+                // The app drew the change already: the store says how it
+                // really is (#554).
+                self.refresh_folders();
+            }
         }
     }
 
@@ -237,10 +242,15 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
                 }
                 self.refresh_folders();
             }
-            Err(e) => (self.emit)(WorkerEvent::error(i18n_f(
-                "Could not rename folder: {e}",
-                &[("e", &e)],
-            ))),
+            Err(e) => {
+                (self.emit)(WorkerEvent::error(i18n_f(
+                    "Could not rename folder: {e}",
+                    &[("e", &e)],
+                )));
+                // The app drew the change already: the store says how it
+                // really is (#554).
+                self.refresh_folders();
+            }
         }
     }
 

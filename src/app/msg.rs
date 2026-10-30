@@ -1323,6 +1323,17 @@ pub(crate) enum AppMsg {
         account_id: u32,
         folders: Vec<Folder>,
     },
+    /// How an account's folders nest (#554), from its worker.
+    SetHierarchy {
+        account_id: u32,
+        hierarchy: crate::models::FolderHierarchy,
+    },
+    /// A folder the app made at `asked` is at `made` on the server.
+    FolderMadeAt {
+        account_id: u32,
+        asked: String,
+        made: String,
+    },
     /// A folder's unread count, from the server.
     FolderUnread {
         account_id: u32,

@@ -951,6 +951,7 @@ fn live_offline_period_is_kept() {
                 path: folder.clone(),
                 kind: crate::models::FolderKind::Custom,
                 unread: 0,
+                childless: false,
             }],
         );
 

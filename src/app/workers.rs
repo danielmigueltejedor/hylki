@@ -53,6 +53,15 @@ fn map_event(account_id: u32, event: WorkerEvent) -> AppMsg {
             account_id,
             folders,
         },
+        WorkerEvent::Hierarchy(hierarchy) => AppMsg::SetHierarchy {
+            account_id,
+            hierarchy,
+        },
+        WorkerEvent::FolderMadeAt { asked, made } => AppMsg::FolderMadeAt {
+            account_id,
+            asked,
+            made,
+        },
         WorkerEvent::Messages {
             folder_id,
             messages,

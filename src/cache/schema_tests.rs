@@ -141,7 +141,7 @@ fn an_older_layout_gains_the_new_columns() {
 /// One row or more in every table, chosen so each version gate has
 /// something to drop or rewrite.
 const FIXTURE: &str = r#"
-INSERT INTO folders VALUES (1, 'INBOX', 'Inbox', 0, 0, 0);
+INSERT INTO folders (account_id, path, name, kind, unread, ord) VALUES (1, 'INBOX', 'Inbox', 0, 0, 0);
 INSERT INTO msgid_case VALUES ('a@x', 'A@X');
 INSERT INTO refs_repair VALUES (1, 'INBOX', 5, 0);
 INSERT INTO label_fill VALUES (1, 'INBOX', 5, 1);

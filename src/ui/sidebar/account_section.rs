@@ -39,16 +39,17 @@ impl Sidebar {
         // the essential list holds row indices 0..E and the custom list E..
         // The folders inside the Inbox go with it, under its row,
         // when the account nests them (#345).
-        let nest = nests_in_inbox(&section.folders);
+        let h = &section.hierarchy;
+        let nest = nests_in_inbox(&section.folders, h);
         let essential: Vec<&Folder> = section
             .folders
             .iter()
-            .filter(|f| is_main_row(f, nest))
+            .filter(|f| is_main_row(f, nest, h))
             .collect();
         let custom: Vec<&Folder> = section
             .folders
             .iter()
-            .filter(|f| !is_main_row(f, nest))
+            .filter(|f| !is_main_row(f, nest, h))
             .collect();
         let e = essential.len() as i32;
         let inside: Vec<&Folder> = essential
@@ -68,7 +69,11 @@ impl Sidebar {
         );
         let (custom_list, custom_revealer, custom_chevron, folders_heading) =
             self.build_custom_folders(section, &custom, e, &collapsed_nodes, sender);
-        let add_btn = self.add_folder_button(id, sender);
+        // Only where the account can have folders at the top (not POP3).
+        let add_btn = section
+            .hierarchy
+            .top_level
+            .then(|| self.add_folder_button(id, sender));
 
         let wrap = gtk::Box::new(gtk::Orientation::Vertical, 0);
         wrap.append(&list_box);
@@ -85,7 +90,9 @@ impl Sidebar {
             }
             wrap.append(&custom_revealer);
         }
-        wrap.append(&add_btn);
+        if let Some(add_btn) = &add_btn {
+            wrap.append(add_btn);
+        }
         revealer.set_child(Some(&wrap));
         accounts_box.append(&revealer);
 
@@ -307,9 +314,9 @@ impl Sidebar {
                 && !self.collapsed
                 && match folder.kind {
                     FolderKind::Inbox => !inside.is_empty(),
-                    FolderKind::Custom => {
-                        inside.iter().any(|g| path_is_under(&g.path, &folder.path))
-                    }
+                    FolderKind::Custom => inside
+                        .iter()
+                        .any(|g| path_is_under(&g.path, &folder.path, &section.hierarchy)),
                     _ => false,
                 };
             let lead: Option<gtk::Widget> = if !nest || self.collapsed {
@@ -318,7 +325,7 @@ impl Sidebar {
                 Some(self.tree_lead(id, folder, has_children, collapsed_nodes, sender))
             };
             let depth = if nested {
-                folder_depth(folder, inside) + 1
+                folder_depth(folder, inside, &section.hierarchy) + 1
             } else {
                 0
             };
@@ -329,11 +336,12 @@ impl Sidebar {
                 lead.as_ref(),
                 self.chevrons_left,
                 icon,
+                &section.hierarchy,
             );
             if nested {
                 // Hidden while the Inbox or a parent is folded, as in
                 // the Folders section.
-                let hidden = hidden_by_collapse(&folder.path, collapsed_nodes);
+                let hidden = hidden_by_collapse(&folder.path, collapsed_nodes, &section.hierarchy);
                 if let Some(rev) = wrap_row_in_revealer(&row, hidden) {
                     self.main_row_revealers
                         .entry(id)
@@ -385,12 +393,14 @@ impl Sidebar {
         let mut folders_heading: Option<gtk::Widget> = None;
         if !custom.is_empty() {
             for folder in custom {
-                let depth = folder_depth(folder, custom);
+                let depth = folder_depth(folder, custom, &section.hierarchy);
                 // The expander slot (#51): a chevron for folders with
                 // sub-folders, an equal-width spacer for leaves so names
                 // at one depth stay aligned. Rail mode has no room for
                 // either.
-                let has_children = custom.iter().any(|g| path_is_under(&g.path, &folder.path));
+                let has_children = custom
+                    .iter()
+                    .any(|g| path_is_under(&g.path, &folder.path, &section.hierarchy));
                 let lead: Option<gtk::Widget> = if self.collapsed {
                     None
                 } else {
@@ -403,6 +413,7 @@ impl Sidebar {
                     lead.as_ref(),
                     self.chevrons_left,
                     filter_icon(section, folder),
+                    &section.hierarchy,
                 );
                 // Hidden while any ancestor is collapsed; the row still
                 // exists, so selection indices stay stable. Its content
@@ -410,7 +421,7 @@ impl Sidebar {
                 // built with no transition (rebuilds must reach full
                 // height in one pass; see the scroll-jump saga), armed to
                 // 200ms alongside the section revealers below.
-                let hidden = hidden_by_collapse(&folder.path, collapsed_nodes);
+                let hidden = hidden_by_collapse(&folder.path, collapsed_nodes, &section.hierarchy);
                 if let Some(rev) = wrap_row_in_revealer(&row, hidden) {
                     self.tree_row_revealers.entry(id).or_default().push(rev);
                 }
@@ -639,6 +650,7 @@ impl Sidebar {
             section.filtered.iter().map(|f| f.path.clone()).collect(),
             self.favorite_paths(id),
             section.has_filters,
+            section.hierarchy.nests(),
             sender,
         );
         list_box
@@ -709,6 +721,7 @@ fn attach_account_menu(
         .find(|f| f.kind == FolderKind::Inbox)
         .map(|f| f.id);
     let own_order = !section.folder_order.is_empty();
+    let top_level = section.hierarchy.top_level;
     let click = gtk::GestureClick::new();
     click.set_button(gtk::gdk::BUTTON_SECONDARY);
     let cs = sender.clone();
@@ -731,13 +744,15 @@ fn attach_account_menu(
                 },
             ));
         }
-        items.push((
-            i18n_noop("New Folder…"),
-            CtxAction::NewFolder {
-                account_id: id,
-                parent: String::new(),
-            },
-        ));
+        if top_level {
+            items.push((
+                i18n_noop("New Folder…"),
+                CtxAction::NewFolder {
+                    account_id: id,
+                    parent: String::new(),
+                },
+            ));
+        }
         if own_order {
             items.push((
                 i18n_noop("Reset Folder Order"),

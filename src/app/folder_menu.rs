@@ -96,15 +96,16 @@ impl AppModel {
     /// Rename a custom folder's leaf in place: same parent, new (encoded)
     /// name, the same optimistic machinery as a drag-and-drop move.
     fn rename_folder_to(&mut self, account_id: u32, path: String, new_name: String) {
-        let delim = self.folder_delimiter(account_id);
-        let new_name = new_name.trim();
-        // The path's parent (everything up to and including the last
-        // delimiter) stays; only the leaf changes.
-        let parent = match path.rfind(delim) {
-            Some(at) => &path[..=at],
-            None => "",
+        let Some(h) = self.hierarchy_for_change(account_id) else {
+            return;
         };
-        let new_path = format!("{parent}{}", crate::mail::mutf7::encode(new_name));
+        let leaf = match h.leaf_for(&new_name) {
+            Ok(leaf) => leaf,
+            Err(why) => return self.notice_error(why),
+        };
+        let Some(new_path) = h.child(&h.parent(&path), &leaf) else {
+            return;
+        };
         if new_path == path {
             return;
         }
@@ -115,7 +116,7 @@ impl AppModel {
         {
             self.notice_error(i18n_f(
                 "A folder named {new_name} is already there.",
-                &[("new_name", &format!("{new_name:?}"))],
+                &[("new_name", &format!("{:?}", new_name.trim()))],
             ));
             return;
         }
@@ -259,27 +260,50 @@ impl AppModel {
                 parent,
                 name,
             } => {
-                let name = name.trim();
-                if !name.is_empty() {
-                    // The server names mailboxes in modified UTF-7, so a name
-                    // with any non-ASCII character has to be encoded before it
-                    // becomes a path (issue #1, in the other direction).
-                    let leaf = crate::mail::mutf7::encode(name);
-                    let path = if parent.is_empty() {
-                        format!("{}{leaf}", self.folder_namespace(account_id))
-                    } else {
-                        // Its parent opens, or the new folder would be
-                        // made out of sight.
-                        self.expand_folder(account_id, &parent);
-                        format!("{parent}{}{leaf}", self.folder_delimiter(account_id))
-                    };
-                    self.create_folder(account_id, path.clone());
-                    self.push_undo(
-                        account_id,
-                        i18n("Create Folder"),
-                        UndoStep::DeleteFolder { path },
-                    );
+                let Some(h) = self.hierarchy_for_change(account_id) else {
+                    return;
+                };
+                // Encoded as the account names folders: modified UTF-7 on
+                // IMAP (issue #1, in the other direction), the delimiter
+                // refused where a name can't hold it (#554).
+                let leaf = match h.leaf_for(&name) {
+                    Ok(leaf) => leaf,
+                    Err(why) => return self.notice_error(why),
+                };
+                if let Some(f) = self
+                    .folder_by_path(account_id, &parent)
+                    .filter(|f| f.childless)
+                {
+                    return self.notice_error(super::folders::cannot_hold(&f.name));
                 }
+                let Some(path) = h.child(&parent, &leaf) else {
+                    return self.notice_error(if parent.is_empty() {
+                        i18n("This account can't have folders at the top level.")
+                    } else {
+                        i18n("Folders on this account can't hold other folders.")
+                    });
+                };
+                if self
+                    .folders
+                    .get(&account_id)
+                    .is_some_and(|fs| fs.iter().any(|f| f.path == path))
+                {
+                    return self.notice_error(i18n_f(
+                        "A folder named {new_name} is already there.",
+                        &[("new_name", &format!("{:?}", name.trim()))],
+                    ));
+                }
+                // Its parent opens, or the new folder would be made out of
+                // sight.
+                if !parent.is_empty() {
+                    self.expand_folder(account_id, &parent);
+                }
+                self.create_folder(account_id, path.clone());
+                self.push_undo(
+                    account_id,
+                    i18n("Create Folder"),
+                    UndoStep::DeleteFolder { path },
+                );
             }
 
             AppMsg::MoveFolder {

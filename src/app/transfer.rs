@@ -103,6 +103,7 @@ impl AppModel {
                 heading: None,
                 folders: folders.clone(),
                 exclude,
+                hierarchy: self.drawn_hierarchy(own),
             });
         }
         for email in self.ordered_emails() {
@@ -124,6 +125,7 @@ impl AppModel {
                 heading: Some(self.account_name(a.id)),
                 folders: folders.clone(),
                 exclude: None,
+                hierarchy: self.drawn_hierarchy(a.id),
             });
         }
         out

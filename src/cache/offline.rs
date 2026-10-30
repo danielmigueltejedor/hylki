@@ -194,6 +194,7 @@ mod tests {
                 path: p.to_string(),
                 kind: crate::models::FolderKind::Custom,
                 unread: 0,
+                childless: false,
             })
             .collect();
         c.save_folders(1, &folders);

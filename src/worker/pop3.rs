@@ -45,6 +45,7 @@ fn pop3_folders(account_id: u32) -> Vec<Folder> {
         path: "INBOX".to_string(),
         kind: FolderKind::Inbox,
         unread: 0,
+        childless: false,
     }]
 }
 
@@ -64,6 +65,9 @@ pub(super) async fn run_pop3(
         .ok();
 
     emit(WorkerEvent::account(account_id, &account));
+    emit(WorkerEvent::Hierarchy(
+        crate::models::FolderHierarchy::inbox_only(),
+    ));
     let folders = pop3_folders(account_id);
     if let Some(c) = cache.as_ref() {
         c.save_folders(account_id, &folders);

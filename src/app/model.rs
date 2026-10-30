@@ -145,6 +145,8 @@ pub(crate) struct AppModel {
     pub(super) accounts: Vec<Account>,
     /// account_id → that account's folders.
     pub(super) folders: HashMap<u32, Vec<Folder>>,
+    /// How each account's folders nest, as its worker reports it (#554).
+    pub(super) hierarchies: HashMap<u32, crate::models::FolderHierarchy>,
     /// Preferred sidebar account order (by email).
     pub(super) account_order: Vec<String>,
     /// Accounts whose folder list is collapsed in the sidebar (by email).

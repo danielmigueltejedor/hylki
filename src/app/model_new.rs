@@ -170,6 +170,7 @@ impl AppModel {
             undo_menu: model_undo_menu.clone(),
             accounts: Vec::new(),
             folders: HashMap::new(),
+            hierarchies: HashMap::new(),
             account_order: order,
             collapsed,
             folders_expanded,

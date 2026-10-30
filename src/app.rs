@@ -64,6 +64,7 @@ mod folder_menu;
 mod folders;
 mod gallery;
 mod hand_off;
+mod hierarchy;
 mod identity;
 mod invites;
 mod keymap;

@@ -99,7 +99,16 @@ CREATE TABLE folders (
     kind       INTEGER NOT NULL,
     unread     INTEGER NOT NULL,
     ord        INTEGER NOT NULL,
+    childless  INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (account_id, path)
+)
+
+table imap_hierarchy
+CREATE TABLE imap_hierarchy (
+    account_id INTEGER NOT NULL PRIMARY KEY,
+    delimiter  TEXT,
+    prefix     TEXT,
+    said       INTEGER NOT NULL DEFAULT 1
 )
 
 table label_fill

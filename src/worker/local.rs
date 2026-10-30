@@ -194,6 +194,9 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
             import: import::Import::default(),
             copies_left: None,
         };
+        (worker.emit)(WorkerEvent::Hierarchy(
+            crate::models::FolderHierarchy::maildir(),
+        ));
         worker.refresh_folders();
         worker.unread_folders = worker.folders.iter().map(|f| f.path.clone()).collect();
         worker
@@ -215,6 +218,7 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
                     path,
                     kind,
                     unread: 0,
+                    childless: false,
                 };
                 (folder, 0)
             })
