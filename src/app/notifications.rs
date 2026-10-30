@@ -236,7 +236,7 @@ impl AppModel {
                     return;
                 }
                 let text = crate::worker::readable_error(&text);
-                let label = self.account_error_label(account_id);
+                let label = self.account_label(account_id);
                 // Desktop-notify only genuine failures (not transient connectivity
                 // blips that auto-recover), and only when unfocused — the in-app bar
                 // already surfaces it while you're looking.

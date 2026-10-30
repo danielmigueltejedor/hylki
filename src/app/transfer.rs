@@ -370,7 +370,7 @@ impl AppModel {
             let names: Vec<String> = tally
                 .dest_accounts
                 .iter()
-                .map(|a| self.account_name(*a))
+                .map(|a| self.account_label(*a))
                 .collect();
             let n = tally.failed.to_string();
             let account = names.join(", ");
@@ -493,7 +493,7 @@ impl AppModel {
         let names: Vec<String> = tally
             .dest_accounts
             .iter()
-            .map(|a| self.account_name(*a))
+            .map(|a| self.account_label(*a))
             .collect();
         let n = left.to_string();
         let account = names.join(", ");

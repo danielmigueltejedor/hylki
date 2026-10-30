@@ -214,34 +214,12 @@ impl AppModel {
         }
     }
 
-    /// A label for an account in messages (name, else email, else "Account N").
-    /// Uses config (available even before the account connects), then live data.
+    /// An account as messages name it: the nickname and the address, else
+    /// "Account N". Not the sender name, which is often the same on every
+    /// account and so cannot say which one is meant. Uses config (available
+    /// even before the account connects), then live data.
     pub(super) fn account_label(&self, account_id: u32) -> String {
-        let pick = |name: &str, email: &str| -> Option<String> {
-            if !name.trim().is_empty() {
-                Some(name.to_string())
-            } else if !email.trim().is_empty() {
-                Some(email.to_string())
-            } else {
-                None
-            }
-        };
         self.saved_account_config(account_id)
-            .and_then(|c| pick(&c.name, &c.email))
-            .or_else(|| {
-                self.accounts
-                    .iter()
-                    .find(|a| a.id == account_id)
-                    .and_then(|a| pick(&a.name, &a.email))
-            })
-            .unwrap_or_else(|| format!("Account {account_id}"))
-    }
-
-    /// Which account an error is about: the nickname and the address. The
-    /// sender name is often the same on every account, so it cannot say.
-    pub(super) fn account_error_label(&self, account_id: u32) -> String {
-        let (nickname, email) = self
-            .saved_account_config(account_id)
             .map(|c| (c.display_label(), c.email.clone()))
             .or_else(|| {
                 self.accounts
@@ -249,9 +227,8 @@ impl AppModel {
                     .find(|a| a.id == account_id)
                     .map(|a| (a.label.clone(), a.email.clone()))
             })
-            .unwrap_or_default();
-        nickname_and_email(&nickname, &email)
-            .unwrap_or_else(|| self.account_label(account_id))
+            .and_then(|(nickname, email)| nickname_and_email(&nickname, &email))
+            .unwrap_or_else(|| format!("Account {account_id}"))
     }
 
     /// Display name for an account (name, else email).
