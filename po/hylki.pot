@@ -6691,7 +6691,7 @@ msgstr ""
 msgid ""
 "Downloads copies of every message from every folder of this account to this "
 "computer (except Trash, Junk and Drafts.) These are then browsable inside "
-"'On my computer'"
+"'On This Computer'"
 msgstr ""
 
 msgid "Import"
