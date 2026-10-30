@@ -16,9 +16,6 @@ pub(in crate::ui::preferences) fn group() -> adw::PreferencesGroup {
     let settings = Rc::new(RefCell::new(grammar::load()));
     let group = adw::PreferencesGroup::new();
     group.set_title(&i18n("Grammar"));
-    group.set_description(Some(&i18n(
-        "What you write goes to the server as you type, without the quote or the signature.",
-    )));
 
     let check_row = adw::SwitchRow::new();
     check_row.set_title(&i18n("Check grammar and style"));

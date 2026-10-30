@@ -1837,6 +1837,15 @@ msgstr ""
 msgid "The server's answer could not be read."
 msgstr ""
 
+msgid "Nothing answers at that address. Check that the server is running."
+msgstr ""
+
+msgid "The server's name could not be found."
+msgstr ""
+
+msgid "The server's address is not valid."
+msgstr ""
+
 msgid "The server could not be reached: {e}"
 msgstr ""
 
@@ -4862,11 +4871,6 @@ msgid "Custom File"
 msgstr ""
 
 msgid "Grammar"
-msgstr ""
-
-msgid ""
-"What you write goes to the server as you type, without the quote or the "
-"signature."
 msgstr ""
 
 msgid "Check grammar and style"

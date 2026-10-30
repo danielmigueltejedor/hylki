@@ -303,10 +303,22 @@ fn post<T: serde::de::DeserializeOwned>(
         Err(ureq::Error::Status(code, resp)) => {
             Err(refusal(code, &resp.into_string().unwrap_or_default()))
         }
-        Err(e) => Err(i18n_f(
-            "The server could not be reached: {e}",
-            &[("e", &e.to_string())],
-        )),
+        Err(ureq::Error::Transport(t)) => Err(unreachable(t.kind(), &t.to_string())),
+    }
+}
+
+/// Why nothing answered, in words: the cause of a refused connection is
+/// the server not running, and the user can do something about that.
+fn unreachable(kind: ureq::ErrorKind, detail: &str) -> String {
+    match kind {
+        ureq::ErrorKind::ConnectionFailed => {
+            i18n("Nothing answers at that address. Check that the server is running.")
+        }
+        ureq::ErrorKind::Dns => i18n("The server's name could not be found."),
+        ureq::ErrorKind::InvalidUrl | ureq::ErrorKind::UnknownScheme => {
+            i18n("The server's address is not valid.")
+        }
+        _ => i18n_f("The server could not be reached: {e}", &[("e", detail)]),
     }
 }
 
@@ -448,6 +460,17 @@ mod tests {
         // "😀" is two UTF-16 units, "é" one.
         assert_eq!(utf16_slice("😀 é a test", 3, 1), "é");
         assert_eq!(utf16_slice("😀 é a test", 0, 2), "😀");
+    }
+
+    #[test]
+    fn a_server_that_is_not_running_says_so() {
+        let settings = Settings {
+            enabled: true,
+            url: "http://127.0.0.1:1".into(),
+            username: String::new(),
+        };
+        let why = check_server(&settings, "").unwrap_err();
+        assert!(why.starts_with("Nothing answers"), "{why}");
     }
 
     #[test]
