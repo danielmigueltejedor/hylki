@@ -699,6 +699,11 @@ msgstr ""
 msgid "Refresh or long-press for Status Bar"
 msgstr ""
 
+msgid "Copying one message to On This Computer…"
+msgid_plural "Copying {n} messages to On This Computer…"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "Sending message…"
 msgstr ""
 
@@ -6683,7 +6688,10 @@ msgstr ""
 msgid "Copy mail to On This Computer"
 msgstr ""
 
-msgid "Into a folder named after this account. Mail deleted here stays there."
+msgid ""
+"Downloads every message in every folder of this account to this computer, "
+"except Trash, Junk and Drafts, into a folder named after the account. Mail "
+"deleted here stays there."
 msgstr ""
 
 msgid "Import"

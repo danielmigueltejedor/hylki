@@ -313,3 +313,30 @@ fn copies_from_another_account_are_shown() {
     assert_eq!(list[0].subject, "Kept");
     assert!(!list[0].unread);
 }
+
+/// What other accounts have left to copy (#552) is reported when it
+/// changes, so the spinner turns and the status line says so.
+#[test]
+fn what_is_left_to_copy_is_reported() {
+    let dir = Scratch::new();
+    let (mut w, events) = worker(&dir);
+    let progress = |events: &Events| {
+        events
+            .borrow()
+            .iter()
+            .filter_map(|e| match e {
+                WorkerEvent::CopyProgress { left } => Some(*left),
+                _ => None,
+            })
+            .collect::<Vec<_>>()
+    };
+    super::copy::set_pending(9001, 5);
+    w.report_copies();
+    w.report_copies();
+    let said = progress(&events);
+    assert_eq!(said.len(), 1, "said once: {said:?}");
+    assert!(said[0] >= 5);
+    super::copy::set_pending(9001, 0);
+    w.report_copies();
+    assert_eq!(progress(&events).len(), 2);
+}

@@ -262,6 +262,7 @@ fn map_event(account_id: u32, event: WorkerEvent) -> AppMsg {
             message_id,
         },
         WorkerEvent::Status(text) => AppMsg::Status { account_id, text },
+        WorkerEvent::CopyProgress { left } => AppMsg::CopyProgress { left },
         WorkerEvent::Error { text, connectivity } => AppMsg::Error {
             account_id,
             text,
@@ -567,7 +568,7 @@ impl AppModel {
     /// being applied on the server. The at-a-glance "working on something"
     /// signal; the status bar has the words.
     pub(super) fn update_busy_indicator(&self) {
-        let busy = !self.busy.is_empty() || self.bulk_pending > 0;
+        let busy = !self.busy.is_empty() || self.bulk_pending > 0 || self.copies_left > 0;
         self.sidebars_emit(SidebarInput::SetBusy(busy));
         self.set_header_refresh_busy(busy);
     }

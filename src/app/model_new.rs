@@ -556,6 +556,7 @@ impl AppModel {
             welcome: None,
             notify_count: 0,
             busy: HashSet::new(),
+            copies_left: 0,
             sidebar,
             peek_sidebar,
             message_list,

@@ -115,6 +115,17 @@ impl Offline {
             .into_iter()
             .filter(|m| !tried.contains(m))
             .collect();
+        if account.copy_to_local {
+            // What the status bar says is left to copy (#552).
+            let left = if found.is_empty() {
+                0
+            } else {
+                cache
+                    .local_copy_pending(account_id, &skip)
+                    .saturating_sub(tried.len())
+            };
+            crate::worker::local::copy::set_pending(account_id, left);
+        }
         if found.is_empty() {
             tracing::debug!(account_id, "offline mail: the period is all on disk");
             self.rest(if account.copy_to_local {

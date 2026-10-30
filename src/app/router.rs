@@ -70,6 +70,7 @@ impl AppModel {
             | AppMsg::NotificationReply { .. }
             | AppMsg::NotificationForward { .. }
             | AppMsg::Status { .. }
+            | AppMsg::CopyProgress { .. }
             | AppMsg::Error { .. }
             | AppMsg::DirectoryError(..)
             | AppMsg::NotifyCount(..)

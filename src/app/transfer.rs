@@ -344,7 +344,7 @@ impl AppModel {
         }
         let mut tally = std::mem::take(&mut self.transfer_tally);
         self.notifications
-            .emit(NotifyInput::SetStatus(String::new()));
+            .emit(NotifyInput::SetStatus(self.copy_status()));
         self.record_transfer_undo(std::mem::take(&mut tally.landed));
         for (account_id, path) in &tally.dest_folders {
             if let Some(folder_id) = self

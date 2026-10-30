@@ -820,6 +820,9 @@ pub(crate) struct AppModel {
     pub(super) notify_count: usize,
     /// Accounts currently performing network activity (drives the spinner).
     pub(super) busy: HashSet<u32>,
+    /// Messages the accounts still have to copy to On This Computer (#552):
+    /// the spinner turns and the status line says so while there are any.
+    pub(super) copies_left: usize,
     pub(super) sidebar: Controller<Sidebar>,
     /// A second instance of the sidebar, always expanded, for the floating
     /// peek panel. It is fed the same contents and counts as the docked one

@@ -34,8 +34,36 @@ struct Target {
 
 static TARGETS: LazyLock<Mutex<HashMap<u32, Target>>> = LazyLock::new(Default::default);
 
-/// Rung when a copy lands, so the local account's worker shows it.
+/// Rung when a copy lands, or what is left to copy changes, so the local
+/// account's worker shows it.
 pub(super) static DELIVERED: tokio::sync::Notify = tokio::sync::Notify::const_new();
+
+/// How many messages each copying account has left, as its queue last
+/// counted them less what it copied since.
+static PENDING: LazyLock<Mutex<HashMap<u32, usize>>> = LazyLock::new(Default::default);
+
+/// The account's queue counted what it has left to copy.
+pub(in crate::worker) fn set_pending(account_id: u32, left: usize) {
+    let mut pending = PENDING.lock().unwrap_or_else(|p| p.into_inner());
+    let before = pending.get(&account_id).copied().unwrap_or(0);
+    if left == 0 {
+        pending.remove(&account_id);
+    } else {
+        pending.insert(account_id, left);
+    }
+    if before != left {
+        DELIVERED.notify_one();
+    }
+}
+
+/// Messages left to copy, every account together.
+pub(super) fn pending_total() -> usize {
+    PENDING
+        .lock()
+        .unwrap_or_else(|p| p.into_inner())
+        .values()
+        .sum()
+}
 
 /// Take note of an account's setting as its worker starts, and read the
 /// list of what it has copied back into the cache.
@@ -52,6 +80,7 @@ pub(in crate::worker) fn forget(account_id: u32) {
         .lock()
         .unwrap_or_else(|p| p.into_inner())
         .remove(&account_id);
+    set_pending(account_id, 0);
 }
 
 /// [`register`], copying into the tree at `root`.
@@ -59,6 +88,8 @@ pub(in crate::worker) fn register_at(account_id: u32, account: &AccountConfig, r
     let mut targets = TARGETS.lock().unwrap_or_else(|p| p.into_inner());
     if !account.copy_to_local || account.is_local() {
         targets.remove(&account_id);
+        drop(targets);
+        set_pending(account_id, 0);
         return;
     }
     let ledger = root.join("hylki-copied").join(ledger_name(&account.email));
@@ -111,6 +142,13 @@ pub(in crate::worker) fn copy(cache: &Cache, account_id: u32, path: &str, uid: u
         Ok(()) => {
             append_ledger(&target.ledger, &key);
             cache.note_local_copy(account_id, &key);
+            if let Some(left) = PENDING
+                .lock()
+                .unwrap_or_else(|p| p.into_inner())
+                .get_mut(&account_id)
+            {
+                *left = left.saturating_sub(1);
+            }
             DELIVERED.notify_one();
         }
         Err(e) => tracing::warn!("local mail: could not copy {path}/{uid} to {dest}: {e}"),

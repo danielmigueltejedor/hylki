@@ -24,7 +24,8 @@
   Computer** downloads the account's mail in the background and copies every
   message into a folder named after the account, leaving out Trash, Junk and
   Drafts. Mail deleted or moved on the server stays in the copy, and a
-  message is copied once, wherever it moves.
+  message is copied once, wherever it moves. While it copies, the refresh
+  button turns and the status bar says how many messages are left.
 
 - **Added: importing mail into On This Computer** (#552). **Import** in its
   settings takes a Maildir tree, such as Evolution's own local folders or

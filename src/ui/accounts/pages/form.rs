@@ -671,7 +671,7 @@ impl EditorForm {
                     #[name = "copy_local_row"]
                     adw::SwitchRow {
                         set_title: &i18n("Copy mail to On This Computer"),
-                        set_subtitle: &i18n("Into a folder named after this account. Mail deleted here stays there."),
+                        set_subtitle: &i18n("Downloads every message in every folder of this account to this computer, except Trash, Junk and Drafts, into a folder named after the account. Mail deleted here stays there."),
                     },
                 },
 

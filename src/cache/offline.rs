@@ -112,6 +112,32 @@ impl Cache {
             .collect()
     }
 
+    /// How many of an account's messages are not copied to On This
+    /// Computer yet (#552), each message once however many folders file
+    /// it, in the folders [`Cache::offline_missing`] would take them from.
+    pub(crate) fn local_copy_pending(&self, account_id: u32, skip: &[String]) -> usize {
+        let skipped = if skip.is_empty() {
+            String::new()
+        } else {
+            format!(
+                " AND m.folder_path NOT IN ({})",
+                vec!["?"; skip.len()].join(", ")
+            )
+        };
+        let sql = format!(
+            "SELECT COUNT(DISTINCT CASE WHEN m.message_id = '' \
+             THEN m.folder_path || char(10) || m.uid ELSE m.message_id END) \
+             FROM messages m WHERE m.account_id = ?{skipped} \
+             AND m.folder_path IN (SELECT f.path FROM folders f WHERE f.account_id = m.account_id) \
+             AND NOT {COPIED}"
+        );
+        let mut args: Vec<Value> = vec![Value::from(i64::from(account_id))];
+        args.extend(skip.iter().map(|p| Value::from(p.clone())));
+        self.conn
+            .query_row(&sql, params_from_iter(args), |r| r.get::<_, i64>(0))
+            .map_or(0, |n| n.max(0) as usize)
+    }
+
     /// [`Cache::remove_downloaded`] before `before` (a Unix time), but an
     /// account in `keep` keeps its downloads back to its own date: a period
     /// kept offline is not removed for being old, only to be downloaded
@@ -266,6 +292,23 @@ mod tests {
         set_id(&c, "Archive", 8, "m2@x");
         assert!(c.is_local_copy(1, &("m2@x".into(), "Archive".into(), 8)));
         assert_eq!(c.offline_missing(1, None, false, true, &[], 10).len(), 1);
+    }
+
+    #[test]
+    fn what_is_left_to_copy_is_counted_once_per_message() {
+        let c = Cache::in_memory().unwrap();
+        listed(&c, &["INBOX", "All Mail", "Trash"]);
+        add_msg(&c, "INBOX", 1, "a", "s", 400);
+        add_msg(&c, "All Mail", 2, "a", "s", 400);
+        add_msg(&c, "All Mail", 3, "a", "t", 300);
+        add_msg(&c, "Trash", 4, "a", "u", 200);
+        add_msg(&c, "Gone", 5, "a", "v", 100);
+        set_id(&c, "INBOX", 1, "s@x");
+        set_id(&c, "All Mail", 2, "s@x");
+        let skip = vec!["Trash".to_string()];
+        assert_eq!(c.local_copy_pending(1, &skip), 2);
+        c.note_local_copy(1, &("s@x".into(), "INBOX".into(), 1));
+        assert_eq!(c.local_copy_pending(1, &skip), 1);
     }
 
     /// A message filed twice is fetched from its Inbox, not from All Mail.

@@ -380,6 +380,12 @@ pub(crate) enum WorkerEvent {
     /// anyone at the domain.
     Identities(Vec<(String, String)>),
     Folders(Vec<Folder>),
+    /// How many messages the accounts copying to On This Computer (#552)
+    /// still have to copy, all together; 0 when they are done. Sent by
+    /// that account's worker.
+    CopyProgress {
+        left: usize,
+    },
     Messages {
         folder_id: u32,
         messages: Vec<Message>,

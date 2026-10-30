@@ -62,6 +62,8 @@ struct LocalWorker<E> {
     last_auto_empty: Option<std::time::Instant>,
     /// Mail being imported from another program's folders.
     import: import::Import,
+    /// What other accounts had left to copy here when it was last said.
+    copies_left: Option<usize>,
 }
 
 /// Run the On This Computer account until the UI drops its sender.
@@ -111,6 +113,7 @@ pub(super) async fn run_local(
             biased;
             req = rx.recv() => req,
             () = copy::DELIVERED.notified(), if copies_due.is_none() => {
+                worker.report_copies();
                 copies_due = Some(tokio::time::Instant::now() + COPIES_SETTLE);
                 continue;
             }
@@ -189,6 +192,7 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
             unread_folders: Vec::new(),
             last_auto_empty: None,
             import: import::Import::default(),
+            copies_left: None,
         };
         worker.refresh_folders();
         worker.unread_folders = worker.folders.iter().map(|f| f.path.clone()).collect();
@@ -357,10 +361,21 @@ impl<E: Fn(WorkerEvent)> LocalWorker<E> {
         (self.emit)(WorkerEvent::FolderSynced { folder_id });
     }
 
+    /// Say how much other accounts have left to copy here (#552), when it
+    /// changed since last said.
+    fn report_copies(&mut self) {
+        let left = copy::pending_total();
+        if self.copies_left != Some(left) {
+            self.copies_left = Some(left);
+            (self.emit)(WorkerEvent::CopyProgress { left });
+        }
+    }
+
     /// Copies from other accounts (#552) have landed: list the folders
     /// again, and show each folder whose files the cache does not know
     /// yet, as opening it would.
     fn show_copies(&mut self) {
+        self.report_copies();
         self.refresh_folders();
         let Some(c) = self.cache.as_ref() else {
             return;
