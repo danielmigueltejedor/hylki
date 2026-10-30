@@ -3,16 +3,21 @@
 ## Unreleased
 
 - **Added: grammar and style checking in the composer** (#452, requested by
-  warpedwood). **Settings → Composing → Check grammar and style** sends what
-  is written to a LanguageTool server, one of your own, LanguageTool's free
-  service or a Premium account, about a second after typing stops, and marks
-  what it finds: a mistake with a wavy blue line, a matter of style with a
-  dotted one. Right-clicking a mark puts the problem, its suggestions and
-  **Ignore** at the top of the menu, and a suggestion goes in as one edit.
-  The quote and the signature are not sent. Each paragraph is checked in its
-  own language, recognised offline from among the spelling languages, and
-  misspelled words are left to the spell checker. Rich text and plain text
-  are checked, Markdown and HTML are not. The settings are in
+  warpedwood). **Settings → Composing → Check grammar and style** checks what
+  is written about a second after typing stops, and marks what it finds: a
+  mistake with a wavy blue line, a matter of style with a dotted one.
+  Right-clicking a mark puts the problem, its suggestions and **Ignore** at
+  the top of the menu, and a suggestion goes in as one edit. **Checker** is
+  Harper (English, a 14 MB download) or LanguageTool (over 30 languages, a
+  305 MB download with its Java runtime), each fetched with one
+  **Download** button, checked against a pinned SHA-256 and run on this
+  computer, or a LanguageTool server: one of your own, LanguageTool's free
+  service or a Premium account. Neither checker ships with the app.
+  LanguageTool starts when a composer opens and stops after 15 idle minutes.
+  The quote and the signature are not checked. Each paragraph is checked in
+  its own language, recognised offline from among the spelling languages,
+  and misspelled words are left to the spell checker. Rich text and plain
+  text are checked, Markdown and HTML are not. The settings are in
   `grammar.toml`, the Premium key in the keyring.
 
 - **Added: the reading pane can sit below the list, or be switched off**

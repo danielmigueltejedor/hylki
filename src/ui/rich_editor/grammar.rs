@@ -91,6 +91,12 @@ const SWITCH_ON: &str = "window.__hylkiGrammarOn && window.__hylkiGrammarOn()";
 pub(super) fn switch_on(webview: &webkit6::WebView, state: &GrammarState) {
     if !state.on.replace(true) {
         exec(webview, SWITCH_ON);
+        // LanguageTool on this computer takes seconds to start: it starts
+        // as the composer opens, not when the first check is due.
+        let settings = grammar::load();
+        if settings.active() && settings.engine() == grammar::Engine::Local {
+            grammar::local::warm();
+        }
     }
 }
 

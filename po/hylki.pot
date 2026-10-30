@@ -1828,10 +1828,43 @@ msgstr ""
 msgid "This message hasn't been checked."
 msgstr ""
 
-msgid "Enter the LanguageTool server's address in Settings → Composing."
+msgid "Harper is not available for this computer."
 msgstr ""
 
-msgid "Enter the server's address first."
+msgid "Harper is not downloaded. Download it in Settings → Composing."
+msgstr ""
+
+msgid "Harper could not be started: {e}"
+msgstr ""
+
+msgid "Harper's answer could not be read."
+msgstr ""
+
+msgid "There is no folder to install to."
+msgstr ""
+
+msgid "There is not enough free space: {size} is needed."
+msgstr ""
+
+msgid "The download could not start: {e}"
+msgstr ""
+
+msgid "The download was cancelled."
+msgstr ""
+
+msgid "The download stopped: {e}"
+msgstr ""
+
+msgid "The downloaded file is not the one expected, so it was not installed."
+msgstr ""
+
+msgid "The download could not be unpacked: {e}"
+msgstr ""
+
+msgid "The files could not be written: {e}"
+msgstr ""
+
+msgid "{n} MB"
 msgstr ""
 
 msgid "The server's answer could not be read."
@@ -1859,6 +1892,30 @@ msgid "Too many requests: try again in a moment."
 msgstr ""
 
 msgid "The server refused the request (error {code})."
+msgstr ""
+
+msgid "LanguageTool is not available for this computer."
+msgstr ""
+
+msgid "LanguageTool stopped unexpectedly."
+msgstr ""
+
+msgid "LanguageTool is not downloaded. Download it in Settings → Composing."
+msgstr ""
+
+msgid "LanguageTool could not be started: {e}"
+msgstr ""
+
+msgid "LanguageTool could not be started."
+msgstr ""
+
+msgid "LanguageTool took too long to start."
+msgstr ""
+
+msgid "Enter the LanguageTool server's address in Settings → Composing."
+msgstr ""
+
+msgid "Enter the server's address first."
 msgstr ""
 
 msgid ""
@@ -4870,6 +4927,24 @@ msgstr ""
 msgid "Custom File"
 msgstr ""
 
+msgid "Downloading: {done} of {total}"
+msgstr ""
+
+msgid "Not available for this computer."
+msgstr ""
+
+msgid "Version {version}, on this computer."
+msgstr ""
+
+msgid "Not downloaded yet. The download is {size}."
+msgstr ""
+
+msgid "The files could not be removed."
+msgstr ""
+
+msgid "The download stopped unexpectedly."
+msgstr ""
+
 msgid "Grammar"
 msgstr ""
 
@@ -4879,7 +4954,25 @@ msgstr ""
 msgid "Right-click a marked phrase for suggestions."
 msgstr ""
 
+msgid "Checker"
+msgstr ""
+
+msgid "Harper"
+msgstr ""
+
+msgid "LanguageTool"
+msgstr ""
+
 msgid "LanguageTool server"
+msgstr ""
+
+msgid "English only. Nothing leaves this computer."
+msgstr ""
+
+msgid "Many languages, on this computer. Uses about 1 GB of memory."
+msgstr ""
+
+msgid "What you write is sent to the server as you type."
 msgstr ""
 
 msgid "Username (LanguageTool Premium)"
