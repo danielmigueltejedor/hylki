@@ -237,6 +237,23 @@ impl AppModel {
             .unwrap_or_else(|| format!("Account {account_id}"))
     }
 
+    /// Which account an error is about: the nickname and the address. The
+    /// sender name is often the same on every account, so it cannot say.
+    pub(super) fn account_error_label(&self, account_id: u32) -> String {
+        let (nickname, email) = self
+            .saved_account_config(account_id)
+            .map(|c| (c.display_label(), c.email.clone()))
+            .or_else(|| {
+                self.accounts
+                    .iter()
+                    .find(|a| a.id == account_id)
+                    .map(|a| (a.label.clone(), a.email.clone()))
+            })
+            .unwrap_or_default();
+        nickname_and_email(&nickname, &email)
+            .unwrap_or_else(|| self.account_label(account_id))
+    }
+
     /// Display name for an account (name, else email).
     pub(super) fn account_name(&self, account_id: u32) -> String {
         // The account's UI label (how it's shown in All Inboxes / the reader chip).
@@ -283,5 +300,41 @@ impl AppModel {
             }
             _ => unreachable!("not routed to on_identity"),
         }
+    }
+}
+
+/// "Nickname (address)", or the address alone when the nickname is empty or
+/// is the address; `None` with no address either.
+fn nickname_and_email(nickname: &str, email: &str) -> Option<String> {
+    let (nickname, email) = (nickname.trim(), email.trim());
+    match (nickname.is_empty(), email.is_empty()) {
+        (true, true) => None,
+        (false, true) => Some(nickname.to_string()),
+        (true, false) => Some(email.to_string()),
+        _ if nickname.eq_ignore_ascii_case(email) => Some(email.to_string()),
+        _ => Some(format!("{nickname} ({email})")),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::nickname_and_email;
+
+    #[test]
+    fn error_label_names_the_nickname_and_the_address() {
+        assert_eq!(
+            nickname_and_email("Work", "me@work.example").as_deref(),
+            Some("Work (me@work.example)")
+        );
+        assert_eq!(
+            nickname_and_email("me@work.example", "me@work.example").as_deref(),
+            Some("me@work.example")
+        );
+        assert_eq!(
+            nickname_and_email(" ", "me@work.example").as_deref(),
+            Some("me@work.example")
+        );
+        assert_eq!(nickname_and_email("Work", "").as_deref(), Some("Work"));
+        assert_eq!(nickname_and_email("", ""), None);
     }
 }
