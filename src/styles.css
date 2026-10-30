@@ -1332,6 +1332,22 @@ flowbox.attach-flow > flowboxchild {
    threshold, then full color ("armed") to say a release will fire it. */
 .swipe-indicator {
   opacity: 0.55;
+  /* The pill's own box: a selected row keeps its accent fill while it
+     slides, so the strip has to meet it edge to edge and stand as tall. */
+  margin: 2px 6px;
+}
+
+.message-list.single-line .swipe-indicator {
+  margin: 1px 6px;
+}
+
+.message-item.thread-child .swipe-indicator {
+  margin-left: 10px;
+}
+
+.message-item.thread-child .swipe-indicator:dir(rtl) {
+  margin-left: 6px;
+  margin-right: 10px;
 }
 
 .swipe-indicator.armed {
