@@ -9,12 +9,14 @@ keyboard.
 
 - [Configuration](#configuration)
 - [GNOME Online Accounts](#gnome-online-accounts)
+- [On This Computer](#on-this-computer)
 - [OAuth (Google / Microsoft)](#oauth-google--microsoft)
 - [Cloud attachments (Nextcloud, OneDrive, Dropbox, Seafile)](#cloud-attachments-nextcloud-onedrive-dropbox-seafile)
 - [Address books](#address-books)
 - [CardDAV accounts](#carddav-accounts)
 - [LDAP directories](#ldap-directories)
 - [Translating messages](#translating-messages)
+- [Grammar checking](#grammar-checking)
 - [Writing in Markdown or HTML](#writing-in-markdown-or-html)
 - [OpenPGP (encrypted and signed mail)](#openpgp-encrypted-and-signed-mail)
 - [Send with Hylki from GNOME Files](#send-with-hylki-from-gnome-files)
@@ -179,8 +181,9 @@ no chevrons, a click on a section's icon opens or closes it, and a long
 press or a double click opens or closes the unified rows.
 
 **Settings → Sidebar → Unified** chooses the unified section's rows.
-Inboxes, Starred, Sent, Drafts and Archive are on until switched off; Junk
-and Trash are off until switched on. In the unified Junk and Trash, **Not
+Inboxes, Starred, Sent, Drafts, Archive and Snoozed are on until switched
+off, and Snoozed is listed only while mail is snoozed; Junk and Trash are off
+until switched on. In the unified Junk and Trash, **Not
 Spam** and **Move to Inbox** send each message to its own account's Inbox,
 and the right-click menu of each account's row beneath has **Empty Junk…**
 or **Empty Trash…**. The same item on the unified Junk or Trash row itself
@@ -270,7 +273,7 @@ They are stored on the account as `hidden_folders` in `accounts.toml`.
 
 An Exchange server lists its calendar, contacts, tasks, notes and journal
 folders over IMAP as if they were mail folders, along with Outbox, Sync
-Issues, Conversation History, Scheduled and Snoozed. Hylki hides these the
+Issues, Conversation History and Scheduled. Hylki hides these the
 first time it lists such an account, and only when the listing looks like
 Exchange (at least two of Calendar, Contacts, Tasks and Journal at the top
 level), so a "Notes" folder on any other server is left alone. The look is
@@ -282,9 +285,9 @@ stays back.
 **Settings → Accounts → the account → Show in All Inboxes** decides whether
 the account's mail is merged into the unified section at the top of the
 sidebar. Switched off, the account's folders are left out of the unified
-Inboxes, Starred, Sent, Drafts, Archive, Junk and Trash rows, their account lists and
-unread counts, and the account's filter folders and tagged mail are left
-out of the unified Filters and Tags. The account keeps its own section in
+Inboxes, Starred, Sent, Drafts, Archive, Junk, Trash and Snoozed rows, their
+account lists and unread counts, and the account's filter folders and tagged
+mail are left out of the unified Filters and Tags. The account keeps its own section in
 the sidebar, and a search still covers its mail.
 
 The tray icon's count and new-mail notifications still include the
@@ -310,9 +313,89 @@ the message where it was and says why.
 the copy in the other account's Trash; Redo does the move again. A move from
 or to an account without a Trash folder cannot be undone.
 
-IMAP and JMAP accounts can receive mail this way. A Microsoft account and a
-POP3 account can be moved from but not into: Microsoft files a message added
-to a folder as a draft, and POP3 has only an inbox.
+IMAP and JMAP accounts can receive mail this way, and so can
+[On This Computer](#on-this-computer). A Microsoft account and a POP3 account
+can be moved from but not into: Microsoft files a message added to a folder
+as a draft, and POP3 has only an inbox.
+
+### Copying mail to another folder
+
+**Copy To…**, in a message's right-click menu in the list and in the
+reader, opens the same picker as Move To. The message is stored again in
+the folder picked, with its read and starred state, and the original stays
+where it is. It works within an account and across accounts, into any
+folder of an account that can receive mail (see above), and a copy is not
+undone with Ctrl+Z.
+
+### On This Computer
+
+**Settings → Accounts → On This Computer → Add** adds folders kept on this
+computer rather than on a server, as Evolution's account of the same name
+does. It starts with a Trash, and an Inbox that is shown only while it
+holds mail, as mail copied from an account goes to a folder named after
+the account. Folders are made, renamed and
+deleted as on any account, and mail comes in by being moved or copied there
+from another account with **Move To** or **Copy To**, or by dragging it onto
+one of its folders (see [Moving mail to another account](#moving-mail-to-another-account)).
+Moving mail to a folder it does not have yet, such as Archive or Snoozed,
+makes the folder.
+
+Nothing is sent from it: it has no From address in the composer, and a reply
+to a message filed there is sent from the account the message was addressed
+to, or from the first account in the sidebar. Read receipts, invitation
+answers and unsubscribe mail for its messages go out the same way.
+
+Every message is rendered into the cache in the background, so a search
+covers the whole archive, and clearing downloaded mail in **Settings →
+System** leaves it alone. It is not in All Inboxes until
+**Show in All Inboxes** is switched on. **Empty Junk automatically** and
+**Empty Trash automatically** count the days from when a message was moved
+into the folder.
+
+#### Copying an account's mail automatically
+
+**Settings → Accounts → the account → Syncing → Copy mail to On This
+Computer** copies every message of the account into a folder named after it,
+with the account's folders inside: Inbox, Sent and the rest. The account
+downloads its mail in the background to do it, as **Keep mail cached**
+does, and leaves out Trash, Junk and Drafts. New mail is copied within about
+a minute of the account receiving it. While messages are being copied the
+refresh button turns, and the status bar, when opened, says how many are
+left. What is deleted or moved on the
+server afterwards stays in the copy as it was, and a message moved to
+another folder on the server is not copied again. Switching the setting on
+adds On This Computer when there is none. Which messages are copied is
+listed in `hylki-copied/` beside the folders.
+
+#### Importing from another program
+
+**Settings → Accounts → On This Computer → Import** takes mail from
+another program's folders:
+
+- **Maildir folders**: a Maildir tree, such as Evolution's own On This
+  Computer folders in `~/.local/share/evolution/mail/local/` (where the
+  picker opens when they are there) or Dovecot's. The tree's Inbox goes to
+  the Inbox and every other folder to the folder of the same name, with its
+  read, starred and replied state and Dovecot's tags.
+- **Mbox files**: one or more mbox files, such as Thunderbird's, each into a
+  folder named after the file. Thunderbird's `Name.sbd` directories become
+  the folders above it, and its read, starred, replied and forwarded marks
+  are kept. A message the file marks as deleted is left out.
+
+A message whose Message-ID its folder already holds is left out, so an
+import run twice adds nothing. The status bar counts the import as it goes,
+and the folders appear when it is done.
+
+#### Where the mail is kept
+
+The folders are a Maildir++ tree in `~/.local/share/hylki/local-mail/`
+(`~/.var/app/co.hyprlab.Hylki/data/hylki/local-mail/` in the Flatpak): the
+Inbox at the top, every other folder a `.Name` directory beside it, a
+sub-folder `.Parent.Child`. Each message is one file, read, starred and
+replied to are letters in its name, and tags are listed in
+`dovecot-keywords`, as Dovecot keeps them. Messages dropped into a folder's
+`new` directory are found when the folder opens. Removing the account leaves
+the folders where they are, and adding it again finds them.
 
 ### Deleting an attachment from the server
 
@@ -519,6 +602,15 @@ button beside it looks again for one just added there. Every kind but the
 Hylki book is kept by Evolution Data Server; without it, the page says so.
 **Save new contacts in**, at the foot of the page, sets the book a contact
 made in Hylki goes to.
+
+**Show names from Contacts**, on the same page, names a sender or recipient
+whose address is in an address book by the name saved there, not the one
+the message gives: in the message list, the reader and the new-mail
+notification. A contact then reads the same on all their mail, and mail
+that puts a contact's name on another address shows the name it gave,
+which gives it away. Address books that fill themselves from mail
+(Collected Addresses, Recently Contacted, Other Contacts) are not used for
+this, and a contact saved without a name keeps the message's.
 
 ### The Hylki address book
 
@@ -929,6 +1021,16 @@ answers. **Settings → Composing → Reply and forward in the main window**,
 switched off, opens them in a window of their own instead, as **Compose in
 the main window** does for a new message.
 
+A reply opens with a line above the quoted message, "On Oct 25, 2026 at
+14:03, Ada wrote:" in the app's language. **Settings → Composing → Reply
+Header** changes it: `{name}`, `{address}`, `{date}` and `{time}` are
+filled in from the original, so `{name} <{address}> wrote on {date}:` gives
+"Ada <ada@example.org> wrote on Oct 25, 2026:". The date and time follow
+**Date format** and **Clock** in **Settings → Date and Time**. The button at
+the end of the row restores the default, which follows the language of the
+app. A forward opens with the original's From, Date and Subject, in the
+app's language too.
+
 The quoted message keeps its layout: its colors, fonts, tables and the
 pictures it carries inside itself look as they do in the reader, and go to
 the recipient that way. Pictures on the sender's server show only when the
@@ -936,6 +1038,14 @@ reader shows them for that message, so answering a message does not load
 anything reading it did not. The recipient still gets them. In dark mode a
 quoted message that sets its own colors keeps the light ground it was
 designed for.
+
+The quoted message opens folded behind a ••• button, since the reading pane
+beside the composer shows it already. A click shows it, with the button
+moved above it to fold it again. It is sent either way. A delete that would
+reach the folded quote, such as Select All and Delete, opens it instead of
+removing text that cannot be seen; the next one removes it. Markdown and
+HTML source show the quote as source. **Settings → Composing → Fold quoted
+text**, on by default, switched off, opens every quote in full.
 
 A message that was replied to shows a reply arrow in the message list, one
 that was forwarded a forward arrow, and one that was both shows both. A
@@ -999,6 +1109,41 @@ While it waits and while it is being sent, the message is listed in the
 **Outbox**, where **Edit** and **Delete** bring it back to the composer and
 **Send** sends it without waiting. Quitting Hylki before the wait is over
 keeps it in the Outbox, and it is sent at the next start.
+
+### Snoozing mail
+
+**Snooze** puts a message away until a time you choose, then moves it back
+to the folder it came from, unread. It is on the reader's toolbar, in a
+message's right-click menu, and on <kbd>z</kbd> with single-key shortcuts
+(<kbd>b</kbd> with Gmail's keys). The menu offers this evening, tomorrow
+morning and afternoon, Saturday and Monday morning, and **Pick a date and
+time…** for any other. A conversation's row snoozes the conversation, as
+much of it as is in that folder; a card picked in the reader snoozes that
+message alone.
+
+The message waits in the account's **Snoozed** folder on the server, so a
+phone or another mail program sees it leave the Inbox too. The folder is
+made the first time something is snoozed; on Gmail it is a label. In the
+Snoozed folder each message shows when it comes back in place of its date.
+A time chosen there replaces the old one, and **Unsnooze** brings the
+message back now. While any account's Snoozed folder holds mail, a
+**Snoozed** row in the unified section lists it all together; **Settings →
+Sidebar → Unified → Snoozed** turns it off. The folders are counted each time
+Hylki checks for new mail, so mail snoozed on another computer brings the row
+too. A reply that arrives in the conversation brings it back
+early. **Undo** (Ctrl+Z) right after a snooze puts the message back where it
+was.
+
+The times are kept on this computer, in `snoozed.toml`, and Hylki moves the
+mail back itself: snoozed mail comes back while Hylki is running, or as soon
+as it starts after its time. Hylki on another computer does not know the
+time, and leaves the message in the Snoozed folder; **Unsnooze** there moves
+it to the Inbox.
+
+A folder called Snoozed, at the top of the account or under the Inbox, is
+taken for the role. Any other is chosen in the account's **Special
+Folders**, under **Snoozed**. Drafts and templates cannot be snoozed, and
+neither can mail on a POP3 account, which has no folder to keep it in.
 
 ### Templates
 
@@ -1133,7 +1278,9 @@ are sent with it, so the recipient sees them too. They cover what you
 write: the signature and the message quoted in a reply or forward keep their
 own look, and text given its own font or size in the message keeps it. **Other Font…** in the Font list picks any
 installed font. Default, for both, leaves the recipient's own font and size
-in charge. When the composer is narrow, the
+in charge. **Settings → Composing → Default zoom** is the size the
+composer shows a new message at, on screen only: Same as reading pane zoom, the
+default, follows **Settings → Reading → Default zoom**. When the composer is narrow, the
 toolbar wraps onto a second row, the chevron staying beside the tools it
 shows wherever the row has room for it.
 
@@ -1157,6 +1304,65 @@ saved as the setting and applies to every open composer at once.
 A word added under **Added words** goes into the first chosen language's
 word list. The subject accepts it at once, and the message body after a
 restart.
+
+### Grammar checking
+
+**Settings → Composing → Check grammar and style** marks what the checker
+finds in what you write: a mistake with a wavy blue line, a matter of style
+with a dotted one. Right-clicking a mark shows what is wrong at the top of
+the menu, with the suggestions to put in its place and **Ignore**, which
+leaves that problem alone in every composer until the app is closed. A
+suggestion goes in as one edit, so Ctrl+Z takes it back.
+
+The text is checked about a second after typing stops. The quoted message
+and the signature are left out. It works in rich text and plain text; a
+message written in Markdown or HTML is not checked.
+
+**Checker** is what reads it. No checker ships with the app: the first two
+are downloaded with the **Download** button under it, once, and run on this
+computer, so nothing you write leaves it.
+
+| Checker | Languages | Download | Notes |
+| --- | --- | --- | --- |
+| Harper | English | 14 MB | Fast and light. The one offered when every spelling language is English. |
+| LanguageTool | Over 30 | 305 MB | LanguageTool and the Java runtime it needs. It starts when a composer opens, takes a few seconds to, uses about 1 GB of memory while it runs, and stops after 15 minutes without a check. |
+| LanguageTool server | Over 30 | None | A server at an address, below. What you write is sent to it as you type. |
+
+The downloads come from their publishers ([Harper](https://writewithharper.com)
+from its GitHub releases, [LanguageTool](https://languagetool.org) from
+languagetool.org, the [Eclipse Temurin](https://adoptium.net) Java runtime
+from Adoptium's GitHub releases), and each is checked against the size and
+SHA-256 the app expects before it is unpacked. They are kept in
+`~/.local/share/hylki/grammar/`; **Remove** deletes them again.
+
+**LanguageTool server** takes the server's address:
+
+| Server | Address | Notes |
+| --- | --- | --- |
+| Your own | `http://localhost:8081`, or wherever it runs | Nothing leaves the computer or the network it runs on. |
+| LanguageTool's free service | `https://api.languagetool.org` | No account. About 20 checks a minute, and 20,000 characters each. |
+| LanguageTool Premium | `https://api.languagetoolplus.com` | Fill in **Username** with the account's email address, and **API key** with the key from the account page. |
+
+A server of your own can be the LanguageTool server from
+[languagetool.org](https://languagetool.org/dev), or a container image of
+it, for example:
+
+```sh
+podman run -d --name languagetool -p 127.0.0.1:8081:8010 docker.io/erikvl87/languagetool
+```
+
+**Check the settings** sends a test sentence and names the server that
+answered. When checking fails while you write, right-clicking the body says
+why.
+
+Each paragraph is checked in its own language, one of those chosen for
+spelling in **Settings → Composing → Languages**, recognised on this
+computer, so a message in French and English is checked as both. A
+paragraph too short to tell goes with the one before it. Harper leaves the
+paragraphs that are not in English alone. Misspelled words are left to the
+spell checker while it is on, so they are not marked twice.
+
+The settings are in `grammar.toml`; the API key is in the keyring.
 
 ### Writing in Markdown or HTML
 
@@ -1268,6 +1474,10 @@ signature. There are four ways to get one, none of which need a terminal:
 - Under *Settings → OpenPGP → Other people's keys*, **Fetch by address…**
   looks a key up by email address, and **Import…** reads a key file.
 - A key someone sends you by any other route can be imported the same way.
+
+Other people's keys are listed by name. The search field above the list finds
+a key by name, address, key ID or fingerprint, and the menu beside it shows only the trusted keys, the ones not trusted yet, or
+the expired and revoked ones. These keys are left out of the Settings search.
 
 **4. Trust a key**
 
@@ -1439,7 +1649,16 @@ inbox for sent or received, a paperclip when it has files, and the day.
 Under it comes the start of the message, in as many lines as **Settings →
 Message List → Preview lines** asks for; the subject is the conversation's,
 in the heading above. A click on the card opens it again; a double-click on
-the header still opens the message in a window of its own.
+the header still opens the message in a window of its own. A click anywhere
+else on a message, its text included, selects it, and the action keys act
+on it. <kbd>Ctrl</kbd> and a click add a message to the selection or take it
+out, and <kbd>Shift</kbd> and a click select every message from the first
+selected to that one, without folding or opening it. Archive, Delete, Spam and Move act on the selected
+messages alone, and the rest of the conversation stays open.
+
+A message's header, or its folded card, drags it to a folder in the sidebar,
+as its row in the message list does; with several selected, the drag carries
+all of them. A drag across the message's text selects the text.
 
 **Settings → Conversations → Fold earlier messages** decides how a
 conversation opens: **Never** shows every message, **Messages already read**
@@ -1451,13 +1670,25 @@ What you fold or open stays that way while the conversation is on screen,
 and so does a message read while it is open.
 Printing shows every message in full.
 
+### The reader's toolbar
+
+The buttons above the message are in two groups. The left group, up to seven
+buttons, stays on the bar at every width: Reply, Reply All, Forward, Star,
+Archive, Spam and Delete by default. The right group folds into a ⋯ menu:
+always while **Settings → Appearance → Always fold the right group into ⋯**
+is on, as it is on a new install, and otherwise only when the pane is too
+narrow for it.
+**Settings → Appearance → Toolbar** moves buttons between the groups, or out
+of the toolbar, by dragging them; right-clicking an empty part of the
+toolbar opens it there.
+
 ### A message in its own window
 
 Double-clicking a message in the list, or a message's header in a
 conversation, opens it in a window of its own. Its toolbar is the reader's:
 the same buttons in the order **Settings → Appearance → Toolbar** gives
-them, and in a narrow window the right-hand group folds into a ⋯ menu as it
-does in the main window. Its files are in the attachment drawer under the
+them, and the right-hand group folds into a ⋯ menu as it does in the main
+window. Its files are in the attachment drawer under the
 message, and on each message's card when those are switched on, and images
 and PDFs open in the same full-window preview. A conversation's window
 gathers the files of every message in it. Its Reader View switch changes
@@ -1497,6 +1728,24 @@ message matches the new theme. In a conversation the choice follows the
 message the conversation was opened on. It works in a message's own window
 too. **Light / Dark Mode switch**, in the same group, hides the switch.
 
+### The account in the message header
+
+Above the subject, the message header names the account the message is in,
+in the account's color. **Settings → Reading → Show account in message
+header** hides it, in the main window and in a message's own window. It is
+stored as `account_chip` in `privacy.toml`.
+
+### Finding in a message
+
+<kbd>Ctrl+F</kbd> with the message focused, or the magnifier in the reader's
+toolbar, opens a find bar for the message or conversation shown.
+<kbd>Enter</kbd> and the arrows step through the matches. <kbd>Esc</kbd>,
+<kbd>Ctrl+F</kbd> again or the close button puts the bar away and hands the
+keyboard back to the message, so the next <kbd>Ctrl+F</kbd> finds in it
+again. **Settings → Reading → Find bar position** opens the bar at the top
+of the message, the default, or at the bottom, where it leaves the message
+where it is. A message in its own window follows the same setting.
+
 ### Printing
 
 **Ctrl+P** prints the message or conversation in the reader, and
@@ -1519,6 +1768,27 @@ The preview is laid out on the paper chosen the last time you printed, or
 your language's default paper size before that.
 
 ### Message list layout
+
+**Main menu → Reading Pane** puts the reader **Right** of the list, **Below**
+it or **Off**; <kbd>Ctrl+Alt+1</kbd>, <kbd>Ctrl+Alt+2</kbd> and
+<kbd>Ctrl+Alt+3</kbd> do the same. Below or off, the list shows a message on a single line, whatever
+the layout below says, the window's close button moves to the list's header,
+and replies, forwards and new messages open in a window of their own. Below,
+the toolbar stays at the top of the reader; drag the line between the list and
+the reader to set the list's height, which Hylki remembers apart from its width
+beside the reader, and the attachments start folded.
+
+Off, the list takes the whole window and the toolbar moves to its header, at
+the top of the window. It folds into its ⋯ menu there as it does in the reader,
+and gives way to the selection bar while several rows are selected. Find, which
+searches the reader, is left out; Print prints the selected message, or its
+whole conversation. Clicking a row selects it and nothing more: the keys, the
+right-click menu and the selection bar act on it, but it stays unread. A
+double-click, **Enter** or, with Gmail's keys, **o** opens it in a window of
+its own (see [A message in its own window](#a-message-in-its-own-window)),
+which marks it read as **Settings → Reading → Mark as read** says. A
+conversation opens whole, each message marked as its window scrolls through
+it. Hylki remembers the choice.
 
 **Settings → Message List → Layout** sets how the list shows a message.
 **Cards** gives the sender, the subject and the start of the text lines of
@@ -1625,7 +1895,43 @@ several labels is one result: its Inbox copy, else a label's, else All
 Mail's. Folders not opened since Hylki started are searched from the index
 Hylki keeps of them, which covers mail archived to Gmail's All Mail.
 
-The sort and filter button in the list's header opens a popover of two
+#### What a search finds
+
+Each word typed is looked for on its own, anywhere in the message and in any
+order: `rossi mario` finds mail from Mario Rossi, and `rossi invoice` finds his
+mail that mentions an invoice. Words in quotes, `"mario rossi"`, are found as
+written. A word is found in the subject, the sender, the recipients (To, Cc and
+Bcc, by address or by the name the person goes by in your mail), the preview,
+and the message's text:
+
+- **Mail on this computer:** the text of every message whose body is on disk
+  (opened, fetched ahead, or kept offline, see
+  [Storage](#storage)) is indexed, and a word is found as the start of a word,
+  so `invo` finds "invoice" while it is being typed.
+- **Mail on the server:** once typing pauses, each account's server is asked
+  for the mail holding every word, in the folders the search covers, and what
+  it finds joins the results. A spinner beside the search field shows while it
+  answers. IMAP servers are searched a folder at a time (on Gmail, All Mail
+  stands for every label), JMAP and Microsoft 365 servers in one request.
+  Servers match whole words, and how a quoted phrase is matched is the
+  server's own. POP3 has no server search; its mail is all on disk.
+
+A few words narrow the search to one part of the message, and can be combined
+with each other and with plain words:
+
+| Typed | Finds mail |
+| --- | --- |
+| `from:ann` | from a sender whose name or address holds "ann" |
+| `to:lee` | sent to, or copied to, someone whose name or address holds "lee" |
+| `subject:report` | with "report" in the subject |
+| `in:archive` | filed in a folder whose name holds "archive", in any account, whatever the button beside the field says |
+| `has:attachment` | with attachments |
+| `is:unread`, `is:read`, `is:starred` | unread, read, or starred |
+
+A value with spaces goes in quotes: `from:"mario rossi"`. A colon in any other
+word, such as `10:30` or `re:`, is searched for as written.
+
+The sort and filter button in the list's header opens a popover of three
 columns. **Sort by** orders the list by date, newest or oldest first, by
 sender or subject, or puts unread or starred mail first. **Show only** holds
 the quick filters:
@@ -1638,17 +1944,32 @@ the quick filters:
 - **Tagged**: the message has a tag or a Gmail label
 - **Today**: it arrived since midnight on this computer's clock
 
+In **Dates**, the list shows only the mail that arrived from the start of
+the **From** day to the end of the **To** day, on this computer's clock.
+Choosing **From** or **To** sets it to the day in blue on the calendar below
+them, or moves the calendar to the day it already has; a click on a day then
+sets it. A click on a day with neither chosen sets **From**. An end left at
+**Any Date** is open, to show everything since, or up to, a day. **Clear
+Dates** opens both ends again. Older mail is there as soon as the folder's
+index has reached it.
+
 A click turns a filter on or off and leaves the popover open, so an order
 and several filters can be set at once; together the filters show only the
-mail that matches all of them. While any is
-on the button is in the accent color and its tooltip names them. **Clear
-Filters** turns them all off. They apply to whichever folder or search is
-shown, and last until Hylki is closed. In Focus Mode they are under
-**Filter** and **Sort** in the list's ⋯ menu.
+mail that matches all of them. While any is on the button is in the accent
+color and its tooltip names them, with the dates. **Clear Filters** turns
+them all off. They apply to whichever folder or search is shown, and last
+until Hylki is closed. In Focus Mode they are under **Filter** and **Sort**
+in the list's ⋯ menu; the dates are set in the popover only.
 
 Clicking the unread dot on a row marks that message read without selecting
 or opening it. A conversation's dot that is lit only for an unread reply
 does not take the click.
+
+The list puts its rows on screen a few hundred at a time as it is scrolled.
+Once the pointer reaches the scrollbar, the rest of the folder joins them, so
+the bar spans all of it, back to the oldest message. While the bar is
+dragged in a list sorted by date, a label beside it names the month and year
+of the rows in the middle of the view.
 
 ### Text size
 
@@ -1722,6 +2043,12 @@ works:
 flatpak override --user --env=GSK_RENDERER=gl co.hyprlab.Hylki
 ```
 
+Left on **Automatic** on X11, Hylki checks before GTK starts that the X
+server can attach its shared memory, which Mesa's software driver needs on
+a display without a GPU, such as Xvnc. When it cannot, Hylki draws with
+Software, and the log says `renderer: cairo, the X server cannot attach
+shared memory`.
+
 ### Sensitivity labels
 
 A message an organization has classified with Microsoft Purview, such as
@@ -1761,6 +2088,53 @@ and at most every six hours. Starred mail stays, and so does anything without
 the header, however old. It works for IMAP and JMAP accounts; Microsoft 365
 offers no way to search for the header, so the choice is not shown there.
 
+### Read receipts
+
+A message can ask for a read receipt: a short message back to its sender
+saying when it was opened. When one asks, a banner above its text says so,
+with **Send Receipt** and **Ignore**. Either answer is remembered, and on IMAP
+and JMAP accounts the message is marked `$MDNSent`, as Thunderbird and K-9
+Mail mark it, so other mail apps do not ask again. Your own mail, and mail in
+Sent, Drafts, Templates, Junk and Trash, never asks. Neither does mail
+downloaded before Hylki read the request.
+
+**Settings → Privacy → Send read receipts** chooses **Ask each time**,
+**Always** or **Never**. **Always** sends the receipt when the message is
+shown, except when it would go to an address other than the one the mail came
+from (its Return-Path), or the message was not addressed to you in To or Cc:
+those still ask, as RFC 8098 requires. **Never** sends none and shows no
+banner.
+
+The receipt goes from the address the message was sent to, with no copy in
+Sent, as the `multipart/report` RFC 8098 describes: a sentence for the
+person, and a report their mail app reads.
+
+To ask for a receipt on a message you write, tick **Request a read receipt**
+in the menu beside **Send**. **Settings → Composing → Request read receipts**
+ticks it for every new message. Many mail apps send none, or only when the
+person agrees.
+
+Sent mail that asked for a receipt shows two grey checkmarks beside its date,
+in the list and in the reader. They turn green when a receipt comes back, and
+pointing at them says who opened the message and when; for mail to several
+people, how many of them did. Hylki learns that a message asked for a receipt
+when it reads the copy in Sent, so mail sent from another app shows the marks
+once its Sent copy has been opened or fetched ahead.
+
+A receipt that comes back is a message of its own. Once Hylki has read it, it
+is marked read and moved out of the Inbox: **Settings → Composing → Returned
+receipts** chooses **Move to Trash**, **Archive** or **Keep in Inbox**. A
+receipt that is open in the reader is left where it is. Who read what is kept
+on this computer, in `read_by.toml`, so another computer shows the marks only
+for the receipts it reads itself. A receipt that says the message was deleted
+unread does not turn the marks green, and stays in the Inbox.
+
+A receipt that comes back also posts a desktop notification, "Read by" the
+person, with the message's subject; clicking it opens the message. **Settings →
+General → Read receipts** turns it off. With **Show sender and subject** off it
+says only that a receipt came back, and receipts more than a day old, read for
+the first time, post nothing.
+
 ### Storage
 
 Messages and attachments that have been opened, or fetched ahead for the
@@ -1771,6 +2145,23 @@ or 30 days) removes older ones a couple of minutes after Hylki starts and
 every six hours after. Either way the list of every message stays, so the
 message list and search are unchanged, and a removed message is fetched again
 when it is opened. Nothing on the server changes.
+
+**Keep mail cached**, in an account's Syncing settings, downloads every
+message of a period ahead of being opened: the last week, month or year, or all
+mail. It works on IMAP, JMAP, Microsoft 365 and POP3 accounts, including ones
+from GNOME Online Accounts. The default, Newest messages, is the fetch ahead
+described above. Trash, Junk and Drafts are left out, and so is OpenPGP mail,
+which is only decrypted when opened. **Include attachments** keeps their files
+too; a POP3 account always downloads a message whole, so it has no such
+switch, and with a period chosen it downloads older mail than the newest 200
+its sync lists, back to the period's start. The download runs
+in the background once the account's index is complete, newest first, gives way
+whenever a message is opened, and waits on a metered connection when Settings
+asks to save data there. A server that refuses it, as Gmail does past its daily
+limit, is asked again later, after an hour at most. **Keep downloaded mail**
+does not remove mail inside an account's period, and **Remove…** clears it,
+after which it is downloaded again. Stored as `offline_mail` and
+`offline_attachments` in `accounts.toml`.
 
 ### Offline and metered connections
 
@@ -1848,6 +2239,26 @@ views' caches in `~/.cache/hylki/`, and account pictures in
 
 Passwords and tokens are never in those files: they go to the system keyring
 through the Secret Service. Decrypted OpenPGP messages are never cached at all.
+
+**Remote content**, once allowed for a message, is fetched by Hylki itself, with
+no cookies and no Referer, and kept in `~/.cache/hylki/remote/` for a week, up
+to 2 GB, so a message shown again does not fetch it again. **Settings →
+Privacy → Pre-load remote content for the next messages** fetches it for the next
+three rows in the list, and the one before, while a message is read: only
+for mail whose remote content would load anyway, and not on a metered
+connection when Settings asks to save data there. It is off by default,
+because a sender's tracking pixel then reports a message as opened before you
+open it. Stored as `remote_ahead` in `privacy.toml`.
+
+**Read receipts** are sent only when you press **Send Receipt**, unless
+**Settings → Privacy → Send read receipts** is **Always**. See
+[Read receipts](#read-receipts).
+
+**Grammar checking** is off until switched on in Settings → Composing.
+Harper and LanguageTool, once downloaded there, check on this computer and
+send nothing. With a LanguageTool server chosen instead, what you write in
+the composer goes to that server as you type, without the quote or the
+signature. See [Grammar checking](#grammar-checking).
 
 **Translation** is off until a service is chosen in Settings → Translation.
 After that, a message's text goes to that service only when you press

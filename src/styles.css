@@ -531,6 +531,24 @@ flowbox.attach-flow > flowboxchild {
   color: @accent_color;
 }
 
+/* A switch the menu shows as on (Sign, Encrypt): the grey of a toggled flat
+   header button, stated here because libadwaita's own rule may not reach a
+   button inside a menu popover. */
+.context-menu-item:checked {
+  background-color: alpha(currentColor, 0.1);
+}
+.context-menu-item:checked:hover {
+  background-color: alpha(currentColor, 0.13);
+}
+/* On, the shield and the lock take the accent color (the desktop's under
+   the stock look, the palette's under a Hylki theme), in the menu and in
+   the header, so a message about to go out signed or encrypted is plain to
+   see. */
+.context-menu-item:checked image,
+.pgp-toggle:checked image {
+  color: @accent_color;
+}
+
 /* Popout-window attachment popover rows. */
 .attach-row {
   padding: 4px 6px;
@@ -714,8 +732,12 @@ flowbox.attach-flow > flowboxchild {
   color: @accent_fg_color;
   border-radius: 9999px;
   min-width: 18px;
-  min-height: 18px;
-  padding: 0 5px;
+  /* At the default font size the count's 15px line sits high in the 18px
+     chip, its digits 1.5px above the center. A pixel of top padding, taken
+     from min-height so the chip stays 18px, brings them down to within half
+     a pixel, the closest a 9px digit gets in an 18px chip. */
+  min-height: 17px;
+  padding: 1px 5px 0;
   font-size: 0.8em;
   font-weight: 700;
 }
@@ -1310,6 +1332,22 @@ flowbox.attach-flow > flowboxchild {
    threshold, then full color ("armed") to say a release will fire it. */
 .swipe-indicator {
   opacity: 0.55;
+  /* The pill's own box: a selected row keeps its accent fill while it
+     slides, so the strip has to meet it edge to edge and stand as tall. */
+  margin: 2px 6px;
+}
+
+.message-list.single-line .swipe-indicator {
+  margin: 1px 6px;
+}
+
+.message-item.thread-child .swipe-indicator {
+  margin-left: 10px;
+}
+
+.message-item.thread-child .swipe-indicator:dir(rtl) {
+  margin-left: 6px;
+  margin-right: 10px;
 }
 
 .swipe-indicator.armed {
@@ -1380,6 +1418,17 @@ flowbox.attach-flow > flowboxchild {
   opacity: 0.5;
 }
 
+/* Snoozed mail (#527): when it comes back, in the accent, where the date
+   would be. */
+.message-date.snoozed {
+  color: @accent_color;
+  opacity: 1;
+}
+
+.message-list > row:selected .message-date.snoozed {
+  color: white;
+}
+
 .dim-icon,
 .star-icon {
   opacity: 0.6;
@@ -1389,6 +1438,21 @@ flowbox.attach-flow > flowboxchild {
 .star-icon {
   color: #e5a50a;
   opacity: 0.9;
+}
+
+/* Sent mail's read receipt (#520): grey checkmarks while it waits, green
+   once one came back. A double check needs the extra width to read. */
+.read-receipt {
+  -gtk-icon-size: 14px;
+}
+
+.read-receipt.read {
+  color: @success_color;
+  opacity: 1;
+}
+
+.message-list > row:selected .read-receipt.read {
+  color: white;
 }
 
 /* ---- Reader ---- */
@@ -1407,6 +1471,40 @@ headerbar.compose-toolbar button.image-button {
   min-width: 28px;
   padding-left: 3px;
   padding-right: 3px;
+}
+
+/* The narrowest reader pane: the left group never folds, so its buttons
+   and the ⋯ draw narrower instead of pushing the window controls past the
+   pane's edge. The window controls keep their size. */
+headerbar.reader-toolbar.compact box.start,
+headerbar.reader-toolbar.compact box.end {
+  border-spacing: 0;
+}
+headerbar.reader-toolbar.compact box.start button,
+headerbar.reader-toolbar.compact box.end > button {
+  min-width: 24px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+/* The same toolbar in the list header, with the reader below the list or
+   off: spaced as in the reader's header (the box's own spacing is 6px,
+   as a headerbar's). */
+headerbar box.list-tools {
+  border-spacing: 1px;
+}
+headerbar box.list-tools button.image-button {
+  min-width: 28px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+headerbar box.list-tools.compact {
+  border-spacing: 0;
+}
+headerbar box.list-tools.compact button {
+  min-width: 24px;
+  padding-left: 1px;
+  padding-right: 1px;
 }
 
 .reader-header {
@@ -2284,6 +2382,15 @@ textview.console-view text selection {
   padding: 6px 10px;
   border-bottom: 1px solid alpha(currentColor, 0.1);
 }
+.reader-find.bottom {
+  border-bottom: none;
+  border-top: 1px solid alpha(currentColor, 0.1);
+}
+/* The attachment drawer's grab pill floats over the reader's last 24px
+   (.split-grab-hit); a find bar there sits above it. */
+.drawer-seam .reader-find.bottom {
+  padding-bottom: 24px;
+}
 
 
 /* A row being dragged to a folder (`.dragging`, set for the drag's
@@ -2478,4 +2585,29 @@ textview.console-view text selection {
 .sort-filter-column > button {
   margin-top: 6px;
   font-weight: normal;
+}
+/* Its date range: From and To, and the calendar that sets them. */
+.sort-filter-dates {
+  margin: 4px 8px;
+}
+
+/* The month and year beside the list's scrollbar thumb while it is
+   dragged. */
+.list-scrub-date {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background-color: alpha(@window_bg_color, 0.92);
+  color: @window_fg_color;
+  box-shadow: 0 1px 4px alpha(black, 0.25);
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 180ms ease-out;
+}
+.list-scrub-date.shown {
+  opacity: 1;
+}
+
+/* Undo Send countdown (#534): the line along the toast's bottom edge. */
+toast-countdown {
+  color: @accent_bg_color;
 }

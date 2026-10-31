@@ -1,12 +1,18 @@
 # Keyboard shortcuts
 
 Hylki can be driven from the keyboard without holding a modifier, in the style
-of Gmail and Geary. The scheme is **off by default** (a stray keystroke
-shouldn't archive mail), so switch it on first in **Settings → System →
-Single-key shortcuts**.
+of Gmail and Geary. The scheme is on for a new install, and **Settings →
+System → Single-key shortcuts** switches it off. An install that had it off
+keeps it off until it is switched on there.
 
 Press **Ctrl+?** (or F1, or *Main Menu → Keyboard Shortcuts*) at any time for
 this list in the app; the same key closes it again.
+
+The reader toolbar's ⋯ menu and a message's right-click menus, in the list
+and in the reader, show the key beside each entry that has one: the single
+key while single-key shortcuts are on (Gmail's with Gmail keys), otherwise
+the Ctrl key where there is one. With single keys on, each of the first nine
+tags in a Tags menu shows its number.
 
 | Move around | | Act on a message | |
 | --- | --- | --- | --- |
@@ -22,6 +28,7 @@ this list in the app; the same key closes it again.
 | | | <kbd>1</kbd> … <kbd>9</kbd> | Add or remove a tag (the first nine, in Settings order) |
 | | | <kbd>0</kbd> | Remove every tag |
 | | | <kbd>D</kbd> | Delete permanently, without going to Trash |
+| | | <kbd>z</kbd> | Snooze |
 
 <kbd>w</kbd> and <kbd>b</kbd> step through the cards of the conversation you
 are reading, opening a folded one; outside a conversation they move along the
@@ -54,6 +61,7 @@ followed by another goes somewhere.
 | <kbd>Shift+N</kbd> | Check for new mail | <kbd>*</kbd> <kbd>r</kbd> / <kbd>*</kbd> <kbd>u</kbd> | Select the read or the unread conversations |
 | <kbd>?</kbd> | This list | <kbd>*</kbd> <kbd>s</kbd> / <kbd>*</kbd> <kbd>t</kbd> | Select the starred or the unstarred conversations |
 | | | <kbd>v</kbd> | Move to a folder |
+| | | <kbd>b</kbd> | Snooze |
 | | | <kbd>l</kbd> | Tags |
 | | | <kbd>z</kbd> | Undo |
 | | | <kbd>Shift+R</kbd> <kbd>Shift+A</kbd> <kbd>Shift+F</kbd> | Reply, reply to all or forward in a window |
@@ -166,8 +174,9 @@ These work with or without single-key shortcuts too:
 | <kbd>Ctrl+Shift+K</kbd> | Command palette with `>` already typed: actions only |
 | <kbd>Delete</kbd> | Delete the selected messages, or the message you are reading, in the main window or its own |
 | <kbd>Backspace</kbd> | Delete the selected messages, with the list focused |
+| <kbd>→</kbd> <kbd>←</kbd> | Open a conversation out in the list, or fold it back up, with the list focused; <kbd>←</kbd> works from any of its replies |
 | <kbd>Shift+Delete</kbd> | Delete the selected messages permanently, without going to Trash, after asking |
-| <kbd>Ctrl+F</kbd> | Search the message list |
+| <kbd>Ctrl+F</kbd> | Search the message list, or find in the message when it has the focus |
 | <kbd>Ctrl+P</kbd> | Print the message you are reading |
 | <kbd>Ctrl+Shift+P</kbd> | Preview it as a PDF first |
 | <kbd>Ctrl+Z</kbd> | Undo the last action (a move, a delete, a star) |
@@ -175,6 +184,8 @@ These work with or without single-key shortcuts too:
 | <kbd>Ctrl+Shift+S</kbd> | Reveal the status bar (also: long-press Refresh) |
 | <kbd>Ctrl+Shift+A</kbd> | Show or hide the accounts in the sidebar |
 | <kbd>Ctrl+Shift+C</kbd> | Console mode, when it is enabled in Settings |
+| <kbd>F11</kbd> | Fullscreen on or off |
+| <kbd>Ctrl+Alt+1</kbd> <kbd>Ctrl+Alt+2</kbd> <kbd>Ctrl+Alt+3</kbd> | Reading pane right of the list, below it, or off |
 | <kbd>Ctrl+,</kbd> | Open Settings |
 | <kbd>Ctrl+W</kbd> | Close the window; mail keeps syncing in the background. In Settings, a message window or a composer window, closes that window |
 | <kbd>Ctrl+Q</kbd> | Quit Hylki |
@@ -213,11 +224,14 @@ The zoom stays as set from message to message until Hylki is next started,
 which begins at the default from **Settings → Reading → Default zoom**.
 
 The same keys, and <kbd>Ctrl</kbd> with the scroll wheel over the body, zoom
-the composer's text while it is written in Markdown, HTML source or plain
-text; <kbd>Ctrl+0</kbd> puts it back to 100%. Only the screen changes, not
-the message that is sent, and the next composer opens at the same size until
-Hylki is next started. Rich text does not zoom, because there the size on
-screen is the size that is sent; the keys go on to the message instead.
+the composer's text in every format; <kbd>Ctrl+0</kbd> puts it back to 100%.
+Only the screen changes, not the message that is sent: the font sizes in
+rich text keep their values, and a chip at the start of the format bar shows
+the percentage while it is not 100%. A click on the chip goes back to 100%.
+The first composer opens at **Settings → Composing → Default zoom**, which
+by default is the same as **Settings → Reading → Default zoom**, so text is
+written at the size it is read at. The next one opens at the size the last
+was left at until Hylki is next started or the setting is changed.
 
 Keys never fire while you are typing: whatever has focus gets first refusal, so
 "archive" typed into the search box searches for it.

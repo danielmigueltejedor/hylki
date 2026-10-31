@@ -74,6 +74,21 @@
   <content_rating type="oars-1.1"/>
 
   <releases>
+    <release version="1.46.0" date="2026-10-29">
+      <description>
+        <p>An AppImage, the RPM, Debian package and AppImage for ARM64, Snooze, fullscreen, read receipts, search through a message's text and on the server, mail kept offline, cached remote content, a date range in the list, quotes folded in the composer, and a search for other people's OpenPGP keys. German is complete.</p>
+      </description>
+    </release>
+    <release version="1.45.3" date="2026-10-24">
+      <description>
+        <p>An account's chevron in the sidebar opens and folds the account again.</p>
+      </description>
+    </release>
+    <release version="1.45.2" date="2026-10-23">
+      <description>
+        <p>A folder the server will not open no longer keeps the CPU busy.</p>
+      </description>
+    </release>
     <release version="1.45.1" date="2026-10-22">
       <description>
         <p>A folder with a backslash in its name opens, typing in the search field no longer holds up the window, Ctrl+, opens Settings and Ctrl+W closes every Hylki window. German and Catalan are complete.</p>
