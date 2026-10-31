@@ -82,8 +82,36 @@
   unverified, as does one in a message opened from a file. Verdicts already
   stored are checked again. Reported privately by
   [Alexander Lubovenko](https://github.com/typedev).
+
 - **Fixed: a web address pasted into the composer could carry an attribute
   into the link made of it**, a `"` inside the address ending the `href`.
+
+- **Added: New Folder in a folder's right-click menu** (#554, requested by
+  scotthews). The folder is made inside the one clicked, and its parent opens
+  to show it, instead of being made at the top and dragged into place.
+
+- **Fixed: a new or moved folder could land in the wrong place, or be
+  refused** (#554). Folder paths came from a guess at the server's delimiter
+  and namespace; they now come from the server: IMAP's NAMESPACE or LIST, and
+  the folder trees of JMAP and Microsoft 365. Proton Bridge's Folders
+  container is recognised, a mailbox that cannot hold folders takes none, JMAP
+  and Microsoft 365 folders move to another parent, and a change the server
+  refuses is undone on screen.
+
+- **Fixed: accounts with the same sender name could not be told apart.** The
+  status bar's account errors, the Remove Account dialog and the copy and move
+  status lines named an account by its sender name, often the same on every
+  account; they name its nickname and address now. The list's Account column
+  shows the nickname.
+
+- **Fixed: the swipe strip behind a selected row stood taller than its
+  pill.** It takes the pill's shape now and opens at its edge.
+
+- **Changed: Keep mail offline is called Keep mail cached** in an account's
+  settings.
+
+- **Translations:** German (PR #550 by Samuel Edlmeier) and French (PR #556 by
+  frenchy82) brought up to date.
 
 ## 1.46.0 — 2026-10-29
 
