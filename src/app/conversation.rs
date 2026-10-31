@@ -178,10 +178,11 @@ impl AppModel {
             ),
             None => (None, None),
         };
-        let stored_check = message
-            .as_ref()
-            .and_then(|m| self.sender_cache.get(&body_key(m)))
-            .cloned();
+        let stored_check = message.as_ref().and_then(|m| {
+            let mut check = self.sender_cache.get(&body_key(m)).cloned()?;
+            self.vouchers.gate(Some(m.account_id), &mut check);
+            Some(check)
+        });
         let sent = message
             .iter()
             .filter(|m| self.folder_kind(m.account_id, m.folder_id) == Some(FolderKind::Sent))

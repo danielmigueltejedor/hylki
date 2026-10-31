@@ -227,6 +227,7 @@ impl AppModel {
             indexed_folders: HashSet::new(),
             body_cache: crate::ram_cache::RamCache::new(BODY_CACHE_BUDGET),
             sender_cache: HashMap::new(),
+            vouchers: Default::default(),
             pending_draft: None,
             pending_draft_token: None,
             pending_reply: None,

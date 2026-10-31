@@ -50,7 +50,10 @@ fn demo_attachment_files(message_id: u32) -> Vec<crate::models::Attachment> {
 /// Unsubscribe banner appear as they would for fetched mail.
 fn mock_sender_check(path: &str, message_id: u32, emit: &impl Fn(WorkerEvent)) {
     if let Some(raw) = crate::backend::demo_raw(message_id) {
-        let check = crate::mail::verify::check_sender(raw.as_bytes());
+        let mut check = crate::mail::verify::check_sender(raw.as_bytes());
+        // The demo's few messages are too few to learn a provider from, and
+        // its server is made up anyway: its verdicts are shown as they are.
+        check.authority = None;
         emit(WorkerEvent::SenderChecked {
             path: path.to_string(),
             message_id,

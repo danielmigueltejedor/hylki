@@ -101,6 +101,8 @@ CREATE TABLE IF NOT EXISTS sender_checks (
     invite      TEXT NOT NULL DEFAULT '',
     label       TEXT NOT NULL DEFAULT '',
     receipt     TEXT NOT NULL DEFAULT '',
+    authority   TEXT,
+    from_domain TEXT NOT NULL DEFAULT '',
     PRIMARY KEY (account_id, folder_path, uid)
 );
 CREATE TABLE IF NOT EXISTS attachments (
@@ -253,14 +255,18 @@ pub(super) const DOWNLOADED_TABLES: [&str; 3] = ["bodies", "attachments", "attac
 /// answered on email.a1.net was flagged). Suspicious verdicts stored earlier,
 /// and the bodies served with them, are dropped once so those messages are
 /// checked again when next opened; every other cached body stays.
-pub(super) const SCHEMA_VERSION: i64 = 21;
+/// v22: a sender check records whose `Authentication-Results` it read and
+/// the From: domain, which the reader learns the account's provider from,
+/// and ignores headers from another site than the topmost one. Verdicts
+/// stored earlier have neither, so they are checked again.
+pub(super) const SCHEMA_VERSION: i64 = 22;
 
 /// The newest version whose change altered how bodies are *rendered* or how
 /// senders are checked. Opening a database older than this drops `bodies` and
 /// `sender_checks` so they rebuild; a later purely-additive bump must not,
 /// or every such release would cost users a full re-fetch of everything they
 /// had read. Raise this only when the rendering itself changes.
-pub(super) const RENDER_VERSION: i64 = 19;
+pub(super) const RENDER_VERSION: i64 = 22;
 
 /// (Adding a *new* table needs no bump: `SCHEMA` runs `CREATE TABLE IF NOT
 /// EXISTS` on every open, so an existing cache gains it in place. A bump is for

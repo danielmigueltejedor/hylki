@@ -72,6 +72,19 @@
   the right-click menu and the selection bar act on the selected rows as
   before.
 
+- **Fixed: a sender could earn the Verified sender badge with a header of
+  their own.** The verdict is read from the `Authentication-Results` header
+  the provider adds on delivery, but a provider that adds none, or reports one
+  method and not another, left a copy the sender wrote as the one read. Only
+  headers from the topmost one's site are read now, and the reader believes a
+  verdict only from the server that checks at least half of the sites the
+  account's mail comes from (RFC 8601 §5); any other verdict reads as
+  unverified, as does one in a message opened from a file. Verdicts already
+  stored are checked again. Reported privately by
+  [Alexander Lubovenko](https://github.com/typedev).
+- **Fixed: a web address pasted into the composer could carry an attribute
+  into the link made of it**, a `"` inside the address ending the `href`.
+
 ## 1.46.0 — 2026-10-29
 
 Everything from 1.46.0-beta.1 to 1.46.0-beta.5, and what main gained since:

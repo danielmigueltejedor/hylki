@@ -318,6 +318,8 @@ fn a_sender_check_row_as_stored() {
             message_id: String::new(),
         }),
         read: None,
+        authority: Some("mx.example".into()),
+        from_domain: "x.example".into(),
     };
     cache.save_sender_check(1, "INBOX", 9, &check);
     let row: Vec<String> = cache
@@ -340,4 +342,6 @@ fn a_sender_check_row_as_stored() {
     assert_eq!(back.label, check.label);
     assert_eq!(back.receipt, check.receipt);
     assert_eq!(back.findings, check.findings);
+    assert_eq!(back.authority, check.authority);
+    assert_eq!(back.from_domain, check.from_domain);
 }

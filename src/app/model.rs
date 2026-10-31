@@ -252,6 +252,10 @@ pub(crate) struct AppModel {
     /// in-memory body cache without a worker round-trip — so the verdict has to
     /// be held here or it would be lost by the time the reader needs it.
     pub(super) sender_cache: HashMap<BodyKey, Box<crate::models::SenderCheck>>,
+    /// Which server checks each account's mail, learned from the verdicts
+    /// as they arrive: `sender_cache` keeps a verdict as the message has
+    /// it, and the reader shows it only if this account's provider made it.
+    pub(super) vouchers: crate::mail::verify::Vouchers,
     /// (account_id, folder_id) → server-side unread count, accurate beyond the
     /// loaded window (from IMAP STATUS/SEARCH). Drives the sidebar badges.
     pub(super) folder_unread: HashMap<(u32, u32), u32>,
